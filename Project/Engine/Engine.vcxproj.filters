@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="defalut">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="defalut\pch">
+      <UniqueIdentifier>{3e78cfcc-91de-4f68-a405-8911777a63d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Core">
+      <UniqueIdentifier>{e58e2482-3289-4f42-a6c6-4e624b31a8a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Device">
+      <UniqueIdentifier>{50e34592-dd21-4fb4-af36-b360d7202c92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager">
+      <UniqueIdentifier>{077c5e10-c385-454d-90a4-e1095e39ec5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Resource">
+      <UniqueIdentifier>{836569b1-c1fc-4546-b7a8-94bf2ad220f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GameObject">
+      <UniqueIdentifier>{1881802a-c320-41c1-b00c-5002c3940123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Component">
+      <UniqueIdentifier>{9d8df306-c3ff-4ad0-878d-d1e2ec021595}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Module">
+      <UniqueIdentifier>{275809fe-c2f5-4fea-8ed5-b1a029952561}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Module\single">
+      <UniqueIdentifier>{d84d2487-a544-4e20-8439-c02ce0dad303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Module\file">
+      <UniqueIdentifier>{4eb80083-3df0-4ff8-a4fa-6d00a048fe7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Header">
+      <UniqueIdentifier>{7ab14e06-c6f7-4d30-8528-d9281c56648d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\Key">
+      <UniqueIdentifier>{4cce0ce0-b0ad-4509-9f74-3aca177024aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\Path">
+      <UniqueIdentifier>{8ad8300c-ac8a-4a63-9632-7886fb23d981}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\Time">
+      <UniqueIdentifier>{91cc3827-e6c2-44d3-9b3b-b19c0db1b584}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>defalut</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>defalut\pch</Filter>
+    </ClInclude>
+    <ClInclude Include="temp.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
+      <Filter>소스 파일\Module\single</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyManager.h">
+      <Filter>소스 파일\Manager\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="CPathManager.h">
+      <Filter>소스 파일\Manager\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeManager.h">
+      <Filter>소스 파일\Manager\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="define.h">
+      <Filter>소스 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="extern.h">
+      <Filter>소스 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="func.h">
+      <Filter>소스 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="vec2.h">
+      <Filter>소스 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CCore.h">
+      <Filter>소스 파일\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CDevice.h">
+      <Filter>소스 파일\Device</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>defalut\pch</Filter>
+    </ClCompile>
+    <ClCompile Include="temp.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyManager.cpp">
+      <Filter>소스 파일\Manager\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="CPathManager.cpp">
+      <Filter>소스 파일\Manager\Path</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeManager.cpp">
+      <Filter>소스 파일\Manager\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="CCore.cpp">
+      <Filter>소스 파일\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CDevice.cpp">
+      <Filter>소스 파일\Device</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
