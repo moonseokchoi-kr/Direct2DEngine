@@ -4,8 +4,11 @@
 #include "framework.h"
 #include "Client.h"
 
-#define MAX_LOADSTRING 100
-
+#ifdef _DEBUG
+#pragma comment(lib, "Engine/Engine_debug.lib")
+#else
+#pragma comment(lib, "Engine/Engine.lib")
+#endif
 // 전역 변수:
 HINSTANCE hInst = nullptr;                                // 현재 인스턴스입니다.
 HWND g_hwnd = nullptr;
@@ -35,6 +38,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
+    if (FAILED(CCore::GetInst()->Init(g_hwnd, 1600, 900)))
+    {
+        MessageBox(nullptr, L"Core초기화 실패", L"DirectX 초기화 오류", MB_OK);
+        return E_FAIL;
+    }
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
     MSG msg;
@@ -51,6 +59,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
 			}
+            else
+            {
+                CCore::GetInst()->Progress();
+            }
         }
 
     }

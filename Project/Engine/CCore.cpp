@@ -2,8 +2,8 @@
 #include "CCore.h"
 #include "CTimeManager.h"
 #include "CKeyManager.h"
-
 #include "CPathManager.h"
+#include "CDevice.h"
 
 CCore::CCore()
     :m_hWnd(nullptr)
@@ -20,7 +20,7 @@ HRESULT CCore::Init(HWND _hwnd, UINT _x, UINT _y)
     m_hWnd = _hwnd;
     ChangeWindowSize(_x, _y);
 
-    if (FAILED())
+    if (FAILED(CDevice::GetInst()->Init(m_hWnd, Vec2((float)_x, (float)_y))))
     {
         return E_FAIL;
     }
@@ -28,7 +28,7 @@ HRESULT CCore::Init(HWND _hwnd, UINT _x, UINT _y)
     CTimeManager::GetInst()->Init();
     CPathManager::GetInst()->Init();
     CKeyManager::GetInst()->Init();
-    return E_NOTIMPL;
+    return S_OK;
 }
 
 void CCore::Progress()
@@ -39,4 +39,8 @@ void CCore::Progress()
 
 void CCore::ChangeWindowSize(UINT _x, UINT _y)
 {
+    RECT rt = { 0,0,_x,_y };
+    AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
+
+    SetWindowPos(m_hWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
 }

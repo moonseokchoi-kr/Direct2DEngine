@@ -1,5 +1,4 @@
 #pragma once
-#ifndef PCH_H
-#define PCH_H
 
-#endif
+#include <Engine/pch.h>
+#include <Engine/CCore.h>
