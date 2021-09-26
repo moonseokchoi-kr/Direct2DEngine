@@ -82,10 +82,14 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
     <TargetName>$(ProjectName)_debug</TargetName>
+    <ExternalIncludePath>$(SolutionDIr)External\Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)Exteranl\Library\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
+    <ExternalIncludePath>$(SolutionDIr)External\Include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(SolutionDir)Exteranl\Library\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -143,6 +147,12 @@
 
 call .\EngineCopy.bat</Command>
     </PostBuildEvent>
+    <FxCompile>
+      <EntryPointName>VS_std</EntryPointName>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -170,12 +180,19 @@ call .\EngineCopy.bat</Command>
 
 call .\EngineCopy.bat</Command>
     </PostBuildEvent>
+    <FxCompile>
+      <EntryPointName>VS_std</EntryPointName>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CPathManager.h" />
+    <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="define.h" />
@@ -183,8 +200,8 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="framework.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="struct.h" />
     <ClInclude Include="temp.h" />
-    <ClInclude Include="vec2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CCore.cpp" />
@@ -199,6 +216,9 @@ call .\EngineCopy.bat</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="temp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="std2d.fx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

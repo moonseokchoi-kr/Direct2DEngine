@@ -43,6 +43,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         MessageBox(nullptr, L"Core초기화 실패", L"DirectX 초기화 오류", MB_OK);
         return E_FAIL;
     }
+
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
     MSG msg;
@@ -59,11 +60,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				TranslateMessage(&msg);
 				DispatchMessage(&msg);
 			}
-            else
-            {
-                CCore::GetInst()->Progress();
-            }
+        
         }
+		else
+		{
+			CCore::GetInst()->Progress();
+		}
 
     }
 

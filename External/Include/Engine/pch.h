@@ -12,6 +12,7 @@
 
 //Window Lib
 #include <windows.h>
+#include <stdlib.h>
 
 //std and stl
 #include <string>
@@ -28,28 +29,43 @@ using std::list;
 using std::unordered_map;
 using std::array;
 
-//custom header
-
-#include "vec2.h"
-#include "func.h"
-#include "define.h"
 #include "singleton.h"
-
 
 //DirectX 11 Header
 
+#include <wrl/client.h>
 #include <d3d11.h>
+#include <FX11/d3dx11effect.h>
+#include <dxgi.h>
+#include <dxerr/DxErr.h>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
 
+using namespace Microsoft::WRL;
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 
 
 //DirectX11 Library
-#pragma comment(lib, "d3d11.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "FX11/Effects11d")
+#else
+#pragma comment(lib, "FX11/Effects11")
+#endif
+#pragma comment(lib, "d3d11")
 #pragma comment(lib,"d3dcompiler")
 #pragma comment(lib, "dxguid")
+#pragma comment(lib, "dxerr/DxErr")
+#pragma comment(lib, "dxgi")
+
+//custom header
+
+#include "SimpleMath.h"
+using namespace SimpleMath;
+#include "define.h"
+#include "func.h"
+#include "struct.h"
+
 
 #endif //PCH_H

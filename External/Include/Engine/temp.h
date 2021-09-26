@@ -1,5 +1,5 @@
 #pragma once
 
-void Init();
+void init();
 void Update();
 void Render();

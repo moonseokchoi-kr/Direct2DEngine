@@ -1,3 +1,2 @@
 targetver.h
-pch.h
 framework.h

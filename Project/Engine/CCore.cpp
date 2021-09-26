@@ -5,6 +5,7 @@
 #include "CPathManager.h"
 #include "CDevice.h"
 
+#include "temp.h"
 CCore::CCore()
     :m_hWnd(nullptr)
 {
@@ -28,6 +29,9 @@ HRESULT CCore::Init(HWND _hwnd, UINT _x, UINT _y)
     CTimeManager::GetInst()->Init();
     CPathManager::GetInst()->Init();
     CKeyManager::GetInst()->Init();
+
+    init();
+    
     return S_OK;
 }
 
@@ -35,6 +39,8 @@ void CCore::Progress()
 {
     CTimeManager::GetInst()->Update();
     CKeyManager::GetInst()->Update();
+    
+    Render();
 }
 
 void CCore::ChangeWindowSize(UINT _x, UINT _y)

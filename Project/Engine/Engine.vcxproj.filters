@@ -57,6 +57,9 @@
     <Filter Include="소스 파일\Manager\Time">
       <UniqueIdentifier>{91cc3827-e6c2-44d3-9b3b-b19c0db1b584}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Shader">
+      <UniqueIdentifier>{619ac0b7-8c67-4e09-97f7-6528ee3f2953}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -89,14 +92,17 @@
     <ClInclude Include="func.h">
       <Filter>소스 파일\Header</Filter>
     </ClInclude>
-    <ClInclude Include="vec2.h">
-      <Filter>소스 파일\Header</Filter>
-    </ClInclude>
     <ClInclude Include="CCore.h">
       <Filter>소스 파일\Core</Filter>
     </ClInclude>
     <ClInclude Include="CDevice.h">
       <Filter>소스 파일\Device</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleMath.h">
+      <Filter>소스 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
+      <Filter>소스 파일\Header</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -121,5 +127,10 @@
     <ClCompile Include="CDevice.cpp">
       <Filter>소스 파일\Device</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="std2d.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
