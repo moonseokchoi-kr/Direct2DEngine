@@ -56,8 +56,8 @@ HRESULT CDevice::Init(HWND _mainHwnd, Vec2 _vResoultion)
 	vp.TopLeftX = 0;
 	vp.TopLeftY = 0;
 
-	vp.Width = (UINT)m_resolution.x;
-	vp.Height = (UINT)m_resolution.y;
+	vp.Width = m_resolution.x;
+	vp.Height = m_resolution.y;
 
 	vp.MinDepth = 0;
 	vp.MaxDepth = 1;
@@ -83,8 +83,8 @@ HRESULT CDevice::CreateSwapChain()
 {
 	DXGI_SWAP_CHAIN_DESC desc = {};
 
-	desc.BufferDesc.Width = m_resolution.x;
-	desc.BufferDesc.Height = m_resolution.y;
+	desc.BufferDesc.Width = (UINT)m_resolution.x;
+	desc.BufferDesc.Height = (UINT)m_resolution.y;
 
 	desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;

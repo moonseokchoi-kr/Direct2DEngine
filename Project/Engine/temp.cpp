@@ -14,6 +14,8 @@ ComPtr<ID3D11Buffer> g_VB = nullptr;	//버텍스 버퍼
 
 ComPtr<ID3D11Buffer> g_IB = nullptr;	//인덱스 버퍼	
 
+ComPtr<ID3D11Buffer> g_CB = nullptr;	//상수 버퍼
+
 ComPtr<ID3D11InputLayout> g_inputLayout = nullptr;
 
 ComPtr<ID3D10Blob> g_vsBlob = nullptr; //버텍스셰이더 버퍼
@@ -23,7 +25,7 @@ ComPtr<ID3D10Blob> g_errBlob = nullptr; //에러데이터 버퍼
 ComPtr<ID3D11VertexShader> g_vs = nullptr;
 ComPtr<ID3D11PixelShader> g_ps = nullptr;
 
-
+Vec4 g_moveDir = Vec4();
 void init()
 {
 	array<VTX, 4>vertexArr = {};
@@ -32,20 +34,20 @@ void init()
 	//원래는 좌표전환을 통해 좌표계를 바꾸어야함
 	//월드->뷰->프로젝션->투영 순임
 	vertexArr[0].pos = Vec3(-0.5f, 0.5f, 0.5f);
-	vertexArr[0].color = Vec4(1.f, 1.f, 1.f, 1.f);
+	vertexArr[0].color = Vec4(1.f, 0.f, 0.f, 1.f);
 
 	vertexArr[1].pos = Vec3(0.5f, 0.5f, 0.5f);
-	vertexArr[1].color = Vec4(1.f, 1.f, 1.f, 1.f);
+	vertexArr[1].color = Vec4(0.f, 1.f, 0.f, 1.f);
 
 	vertexArr[2].pos = Vec3(0.5f, -0.5f, 0.5f);
-	vertexArr[2].color = Vec4(1.f, 1.f, 1.f, 1.f);
+	vertexArr[2].color = Vec4(0.f, 0.f, 1.f, 1.f);
 
 	vertexArr[3].pos = Vec3(-0.5f, -0.5f, 0.5f);
-	vertexArr[3].color = Vec4(1.f, 1.f, 1.f, 1.f);
+	vertexArr[3].color = Vec4(1.f, 0.f, 1.f, 1.f);
 
 	//버텍스버퍼 설정
 	D3D11_BUFFER_DESC desc = {};
-	desc.ByteWidth = sizeof(VTX) * vertexArr.size();
+	desc.ByteWidth = sizeof(VTX) * (UINT)vertexArr.size();
 	desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	desc.Usage = D3D11_USAGE_DEFAULT;
 	desc.CPUAccessFlags = 0;
@@ -71,6 +73,17 @@ void init()
 	{
 		assert(nullptr);
 	}
+
+	desc.ByteWidth = sizeof(Vec4);
+	desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+	if (FAILED(DEVICE->CreateBuffer(&desc, &sub, g_CB.GetAddressOf())))
+	{
+		assert(nullptr);
+	}
+
 
 	//Shader processing
 
@@ -145,6 +158,31 @@ void init()
 
 void Update()
 {
+	if (KEY_HOLD(KEY::UP))
+	{
+		g_moveDir.y += fDT * 0.5f;
+	}
+	if (KEY_HOLD(KEY::DOWN))
+	{
+		g_moveDir.y -= fDT * 0.5f;
+	}
+	if (KEY_HOLD(KEY::LEFT))
+	{
+		g_moveDir.x -= fDT * 0.5f;
+	}
+	if (KEY_HOLD(KEY::RIGHT))
+	{
+		g_moveDir.x += fDT * 0.5f;
+	}
+
+
+	D3D11_MAPPED_SUBRESOURCE subRes = {};
+
+	CONTEXT->Map(g_CB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subRes);
+
+	memcpy(subRes.pData, &g_moveDir, sizeof(Vec4));
+
+	CONTEXT->Unmap(g_CB.Get(), 0);
 }
 
 void Render()
@@ -157,6 +195,8 @@ void Render()
 	CONTEXT->IASetIndexBuffer(g_IB.Get(), DXGI_FORMAT_R32_UINT, 0);
 	CONTEXT->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CONTEXT->IASetInputLayout(g_inputLayout.Get());
+
+	CONTEXT->VSSetConstantBuffers(0, 1, g_CB.GetAddressOf());
 
 	CONTEXT->VSSetShader(g_vs.Get(), nullptr, 0);
 	CONTEXT->PSSetShader(g_ps.Get(), nullptr, 0);

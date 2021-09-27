@@ -39,13 +39,13 @@ void CCore::Progress()
 {
     CTimeManager::GetInst()->Update();
     CKeyManager::GetInst()->Update();
-    
+    Update();
     Render();
 }
 
 void CCore::ChangeWindowSize(UINT _x, UINT _y)
 {
-    RECT rt = { 0,0,_x,_y };
+    RECT rt = { 0,0,(LONG)_x,(LONG)_y };
     AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
 
     SetWindowPos(m_hWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);

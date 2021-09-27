@@ -190,8 +190,11 @@ call .\EngineCopy.bat</Command>
   <ItemGroup>
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CDevice.h" />
+    <ClInclude Include="CEntity.h" />
     <ClInclude Include="CKeyManager.h" />
+    <ClInclude Include="CMesh.h" />
     <ClInclude Include="CPathManager.h" />
+    <ClInclude Include="CResource.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="CTimeManager.h" />
@@ -206,8 +209,11 @@ call .\EngineCopy.bat</Command>
   <ItemGroup>
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CDevice.cpp" />
+    <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
+    <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CPathManager.cpp" />
+    <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

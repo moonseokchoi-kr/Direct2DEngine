@@ -60,6 +60,15 @@
     <Filter Include="소스 파일\Shader">
       <UniqueIdentifier>{619ac0b7-8c67-4e09-97f7-6528ee3f2953}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Resource\Mesh">
+      <UniqueIdentifier>{234804df-e02a-4f23-88f6-80b05490bc3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Resource\Sound">
+      <UniqueIdentifier>{8a0b9e8b-d4f4-42ed-91a2-d9df68fa7be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Resource\Texture">
+      <UniqueIdentifier>{f6a6273d-aa64-468f-bc60-3dd954648cf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -104,6 +113,11 @@
     <ClInclude Include="struct.h">
       <Filter>소스 파일\Header</Filter>
     </ClInclude>
+    <ClInclude Include="CEntity.h" />
+    <ClInclude Include="CResource.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -127,6 +141,11 @@
     <ClCompile Include="CDevice.cpp">
       <Filter>소스 파일\Device</Filter>
     </ClCompile>
+    <ClCompile Include="CEntity.cpp" />
+    <ClCompile Include="CResource.cpp">
+      <Filter>소스 파일\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="std2d.fx">
