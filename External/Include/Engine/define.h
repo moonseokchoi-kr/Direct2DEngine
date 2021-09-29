@@ -23,3 +23,36 @@
 typedef Vector2 Vec2;
 typedef Vector3 Vec3;
 typedef Vector4 Vec4;
+
+
+enum PIPELINE_STATE
+{
+	PS_VERTEX = 0x01,
+	PS_HULL = 0x02,
+	PS_DOMAIN = 0x04,
+	PS_GEOMETRY = 0x08,
+	PS_PIXEL = 0x10,
+
+	PS_NONPXL = PS_VERTEX | PS_HULL | PS_DOMAIN | PS_GEOMETRY,
+	PS_ALL = PS_VERTEX | PS_HULL | PS_DOMAIN | PS_GEOMETRY | PS_PIXEL,
+
+};
+
+
+enum class CB_TYPE
+{
+	TRANSFORM,
+	END,
+};
+
+
+enum class RES_TYPE
+{
+	MESH,
+	SHADER,
+	TEXTURE,
+	MATERIAL,
+	METADATA,
+	SOUND,
+	END,
+};

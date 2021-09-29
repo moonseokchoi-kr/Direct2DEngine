@@ -89,7 +89,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)External\Library\Engine\</OutDir>
     <ExternalIncludePath>$(SolutionDIr)External\Include\;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(SolutionDir)Exteranl\Library\;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)External\Library\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -188,6 +188,7 @@ call .\EngineCopy.bat</Command>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CConstBuffer.h" />
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CEntity.h" />
@@ -195,6 +196,9 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CPathManager.h" />
     <ClInclude Include="CResource.h" />
+    <ClInclude Include="CResourceManager.h" />
+    <ClInclude Include="CShader.h" />
+    <ClInclude Include="CTexture.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="CTimeManager.h" />
@@ -207,6 +211,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="temp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CConstBuffer.cpp" />
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CEntity.cpp" />
@@ -214,7 +219,13 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CPathManager.cpp" />
     <ClCompile Include="CResource.cpp" />
+    <ClCompile Include="CResourceManager.cpp" />
+    <ClCompile Include="CResourceManage_init.cpp" />
+    <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
+    <ClCompile Include="extern.cpp" />
+    <ClCompile Include="func.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

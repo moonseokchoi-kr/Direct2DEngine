@@ -3,6 +3,7 @@
 #include "CTimeManager.h"
 #include "CKeyManager.h"
 #include "CPathManager.h"
+#include "CResourceManager.h"
 #include "CDevice.h"
 
 #include "temp.h"
@@ -29,8 +30,7 @@ HRESULT CCore::Init(HWND _hwnd, UINT _x, UINT _y)
     CTimeManager::GetInst()->Init();
     CPathManager::GetInst()->Init();
     CKeyManager::GetInst()->Init();
-
-    init();
+    CResourceManager::GetInst()->Init();
     
     return S_OK;
 }

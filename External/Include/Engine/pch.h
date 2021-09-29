@@ -49,7 +49,7 @@ using namespace DirectX::PackedVector;
 
 //DirectX11 Library
 #ifdef _DEBUG
-#pragma comment(lib, "FX11/Effects11d")
+#pragma comment(lib, "FX11/Effects11_debug")
 #else
 #pragma comment(lib, "FX11/Effects11")
 #endif
@@ -64,8 +64,10 @@ using namespace DirectX::PackedVector;
 #include "SimpleMath.h"
 using namespace SimpleMath;
 #include "define.h"
+#include "extern.h"
 #include "func.h"
 #include "struct.h"
 
 
-#endif //PCH_H
+
+#endif; //PCH_H

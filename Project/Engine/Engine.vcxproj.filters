@@ -69,6 +69,18 @@
     <Filter Include="소스 파일\Resource\Texture">
       <UniqueIdentifier>{f6a6273d-aa64-468f-bc60-3dd954648cf4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Resource\Shader">
+      <UniqueIdentifier>{33506e64-5a2b-4f92-8d10-fc671fcb6f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FILE">
+      <UniqueIdentifier>{c6b1a009-4150-4009-8cd2-13d1efeb2440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Device\ConstantBuffer">
+      <UniqueIdentifier>{76101d10-7379-453b-a42d-286c40a86bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\ResourceManager">
+      <UniqueIdentifier>{56bebf2a-85bd-4087-bf52-301384c4a2a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -117,7 +129,21 @@
     <ClInclude Include="CResource.h">
       <Filter>소스 파일\Resource</Filter>
     </ClInclude>
-    <ClInclude Include="CMesh.h" />
+    <ClInclude Include="CMesh.h">
+      <Filter>소스 파일\Resource\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="CShader.h">
+      <Filter>소스 파일\Resource\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="CConstBuffer.h">
+      <Filter>소스 파일\Device\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CResourceManager.h">
+      <Filter>소스 파일\Manager\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>소스 파일\Resource\Texture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -145,7 +171,30 @@
     <ClCompile Include="CResource.cpp">
       <Filter>소스 파일\Resource</Filter>
     </ClCompile>
-    <ClCompile Include="CMesh.cpp" />
+    <ClCompile Include="CMesh.cpp">
+      <Filter>소스 파일\Resource\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="CShader.cpp">
+      <Filter>소스 파일\Resource\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="func.cpp">
+      <Filter>FILE</Filter>
+    </ClCompile>
+    <ClCompile Include="extern.cpp">
+      <Filter>FILE</Filter>
+    </ClCompile>
+    <ClCompile Include="CConstBuffer.cpp">
+      <Filter>소스 파일\Device\ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceManager.cpp">
+      <Filter>소스 파일\Manager\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CResourceManage_init.cpp">
+      <Filter>소스 파일\Manager\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>소스 파일\Resource\Texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="std2d.fx">

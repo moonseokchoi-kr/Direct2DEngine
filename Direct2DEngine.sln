@@ -10,8 +10,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Project\Client\Cl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Project\Engine\Engine.vcxproj", "{B2E725AE-3AF0-49D8-AF48-DD160B850C32}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Effects11", "Project\FX11-master\Effects11_2019_Win10.vcxproj", "{DF460EAB-570D-4B50-9089-2E2FC801BF38}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -46,18 +44,6 @@ Global
 		{B2E725AE-3AF0-49D8-AF48-DD160B850C32}.Release|x64.Build.0 = Release|x64
 		{B2E725AE-3AF0-49D8-AF48-DD160B850C32}.Release|x86.ActiveCfg = Release|Win32
 		{B2E725AE-3AF0-49D8-AF48-DD160B850C32}.Release|x86.Build.0 = Release|Win32
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Debug|x64.ActiveCfg = Debug|x64
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Debug|x64.Build.0 = Debug|x64
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Debug|x86.ActiveCfg = Debug|Win32
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Debug|x86.Build.0 = Debug|Win32
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Profile|x64.ActiveCfg = Profile|x64
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Profile|x64.Build.0 = Profile|x64
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Profile|x86.ActiveCfg = Profile|Win32
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Profile|x86.Build.0 = Profile|Win32
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Release|x64.ActiveCfg = Release|x64
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Release|x64.Build.0 = Release|x64
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Release|x86.ActiveCfg = Release|Win32
-		{DF460EAB-570D-4B50-9089-2E2FC801BF38}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

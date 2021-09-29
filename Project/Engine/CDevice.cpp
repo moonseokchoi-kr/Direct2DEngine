@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CDevice.h"
-
+#include "CConstBuffer.h"
 CDevice::CDevice()
 	:m_hWnd(nullptr)
 	,m_device(nullptr)
@@ -63,6 +63,13 @@ HRESULT CDevice::Init(HWND _mainHwnd, Vec2 _vResoultion)
 	vp.MaxDepth = 1;
 
 	m_context->RSSetViewports(1, &vp);
+
+
+	if (FAILED(CreateConstBuffer()))
+	{
+		MessageBox(nullptr, L"상수버퍼 초기화 실패", L"Engine초기화 오류", MB_OK);
+		return E_FAIL;
+	}
 
 	return S_OK;
 }
@@ -165,6 +172,22 @@ HRESULT CDevice::CreateView()
 	}
 
 	m_context->OMSetRenderTargets(1, m_RTV.GetAddressOf(), m_DSV.Get());
+
+	return S_OK;
+}
+
+HRESULT CDevice::CreateConstBuffer()
+{
+	for (int i = 0; i < m_constBuffers.size(); ++i)
+	{
+		m_constBuffers[i] = new CConstBuffer;
+	}
+	HRESULT hr = S_OK;
+
+	hr = m_constBuffers[(UINT)CB_TYPE::TRANSFORM]->Create(L"Transform", sizeof(Vec4), (UINT)CB_TYPE::TRANSFORM);
+	if (FAILED(hr))
+		return E_FAIL;
+
 
 	return S_OK;
 }
