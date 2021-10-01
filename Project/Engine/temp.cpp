@@ -5,7 +5,9 @@
 #include "CTimeManager.h"
 #include "CPathManager.h"
 #include "CResourceManager.h"
+
 #include "CMesh.h"
+#include "CTexture.h"
 #include "CConstBuffer.h"
 #include "CShader.h"
 
@@ -15,6 +17,7 @@
 
 
 Vec4 g_moveDir = Vec4();
+Vec4 g_angle = Vec4();
 void init()
 {
 
@@ -52,11 +55,15 @@ void Render()
 	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
 	cb->SetPipelineState(PS_VERTEX);
 	cb->UpdateData();
-	
+
+
 	CMesh* mesh = CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh");
 	CShader* stdShader = CResourceManager::GetInst()->FindRes<CShader>(L"std2DShader");
 
+	CTexture* tex = CResourceManager::GetInst()->FindRes<CTexture>(L"Background");
+	tex->SetPipelineStage(PS_PIXEL, 0);
 	stdShader->UpdateData();
+	tex->UpdateData();
 	mesh->Render();
 	CDevice::GetInst()->Present();
 }

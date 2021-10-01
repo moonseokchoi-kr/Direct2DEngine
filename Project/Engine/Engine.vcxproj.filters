@@ -189,7 +189,7 @@
     <ClCompile Include="CResourceManager.cpp">
       <Filter>소스 파일\Manager\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="CResourceManage_init.cpp">
+    <ClCompile Include="CResourceManager_init.cpp">
       <Filter>소스 파일\Manager\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="CTexture.cpp">

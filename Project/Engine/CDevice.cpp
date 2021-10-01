@@ -64,6 +64,11 @@ HRESULT CDevice::Init(HWND _mainHwnd, Vec2 _vResoultion)
 
 	m_context->RSSetViewports(1, &vp);
 
+	if (FAILED(CreateSampler()))
+	{
+		MessageBox(nullptr, L"Sampler 생성 실패", L"Engine초기화 오류", MB_OK);
+		return E_FAIL;
+	}
 
 	if (FAILED(CreateConstBuffer()))
 	{
@@ -188,6 +193,41 @@ HRESULT CDevice::CreateConstBuffer()
 	if (FAILED(hr))
 		return E_FAIL;
 
+	return S_OK;
+}
+
+HRESULT CDevice::CreateSampler()
+{
+	D3D11_SAMPLER_DESC desc = {};
+	desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	desc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC;
+
+	if (FAILED(DEVICE->CreateSamplerState(&desc, m_samplers[0].GetAddressOf())))
+	{
+		return E_FAIL;
+	}
+
+	desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
+	desc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT;
+
+	if (FAILED(DEVICE->CreateSamplerState(&desc, m_samplers[1].GetAddressOf())))
+	{
+		return E_FAIL;
+	}
+
+
+	ID3D11SamplerState* sam[2] = { m_samplers[0].Get(), m_samplers[1].Get() };
+
+	CONTEXT->VSSetSamplers(0, 2, sam);
+	CONTEXT->HSSetSamplers(0, 2, sam);
+	CONTEXT->DSSetSamplers(0, 2, sam);
+	CONTEXT->GSSetSamplers(0, 2, sam);
+	CONTEXT->PSSetSamplers(0, 2, sam);
+	CONTEXT->CSSetSamplers(0, 2, sam);
 
 	return S_OK;
 }

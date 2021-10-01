@@ -3,7 +3,7 @@
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CResourceManager.cpp"
 
 
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CResourceManage_init.cpp"
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CResourceManager_init.cpp"
 
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CShader.cpp"

@@ -17,11 +17,11 @@ HRESULT CTexture::Load(const wstring& _strFilePath)
 
 	HRESULT hr = S_OK;
 
-	if (!wcscmp(L".DDS", ext) || wcscmp(L".dds", ext))
+	if (!wcscmp(L".DDS", ext) || !wcscmp(L".dds", ext))
 	{
 		hr = LoadFromDDSFile(_strFilePath.c_str(), DDS_FLAGS_NONE, nullptr, m_image);
 	}
-	else if (!wcscmp(L".TGA", ext) || wcscmp(L".tga", ext))
+	else if (!wcscmp(L".TGA", ext) || !wcscmp(L".tga", ext))
 	{
 		hr = LoadFromTGAFile(_strFilePath.c_str(), nullptr, m_image);
 	}
@@ -43,4 +43,24 @@ HRESULT CTexture::Load(const wstring& _strFilePath)
 
 void CTexture::UpdateData()
 {
+	if (m_piplineStage & PS_VERTEX)
+	{
+		CONTEXT->VSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+	}
+	if (m_piplineStage & PS_HULL)
+	{
+		CONTEXT->HSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+	}
+	if (m_piplineStage & PS_DOMAIN)
+	{
+		CONTEXT->DSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+	}
+	if (m_piplineStage & PS_GEOMETRY)
+	{
+		CONTEXT->GSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+	}
+	if (m_piplineStage & PS_PIXEL)
+	{
+		CONTEXT->PSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+	}
 }

@@ -2,6 +2,7 @@
 #include "CResourceManager.h"
 #include "CMesh.h"
 #include "CShader.h"
+#include "CTexture.h"
 
 #include "CPathManager.h"
 
@@ -27,18 +28,22 @@ void CResourceManager::CreateDefaultMesh()
 	// 
 	v.pos = Vec3(-0.5f, 0.5f, 0.5f);
 	v.color = Vec4(1.f, 0.f, 0.f, 1.f);
+	v.uv = Vec2(0, 0);
 	vtx.push_back(v);
 
 	v.pos = Vec3(0.5f, 0.5f, 0.5f);
 	v.color = Vec4(0.f, 1.f, 0.f, 1.f);
+	v.uv = Vec2(1, 0);
 	vtx.push_back(v);
 
 	v.pos = Vec3(0.5f, -0.5f, 0.5f);
 	v.color = Vec4(0.f, 0.f, 1.f, 1.f);
+	v.uv = Vec2(1, 1);
 	vtx.push_back(v);
 
 	v.pos = Vec3(-0.5f, -0.5f, 0.5f);
 	v.color = Vec4(1.f, 0.f, 1.f, 1.f);
+	v.uv = Vec2(0, 1);
 	vtx.push_back(v);
 
 	idx.push_back(0);
@@ -72,6 +77,14 @@ void CResourceManager::CreateDefaultShader()
 
 void CResourceManager::CreateDefaultTexture()
 {
+	CTexture* tex = nullptr;
+
+	wstring strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"texture\\valkiry.DDS";
+	tex = new CTexture;
+	tex->Load(strPath);
+	
+	AddRes(L"Background", tex);
 }
 
 void CResourceManager::CreateDefaultMaterial()

@@ -220,7 +220,7 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CPathManager.cpp" />
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
-    <ClCompile Include="CResourceManage_init.cpp" />
+    <ClCompile Include="CResourceManager_init.cpp" />
     <ClCompile Include="CShader.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
