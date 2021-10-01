@@ -22,6 +22,7 @@
 #include <array>
 #include <cmath>
 #include <assert.h>
+#include <crtdbg.h>
 
 using std::wstring;
 using std::vector;
@@ -58,7 +59,7 @@ using namespace DirectX::PackedVector;
 #pragma comment(lib, "dxguid")
 #pragma comment(lib, "dxerr/DxErr")
 #pragma comment(lib, "dxgi")
-
+#pragma comment(lib, "legacy_stdio_definitions.lib")
 //custom header
 
 #include "SimpleMath.h"
@@ -67,7 +68,7 @@ using namespace SimpleMath;
 #include "extern.h"
 #include "func.h"
 #include "struct.h"
-
+#include "util.h"
 
 
 #endif; //PCH_H

@@ -43,6 +43,17 @@ void Update()
 		g_moveDir.x += fDT * 0.5f;
 	}
 
+	if (KEY_HOLD(KEY::ALT))
+	{
+		if (KEY_HOLD(KEY::ENTER))
+		{
+			if(CDevice::GetInst()->IsWindow())
+				CDevice::GetInst()->OnReSize(Vec2(1920, 1080));
+			else
+				CDevice::GetInst()->OnReSize(Vec2(1600, 900));
+		}
+	}
+
 	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
 	cb->SetData(&g_moveDir, sizeof(Vec4));
 }

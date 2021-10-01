@@ -5,7 +5,8 @@ CDevice::CDevice()
 	:m_hWnd(nullptr)
 	,m_device(nullptr)
 	,m_context(nullptr)
-	,m_bWindow(true)
+	,m_window(true)
+	, m_VP{}
 {
 
 }
@@ -52,17 +53,16 @@ HRESULT CDevice::Init(HWND _mainHwnd, Vec2 _vResoultion)
 		return E_FAIL;
 	}
 
-	D3D11_VIEWPORT vp = {};
-	vp.TopLeftX = 0;
-	vp.TopLeftY = 0;
+	m_VP.TopLeftX = 0;
+	m_VP.TopLeftY = 0;
 
-	vp.Width = m_resolution.x;
-	vp.Height = m_resolution.y;
+	m_VP.Width = m_resolution.x;
+	m_VP.Height = m_resolution.y;
 
-	vp.MinDepth = 0;
-	vp.MaxDepth = 1;
+	m_VP.MinDepth = 0;
+	m_VP.MaxDepth = 1;
 
-	m_context->RSSetViewports(1, &vp);
+	m_context->RSSetViewports(1, &m_VP);
 
 	if (FAILED(CreateSampler()))
 	{
@@ -91,12 +91,64 @@ void CDevice::Present()
 	m_swapChain.Get()->Present(0, 0);
 }
 
+HRESULT CDevice::OnReSize(Vec2 _resolution)
+{
+	m_resolution = _resolution;
+
+	assert(m_context);
+	assert(m_device);
+	assert(m_swapChain);
+	//comptr로 선언되면 공유횟수가 0가 되어야 릴리즈됨, 근데 만약 강제로 릴리즈시키면 참조하고 있던애들이 붕뜨게됨, 문제는 참조하고 있던 애들이 누군지 모름
+	//강제로 부서도 되는지 모르겠음
+	m_RTV->Release();
+	m_RTV = nullptr;
+	m_DSV->Release();
+	m_DSV = nullptr;
+	m_DSVBuffer->Release();
+	m_DSVBuffer = nullptr;
+	
+
+	HR(m_swapChain->ResizeBuffers(1, m_resolution.x, m_resolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+	ComPtr<ID3D11Texture2D> backBuffer;
+	HR(m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf())));
+	HR(m_device->CreateRenderTargetView(backBuffer.Get(), 0, m_RTV.GetAddressOf()));
+	
+
+	D3D11_TEXTURE2D_DESC depthStencilDesc = {};
+
+	depthStencilDesc.Width = static_cast<UINT>(m_resolution.x);
+	depthStencilDesc.Height = static_cast<UINT>(m_resolution.y);
+	depthStencilDesc.MipLevels = 1;
+	depthStencilDesc.ArraySize = 1;
+	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthStencilDesc.SampleDesc.Quality = 1;
+	depthStencilDesc.SampleDesc.Count = 0;
+	depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+	depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depthStencilDesc.CPUAccessFlags = 0;
+	depthStencilDesc.MiscFlags = 0;
+
+	HR(m_device->CreateTexture2D(&depthStencilDesc, 0, m_DSVBuffer.GetAddressOf()));
+	HR(m_device->CreateDepthStencilView(m_DSVBuffer.Get(), nullptr, m_DSV.GetAddressOf()));
+
+	CONTEXT->OMSetRenderTargets(1, m_RTV.GetAddressOf(), m_DSV.Get());
+
+	m_VP.TopLeftX = 0;
+	m_VP.TopLeftY = 0;
+	m_VP.Width = m_resolution.x;
+	m_VP.Height = m_resolution.y;
+	m_VP.MaxDepth = 1;
+	m_VP.MinDepth = 0;
+
+	CONTEXT->RSSetViewports(1, &m_VP);
+}
+
 HRESULT CDevice::CreateSwapChain()
 {
 	DXGI_SWAP_CHAIN_DESC desc = {};
 
-	desc.BufferDesc.Width = (UINT)m_resolution.x;
-	desc.BufferDesc.Height = (UINT)m_resolution.y;
+	desc.BufferDesc.Width = static_cast<UINT>(m_resolution.x);
+	desc.BufferDesc.Height = static_cast<UINT>(m_resolution.y);
 
 	desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
@@ -117,7 +169,7 @@ HRESULT CDevice::CreateSwapChain()
 	
 	desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-	desc.Windowed = m_bWindow;
+	desc.Windowed = m_window;
 	desc.OutputWindow = m_hWnd;
 	desc.Flags = 0;
 
@@ -130,10 +182,7 @@ HRESULT CDevice::CreateSwapChain()
 	dxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&dxgiAdapter);
 	dxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&dxgiFactory);
 
-	if (FAILED(dxgiFactory->CreateSwapChain(m_device.Get(), &desc, m_swapChain.GetAddressOf())))
-	{
-		return E_FAIL;
-	}
+	HR(dxgiFactory->CreateSwapChain(m_device.Get(), &desc, m_swapChain.GetAddressOf()));
 
 	dxgiDevice->Release();
 	dxgiAdapter->Release();
@@ -147,15 +196,14 @@ HRESULT CDevice::CreateView()
 	//RTV
 	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
 	m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backBuffer.GetAddressOf());
-	if (FAILED(m_device->CreateRenderTargetView(backBuffer.Get(), nullptr, m_RTV.GetAddressOf())))
-	{
-		return E_FAIL;
-	}
+	HR(m_device->CreateRenderTargetView(backBuffer.Get(), nullptr, m_RTV.GetAddressOf()));
+	
+
 	//DRV
 	D3D11_TEXTURE2D_DESC desc = {};
 
-	desc.Width = (UINT)m_resolution.x;
-	desc.Height = (UINT)m_resolution.y;
+	desc.Width = static_cast<UINT>(m_resolution.x);
+	desc.Height = static_cast<UINT>(m_resolution.y);
 
 	desc.MipLevels = 1;
 	desc.ArraySize = 1;
@@ -167,14 +215,9 @@ HRESULT CDevice::CreateView()
 	desc.Usage = D3D11_USAGE_DEFAULT;
 	desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
-	if (FAILED(m_device->CreateTexture2D(&desc, 0, m_DSVTex.GetAddressOf())))
-	{
-		return E_FAIL;
-	}
-	if (FAILED(m_device->CreateDepthStencilView(m_DSVTex.Get(), nullptr, m_DSV.GetAddressOf())))
-	{
-		return E_FAIL;
-	}
+	HR(m_device->CreateTexture2D(&desc, 0, m_DSVBuffer.GetAddressOf()));
+	
+	HR(m_device->CreateDepthStencilView(m_DSVBuffer.Get(), nullptr, m_DSV.GetAddressOf()))
 
 	m_context->OMSetRenderTargets(1, m_RTV.GetAddressOf(), m_DSV.Get());
 
@@ -187,11 +230,9 @@ HRESULT CDevice::CreateConstBuffer()
 	{
 		m_constBuffers[i] = new CConstBuffer;
 	}
-	HRESULT hr = S_OK;
 
-	hr = m_constBuffers[(UINT)CB_TYPE::TRANSFORM]->Create(L"Transform", sizeof(Vec4), (UINT)CB_TYPE::TRANSFORM);
-	if (FAILED(hr))
-		return E_FAIL;
+
+	HR(m_constBuffers[(UINT)CB_TYPE::TRANSFORM]->Create(L"Transform", sizeof(Vec4), (UINT)CB_TYPE::TRANSFORM));
 
 	return S_OK;
 }
@@ -204,20 +245,15 @@ HRESULT CDevice::CreateSampler()
 	desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 	desc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC;
 
-	if (FAILED(DEVICE->CreateSamplerState(&desc, m_samplers[0].GetAddressOf())))
-	{
-		return E_FAIL;
-	}
+	HR(DEVICE->CreateSamplerState(&desc, m_samplers[0].GetAddressOf()));
+
 
 	desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 	desc.AddressV = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 	desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 	desc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT;
 
-	if (FAILED(DEVICE->CreateSamplerState(&desc, m_samplers[1].GetAddressOf())))
-	{
-		return E_FAIL;
-	}
+	HR(DEVICE->CreateSamplerState(&desc, m_samplers[1].GetAddressOf()));
 
 
 	ID3D11SamplerState* sam[2] = { m_samplers[0].Get(), m_samplers[1].Get() };

@@ -7,6 +7,7 @@
 #include "CDevice.h"
 
 #include "temp.h"
+
 CCore::CCore()
     :m_hWnd(nullptr)
 {

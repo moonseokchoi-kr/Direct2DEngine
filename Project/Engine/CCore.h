@@ -6,14 +6,16 @@ class CCore
 
 public:
 	HRESULT Init(HWND _hwnd, UINT _x, UINT _y);
-	void Progress();
 
+	void Progress();
 public:
 	void ChangeWindowSize(UINT _x, UINT _y);
 
 public:
 	HWND GetMainHwnd() { return m_hWnd; }
+
 private:
 	HWND m_hWnd;
+
 };
 

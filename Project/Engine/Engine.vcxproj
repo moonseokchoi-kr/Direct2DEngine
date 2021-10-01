@@ -199,6 +199,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CTexture.h" />
+    <ClInclude Include="util.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="CTimeManager.h" />

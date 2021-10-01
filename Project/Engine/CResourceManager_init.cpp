@@ -54,7 +54,7 @@ void CResourceManager::CreateDefaultMesh()
 	idx.push_back(3);
 
 	mesh = new CMesh;
-	mesh->Create(vtx.data(), vtx.size(), idx.data(), idx.size());
+	mesh->Create(vtx.data(), (UINT)vtx.size(), idx.data(), (UINT)idx.size());
 	AddRes(L"RectMesh", mesh);
 
 	vtx.clear();
