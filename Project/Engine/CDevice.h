@@ -27,6 +27,7 @@ private:
 
 	HRESULT CreateSampler();
 private:
+	ComPtr<IDXGIAdapter> m_adapter;
 	ComPtr<ID3D11Device> m_device;
 	ComPtr<ID3D11DeviceContext> m_context;
 	

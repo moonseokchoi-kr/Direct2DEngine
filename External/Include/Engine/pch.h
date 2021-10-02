@@ -29,6 +29,7 @@ using std::vector;
 using std::list;
 using std::unordered_map;
 using std::array;
+using std::to_wstring;
 
 #include "singleton.h"
 

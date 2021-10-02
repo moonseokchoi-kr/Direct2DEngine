@@ -27,3 +27,15 @@
 
 #define ReleaseCOM(x) {if(x){x->Release(); x=0;}}
 #define SafeDelete(x) {delete x; x=0;}
+
+
+class GrapicsAdapterUtil
+{
+public:
+
+	static ComPtr<IDXGIAdapter>EnumratesAdapters(const wchar_t* _name);
+	static DXGI_MODE_DESC* EnumratesOutputs(ComPtr<IDXGIAdapter> _adapter);
+
+private:
+	static ComPtr<IDXGIAdapter>SelectAdapters(vector<ComPtr<IDXGIAdapter>> _adapters , const wchar_t* _name);
+};

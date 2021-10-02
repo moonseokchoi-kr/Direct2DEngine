@@ -228,6 +228,9 @@
     <ClCompile Include="CTransform.cpp">
       <Filter>소스 파일\Component\Transform</Filter>
     </ClCompile>
+    <ClCompile Include="util.cpp">
+      <Filter>FILE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="std2d.fx">

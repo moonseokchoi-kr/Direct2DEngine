@@ -1,4 +1,5 @@
 #include "pch.h"
+
 #include "CDevice.h"
 #include "CConstBuffer.h"
 CDevice::CDevice()
@@ -17,7 +18,9 @@ HRESULT CDevice::Init(HWND _mainHwnd, Vec2 _vResoultion)
 {
 	m_hWnd = _mainHwnd;
 	m_resolution = _vResoultion;
-	
+
+	m_adapter = GrapicsAdapterUtil::EnumratesAdapters(L"NVIDIA GeForce GTX 1660 Ti");
+	GrapicsAdapterUtil::EnumratesOutputs(m_adapter);
 	UINT deviceFlag = 0;
 #ifdef _DEBUG
 	deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
