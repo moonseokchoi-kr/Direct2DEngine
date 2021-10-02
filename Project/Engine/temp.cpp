@@ -1,80 +1,59 @@
 #include "pch.h"
 #include "temp.h"
 #include "CDevice.h"
-#include "CKeyManager.h"
-#include "CTimeManager.h"
-#include "CPathManager.h"
 #include "CResourceManager.h"
+#include "CKeyManager.h"
+
 
 #include "CMesh.h"
 #include "CTexture.h"
 #include "CConstBuffer.h"
 #include "CShader.h"
 
+#include "CGameObject.h"
+#include "CTransform.h"
+#include "CMeshRender.h"
 /// <summary>
 /// 붉은 사각형 그리기
 /// </summary>
 
 
-Vec4 g_moveDir = Vec4();
-Vec4 g_angle = Vec4();
+CGameObject* g_obj = nullptr;
+
 void init()
 {
-
+	g_obj = new CGameObject;
+	g_obj->AddComponent(new CTransform);
+	g_obj->AddComponent(new CMeshRender);
+	g_obj->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	g_obj->MeshRender()->SetTexture(CResourceManager::GetInst()->FindRes<CTexture>(L"Background"));
+	g_obj->MeshRender()->SetShader(CResourceManager::GetInst()->FindRes<CShader>(L"std2DShader"));
 }
 
 
 void Update()
 {
-	if (KEY_HOLD(KEY::UP))
-	{
-		g_moveDir.y += fDT * 0.5f;
-	}
-	if (KEY_HOLD(KEY::DOWN))
-	{
-		g_moveDir.y -= fDT * 0.5f;
-	}
-	if (KEY_HOLD(KEY::LEFT))
-	{
-		g_moveDir.x -= fDT * 0.5f;
-	}
-	if (KEY_HOLD(KEY::RIGHT))
-	{
-		g_moveDir.x += fDT * 0.5f;
-	}
+
 
 	if (KEY_HOLD(KEY::ALT))
 	{
 		if (KEY_HOLD(KEY::ENTER))
 		{
-			if(CDevice::GetInst()->IsWindow())
+			if (CDevice::GetInst()->IsWindow())
 				CDevice::GetInst()->OnReSize(Vec2(1920, 1080));
 			else
 				CDevice::GetInst()->OnReSize(Vec2(1600, 900));
 		}
 	}
+	g_obj->Update();
 
-	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
-	cb->SetData(&g_moveDir, sizeof(Vec4));
 }
 
 void Render()
 {
 	CDevice::GetInst()->ClearTarget();
 
+	g_obj->Render();
 	
-	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
-	cb->SetPipelineState(PS_VERTEX);
-	cb->UpdateData();
-
-
-	CMesh* mesh = CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh");
-	CShader* stdShader = CResourceManager::GetInst()->FindRes<CShader>(L"std2DShader");
-
-	CTexture* tex = CResourceManager::GetInst()->FindRes<CTexture>(L"Background");
-	tex->SetPipelineStage(PS_PIXEL, 0);
-	stdShader->UpdateData();
-	tex->UpdateData();
-	mesh->Render();
 	CDevice::GetInst()->Present();
 }

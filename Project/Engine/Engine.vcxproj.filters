@@ -81,6 +81,12 @@
     <Filter Include="소스 파일\Manager\ResourceManager">
       <UniqueIdentifier>{56bebf2a-85bd-4087-bf52-301384c4a2a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Component\Transform">
+      <UniqueIdentifier>{84d72516-fd00-4250-90a1-9aca89bfc6b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Component\MeshRender">
+      <UniqueIdentifier>{cf382a8d-166d-42ed-9124-b07515c268ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -147,6 +153,18 @@
     <ClInclude Include="util.h">
       <Filter>소스 파일\Header</Filter>
     </ClInclude>
+    <ClInclude Include="CGameObject.h">
+      <Filter>소스 파일\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CComponent.h">
+      <Filter>소스 파일\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshRender.h">
+      <Filter>소스 파일\Component\MeshRender</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>소스 파일\Component\Transform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -197,6 +215,18 @@
     </ClCompile>
     <ClCompile Include="CTexture.cpp">
       <Filter>소스 파일\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameObject.cpp">
+      <Filter>소스 파일\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CComponent.cpp">
+      <Filter>소스 파일\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshRender.cpp">
+      <Filter>소스 파일\Component\MeshRender</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>소스 파일\Component\Transform</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

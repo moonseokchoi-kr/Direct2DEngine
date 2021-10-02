@@ -20,6 +20,11 @@
 
 #define CLONE(type) type* Clone() {return new type(*this);}
 
+#define ENUM_TO_NUMBER(t) static_cast<UINT>(t)
+
+#define GET_COMPONENT(ComponentName, EnumName) C##ComponentName* ComponentName(){return (C##ComponentName*)m_components[(UINT)EnumName];}
+
+
 typedef Vector2 Vec2;
 typedef Vector3 Vec3;
 typedef Vector4 Vec4;
@@ -53,6 +58,25 @@ enum class RES_TYPE
 	TEXTURE,
 	MATERIAL,
 	METADATA,
+	SOUND,
+	END,
+};
+
+enum class COMPONENT_TYPE
+{
+	TRANSFORM,
+	MESHRENDER,
+	COLLIDER2D,
+	COLLIDER3D,
+	CAMERA,
+	LIGHT2D,
+	LIGHT3D,
+	PARTICLESYSTEM,
+	ANIMATOR2D,
+	ANIMATOR3D,
+	TERRAIN,
+	SKYBOX,
+	SCRIPT,
 	SOUND,
 	END,
 };

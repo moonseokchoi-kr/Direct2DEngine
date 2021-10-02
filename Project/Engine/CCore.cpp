@@ -32,7 +32,7 @@ HRESULT CCore::Init(HWND _hwnd, UINT _x, UINT _y)
     CPathManager::GetInst()->Init();
     CKeyManager::GetInst()->Init();
     CResourceManager::GetInst()->Init();
-    
+    init();
     return S_OK;
 }
 

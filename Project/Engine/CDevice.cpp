@@ -108,7 +108,7 @@ HRESULT CDevice::OnReSize(Vec2 _resolution)
 	m_DSVBuffer = nullptr;
 	
 
-	HR(m_swapChain->ResizeBuffers(1, m_resolution.x, m_resolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+	HR(m_swapChain->ResizeBuffers(1, (UINT)m_resolution.x, (UINT)m_resolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	ComPtr<ID3D11Texture2D> backBuffer;
 	HR(m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf())));
 	HR(m_device->CreateRenderTargetView(backBuffer.Get(), 0, m_RTV.GetAddressOf()));
@@ -141,6 +141,8 @@ HRESULT CDevice::OnReSize(Vec2 _resolution)
 	m_VP.MinDepth = 0;
 
 	CONTEXT->RSSetViewports(1, &m_VP);
+
+	return S_OK;
 }
 
 HRESULT CDevice::CreateSwapChain()
