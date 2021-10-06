@@ -11,20 +11,17 @@ public:
     virtual void Update();
     virtual void UpdateData();
 public:
-    Vec3 GetPos() { return m_pos; }
-    Vec3 GetScale() { return m_scale; }
-    Vec3 GetRotation() { return m_rotation; }
+    Vec3 GetPos() { return pos_; }
+    Vec3 GetScale() { return scale_; }
+    Vec3 GetRotation() { return rotation_; }
 
-    void SetPos(Vec3 _pos) { m_pos = _pos; }
-    void SetScale(Vec3 _scale) { m_scale = _scale; }
-    void SetRotation(Vec3 _rotation) { m_rotation = _rotation; }
+    void SetPos(Vec3 _pos) { pos_ = _pos; }
+    void SetScale(Vec3 _scale) { scale_ = _scale; }
+    void SetRotation(Vec3 _rotation) { rotation_ = _rotation; }
 private:
-    Vec3 m_pos;
-    Vec3 m_scale;
-    Vec3 m_rotation;
-
-    __declspec(property(get = GetPos, put = SetPos)) Vec3 m_pos;
-    __declspec(property(get = GetScale, put = SetScale)) Vec3 m_scale;
-    __declspec(property(get = GetRotation, put = SetRotation)) Vec3 m_rotation;
+    Matrix world_matrix_;
+    __declspec(property(get = GetPos, put = SetPos)) Vec3 pos_;
+    __declspec(property(get = GetScale, put = SetScale)) Vec3 scale_;
+    __declspec(property(get = GetRotation, put = SetRotation)) Vec3 rotation_;
 };
 

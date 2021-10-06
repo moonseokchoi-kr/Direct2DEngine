@@ -8,3 +8,10 @@ struct Vertex
 };
 
 typedef Vertex VTX;
+
+struct Transform
+{
+	Matrix world_matrix;
+	Matrix view_matrix;
+	Matrix projection_matrix;
+};

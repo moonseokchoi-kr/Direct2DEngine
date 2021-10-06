@@ -60,7 +60,7 @@ void CKeyManager::Init()
 {
 	for (int i = 0; i < (int)KEY::LAST; ++i)
 	{
-		m_vecKey.push_back(tKeyInfo{ KEY_STATE::NONE, false });
+		vec_key_.push_back(KeyInfo{ KEY_STATE::NONE, false });
 	}	
 }
 
@@ -78,35 +78,35 @@ void CKeyManager::Update()
 			// 키가 눌려있다.
 			if (GetAsyncKeyState(g_arrVK[i]) & 0x8000)
 			{
-				if (m_vecKey[i].bPrevPush)
+				if (vec_key_[i].prev_push)
 				{
 					// 이전에도 눌려있었다.
-					m_vecKey[i].eState = KEY_STATE::HOLD;
+					vec_key_[i].state = KEY_STATE::HOLD;
 				}
 				else
 				{
 					// 이전에 눌려있지 않았다.
-					m_vecKey[i].eState = KEY_STATE::TAP;
+					vec_key_[i].state = KEY_STATE::TAP;
 				}
 
-				m_vecKey[i].bPrevPush = true;
+				vec_key_[i].prev_push = true;
 			}
 
 			// 키가 안눌려있다.
 			else
 			{
-				if (m_vecKey[i].bPrevPush)
+				if (vec_key_[i].prev_push)
 				{
 					// 이전에 눌려있었다.
-					m_vecKey[i].eState = KEY_STATE::AWAY;
+					vec_key_[i].state = KEY_STATE::AWAY;
 				}
 				else
 				{
 					// 이전에도 안눌려있었다.
-					m_vecKey[i].eState = KEY_STATE::NONE;
+					vec_key_[i].state = KEY_STATE::NONE;
 				}
 
-				m_vecKey[i].bPrevPush = false;
+				vec_key_[i].prev_push = false;
 			}
 		}
 
@@ -115,7 +115,7 @@ void CKeyManager::Update()
 		GetCursorPos(&ptPos);
 		ScreenToClient(CCore::GetInst()->GetMainHwnd(), &ptPos);
 
-		m_vCurMousePos = Vec2((float)ptPos.x, (float)ptPos.y);
+		cur_mouse_pos_ = Vec2((float)ptPos.x, (float)ptPos.y);
 	}
 
 	// 윈도우 포커싱 해제상태
@@ -123,15 +123,15 @@ void CKeyManager::Update()
 	{
 		for (int i = 0; i < (int)KEY::LAST; ++i)
 		{
-			m_vecKey[i].bPrevPush = false;
+			vec_key_[i].prev_push = false;
 
-			if (KEY_STATE::TAP == m_vecKey[i].eState || KEY_STATE::HOLD == m_vecKey[i].eState)
+			if (KEY_STATE::TAP == vec_key_[i].state || KEY_STATE::HOLD == vec_key_[i].state)
 			{
-				m_vecKey[i].eState = KEY_STATE::AWAY;				
+				vec_key_[i].state = KEY_STATE::AWAY;				
 			}		
-			else if (KEY_STATE::AWAY == m_vecKey[i].eState)
+			else if (KEY_STATE::AWAY == vec_key_[i].state)
 			{
-				m_vecKey[i].eState = KEY_STATE::NONE;
+				vec_key_[i].state = KEY_STATE::NONE;
 			}			
 		}
 	}	

@@ -15,29 +15,29 @@ public:
 	void Start();
 	void Stop();
 public:
-	double GetDT() { return m_deltaTime; }
-	float GetfDT() { return (float)m_deltaTime; }
+	double GetDT() { return delta_time_; }
+	float GetfDT() { return static_cast<float>(delta_time_); }
 
 	float GetTotalTime();
 private:
-	LARGE_INTEGER	m_currentCount; //현재시간
-	LARGE_INTEGER	m_prevCount; //이전시간
-	LARGE_INTEGER   m_frequency;
+	LARGE_INTEGER	current_count_; //현재시간
+	LARGE_INTEGER	prev_count_; //이전시간
+	LARGE_INTEGER   frequency_;
 	
 	
-	double	m_countsPerSec; //초당 카운트수
+	double	counts_per_sec_; //초당 카운트수
 
-	double			m_deltaTime;	// 프레임 사이의 시간 값 
-	double			m_dAcc; // 1초 체크를 위한 누적 시간
+	double			delta_time_;	// 프레임 사이의 시간 값 
+	double			acc_; // 1초 체크를 위한 누적 시간
 
-	LARGE_INTEGER			m_baseTime;
-	LARGE_INTEGER			m_pausedTime;
-	LARGE_INTEGER			m_stopTime;
+	LARGE_INTEGER			base_time_;
+	LARGE_INTEGER			paused_time_;
+	LARGE_INTEGER			stop_time_;
 
-	bool			m_stopped;
+	bool			stopped_;
 
-	UINT			m_callCount; // 함수 호출 회수 체크
-	UINT			m_fps;		// 초당 호출 횟수 
+	UINT			call_count_; // 함수 호출 회수 체크
+	UINT			fps_;		// 초당 호출 횟수 
 
 	// FPS
 	// 1 프레임당 시간 (Delta Time)

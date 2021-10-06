@@ -9,7 +9,7 @@
 #include "temp.h"
 
 CCore::CCore()
-    :m_hWnd(nullptr)
+    :hWnd_(nullptr)
 {
 
 }
@@ -20,10 +20,10 @@ CCore::~CCore()
 
 HRESULT CCore::Init(HWND _hwnd, UINT _x, UINT _y)
 {
-    m_hWnd = _hwnd;
+    hWnd_ = _hwnd;
     ChangeWindowSize(_x, _y);
 
-    if (FAILED(CDevice::GetInst()->Init(m_hWnd, Vec2((float)_x, (float)_y))))
+    if (FAILED(CDevice::GetInst()->Init(hWnd_, Vec2((float)_x, (float)_y))))
     {
         return E_FAIL;
     }
@@ -49,5 +49,5 @@ void CCore::ChangeWindowSize(UINT _x, UINT _y)
     RECT rt = { 0,0,(LONG)_x,(LONG)_y };
     AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
 
-    SetWindowPos(m_hWnd, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
+    SetWindowPos(hWnd_, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
 }

@@ -18,14 +18,14 @@ public:
     virtual void UpdateData() {}
 
 public:
-    void AddComponent(CComponent* _comp);
-    CComponent* GetComponent(COMPONENT_TYPE _type) { return m_components[ENUM_TO_NUMBER(_type)]; }
+    void AddComponent(CComponent* comp);
+    CComponent* GetComponent(COMPONENT_TYPE type) { return components_[static_cast<UINT>(type)]; }
 
     GET_COMPONENT(Transform, COMPONENT_TYPE::TRANSFORM);
     GET_COMPONENT(MeshRender, COMPONENT_TYPE::MESHRENDER);
 
 private:
-    array<CComponent*, ENUM_TO_NUMBER(COMPONENT_TYPE::END)> m_components;
+    array<CComponent*, static_cast<UINT>(COMPONENT_TYPE::END)> components_;
 
 };
 

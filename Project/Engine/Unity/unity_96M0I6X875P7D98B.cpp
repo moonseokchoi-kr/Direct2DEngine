@@ -1,5 +1,11 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CSceneManager.cpp"
+
+
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CShader.cpp"
+
+
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CTexture.cpp"
 
 
@@ -16,7 +22,4 @@
 
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\temp.cpp"
-
-
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\util.cpp"
 

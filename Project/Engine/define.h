@@ -22,7 +22,7 @@
 
 #define ENUM_TO_NUMBER(t) static_cast<UINT>(t)
 
-#define GET_COMPONENT(ComponentName, EnumName) C##ComponentName* ComponentName(){return (C##ComponentName*)m_components[(UINT)EnumName];}
+#define GET_COMPONENT(ComponentName, EnumName) C##ComponentName* ComponentName(){return (C##ComponentName*)components_[(UINT)(EnumName)];}
 
 
 typedef Vector2 Vec2;

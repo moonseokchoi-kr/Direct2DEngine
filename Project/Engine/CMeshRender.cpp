@@ -8,9 +8,9 @@
 #include "CTransform.h"
 CMeshRender::CMeshRender()
 	:CComponent(COMPONENT_TYPE::MESHRENDER)
-	,m_mesh(nullptr)
-	,m_shader(nullptr)
-	,m_texture(nullptr)
+	,mesh_(nullptr)
+	,shader_(nullptr)
+	,texture_(nullptr)
 {
 }
 
@@ -20,19 +20,19 @@ CMeshRender::~CMeshRender()
 
 void CMeshRender::Render()
 {
-	if (nullptr == m_shader || nullptr == m_mesh)
+	if (nullptr == shader_ || nullptr == mesh_)
 	{
 		return;
 	}
 	GetOwner()->Transform()->UpdateData();
 	
-	m_shader->UpdateData();
+	shader_->UpdateData();
 
-	if (nullptr != m_texture)
+	if (nullptr != texture_)
 	{
-		m_texture->SetPipelineStage(PS_PIXEL, 0);
-		m_texture->UpdateData();
+		texture_->SetPipelineStage(PS_PIXEL, 0);
+		texture_->UpdateData();
 	}
 
-	m_mesh->Render();
+	mesh_->Render();
 }

@@ -4,16 +4,16 @@
 #include "CCore.h"
 
 CTimeManager::CTimeManager()
-	: m_currentCount{}
-	, m_prevCount{}
-	, m_frequency{}
-	, m_deltaTime(0.)
-	, m_dAcc(0.)
-	, m_callCount(0)
-	, m_stopped(false)
-	, m_stopTime{}
-	, m_baseTime{}
-	, m_pausedTime{}
+	: current_count_{}
+	, prev_count_{}
+	, frequency_{}
+	, delta_time_(0.)
+	, acc_(0.)
+	, call_count_(0)
+	, stopped_(false)
+	, stop_time_{}
+	, base_time_{}
+	, paused_time_{}
 {
 
 }
@@ -26,52 +26,52 @@ CTimeManager::~CTimeManager()
 void CTimeManager::Init()
 {
 	// 현재 카운트
-	QueryPerformanceCounter(&m_prevCount);
-	m_baseTime = m_prevCount;
+	QueryPerformanceCounter(&prev_count_);
+	base_time_ = prev_count_;
 	// 초당 카운트 횟수
-	QueryPerformanceFrequency(&m_frequency);
-	m_countsPerSec = 1.0 / (double)m_frequency.QuadPart;
+	QueryPerformanceFrequency(&frequency_);
+	counts_per_sec_ = 1.0 / (double)frequency_.QuadPart;
 }
 
 void CTimeManager::Update()
 {
-	if (m_stopped)
+	if (stopped_)
 	{
-		m_deltaTime = 0.0f;
+		delta_time_ = 0.0f;
 		return;
 	}
-	QueryPerformanceCounter(&m_currentCount);
+	QueryPerformanceCounter(&current_count_);
 
 	// 이전 프레임의 카운팅과, 현재 프레임 카운팅 값의 차이를 구한다.
-	m_deltaTime = (double)(m_currentCount.QuadPart - m_prevCount.QuadPart) * (double)m_countsPerSec;
+	delta_time_ = (double)(current_count_.QuadPart - prev_count_.QuadPart) * (double)counts_per_sec_;
 
 	// 이전카운트 값을 현재값으로 갱신(다음번에 계산을 위해서)
-	m_prevCount = m_currentCount;
+	prev_count_ = current_count_;
 	
-	if (m_deltaTime < 0.0)
+	if (delta_time_ < 0.0)
 	{
-		m_deltaTime = 0.0f;
+		delta_time_ = 0.0f;
 	}
 
 #ifdef _DEBUG
-	if (m_deltaTime > (1. / 60.))
-		m_deltaTime = (1. / 60.);
+	if (delta_time_ > (1. / 60.))
+		delta_time_ = (1. / 60.);
 #endif
 }
 
 void CTimeManager::Render()
 {
-	++m_callCount;
-	m_dAcc += m_deltaTime; // DT 누적
+	++call_count_;
+	acc_ += delta_time_; // DT 누적
 
-	if (m_dAcc >= 1.)
+	if (acc_ >= 1.)
 	{
-		m_fps = m_callCount;
-		m_dAcc = 0.;
-		m_callCount = 0;
+		fps_ = call_count_;
+		acc_ = 0.;
+		call_count_ = 0;
 
 		wchar_t szBuffer[255] = {}; 
-		swprintf_s(szBuffer, L"FPS : %d,  DT : %lf", m_fps, m_deltaTime);
+		swprintf_s(szBuffer, L"FPS : %d,  DT : %lf", fps_, delta_time_);
 		SetWindowText(CCore::GetInst()->GetMainHwnd(), szBuffer);
 	}
 }
@@ -85,13 +85,13 @@ void CTimeManager::Start()
 	LARGE_INTEGER startTime;
 	QueryPerformanceCounter(&startTime);
 
-	if (m_stopped)
+	if (stopped_)
 	{
-		m_pausedTime.QuadPart += (startTime.QuadPart - m_stopTime.QuadPart);
+		paused_time_.QuadPart += (startTime.QuadPart - stop_time_.QuadPart);
 
-		m_prevCount = startTime;
-		m_stopTime = LARGE_INTEGER();
-		m_stopped = false;
+		prev_count_ = startTime;
+		stop_time_ = LARGE_INTEGER();
+		stopped_ = false;
 	}
 }
 
@@ -99,22 +99,22 @@ void CTimeManager::Stop()
 {
 	LARGE_INTEGER currTime;
 	QueryPerformanceCounter(&currTime);
-	if (!m_stopped)
+	if (!stopped_)
 	{
-		m_stopTime = currTime;
-		m_stopped = true;
+		stop_time_ = currTime;
+		stopped_ = true;
 	}
 }
 
 float CTimeManager::GetTotalTime()
 {
-	if (m_stopped)
+	if (stopped_)
 	{
-		return(float)(((m_stopTime.QuadPart - m_pausedTime.QuadPart) - m_baseTime.QuadPart) * m_countsPerSec);
+		return(float)(((stop_time_.QuadPart - paused_time_.QuadPart) - base_time_.QuadPart) * counts_per_sec_);
 
 	}
 	else
 	{
-		return(float)(((m_currentCount.QuadPart - m_pausedTime.QuadPart) - m_baseTime.QuadPart) * m_countsPerSec);
+		return(float)(((current_count_.QuadPart - paused_time_.QuadPart) - base_time_.QuadPart) * counts_per_sec_);
 	}
 }

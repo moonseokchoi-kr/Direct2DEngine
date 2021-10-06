@@ -6,20 +6,20 @@ class CDevice
 {
 	SINGLE(CDevice);
 public:
-	HRESULT Init(HWND _mainHwnd, Vec2 _vResoultion);
+	HRESULT Init(HWND mainHWnd, Vec2 resoultion);
 public:
 	void ClearTarget();
 	void Present();
 	HRESULT OnReSize(Vec2 _resolution);
 public:
-	ID3D11Device* GetDevice() { return m_device.Get(); }
-	ID3D11DeviceContext* GetContext() { return m_context.Get(); }
-	float GetAspectRatio() { return (float)m_resolution.x / m_resolution.y; }
-	CConstBuffer* GetConstBuffer(CB_TYPE _type) { return m_constBuffers[(UINT)_type]; }
+	ID3D11Device* GetDevice() { return device_.Get(); }
+	ID3D11DeviceContext* GetContext() { return context_.Get(); }
+	float GetAspectRatio() { return static_cast<float>(resolution_.x) / resolution_.y; }
+	CConstBuffer* GetConstBuffer(CB_TYPE type) { return const_buffers_[static_cast<UINT>(type)]; }
 
 
-	bool IsWindow() { return m_window; }
-	void SetWindow(bool _b) { m_window = _b; }
+	bool IsWindow() { return window_; }
+	void SetWindow(bool b) { window_ = b; }
 private:
 	HRESULT CreateSwapChain();
 	HRESULT CreateView();
@@ -27,23 +27,23 @@ private:
 
 	HRESULT CreateSampler();
 private:
-	ComPtr<IDXGIAdapter> m_adapter;
-	ComPtr<ID3D11Device> m_device;
-	ComPtr<ID3D11DeviceContext> m_context;
+	ComPtr<IDXGIAdapter> adapter_;
+	ComPtr<ID3D11Device> device_;
+	ComPtr<ID3D11DeviceContext> context_;
 	
 
-	array<CConstBuffer*, (UINT)CB_TYPE::END> m_constBuffers;
-	array<ComPtr<ID3D11SamplerState>, 2> m_samplers;
+	array<CConstBuffer*, static_cast<UINT>(CB_TYPE::END)> const_buffers_;
+	array<ComPtr<ID3D11SamplerState>, 2> samplers_;
 
-	ComPtr<IDXGISwapChain> m_swapChain;
-	ComPtr<ID3D11Texture2D> m_DSVBuffer;
-	ComPtr<ID3D11RenderTargetView> m_RTV;
-	ComPtr<ID3D11DepthStencilView> m_DSV;
-	D3D11_VIEWPORT	m_VP;
+	ComPtr<IDXGISwapChain> swap_chain_;
+	ComPtr<ID3D11Texture2D> depth_stencil_buffer_;
+	ComPtr<ID3D11RenderTargetView> render_target_view_;
+	ComPtr<ID3D11DepthStencilView> depth_stencil_view_;
+	D3D11_VIEWPORT	view_port_;
 
 
-	Vec2 m_resolution;
-	HWND m_hWnd;
-	bool m_window;
+	Vec2 resolution_;
+	HWND hWnd_;
+	bool window_;
 };
 

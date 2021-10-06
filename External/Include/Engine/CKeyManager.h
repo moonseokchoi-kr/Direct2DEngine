@@ -55,10 +55,10 @@ enum class KEY
 	LAST,
 };
 
-struct tKeyInfo
+struct KeyInfo
 {	
-	KEY_STATE	eState;		// 키의 상태값
-	bool		bPrevPush;	// 이전 프레임에서 눌렸는지 여부
+	KEY_STATE	state;		// 키의 상태값
+	bool		prev_push;	// 이전 프레임에서 눌렸는지 여부
 };
 
 class CKeyManager
@@ -66,8 +66,8 @@ class CKeyManager
 {
 	SINGLE(CKeyManager);
 private:
-	vector<tKeyInfo> m_vecKey;
-	Vec2			 m_vCurMousePos;
+	vector<KeyInfo> vec_key_;
+	Vec2			 cur_mouse_pos_;
 
 
 public:
@@ -75,7 +75,7 @@ public:
 	void Update();
 
 public:
-	KEY_STATE GetKeyState(KEY _eKey){return m_vecKey[(int)_eKey].eState;}
-	Vec2 GetMousePos() { return m_vCurMousePos; }
+	KEY_STATE GetKeyState(KEY key){return vec_key_[static_cast<int>(key)].state;}
+	Vec2 GetMousePos() { return cur_mouse_pos_; }
 };
 

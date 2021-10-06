@@ -66,10 +66,10 @@ using namespace DirectX::PackedVector;
 #include "SimpleMath.h"
 using namespace SimpleMath;
 #include "define.h"
-#include "extern.h"
+
 #include "func.h"
 #include "struct.h"
 #include "util.h"
-
+#include "extern.h"
 
 #endif; //PCH_H

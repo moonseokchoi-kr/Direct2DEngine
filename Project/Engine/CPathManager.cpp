@@ -5,7 +5,7 @@
 #include "CCore.h"
 
 CPathManager::CPathManager()
-	: m_szContentPath{}
+	: content_path_{}
 {}
 
 CPathManager::~CPathManager()
@@ -15,32 +15,32 @@ CPathManager::~CPathManager()
 
 void CPathManager::Init()
 {
-	GetCurrentDirectory(255, m_szContentPath);
+	GetCurrentDirectory(255, content_path_);
 
-	int iLen = (int)wcslen(m_szContentPath);
+	int iLen = (int)wcslen(content_path_);
 
 	// 상위폴더로 
 	for (int i = iLen - 1; 0 <= i; --i)
 	{
-		if ('\\' == m_szContentPath[i])
+		if ('\\' == content_path_[i])
 		{
-			m_szContentPath[i] = '\0';
+			content_path_[i] = '\0';
 			break;
 		}
 	}
 
-	wcscat_s(m_szContentPath, 255, L"\\bin\\content\\");
+	wcscat_s(content_path_, 255, L"\\bin\\content\\");
 	
 
-	//SetWindowText(CCore::GetInst()->GetMainHwnd(), m_szContentPath);
+	//SetWindowText(CCore::GetInst()->GetMainHwnd(), content_path_);
 }
 
-wstring CPathManager::GetRelativePath(const wchar_t* _strFullPath)
+wstring CPathManager::GetRelativePath(const wchar_t* strFullPath)
 {
-	//_strFullPath.substr();
-	wstring strPath = _strFullPath;
+	//strFullPath.substr();
+	wstring strPath = strFullPath;
 
-	size_t absLen = wcslen(m_szContentPath);
+	size_t absLen = wcslen(content_path_);
 	size_t fullLen = strPath.length();
 
 	wstring strRelativePath = strPath.substr(absLen, fullLen - absLen);

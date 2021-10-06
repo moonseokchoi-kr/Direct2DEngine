@@ -4,9 +4,9 @@
 
 #include "CDevice.h"
 CConstBuffer::CConstBuffer()
-	:m_desc{}
-	,m_pipelineState(0)
-	,m_registerNum(0)
+	:desc_{}
+	,pipeline_state_(0)
+	,register_num_(0)
 {
 }
 
@@ -16,29 +16,29 @@ CConstBuffer::~CConstBuffer()
 
 void CConstBuffer::UpdateData()
 {
-	if (m_pipelineState & PS_VERTEX)
+	if (pipeline_state_ & PS_VERTEX)
 	{
-		CONTEXT->VSSetConstantBuffers(m_registerNum, 1, m_constBuffer.GetAddressOf());
+		CONTEXT->VSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
-	if (m_pipelineState & PS_HULL)
+	if (pipeline_state_ & PS_HULL)
 	{
-		CONTEXT->HSSetConstantBuffers(m_registerNum, 1, m_constBuffer.GetAddressOf());
+		CONTEXT->HSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
-	if (m_pipelineState & PS_DOMAIN)
+	if (pipeline_state_ & PS_DOMAIN)
 	{
-		CONTEXT->DSSetConstantBuffers(m_registerNum, 1, m_constBuffer.GetAddressOf());
+		CONTEXT->DSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
-	if (m_pipelineState & PS_GEOMETRY)
+	if (pipeline_state_ & PS_GEOMETRY)
 	{
-		CONTEXT->GSSetConstantBuffers(m_registerNum, 1, m_constBuffer.GetAddressOf());
+		CONTEXT->GSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
-	if (m_pipelineState & PS_PIXEL)
+	if (pipeline_state_ & PS_PIXEL)
 	{
-		CONTEXT->PSSetConstantBuffers(m_registerNum, 1, m_constBuffer.GetAddressOf());
+		CONTEXT->PSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
 
@@ -48,14 +48,14 @@ HRESULT CConstBuffer::Create(const wstring& _strName, UINT _bufferSize, UINT _re
 {
 	SetName(_strName);
 
-	m_registerNum = _registerNumber;
+	register_num_ = _registerNumber;
 
-	m_desc.ByteWidth = _bufferSize;
-	m_desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	m_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	m_desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc_.ByteWidth = _bufferSize;
+	desc_.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	desc_.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	desc_.Usage = D3D11_USAGE_DYNAMIC;
 
-	if (FAILED(DEVICE->CreateBuffer(&m_desc, nullptr, m_constBuffer.GetAddressOf())))
+	if (FAILED(DEVICE->CreateBuffer(&desc_, nullptr, const_buffer_.GetAddressOf())))
 	{
 		return E_FAIL;
 	}
@@ -67,9 +67,9 @@ void CConstBuffer::SetData(void* _data, UINT _size)
 {
 	D3D11_MAPPED_SUBRESOURCE subRes = {};
 
-	CONTEXT->Map(m_constBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subRes);
+	CONTEXT->Map(const_buffer_.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subRes);
 
 	memcpy(subRes.pData, _data, _size);
 
-	CONTEXT->Unmap(m_constBuffer.Get(), 0);
+	CONTEXT->Unmap(const_buffer_.Get(), 0);
 }

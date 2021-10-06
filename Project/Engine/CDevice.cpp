@@ -3,31 +3,31 @@
 #include "CDevice.h"
 #include "CConstBuffer.h"
 CDevice::CDevice()
-	:m_hWnd(nullptr)
-	,m_device(nullptr)
-	,m_context(nullptr)
-	,m_window(true)
-	, m_VP{}
+	:hWnd_(nullptr)
+	,device_(nullptr)
+	,context_(nullptr)
+	,window_(true)
+	, view_port_{}
 {
 
 }
 CDevice::~CDevice()
 {
 }
-HRESULT CDevice::Init(HWND _mainHwnd, Vec2 _vResoultion)
+HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 {
-	m_hWnd = _mainHwnd;
-	m_resolution = _vResoultion;
+	hWnd_ = mainHWnd;
+	resolution_ = resoultion;
 
-	m_adapter = GrapicsAdapterUtil::EnumratesAdapters(L"NVIDIA GeForce GTX 1660 Ti");
-	GrapicsAdapterUtil::EnumratesOutputs(m_adapter);
+	adapter_ = GrapicsAdapterUtil::EnumratesAdapters(L"NVIDIA GeForce GTX 1660 Ti");
+	GrapicsAdapterUtil::EnumratesOutputs(adapter_);
 	UINT deviceFlag = 0;
 #ifdef _DEBUG
 	deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
 #endif
 	D3D_FEATURE_LEVEL featureLevel = D3D_FEATURE_LEVEL_11_0;
 	
-	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, deviceFlag, 0, 0, D3D11_SDK_VERSION, &m_device, &featureLevel, &m_context)))
+	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, deviceFlag, 0, 0, D3D11_SDK_VERSION, &device_, &featureLevel, &context_)))
 	{
 		MessageBox(nullptr, L"Direct 초기화 실패", L"Engine 초기화 오류", MB_OK);
 		return E_FAIL;
@@ -37,7 +37,7 @@ HRESULT CDevice::Init(HWND _mainHwnd, Vec2 _vResoultion)
 	//4x MSAA(multi samples anti-aliasing)지원 확인
 	//11부터는 이걸이용해 지원이 되는지 안되는지 확인가능(무조건 4x MSAA를 지원하기때문)
 	UINT multiSmapleLevel = 0;
-	m_device->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &multiSmapleLevel);
+	device_->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, 4, &multiSmapleLevel);
 	if (0 == multiSmapleLevel)
 	{
 		MessageBox(nullptr, L"하드웨어가 4xMSAA를 지원하지 않습니다", L"Engine초기화 오류", MB_OK);
@@ -56,16 +56,16 @@ HRESULT CDevice::Init(HWND _mainHwnd, Vec2 _vResoultion)
 		return E_FAIL;
 	}
 
-	m_VP.TopLeftX = 0;
-	m_VP.TopLeftY = 0;
+	view_port_.TopLeftX = 0;
+	view_port_.TopLeftY = 0;
 
-	m_VP.Width = m_resolution.x;
-	m_VP.Height = m_resolution.y;
+	view_port_.Width = resolution_.x;
+	view_port_.Height = resolution_.y;
 
-	m_VP.MinDepth = 0;
-	m_VP.MaxDepth = 1;
+	view_port_.MinDepth = 0;
+	view_port_.MaxDepth = 1;
 
-	m_context->RSSetViewports(1, &m_VP);
+	context_->RSSetViewports(1, &view_port_);
 
 	if (FAILED(CreateSampler()))
 	{
@@ -85,42 +85,42 @@ HRESULT CDevice::Init(HWND _mainHwnd, Vec2 _vResoultion)
 void CDevice::ClearTarget()
 {
 	float color[4] = { 0.4f,0.4f,0.4f,1.0f };
-	m_context->ClearRenderTargetView(m_RTV.Get(), color);
-	m_context->ClearDepthStencilView(m_DSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f ,0);
+	context_->ClearRenderTargetView(render_target_view_.Get(), color);
+	context_->ClearDepthStencilView(depth_stencil_view_.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f ,0);
 }
 
 void CDevice::Present()
 {
-	m_swapChain.Get()->Present(0, 0);
+	swap_chain_.Get()->Present(0, 0);
 }
 
 HRESULT CDevice::OnReSize(Vec2 _resolution)
 {
-	m_resolution = _resolution;
+	resolution_ = _resolution;
 
-	assert(m_context);
-	assert(m_device);
-	assert(m_swapChain);
+	assert(context_);
+	assert(device_);
+	assert(swap_chain_);
 	//comptr로 선언되면 공유횟수가 0가 되어야 릴리즈됨, 근데 만약 강제로 릴리즈시키면 참조하고 있던애들이 붕뜨게됨, 문제는 참조하고 있던 애들이 누군지 모름
 	//강제로 부서도 되는지 모르겠음
-	m_RTV->Release();
-	m_RTV = nullptr;
-	m_DSV->Release();
-	m_DSV = nullptr;
-	m_DSVBuffer->Release();
-	m_DSVBuffer = nullptr;
+	render_target_view_->Release();
+	render_target_view_ = nullptr;
+	depth_stencil_view_->Release();
+	depth_stencil_view_ = nullptr;
+	depth_stencil_buffer_->Release();
+	depth_stencil_buffer_ = nullptr;
 	
 
-	HR(m_swapChain->ResizeBuffers(1, (UINT)m_resolution.x, (UINT)m_resolution.y, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+	HR(swap_chain_->ResizeBuffers(1, static_cast<UINT>(resolution_.x), static_cast<UINT>(resolution_.y), DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	ComPtr<ID3D11Texture2D> backBuffer;
-	HR(m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf())));
-	HR(m_device->CreateRenderTargetView(backBuffer.Get(), 0, m_RTV.GetAddressOf()));
+	HR(swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf())));
+	HR(device_->CreateRenderTargetView(backBuffer.Get(), 0, render_target_view_.GetAddressOf()));
 	
 
 	D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 
-	depthStencilDesc.Width = static_cast<UINT>(m_resolution.x);
-	depthStencilDesc.Height = static_cast<UINT>(m_resolution.y);
+	depthStencilDesc.Width = static_cast<UINT>(resolution_.x);
+	depthStencilDesc.Height = static_cast<UINT>(resolution_.y);
 	depthStencilDesc.MipLevels = 1;
 	depthStencilDesc.ArraySize = 1;
 	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
@@ -131,19 +131,19 @@ HRESULT CDevice::OnReSize(Vec2 _resolution)
 	depthStencilDesc.CPUAccessFlags = 0;
 	depthStencilDesc.MiscFlags = 0;
 
-	HR(m_device->CreateTexture2D(&depthStencilDesc, 0, m_DSVBuffer.GetAddressOf()));
-	HR(m_device->CreateDepthStencilView(m_DSVBuffer.Get(), nullptr, m_DSV.GetAddressOf()));
+	HR(device_->CreateTexture2D(&depthStencilDesc, 0, depth_stencil_buffer_.GetAddressOf()));
+	HR(device_->CreateDepthStencilView(depth_stencil_buffer_.Get(), nullptr, depth_stencil_view_.GetAddressOf()));
 
-	CONTEXT->OMSetRenderTargets(1, m_RTV.GetAddressOf(), m_DSV.Get());
+	CONTEXT->OMSetRenderTargets(1, render_target_view_.GetAddressOf(), depth_stencil_view_.Get());
 
-	m_VP.TopLeftX = 0;
-	m_VP.TopLeftY = 0;
-	m_VP.Width = m_resolution.x;
-	m_VP.Height = m_resolution.y;
-	m_VP.MaxDepth = 1;
-	m_VP.MinDepth = 0;
+	view_port_.TopLeftX = 0;
+	view_port_.TopLeftY = 0;
+	view_port_.Width = resolution_.x;
+	view_port_.Height = resolution_.y;
+	view_port_.MaxDepth = 1;
+	view_port_.MinDepth = 0;
 
-	CONTEXT->RSSetViewports(1, &m_VP);
+	CONTEXT->RSSetViewports(1, &view_port_);
 
 	return S_OK;
 }
@@ -152,8 +152,8 @@ HRESULT CDevice::CreateSwapChain()
 {
 	DXGI_SWAP_CHAIN_DESC desc = {};
 
-	desc.BufferDesc.Width = static_cast<UINT>(m_resolution.x);
-	desc.BufferDesc.Height = static_cast<UINT>(m_resolution.y);
+	desc.BufferDesc.Width = static_cast<UINT>(resolution_.x);
+	desc.BufferDesc.Height = static_cast<UINT>(resolution_.y);
 
 	desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
@@ -174,8 +174,8 @@ HRESULT CDevice::CreateSwapChain()
 	
 	desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
-	desc.Windowed = m_window;
-	desc.OutputWindow = m_hWnd;
+	desc.Windowed = window_;
+	desc.OutputWindow = hWnd_;
 	desc.Flags = 0;
 
 
@@ -183,11 +183,11 @@ HRESULT CDevice::CreateSwapChain()
 	IDXGIAdapter* dxgiAdapter = nullptr;
 	IDXGIFactory* dxgiFactory = nullptr;
 
-	m_device->QueryInterface(__uuidof(IDXGIDevice), (void**)&dxgiDevice);
-	dxgiDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&dxgiAdapter);
-	dxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&dxgiFactory);
+	device_->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&dxgiDevice));
+	dxgiDevice->GetParent(__uuidof(IDXGIAdapter), reinterpret_cast<void**>(&dxgiAdapter));
+	dxgiAdapter->GetParent(__uuidof(IDXGIFactory), reinterpret_cast<void**>(&dxgiFactory));
 
-	HR(dxgiFactory->CreateSwapChain(m_device.Get(), &desc, m_swapChain.GetAddressOf()));
+	HR(dxgiFactory->CreateSwapChain(device_.Get(), &desc, swap_chain_.GetAddressOf()));
 
 	dxgiDevice->Release();
 	dxgiAdapter->Release();
@@ -200,15 +200,15 @@ HRESULT CDevice::CreateView()
 {
 	//RTV
 	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
-	m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backBuffer.GetAddressOf());
-	HR(m_device->CreateRenderTargetView(backBuffer.Get(), nullptr, m_RTV.GetAddressOf()));
+	swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf()));
+	HR(device_->CreateRenderTargetView(backBuffer.Get(), nullptr, render_target_view_.GetAddressOf()));
 	
 
 	//DRV
 	D3D11_TEXTURE2D_DESC desc = {};
 
-	desc.Width = static_cast<UINT>(m_resolution.x);
-	desc.Height = static_cast<UINT>(m_resolution.y);
+	desc.Width = static_cast<UINT>(resolution_.x);
+	desc.Height = static_cast<UINT>(resolution_.y);
 
 	desc.MipLevels = 1;
 	desc.ArraySize = 1;
@@ -220,24 +220,24 @@ HRESULT CDevice::CreateView()
 	desc.Usage = D3D11_USAGE_DEFAULT;
 	desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
-	HR(m_device->CreateTexture2D(&desc, 0, m_DSVBuffer.GetAddressOf()));
+	HR(device_->CreateTexture2D(&desc, 0, depth_stencil_buffer_.GetAddressOf()));
 	
-	HR(m_device->CreateDepthStencilView(m_DSVBuffer.Get(), nullptr, m_DSV.GetAddressOf()))
+	HR(device_->CreateDepthStencilView(depth_stencil_buffer_.Get(), nullptr, depth_stencil_view_.GetAddressOf()))
 
-	m_context->OMSetRenderTargets(1, m_RTV.GetAddressOf(), m_DSV.Get());
+	context_->OMSetRenderTargets(1, render_target_view_.GetAddressOf(), depth_stencil_view_.Get());
 
 	return S_OK;
 }
 
 HRESULT CDevice::CreateConstBuffer()
 {
-	for (int i = 0; i < m_constBuffers.size(); ++i)
+	for (int i = 0; i < const_buffers_.size(); ++i)
 	{
-		m_constBuffers[i] = new CConstBuffer;
+		const_buffers_[i] = new CConstBuffer;
 	}
 
 
-	HR(m_constBuffers[(UINT)CB_TYPE::TRANSFORM]->Create(L"Transform", sizeof(Vec4), (UINT)CB_TYPE::TRANSFORM));
+	HR(const_buffers_[static_cast<UINT>(CB_TYPE::TRANSFORM)]->Create(L"Transform", sizeof(Transform), static_cast<UINT>(CB_TYPE::TRANSFORM)));
 
 	return S_OK;
 }
@@ -250,7 +250,7 @@ HRESULT CDevice::CreateSampler()
 	desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 	desc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC;
 
-	HR(DEVICE->CreateSamplerState(&desc, m_samplers[0].GetAddressOf()));
+	HR(DEVICE->CreateSamplerState(&desc, samplers_[0].GetAddressOf()));
 
 
 	desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
@@ -258,10 +258,10 @@ HRESULT CDevice::CreateSampler()
 	desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 	desc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT;
 
-	HR(DEVICE->CreateSamplerState(&desc, m_samplers[1].GetAddressOf()));
+	HR(DEVICE->CreateSamplerState(&desc, samplers_[1].GetAddressOf()));
 
 
-	ID3D11SamplerState* sam[2] = { m_samplers[0].Get(), m_samplers[1].Get() };
+	ID3D11SamplerState* sam[2] = { samplers_[0].Get(), samplers_[1].Get() };
 
 	CONTEXT->VSSetSamplers(0, 2, sam);
 	CONTEXT->HSSetSamplers(0, 2, sam);

@@ -12,10 +12,10 @@ public:
 	void ChangeWindowSize(UINT _x, UINT _y);
 
 public:
-	HWND GetMainHwnd() { return m_hWnd; }
+	HWND GetMainHwnd() { return hWnd_; }
 
 private:
-	HWND m_hWnd;
+	HWND hWnd_;
 
 };
 

@@ -1,16 +1,16 @@
 #include "pch.h"
 #include "CEntity.h"
 
-UINT CEntity::g_NextId = 0;
+UINT CEntity::next_id_ = 0;
 
 CEntity::CEntity()
-	:m_ID(++g_NextId)
+	:id_(++next_id_)
 {
 }
 
 CEntity::CEntity(const CEntity& _other)
-	:m_ID(++g_NextId)
-	,m_name(_other.m_name)
+	:id_(++next_id_)
+	,name_(_other.name_)
 {
 }
 

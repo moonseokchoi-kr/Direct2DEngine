@@ -87,6 +87,18 @@
     <Filter Include="소스 파일\Component\MeshRender">
       <UniqueIdentifier>{cf382a8d-166d-42ed-9124-b07515c268ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Component\Camera">
+      <UniqueIdentifier>{9e0f3d81-4c73-4dd0-beee-fc0a76f866cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\SceneManger">
+      <UniqueIdentifier>{09b45c54-98fb-4c2f-84df-dd54b6f239aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\SceneManger\Scene">
+      <UniqueIdentifier>{320e99c0-03a3-490a-9a5d-4b5919e54f45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\SceneManger\Layer">
+      <UniqueIdentifier>{c846afa6-eca1-48e8-b849-e8f646077da1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -165,6 +177,18 @@
     <ClInclude Include="CTransform.h">
       <Filter>소스 파일\Component\Transform</Filter>
     </ClInclude>
+    <ClInclude Include="CCamera.h">
+      <Filter>소스 파일\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>소스 파일\Manager\SceneManger\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneManager.h">
+      <Filter>소스 파일\Manager\SceneManger</Filter>
+    </ClInclude>
+    <ClInclude Include="CLayer.h">
+      <Filter>소스 파일\Manager\SceneManger\Layer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -230,6 +254,18 @@
     </ClCompile>
     <ClCompile Include="util.cpp">
       <Filter>FILE</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera.cpp">
+      <Filter>소스 파일\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>소스 파일\Manager\SceneManger\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>소스 파일\Manager\SceneManger</Filter>
+    </ClCompile>
+    <ClCompile Include="CLayer.cpp">
+      <Filter>소스 파일\Manager\SceneManger\Layer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

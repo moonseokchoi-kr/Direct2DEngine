@@ -5,11 +5,11 @@ class CPathManager
 {
 	SINGLE(CPathManager);
 private:
-	wchar_t		m_szContentPath[255];
+	wchar_t		content_path_[255];
 	
 public:
 	void Init();
-	const wchar_t* GetContentPath() { return m_szContentPath; }
-	wstring GetRelativePath(const wchar_t* _strFullPath);
+	const wchar_t* GetContentPath() { return content_path_; }
+	wstring GetRelativePath(const wchar_t* strFullPath);
 };
 
