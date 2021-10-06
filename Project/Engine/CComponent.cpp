@@ -2,8 +2,8 @@
 #include "CComponent.h"
 
 CComponent::CComponent(COMPONENT_TYPE _type)
-	:m_type(_type)
-	,m_owner(nullptr)
+	:type_(_type)
+	,owner_(nullptr)
 {
 }
 

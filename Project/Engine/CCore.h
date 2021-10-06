@@ -5,11 +5,11 @@ class CCore
 	SINGLE(CCore);
 
 public:
-	HRESULT Init(HWND _hwnd, UINT _x, UINT _y);
+	HRESULT Init(HWND hWnd, UINT x, UINT y);
 
 	void Progress();
 public:
-	void ChangeWindowSize(UINT _x, UINT _y);
+	void ChangeWindowSize(UINT x, UINT y);
 
 public:
 	HWND GetMainHwnd() { return hWnd_; }

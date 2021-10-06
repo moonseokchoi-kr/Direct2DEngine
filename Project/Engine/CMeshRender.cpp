@@ -36,3 +36,7 @@ void CMeshRender::Render()
 
 	mesh_->Render();
 }
+
+void CMeshRender::FinalUpdate()
+{
+}

@@ -13,9 +13,9 @@ public:
     CMeshRender();
     ~CMeshRender();
 public:
-    virtual void Render();
-
-    virtual void UpdateData(){}
+    void Render() override;
+    void FinalUpdate() override;
+    virtual void UpdateData() {};
 
 public:
     void SetTexture(CTexture* tex) { texture_ = tex; }

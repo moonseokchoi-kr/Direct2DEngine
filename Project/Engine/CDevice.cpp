@@ -20,7 +20,7 @@ HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 	resolution_ = resoultion;
 
 	adapter_ = GrapicsAdapterUtil::EnumratesAdapters(L"NVIDIA GeForce GTX 1660 Ti");
-	GrapicsAdapterUtil::EnumratesOutputs(adapter_);
+	//GrapicsAdapterUtil::EnumratesOutputs(adapter_);
 	UINT deviceFlag = 0;
 #ifdef _DEBUG
 	deviceFlag = D3D11_CREATE_DEVICE_DEBUG;

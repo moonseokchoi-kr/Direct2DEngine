@@ -8,8 +8,8 @@ class CSceneManager :
 {
     SINGLE(CSceneManager);
 public:
-    HRESULT Init();
-    HRESULT Progress();
+	void Init();
+    void Progress();
 private:
     CScene* current_scene_;
 };

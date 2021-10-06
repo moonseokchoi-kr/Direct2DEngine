@@ -3,7 +3,9 @@
 
 cbuffer OFFSET : register(b0)
 {
-    float4 Offset;
+    row_major float4x4 worldMatrix;
+    row_major float4x4 viewMatrix;
+    row_major float4x4 projectionMatrix;
 };
 
 
@@ -30,10 +32,9 @@ struct VTX_OUT
 VTX_OUT VS_std(VTX_IN _in)
 {
     VTX_OUT output = (VTX_OUT) 0.f;
+    float4 worldPos = mul(float4(_in.pos, 1.f), worldMatrix);
+    output.pos = mul(worldPos, viewMatrix);
     
-    float3 pos = _in.pos + Offset.xyz;
-    
-    output.pos = float4(pos, 1.f);
     output.color = _in.color;
     output.uv = _in.uv;
     return output;

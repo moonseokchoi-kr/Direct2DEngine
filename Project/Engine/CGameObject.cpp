@@ -22,6 +22,24 @@ void CGameObject::Update()
 	} 
 }
 
+void CGameObject::LateUpdate()
+{
+	for (size_t i = 0; i < components_.size(); ++i)
+	{
+		if (nullptr != components_[i])
+			components_[i]->LateUpdate();
+	}
+}
+
+void CGameObject::FinalUpdate()
+{
+	for (size_t i = 0; i < components_.size(); ++i)
+	{
+		if (nullptr != components_[i])
+			components_[i]->FinalUpdate();
+	}
+}
+
 void CGameObject::Render()
 {
 	if (nullptr == MeshRender())
@@ -31,9 +49,9 @@ void CGameObject::Render()
 
 void CGameObject::AddComponent(CComponent* comp)
 {
-	UINT type = ENUM_TO_NUMBER(comp->GetType());
+	const UINT type = ENUM_TO_NUMBER(comp->GetType());
 	assert(!components_[type]);
-	comp->m_owner = this;
+	comp->owner_ = this;
 	components_[type] = comp;
 	
 }

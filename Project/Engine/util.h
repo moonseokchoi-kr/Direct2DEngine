@@ -26,7 +26,7 @@
 #endif
 
 #define ReleaseCOM(x) {if(x){x->Release(); x=0;}}
-#define SafeDelete(x) {delete x; x=0;}
+#define SafeDelete(x) {if(x){delete x; x=0;}}
 
 
 class GrapicsAdapterUtil

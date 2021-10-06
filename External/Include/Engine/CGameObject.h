@@ -1,8 +1,11 @@
 #pragma once
 #include "CEntity.h"
+
 class CComponent;
 class CMeshRender;
 class CTransform;
+class CCamera;
+
 
 class CGameObject :
     public CEntity
@@ -12,8 +15,10 @@ public:
     virtual ~CGameObject();
 
 public:
-    virtual void Update();
-    virtual void Render();
+    void Update();
+    void LateUpdate();
+    void FinalUpdate();
+    void Render();
 
     virtual void UpdateData() {}
 
@@ -23,6 +28,7 @@ public:
 
     GET_COMPONENT(Transform, COMPONENT_TYPE::TRANSFORM);
     GET_COMPONENT(MeshRender, COMPONENT_TYPE::MESHRENDER);
+    GET_COMPONENT(Camera, COMPONENT_TYPE::CAMERA);
 
 private:
     array<CComponent*, static_cast<UINT>(COMPONENT_TYPE::END)> components_;

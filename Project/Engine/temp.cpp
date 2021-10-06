@@ -22,12 +22,7 @@ CGameObject* g_obj = nullptr;
 
 void init()
 {
-	g_obj = new CGameObject;
-	g_obj->AddComponent(new CTransform);
-	g_obj->AddComponent(new CMeshRender);
-	g_obj->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	g_obj->MeshRender()->SetTexture(CResourceManager::GetInst()->FindRes<CTexture>(L"Background"));
-	g_obj->MeshRender()->SetShader(CResourceManager::GetInst()->FindRes<CShader>(L"std2DShader"));
+
 }
 
 
@@ -35,25 +30,11 @@ void Update()
 {
 
 
-	if (KEY_HOLD(KEY::ALT))
-	{
-		if (KEY_HOLD(KEY::ENTER))
-		{
-			if (CDevice::GetInst()->IsWindow())
-				CDevice::GetInst()->OnReSize(Vec2(1920, 1080));
-			else
-				CDevice::GetInst()->OnReSize(Vec2(1600, 900));
-		}
-	}
 	g_obj->Update();
 
 }
 
 void Render()
 {
-	CDevice::GetInst()->ClearTarget();
 
-	g_obj->Render();
-	
-	CDevice::GetInst()->Present();
 }

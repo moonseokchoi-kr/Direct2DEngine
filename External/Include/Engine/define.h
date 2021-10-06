@@ -24,7 +24,7 @@
 
 #define GET_COMPONENT(ComponentName, EnumName) C##ComponentName* ComponentName(){return (C##ComponentName*)components_[(UINT)(EnumName)];}
 
-
+#define MAX_LAYER 32
 typedef Vector2 Vec2;
 typedef Vector3 Vec3;
 typedef Vector4 Vec4;

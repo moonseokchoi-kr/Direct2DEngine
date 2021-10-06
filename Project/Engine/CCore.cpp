@@ -5,6 +5,7 @@
 #include "CPathManager.h"
 #include "CResourceManager.h"
 #include "CDevice.h"
+#include "CSceneManager.h"
 
 #include "temp.h"
 
@@ -18,12 +19,12 @@ CCore::~CCore()
 {
 }
 
-HRESULT CCore::Init(HWND _hwnd, UINT _x, UINT _y)
+HRESULT CCore::Init(HWND hWnd, UINT x, UINT y)
 {
-    hWnd_ = _hwnd;
-    ChangeWindowSize(_x, _y);
+    hWnd_ = hWnd;
+    ChangeWindowSize(x, y);
 
-    if (FAILED(CDevice::GetInst()->Init(hWnd_, Vec2((float)_x, (float)_y))))
+    if (FAILED(CDevice::GetInst()->Init(hWnd_, Vec2(static_cast<float>(x), static_cast<float>(y)))))
     {
         return E_FAIL;
     }
@@ -32,7 +33,7 @@ HRESULT CCore::Init(HWND _hwnd, UINT _x, UINT _y)
     CPathManager::GetInst()->Init();
     CKeyManager::GetInst()->Init();
     CResourceManager::GetInst()->Init();
-    init();
+    CSceneManager::GetInst()->Init();
     return S_OK;
 }
 
@@ -40,13 +41,12 @@ void CCore::Progress()
 {
     CTimeManager::GetInst()->Update();
     CKeyManager::GetInst()->Update();
-    Update();
-    Render();
+    CSceneManager::GetInst()->Progress();
 }
 
-void CCore::ChangeWindowSize(UINT _x, UINT _y)
+void CCore::ChangeWindowSize(UINT x, UINT y)
 {
-    RECT rt = { 0,0,(LONG)_x,(LONG)_y };
+    RECT rt = { 0,0,static_cast<LONG>(x),static_cast<LONG>(y) };
     AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
 
     SetWindowPos(hWnd_, nullptr, 0, 0, rt.right - rt.left, rt.bottom - rt.top, 0);
