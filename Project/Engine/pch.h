@@ -66,9 +66,8 @@ using namespace DirectX::PackedVector;
 #include "SimpleMath.h"
 using namespace SimpleMath;
 #include "define.h"
-
-#include "func.h"
 #include "struct.h"
+#include "func.h"
 #include "util.h"
 #include "extern.h"
 

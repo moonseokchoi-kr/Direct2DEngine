@@ -7,8 +7,6 @@
 #include "CDevice.h"
 #include "CSceneManager.h"
 
-#include "temp.h"
-
 CCore::CCore()
     :hWnd_(nullptr)
 {

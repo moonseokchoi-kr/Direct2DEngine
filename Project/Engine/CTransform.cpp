@@ -66,6 +66,6 @@ void CTransform::UpdateData()
 	g_transform.world_matrix = world_matrix_;
 	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
 	cb->SetData(&g_transform, sizeof(Transform));
-	cb->SetPipelineState(PS_VERTEX);
+	cb->SetPipelineStage(PS_VERTEX);
 	cb->UpdateData();
 }

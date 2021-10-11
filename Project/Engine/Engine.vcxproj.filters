@@ -99,6 +99,9 @@
     <Filter Include="소스 파일\Manager\SceneManger\Layer">
       <UniqueIdentifier>{c846afa6-eca1-48e8-b849-e8f646077da1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Resource\Material">
+      <UniqueIdentifier>{6d7557cf-6da5-4f62-843f-f461c815d052}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -106,9 +109,6 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>defalut\pch</Filter>
-    </ClInclude>
-    <ClInclude Include="temp.h">
-      <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="singleton.h">
       <Filter>소스 파일\Module\single</Filter>
@@ -189,13 +189,14 @@
     <ClInclude Include="CLayer.h">
       <Filter>소스 파일\Manager\SceneManger\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="CMaterial.h">
+      <Filter>소스 파일\Resource\Material</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>defalut\pch</Filter>
-    </ClCompile>
-    <ClCompile Include="temp.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="CKeyManager.cpp">
       <Filter>소스 파일\Manager\Key</Filter>
@@ -267,10 +268,18 @@
     <ClCompile Include="CLayer.cpp">
       <Filter>소스 파일\Manager\SceneManger\Layer</Filter>
     </ClCompile>
+    <ClCompile Include="CMaterial.cpp">
+      <Filter>소스 파일\Resource\Material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="std2d.fx">
       <Filter>소스 파일\Shader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Engine.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

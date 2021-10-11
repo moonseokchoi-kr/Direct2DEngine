@@ -1,13 +1,13 @@
 #pragma once
 
 
-#if defined(_DEBUG)
+#ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #endif
 
 ///d3d error checker
 /// 
-#if defined(_DEBUG)
+#ifdef _DEBUG
 	#ifndef HR
 	#define HR(x)											\
 	{														\

@@ -2,6 +2,7 @@
 #include "CComponent.h"
 
 
+class CMaterial;
 class CTexture;
 class CMesh;
 class CShader;
@@ -15,15 +16,16 @@ public:
 public:
     void Render() override;
     void FinalUpdate() override;
-    virtual void UpdateData() {};
-
+    void UpdateData() override {};
 public:
-    void SetTexture(CTexture* tex) { texture_ = tex; }
-    void SetShader(CShader* shader) { shader_ = shader; }
+    CMaterial* GetMaterial() { return material_; }
+    CMesh* GetMesh() { return mesh_; }
+	
+public:
+    void SetMaterial(CMaterial* material) { material_ = material; }
     void SetMesh(CMesh* mesh) { mesh_ = mesh; }
 private:
-    CTexture* texture_;
+    CMaterial* material_;
     CMesh* mesh_;
-    CShader* shader_;
 };
 

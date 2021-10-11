@@ -12,7 +12,7 @@ public:
     
     HRESULT Create(const wstring& _strName, UINT _bufferSize, UINT _registerNumber);
     void SetData(void* _data, UINT _size);
-    void SetPipelineState(UINT _pipelineState) { pipeline_state_ = _pipelineState; }
+    void SetPipelineStage(UINT _pipelineState) { pipeline_state_ = _pipelineState; }
 
 private:
     ComPtr<ID3D11Buffer> const_buffer_;

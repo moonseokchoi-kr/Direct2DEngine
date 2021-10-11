@@ -1,10 +1,12 @@
 #pragma once
-#include "singleton.h"
+#include "CMesh.h"
 
 class CResource;
 class CMesh;
 class CShader;
 class CTexture;
+class CMaterial;
+
 class CResourceManager :
     public CSingleton<CResourceManager>
 {
@@ -12,64 +14,70 @@ class CResourceManager :
 
 public:
     void Init();
+
+public:
+    template <typename T>
+	void AddResource(const wstring& key, T* res);
+
+	template <typename T>
+	T* FindRes(const wstring& key);
+
+
 private:
 	void CreateDefaultMesh();
 	void CreateDefaultShader();
 	void CreateDefaultTexture();
 	void CreateDefaultMaterial();
-public:
-    template <typename T>
-	void AddRes(const wstring& key, T* res);
-	template <typename T>
-	T* FindRes(const wstring& key);
-private:
-	template<typename T>
-	RES_TYPE FindResType(const wstring& key);
 private:
     array<unordered_map<wstring, CResource*>,static_cast<UINT>(RES_TYPE::END)> resources_;
 
 };
 
-template<typename T>
-inline void CResourceManager::AddRes(const wstring& key, T* res)
+template<typename  T>
+RES_TYPE GetResourceType()
 {
-	RES_TYPE _type = FindResType<T>(key);
+	const type_info& info = typeid(T);
 
-	resources_[static_cast<UINT>(_type)].insert(make_pair(key, res));
-}
-
-template<typename T>
-inline T* CResourceManager::FindRes(const wstring& key)
-{
-	RES_TYPE _type = FindResType<T>(key);
-
-	unordered_map<wstring, CResource*>::iterator iter = resources_[static_cast<UINT>(_type)].find(key);
-
-	if (resources_[static_cast<UINT>(_type)].end() == iter)
-	{
-		return nullptr;
-	}
-
-	return static_cast<T*>(iter->second);
-}
-
-template<typename T>
-inline RES_TYPE CResourceManager::FindResType(const wstring& key)
-{
-	const type_info& t = typeid(T);
 	RES_TYPE type = RES_TYPE::END;
-	if (t.hash_code() == typeid(CMesh).hash_code())
+
+	if (info.hash_code() == typeid(CMesh).hash_code())
 	{
 		type = RES_TYPE::MESH;
 	}
-	if (t.hash_code() == typeid(CShader).hash_code())
+	if (info.hash_code() == typeid(CShader).hash_code())
 	{
 		type = RES_TYPE::SHADER;
 	}
-	if (t.hash_code() == typeid(CTexture).hash_code())
+	if (info.hash_code() == typeid(CTexture).hash_code())
 	{
 		type = RES_TYPE::TEXTURE;
 	}
-
+	if (info.hash_code() == typeid(CMaterial).hash_code())
+	{
+		type = RES_TYPE::MATERIAL;
+	}
 	return type;
 }
+
+
+template <typename T>
+inline void CResourceManager::AddResource(const wstring& key, T* res)
+{
+	RES_TYPE type = GetResourceType<T>();
+	resources_[static_cast<UINT>(type)].insert(make_pair(key,res));
+}
+
+template <typename T>
+inline T* CResourceManager::FindRes(const wstring& key)
+{
+	RES_TYPE type = GetResourceType<T>();
+	unordered_map<wstring, CResource*>::iterator iterator = resources_[static_cast<UINT>(type)].find(key);
+
+	if(iterator == resources_[static_cast<UINT>(type)].end())
+	{
+		return nullptr;
+	}
+	return (T*)iterator->second;
+}
+
+

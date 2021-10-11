@@ -14,7 +14,8 @@ public:
 public:
 	ID3D11Device* GetDevice() { return device_.Get(); }
 	ID3D11DeviceContext* GetContext() { return context_.Get(); }
-	float GetAspectRatio() { return static_cast<float>(resolution_.x) / resolution_.y; }
+	float GetAspectRatio() { return resolution_.x / resolution_.y; }
+	Vec2 GetResolution() { return resolution_; }
 	CConstBuffer* GetConstBuffer(CB_TYPE type) { return const_buffers_[static_cast<UINT>(type)]; }
 
 

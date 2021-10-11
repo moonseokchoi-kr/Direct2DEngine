@@ -19,8 +19,6 @@ HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 	hWnd_ = mainHWnd;
 	resolution_ = resoultion;
 
-	adapter_ = GrapicsAdapterUtil::EnumratesAdapters(L"NVIDIA GeForce GTX 1660 Ti");
-	//GrapicsAdapterUtil::EnumratesOutputs(adapter_);
 	UINT deviceFlag = 0;
 #ifdef _DEBUG
 	deviceFlag = D3D11_CREATE_DEVICE_DEBUG;
@@ -238,6 +236,7 @@ HRESULT CDevice::CreateConstBuffer()
 
 
 	HR(const_buffers_[static_cast<UINT>(CB_TYPE::TRANSFORM)]->Create(L"Transform", sizeof(Transform), static_cast<UINT>(CB_TYPE::TRANSFORM)));
+	HR(const_buffers_[static_cast<UINT>(CB_TYPE::MATERIAL_CONST)]->Create(L"Material", sizeof(MaterialParameter), static_cast<UINT>(CB_TYPE::MATERIAL_CONST)));
 
 	return S_OK;
 }

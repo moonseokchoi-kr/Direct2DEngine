@@ -12,7 +12,6 @@
 // 전역 변수:
 HINSTANCE hInst = nullptr;                                // 현재 인스턴스입니다.
 HWND g_hwnd = nullptr;
-
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -24,12 +23,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-
+    //_CrtSetBreakAlloc();
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    // 전역 문자열을 초기화합니다.
+	// 전역 문자열을 초기화합니다.
     MyRegisterClass(hInstance);
-
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
     {
@@ -66,8 +64,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 
     }
+    _CrtDumpMemoryLeaks();
 
-    return (int) msg.wParam;
+    return static_cast<int>(msg.wParam);
 }
 
 

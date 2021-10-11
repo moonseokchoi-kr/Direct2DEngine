@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CScene.cpp"
+
+
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CSceneManager.cpp"
 
 
@@ -19,7 +22,4 @@
 
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\func.cpp"
-
-
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\temp.cpp"
 

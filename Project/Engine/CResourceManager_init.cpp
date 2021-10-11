@@ -1,4 +1,6 @@
 #include "pch.h"
+
+#include "CMaterial.h"
 #include "CResourceManager.h"
 #include "CMesh.h"
 #include "CShader.h"
@@ -26,22 +28,22 @@ void CResourceManager::CreateDefaultMesh()
 	// Rect Mesh
 	// =========
 	// 
-	v.pos = Vec3(-0.5f, 0.5f, 0.5f);
+	v.pos = Vec3(-0.5f, 0.5f, 0);
 	v.color = Vec4(1.f, 0.f, 0.f, 1.f);
 	v.uv = Vec2(0, 0);
 	vtx.push_back(v);
 
-	v.pos = Vec3(0.5f, 0.5f, 0.5f);
+	v.pos = Vec3(0.5f, 0.5f, 0);
 	v.color = Vec4(0.f, 1.f, 0.f, 1.f);
 	v.uv = Vec2(1, 0);
 	vtx.push_back(v);
 
-	v.pos = Vec3(0.5f, -0.5f, 0.5f);
+	v.pos = Vec3(0.5f, -0.5f, 0);
 	v.color = Vec4(0.f, 0.f, 1.f, 1.f);
 	v.uv = Vec2(1, 1);
 	vtx.push_back(v);
 
-	v.pos = Vec3(-0.5f, -0.5f, 0.5f);
+	v.pos = Vec3(-0.5f, -0.5f, 0);
 	v.color = Vec4(1.f, 0.f, 1.f, 1.f);
 	v.uv = Vec2(0, 1);
 	vtx.push_back(v);
@@ -55,7 +57,7 @@ void CResourceManager::CreateDefaultMesh()
 
 	mesh = new CMesh;
 	mesh->Create(vtx.data(), (UINT)vtx.size(), idx.data(), (UINT)idx.size());
-	AddRes(L"RectMesh", mesh);
+	AddResource(L"RectMesh", mesh);
 
 	vtx.clear();
 	idx.clear();
@@ -71,7 +73,7 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->CreateVtxShader(strPath, "VS_std");
 	stdShader->CreatePxlShader(strPath, "PS_std");
 
-	AddRes(L"std2DShader", stdShader);
+	AddResource(L"std2DShader", stdShader);
 
 }
 
@@ -84,9 +86,16 @@ void CResourceManager::CreateDefaultTexture()
 	tex = new CTexture;
 	tex->Load(strPath);
 	
-	AddRes(L"Background", tex);
+	AddResource(L"Background", tex);
 }
 
 void CResourceManager::CreateDefaultMaterial()
 {
+	CMaterial* material = nullptr;
+
+	material = new CMaterial;
+
+	material->SetShader(CResourceManager::GetInst()->FindRes<CShader>(L"std2DShader"));
+
+	AddResource(L"std2DMaterial", material);
 }

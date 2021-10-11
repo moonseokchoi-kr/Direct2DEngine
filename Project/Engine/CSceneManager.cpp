@@ -3,6 +3,7 @@
 
 #include "CCamera.h"
 #include "CGameObject.h"
+#include "CMaterial.h"
 #include "CMeshRender.h"
 #include "CResourceManager.h"
 #include "CScene.h"
@@ -35,10 +36,16 @@ void CSceneManager::Init()
 	const auto object = new CGameObject;
 	object->AddComponent(new CTransform);
 	object->AddComponent(new CMeshRender);
-	object->Transform()->SetPos(Vec3(0.f, 0.f, 0.f));
+	object->Transform()->SetPos(Vec3(0.f, 0.f, 500.f));
+	object->Transform()->SetScale(Vec3(1.f, 1.f, 1.f) * 100);
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	object->MeshRender()->SetTexture(CResourceManager::GetInst()->FindRes<CTexture>(L"Background"));
-	object->MeshRender()->SetShader(CResourceManager::GetInst()->FindRes<CShader>(L"std2DShader"));
+	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
+
+	CMaterial* material = object->MeshRender()->GetMaterial();
+	int a = 0;
+
+	material->SetData(SHADER_PARAM::INT_3, &a);
+	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"Background"));
 
 	current_scene_->AddGameObject(object, 0);
 

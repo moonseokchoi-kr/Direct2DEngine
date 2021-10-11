@@ -30,7 +30,7 @@ typedef Vector3 Vec3;
 typedef Vector4 Vec4;
 
 
-enum PIPELINE_STATE
+enum PIPELINE_STAGE
 {
 	PS_VERTEX = 0x01,
 	PS_HULL = 0x02,
@@ -47,6 +47,7 @@ enum PIPELINE_STATE
 enum class CB_TYPE
 {
 	TRANSFORM,
+	MATERIAL_CONST,
 	END,
 };
 
@@ -78,5 +79,52 @@ enum class COMPONENT_TYPE
 	SKYBOX,
 	SCRIPT,
 	SOUND,
+	END,
+};
+
+enum class PROJECTION_TYPE
+{
+	PERSPECTIVE,
+	ORTHO,
+	END
+};
+
+enum class SHADER_PARAM
+{
+	INT_0,
+	INT_1,
+	INT_2,
+	INT_3,
+
+	FLOAT_0,
+	FLOAT_1,
+	FLOAT_2,
+	FLOAT_3,
+
+	VEC2_0,
+	VEC2_1,
+	VEC2_2,
+	VEC2_3,
+
+	VEC4_0,
+	VEC4_1,
+	VEC4_2,
+	VEC4_3,
+
+	MAT_0,
+	MAT_1,
+	MAT_2,
+	MAT_3,
+
+	TEX_0,
+	TEX_1,
+	TEX_2,
+	TEX_3,
+	TEX_ARR_0,
+	TEX_ARR_1,
+	TEX_CUBE_0,
+	TEX_CUBE_1,
+	TEX_END,
+
 	END,
 };
