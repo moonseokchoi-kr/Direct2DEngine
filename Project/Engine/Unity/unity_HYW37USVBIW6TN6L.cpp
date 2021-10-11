@@ -23,3 +23,6 @@
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CKeyManager.cpp"
 
+
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CLayer.cpp"
+

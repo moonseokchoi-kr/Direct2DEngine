@@ -5,6 +5,7 @@
 #include "CGameObject.h"
 #include "CMaterial.h"
 #include "CMeshRender.h"
+#include "CPlayerScript.h"
 #include "CResourceManager.h"
 #include "CScene.h"
 #include "CTransform.h"
@@ -36,6 +37,7 @@ void CSceneManager::Init()
 	const auto object = new CGameObject;
 	object->AddComponent(new CTransform);
 	object->AddComponent(new CMeshRender);
+	object->AddComponent(new CPlayerScript);
 	object->Transform()->SetPos(Vec3(0.f, 0.f, 500.f));
 	object->Transform()->SetScale(Vec3(1.f, 1.f, 1.f) * 100);
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));

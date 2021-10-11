@@ -102,6 +102,18 @@
     <Filter Include="소스 파일\Resource\Material">
       <UniqueIdentifier>{6d7557cf-6da5-4f62-843f-f461c815d052}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Component\Script">
+      <UniqueIdentifier>{b108d774-af85-42a0-b242-2e6b76652b87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scripts">
+      <UniqueIdentifier>{343b89ab-ca6f-4e13-bc9e-0677b8263ffa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scripts\PlayerScript">
+      <UniqueIdentifier>{21d13f8f-a823-475b-9168-6e2e36e78124}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scripts\CameraScirpt">
+      <UniqueIdentifier>{013b7eb5-a917-406c-b4b0-e87928609448}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -193,6 +205,12 @@
     <ClInclude Include="CMaterial.h">
       <Filter>소스 파일\Resource\Material</Filter>
     </ClInclude>
+    <ClInclude Include="CScript.h">
+      <Filter>소스 파일\Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>소스 파일\Scripts\PlayerScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -270,6 +288,12 @@
     </ClCompile>
     <ClCompile Include="CMaterial.cpp">
       <Filter>소스 파일\Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="CScript.cpp">
+      <Filter>소스 파일\Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>소스 파일\Scripts\PlayerScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

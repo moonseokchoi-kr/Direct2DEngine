@@ -8,7 +8,6 @@ public:
     ~CTransform();
 
 public:
-    void Update() override;
     void FinalUpdate() override;
     virtual void UpdateData();
 public:
