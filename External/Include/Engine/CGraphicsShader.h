@@ -9,27 +9,27 @@ public:
 	~CGraphicsShader();
 
 public:
-	void SetTopology(D3D11_PRIMITIVE_TOPOLOGY _topology) { m_topology = _topology; }
+	void SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology) { topology_ = topology; }
 
-	HRESULT CreateVertexShader(const wstring& _strFilePath, const char* _funcName);
-	HRESULT CreatePixelShader(const wstring& _strFilePath, const char* _funcName);
+	HRESULT CreateVertexShader(const wstring& strFilePath, const char* functionName);
+	HRESULT CreatePixelShader(const wstring& strFilePath, const char* functionName);
 
 	virtual void UpdateData();
 private:
-	ComPtr<ID3D10Blob> m_vsBlob;
-	ComPtr<ID3D10Blob> m_hsBlob;
-	ComPtr<ID3D10Blob> m_dsBlob;
-	ComPtr<ID3D10Blob> m_gsBlob;
-	ComPtr<ID3D10Blob> m_psBlob;
+	ComPtr<ID3D10Blob> vertex_shader_blob_;
+	ComPtr<ID3D10Blob> hull_shader_blob_;
+	ComPtr<ID3D10Blob> domain_shader_blob_;
+	ComPtr<ID3D10Blob> geometry_shader_blob_;
+	ComPtr<ID3D10Blob> pixel_shader_blob_;
 
-	ComPtr<ID3D11VertexShader> m_vtxShader;
-	ComPtr<ID3D11HullShader> m_hullShader;
-	ComPtr<ID3D11DomainShader> m_domainShader;
-	ComPtr<ID3D11GeometryShader> m_geoShader;
-	ComPtr<ID3D11PixelShader> m_pxlShader;
+	ComPtr<ID3D11VertexShader> vertex_shader_;
+	ComPtr<ID3D11HullShader> hull_shader_;
+	ComPtr<ID3D11DomainShader> domain_shader_;
+	ComPtr<ID3D11GeometryShader> geometry_shader_;
+	ComPtr<ID3D11PixelShader> pixel_shader_;
 
-	ComPtr<ID3D11InputLayout> m_layout;
+	ComPtr<ID3D11InputLayout> layout_;
 
-	D3D11_PRIMITIVE_TOPOLOGY m_topology;
+	D3D11_PRIMITIVE_TOPOLOGY topology_;
 };
 

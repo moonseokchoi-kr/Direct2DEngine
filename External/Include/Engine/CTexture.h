@@ -16,25 +16,25 @@ public:
     ~CTexture();
 
 public:
-    HRESULT Load(const wstring& _strFilePath);
+    HRESULT Load(const wstring& strFilePath);
 
     // CResource을(를) 통해 상속됨
     virtual void UpdateData() override;
 
 public:
-    void SetPipelineStage(UINT _pipelineStage, UINT _registerNum)
+    void SetPipelineStage(UINT pipelineStage, UINT registerNum)
     {
-        m_piplineStage = _pipelineStage;
-        m_registerNum = _registerNum;
+        pipline_stage_ = pipelineStage;
+        register_number_ = registerNum;
     }
 private:
-    ScratchImage m_image;
-    ComPtr<ID3D11Texture2D> m_tex2D;
-    ComPtr<ID3D11ShaderResourceView> m_SRV;
-    D3D11_TEXTURE2D_DESC m_desc;
+    ScratchImage image_;
+    ComPtr<ID3D11Texture2D> texure_2D_;
+    ComPtr<ID3D11ShaderResourceView> shader_resource_view_;
+    D3D11_TEXTURE2D_DESC texture_desc_;
     
-    UINT m_piplineStage;
-    UINT m_registerNum;
+    UINT pipline_stage_;
+    UINT register_number_;
 
 };
 

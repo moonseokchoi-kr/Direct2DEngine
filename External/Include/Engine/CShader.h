@@ -9,7 +9,7 @@ public:
     ~CShader();
 protected:
     
-    ComPtr<ID3D10Blob> m_errBlob;
+    ComPtr<ID3D10Blob> error_blob_;
 
 
     

@@ -40,7 +40,7 @@ void CSceneManager::Init()
 	object->AddComponent(new CPlayerScript);
 	object->Transform()->SetPos(Vec3(0.f, 0.f, 300.f));
 	object->Transform()->SetScale(Vec3(1.f, 1.f, 1.f) * 100);
-	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"CircleMesh"));
 	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 
 	Ptr<CMaterial> material = object->MeshRender()->GetMaterial();

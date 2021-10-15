@@ -19,48 +19,93 @@ void CResourceManager::Init()
 void CResourceManager::CreateDefaultMesh()
 {
 	CMesh* mesh = nullptr;
-	vector<VTX> vtx;
-	vector<UINT> idx;
+	vector<VTX> vertexBuffer;
+	vector<UINT> indexBuffer;
 
-	VTX v;
+	VTX vertex;
 	//
 	// =========
 	// Rect Mesh
 	// =========
 	// 
-	v.pos = Vec3(-0.5f, 0.5f, 0);
-	v.color = Vec4(1.f, 0.f, 0.f, 1.f);
-	v.uv = Vec2(0, 0);
-	vtx.push_back(v);
+	vertex.pos = Vec3(-0.5f, 0.5f, 0);
+	vertex.color = Vec4(1.f, 0.f, 0.f, 1.f);
+	vertex.uv = Vec2(0, 0);
+	vertexBuffer.push_back(vertex);
 
-	v.pos = Vec3(0.5f, 0.5f, 0);
-	v.color = Vec4(0.f, 1.f, 0.f, 1.f);
-	v.uv = Vec2(1, 0);
-	vtx.push_back(v);
+	vertex.pos = Vec3(0.5f, 0.5f, 0);
+	vertex.color = Vec4(0.f, 1.f, 0.f, 1.f);
+	vertex.uv = Vec2(1, 0);
+	vertexBuffer.push_back(vertex);
 
-	v.pos = Vec3(0.5f, -0.5f, 0);
-	v.color = Vec4(0.f, 0.f, 1.f, 1.f);
-	v.uv = Vec2(1, 1);
-	vtx.push_back(v);
+	vertex.pos = Vec3(0.5f, -0.5f, 0);
+	vertex.color = Vec4(0.f, 0.f, 1.f, 1.f);
+	vertex.uv = Vec2(1, 1);
+	vertexBuffer.push_back(vertex);
 
-	v.pos = Vec3(-0.5f, -0.5f, 0);
-	v.color = Vec4(1.f, 0.f, 1.f, 1.f);
-	v.uv = Vec2(0, 1);
-	vtx.push_back(v);
+	vertex.pos = Vec3(-0.5f, -0.5f, 0);
+	vertex.color = Vec4(1.f, 0.f, 1.f, 1.f);
+	vertex.uv = Vec2(0, 1);
+	vertexBuffer.push_back(vertex);
 
-	idx.push_back(0);
-	idx.push_back(1);
-	idx.push_back(2);
-	idx.push_back(0);
-	idx.push_back(2);
-	idx.push_back(3);
+	indexBuffer.push_back(0);
+	indexBuffer.push_back(1);
+	indexBuffer.push_back(2);
+	indexBuffer.push_back(0);
+	indexBuffer.push_back(2);
+	indexBuffer.push_back(3);
 
 	mesh = new CMesh;
-	mesh->Create(vtx.data(), (UINT)vtx.size(), idx.data(), (UINT)idx.size());
+	mesh->Create(vertexBuffer.data(), (UINT)vertexBuffer.size(), indexBuffer.data(), (UINT)indexBuffer.size());
 	AddResource(L"RectMesh", mesh);
 
-	vtx.clear();
-	idx.clear();
+	vertexBuffer.clear();
+	indexBuffer.clear();
+
+
+	//
+	// ===========
+	// Circle Mesh
+	// ===========
+	//
+	//원의 중점
+	vertex.pos = Vec3(0.f, 0.f, 0.f);
+	vertex.uv = Vec2(0.5f, 0.5f);
+	vertex.color = Vec4(1.0f, 0.f, 1.0f,1.0f);
+
+	vertexBuffer.push_back(vertex);
+
+	//원의 테두리 정점
+	UINT sliceCount = 80;
+	float radius = 0.5f;
+	float angle = XM_2PI / (float)sliceCount;
+
+	float theta = 0;
+	for (UINT i = 0; i < sliceCount+1; ++i)
+	{
+		vertex.pos = Vec3(radius * cosf(theta), radius * sinf(theta), 0.f);
+		vertex.uv = Vec2(vertex.pos.x / (2.f * radius) + 0.5f, 0.5f - vertex.pos.y / (2.f * radius));
+		vertex.color = Vec4(1.0f, 0.f, 1.0f, 1.0f);
+
+		vertexBuffer.push_back(vertex);
+
+		theta += angle;
+	}
+
+	for (UINT i = 0; i < sliceCount; ++i)
+	{
+		indexBuffer.push_back(0);
+		indexBuffer.push_back(i + 2);
+		indexBuffer.push_back(i + 1);
+	}
+
+	mesh = new CMesh;
+	mesh->Create(vertexBuffer.data(), (UINT)vertexBuffer.size(), indexBuffer.data(), (UINT)indexBuffer.size());
+	AddResource(L"CircleMesh", mesh);
+	
+	vertexBuffer.clear();
+	indexBuffer.clear();
+
 }
 
 void CResourceManager::CreateDefaultShader()

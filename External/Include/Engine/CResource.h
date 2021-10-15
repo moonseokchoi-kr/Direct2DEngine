@@ -18,18 +18,18 @@ public:
     CResource();
     virtual ~CResource();
 public:
-    void SetKey(const wstring& _key) { m_key = _key; }
-    const wstring& GetKey() { return m_key; }
+    void SetKey(const wstring& key) { key_ = key; }
+    const wstring& GetKey() { return key_; }
 
-    void SetRelativePath(const wstring& _path) { m_relativePath = _path; }
-    const wstring& GetRelativePath() { return m_relativePath; }
+    void SetRelativePath(const wstring& path) { relative_path_ = path; }
+    const wstring& GetRelativePath() { return relative_path_; }
 private:
-    void IncreaseReferenceCount() { ++m_refCount; }
-    void DecreaseReferenceCount() { --m_refCount; }
+    void IncreaseReferenceCount() { ++reference_count_; }
+    void DecreaseReferenceCount() { --reference_count_; }
 private:
-    wstring m_key;
-    wstring m_relativePath;
-    UINT m_refCount;
+    wstring key_;
+    wstring relative_path_;
+    UINT reference_count_;
 
     template<typename T>
     friend class Ptr;
