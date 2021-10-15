@@ -22,7 +22,7 @@ public:
 
 private:
 	MaterialParameter data_;
-	array<Ptr<CTexture>, static_cast<UINT>(SHADER_PARAM::TEX_END) - static_cast<UINT>(SHADER_PARAM::TEX_0)> texture_;
+	array<Ptr<CTexture>, static_cast<UINT>(SHADER_PARAM::TEX_END) - static_cast<UINT>(SHADER_PARAM::TEX_0)> texture_array_;
 	Ptr<CGraphicsShader> shader_;
 
 };

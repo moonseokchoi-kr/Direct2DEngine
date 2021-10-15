@@ -8,6 +8,7 @@
 #include "CPlayerScript.h"
 #include "CResourceManager.h"
 #include "CScene.h"
+#include "CLayer.h"
 #include "CTransform.h"
 
 CSceneManager::CSceneManager()
@@ -32,14 +33,15 @@ void CSceneManager::Init()
 	camera->AddComponent(new CCamera);
 	camera->Transform()->SetPos(Vec3(0.f, 0.f, 0.f));
 
-	current_scene_->AddGameObject(camera, 0);
+	current_scene_->AddGameObject(camera, 0,true);
 
 	const auto object = new CGameObject;
+	object->SetName(L"Parent");
 	object->AddComponent(new CTransform);
 	object->AddComponent(new CMeshRender);
 	object->AddComponent(new CPlayerScript);
 	object->Transform()->SetPos(Vec3(0.f, 0.f, 300.f));
-	object->Transform()->SetScale(Vec3(1.f, 1.f, 1.f) * 100);
+	object->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"CircleMesh"));
 	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 
@@ -49,7 +51,20 @@ void CSceneManager::Init()
 	material->SetData(SHADER_PARAM::INT_3, &a);
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"Background").Get());
 
-	current_scene_->AddGameObject(object, 0);
+	const auto childObject = new CGameObject;
+	childObject->SetName(L"Child");
+	childObject->AddComponent(new CTransform);
+	childObject->AddComponent(new CMeshRender);
+
+	childObject->Transform()->SetPos(Vec3(2.f, 0.f, 0.f));
+	childObject->Transform()->SetScale(Vec3(1.f, 1.f, 1.f));
+	childObject->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	childObject->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
+
+
+	object->AddChild(childObject);
+
+	current_scene_->AddGameObject(object, 0,true);
 
 }
 

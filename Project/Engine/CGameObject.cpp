@@ -4,8 +4,15 @@
 #include "CComponent.h"
 #include "CMeshRender.h"
 
+#include "CSceneManager.h"
+#include "CScene.h"
+
+#include "CLayer.h"
+
 CGameObject::CGameObject()
-	:components_{}
+	:component_array_{}
+	,parent_object_(nullptr)
+	,layer_index_(-1)
 {
 }
 
@@ -15,29 +22,48 @@ CGameObject::~CGameObject()
 
 void CGameObject::Update()
 {
-	for (size_t i = 0; i < components_.size(); ++i)
+	for (CComponent* component : component_array_)
 	{
-		if(nullptr != components_[i])
-			components_[i]->Update();
+		if(nullptr != component)
+			component->Update();
 	} 
+
+	for (CGameObject* child : child_object_vector_)
+	{
+			child->Update();
+	}
 }
 
 void CGameObject::LateUpdate()
 {
-	for (size_t i = 0; i < components_.size(); ++i)
+	for (CComponent* component : component_array_)
 	{
-		if (nullptr != components_[i])
-			components_[i]->LateUpdate();
+		if (nullptr != component)
+			component->LateUpdate();
+	}
+
+	for (CGameObject* child : child_object_vector_)
+	{
+		child->LateUpdate();
 	}
 }
 
 void CGameObject::FinalUpdate()
 {
-	for (size_t i = 0; i < components_.size(); ++i)
+	for (CComponent* component : component_array_)
 	{
-		if (nullptr != components_[i])
-			components_[i]->FinalUpdate();
+		if (nullptr != component)
+			component->FinalUpdate();
 	}
+
+	for (CGameObject* child : child_object_vector_)
+	{
+		child->FinalUpdate();
+	}
+
+	CScene* currentScene = CSceneManager::GetInst()->GetCurrentScene();
+	CLayer* currentLayer = currentScene->GetLayer(layer_index_);
+	currentLayer->RegisterObject(this);
 }
 
 void CGameObject::Render()
@@ -50,8 +76,14 @@ void CGameObject::Render()
 void CGameObject::AddComponent(CComponent* comp)
 {
 	const UINT type = ENUM_TO_NUMBER(comp->GetType());
-	assert(!components_[type]);
+	assert(!component_array_[type]);
 	comp->owner_ = this;
-	components_[type] = comp;
+	component_array_[type] = comp;
 	
+}
+
+void CGameObject::AddChild(CGameObject* child)
+{
+	child_object_vector_.push_back(child);
+	child->parent_object_ = this;
 }

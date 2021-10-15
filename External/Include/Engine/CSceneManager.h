@@ -10,6 +10,9 @@ class CSceneManager :
 public:
 	void Init();
     void Progress();
+
+public:
+    CScene* GetCurrentScene() { return current_scene_; }
 private:
     CScene* current_scene_;
 };

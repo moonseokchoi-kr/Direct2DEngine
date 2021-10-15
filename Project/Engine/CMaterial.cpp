@@ -11,7 +11,7 @@
 
 CMaterial::CMaterial()
 	:data_{}
-	,texture_{}
+	,texture_array_{}
 {
 }
 
@@ -62,7 +62,7 @@ void CMaterial::SetData(SHADER_PARAM param, void* data)
 	case SHADER_PARAM::TEX_CUBE_0: 
 	case SHADER_PARAM::TEX_CUBE_1: 
 	case SHADER_PARAM::TEX_END:
-		texture_[static_cast<UINT>(param) - static_cast<UINT>(SHADER_PARAM::TEX_0)] = static_cast<CTexture*>(data);
+		texture_array_[static_cast<UINT>(param) - static_cast<UINT>(SHADER_PARAM::TEX_0)] = static_cast<CTexture*>(data);
 	break;
 	default: ;
 	}
@@ -77,12 +77,12 @@ void CMaterial::UpdateData()
 	const_buffer->SetPipelineStage(PIPELINE_STAGE::PS_ALL);
 	const_buffer->UpdateData();
 
-	for(size_t i =0; i<texture_.size(); ++i)
+	for(size_t i =0; i<texture_array_.size(); ++i)
 	{
-		if (nullptr != texture_[i])
+		if (nullptr != texture_array_[i])
 		{
-			texture_[i]->SetPipelineStage(PIPELINE_STAGE::PS_ALL, i);
-			texture_[i]->UpdateData();
+			texture_array_[i]->SetPipelineStage(PIPELINE_STAGE::PS_ALL, i);
+			texture_array_[i]->UpdateData();
 		}
 	}
 }

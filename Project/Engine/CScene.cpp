@@ -6,15 +6,17 @@
 #include "CLayer.h"
 CScene::CScene()
 {
-	for(size_t i = 0; i<layers_.size(); ++i)
+	int count = 0;
+	for(UINT i=0; i<layer_array_.size(); ++i)
 	{
-		layers_[i] = new CLayer;
+		layer_array_[i] = new CLayer;
+		layer_array_[i]->layer_index_ = i;
 	}
 }
 
 CScene::~CScene()
 {
-	Safe_Delete_Array(layers_);
+	Safe_Delete_Array(layer_array_);
 }
 
 void CScene::Update()
@@ -30,33 +32,33 @@ void CScene::Update()
 				CDevice::GetInst()->OnReSize(Vec2(1600, 900));
 		}
 	}
-	for(size_t i=0; i<layers_.size(); ++i)
+	for(size_t i=0; i<layer_array_.size(); ++i)
 	{
-		if(nullptr != layers_[i])
+		if(nullptr != layer_array_[i])
 		{
-			layers_[i]->Update();
+			layer_array_[i]->Update();
 		}
 	}
 }
 
 void CScene::LateUpdate()
 {
-	for (size_t i = 0; i < layers_.size(); ++i)
+	for (size_t i = 0; i < layer_array_.size(); ++i)
 	{
-		if (nullptr != layers_[i])
+		if (nullptr != layer_array_[i])
 		{
-			layers_[i]->LateUpdate();
+			layer_array_[i]->LateUpdate();
 		}
 	}
 }
 
 void CScene::FinalUpdate()
 {
-	for (size_t i = 0; i < layers_.size(); ++i)
+	for (size_t i = 0; i < layer_array_.size(); ++i)
 	{
-		if (nullptr != layers_[i])
+		if (nullptr != layer_array_[i])
 		{
-			layers_[i]->FinalUpdate();
+			layer_array_[i]->FinalUpdate();
 		}
 	}
 }
@@ -65,20 +67,20 @@ void CScene::Render()
 {
 	CDevice::GetInst()->ClearTarget();
 
-	for (size_t i = 0; i < layers_.size(); ++i)
+	for (size_t i = 0; i < layer_array_.size(); ++i)
 	{
-		if (nullptr != layers_[i])
+		if (nullptr != layer_array_[i])
 		{
-			layers_[i]->Render();
+			layer_array_[i]->Render();
 		}
 	}
 
 	CDevice::GetInst()->Present();
 }
 
-void CScene::AddGameObject(CGameObject* object, UINT layerType)
+void CScene::AddGameObject(CGameObject* object, UINT layerType, bool bMove)
 {
 	assert(layerType < MAX_LAYER);
 
-	layers_[layerType]->AddGameObject(object);
+	layer_array_[layerType]->AddGameObject(object, bMove);
 }

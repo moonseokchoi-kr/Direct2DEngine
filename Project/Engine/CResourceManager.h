@@ -29,7 +29,7 @@ private:
 	void CreateDefaultTexture();
 	void CreateDefaultMaterial();
 private:
-    array<unordered_map<wstring, CResource*>,static_cast<UINT>(RES_TYPE::END)> resources_;
+    array<unordered_map<wstring, CResource*>,static_cast<UINT>(RES_TYPE::END)> resrouce_array_;
 
 };
 
@@ -64,16 +64,16 @@ template <typename T>
 inline void CResourceManager::AddResource(const wstring& key, T* res)
 {
 	RES_TYPE type = GetResourceType<T>();
-	resources_[static_cast<UINT>(type)].insert(make_pair(key,res));
+	resrouce_array_[static_cast<UINT>(type)].insert(make_pair(key,res));
 }
 
 template <typename T>
 inline Ptr<T> CResourceManager::FindRes(const wstring& key)
 {
 	RES_TYPE type = GetResourceType<T>();
-	unordered_map<wstring, CResource*>::iterator iterator = resources_[static_cast<UINT>(type)].find(key);
+	unordered_map<wstring, CResource*>::iterator iterator = resrouce_array_[static_cast<UINT>(type)].find(key);
 
-	if(iterator == resources_[static_cast<UINT>(type)].end())
+	if(iterator == resrouce_array_[static_cast<UINT>(type)].end())
 	{
 		return nullptr;
 	}

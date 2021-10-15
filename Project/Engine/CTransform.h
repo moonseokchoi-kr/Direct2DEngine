@@ -18,6 +18,8 @@ public:
     void SetPos(Vec3 _pos) { pos_ = _pos; }
     void SetScale(Vec3 _scale) { scale_ = _scale; }
     void SetRotation(Vec3 _rotation) { rotation_ = _rotation; }
+
+    Matrix GetWorldMatrix() { return world_matrix_; }
 private:
     Matrix world_matrix_;
     Vec3 pos_;

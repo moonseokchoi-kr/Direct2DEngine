@@ -31,6 +31,11 @@ void CTransform::FinalUpdate()
 
 	world_matrix_ = scaleMat * rotationMat * translateMat;
 
+	if (GetOwner()->GetParent())
+	{
+		world_matrix_ *= GetOwner()->GetParent()->Transform()->GetWorldMatrix();
+	}
+
 }
 
 void CTransform::UpdateData()

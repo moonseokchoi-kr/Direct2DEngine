@@ -1,5 +1,6 @@
 #pragma once
 #include "CEntity.h"
+
 class CGameObject;
 
 class CLayer :
@@ -17,8 +18,13 @@ public:
     virtual void UpdateData() {};
 
 public:
-    void AddGameObject(CGameObject* object);
+    void AddGameObject(CGameObject* object, bool bMove);
+    void RegisterObject(CGameObject* object) { layer_object_vector_.push_back(object); }
 private:
-    vector<CGameObject*> objects_;
+    vector<CGameObject*> parent_object_vector_;
+    vector<CGameObject*> layer_object_vector_;
+    int layer_index_;
+
+    friend class CScene;
 };
 

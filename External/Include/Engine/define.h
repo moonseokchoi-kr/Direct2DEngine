@@ -22,7 +22,7 @@
 
 #define ENUM_TO_NUMBER(t) static_cast<UINT>(t)
 
-#define GET_COMPONENT(ComponentName, EnumName) C##ComponentName* ComponentName(){return (C##ComponentName*)components_[(UINT)(EnumName)];}
+#define GET_COMPONENT(ComponentName, EnumName) C##ComponentName* ComponentName(){return (C##ComponentName*)component_array_[(UINT)(EnumName)];}
 
 #define MAX_LAYER 32
 typedef Vector2 Vec2;
