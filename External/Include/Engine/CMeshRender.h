@@ -20,6 +20,7 @@ public:
     Ptr<CMaterial> GetMaterial() { return material_; }
     Ptr<CMesh> GetMesh() { return mesh_; }
 	
+    CLONE(CMeshRender);
 public:
     void SetMaterial(Ptr<CMaterial> material) { material_ = material; }
     void SetMesh(Ptr<CMesh> mesh) { mesh_ = mesh; }

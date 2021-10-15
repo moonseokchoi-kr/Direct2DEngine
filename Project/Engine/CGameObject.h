@@ -12,6 +12,7 @@ class CGameObject :
 {
 public:
     CGameObject();
+    CGameObject(const CGameObject& origin);
     virtual ~CGameObject();
 
 public:
@@ -35,6 +36,9 @@ public:
 
     void AddChild(CGameObject* child);
     const vector<CGameObject*> GetChildObjects() { return child_object_vector_; }
+
+public:
+    CLONE(CGameObject);
 
 private:
     array<CComponent*, static_cast<UINT>(COMPONENT_TYPE::END)> component_array_;

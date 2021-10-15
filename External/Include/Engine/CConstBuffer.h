@@ -14,6 +14,8 @@ public:
     void SetData(void* _data, UINT _size);
     void SetPipelineStage(UINT _pipelineState) { pipeline_state_ = _pipelineState; }
 
+public:
+    CConstBuffer* Clone() { return nullptr; }
 private:
     ComPtr<ID3D11Buffer> const_buffer_;
     D3D11_BUFFER_DESC desc_;

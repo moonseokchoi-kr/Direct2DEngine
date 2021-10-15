@@ -24,6 +24,10 @@ public:
     CTransform* GetTransform() { return owner_->Transform(); }
     CMeshRender* GetMeshRender() { return owner_->MeshRender(); }
     CCamera* GetCamera() { return owner_->Camera(); }
+
+public:
+    virtual CComponent* Clone() = 0;
+
 private:
     COMPONENT_TYPE type_;
     CGameObject* owner_;

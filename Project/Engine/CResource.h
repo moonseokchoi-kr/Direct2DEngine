@@ -23,6 +23,8 @@ public:
 
     void SetRelativePath(const wstring& path) { relative_path_ = path; }
     const wstring& GetRelativePath() { return relative_path_; }
+
+    CResource* Clone() { return nullptr; }
 private:
     void IncreaseReferenceCount() { ++reference_count_; }
     void DecreaseReferenceCount() { --reference_count_; }
@@ -33,5 +35,6 @@ private:
 
     template<typename T>
     friend class Ptr;
+
 };
 

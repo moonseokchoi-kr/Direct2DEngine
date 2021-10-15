@@ -16,6 +16,9 @@ public:
 public:
     void SetProjectionType(PROJECTION_TYPE type) { projection_type_ = type; }
 
+public:
+    CLONE(CCamera);
+
 private:
     PROJECTION_TYPE projection_type_;
     Matrix view_matrix_;

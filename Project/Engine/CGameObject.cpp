@@ -16,6 +16,25 @@ CGameObject::CGameObject()
 {
 }
 
+CGameObject::CGameObject(const CGameObject& origin)
+	:parent_object_(nullptr)
+	,layer_index_(-1)
+{
+	for (CComponent* component : origin.component_array_)
+	{
+		if (nullptr != component)
+		{
+			AddComponent(component->Clone());
+		}
+		
+	}
+
+	for (CGameObject* child : origin.child_object_vector_)
+	{
+		AddChild(child->Clone());
+	}
+}
+
 CGameObject::~CGameObject()
 {
 }

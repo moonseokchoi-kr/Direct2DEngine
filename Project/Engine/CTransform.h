@@ -20,6 +20,9 @@ public:
     void SetRotation(Vec3 _rotation) { rotation_ = _rotation; }
 
     Matrix GetWorldMatrix() { return world_matrix_; }
+
+public:
+    CLONE(CTransform);
 private:
     Matrix world_matrix_;
     Vec3 pos_;

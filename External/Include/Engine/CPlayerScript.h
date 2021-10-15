@@ -9,7 +9,8 @@ public:
 
 public:
     void Update() override;
-
+public:
+    CLONE(CPlayerScript);
 private:
     float player_move_speed_;
 

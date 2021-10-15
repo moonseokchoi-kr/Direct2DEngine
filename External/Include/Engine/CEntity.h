@@ -20,7 +20,7 @@ public:
 public:
 	void SetName(const wstring& _name) { name_ = _name; }
 	const wstring& GetName() { return name_; }
-
+	virtual CEntity* Clone() = 0;
 	UINT GetID() { return id_; }
 
 public:

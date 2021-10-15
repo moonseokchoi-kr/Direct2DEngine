@@ -20,6 +20,8 @@ public:
 public:
     void AddGameObject(CGameObject* object, bool bMove);
     void RegisterObject(CGameObject* object) { layer_object_vector_.push_back(object); }
+
+    CLayer* Clone() { return nullptr; }
 private:
     vector<CGameObject*> parent_object_vector_;
     vector<CGameObject*> layer_object_vector_;

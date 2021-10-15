@@ -66,6 +66,12 @@ void CSceneManager::Init()
 
 	current_scene_->AddGameObject(object, 0,true);
 
+
+	const auto copyObject = object->Clone();
+	copyObject->SetName(L"copy");
+	copyObject->Transform()->SetPos(Vec3(-200.f, -200.f, 300.f));
+	current_scene_->AddGameObject(copyObject, 0, true);
+
 }
 
 void CSceneManager::Progress()
