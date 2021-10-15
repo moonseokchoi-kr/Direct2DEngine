@@ -2,7 +2,7 @@
 #include "CTexture.h"
 #include "CDevice.h"
 CTexture::CTexture()
-	:m_desc{}
+	:texture_desc_{}
 {
 }
 
@@ -10,57 +10,57 @@ CTexture::~CTexture()
 {
 }
 
-HRESULT CTexture::Load(const wstring& _strFilePath)
+HRESULT CTexture::Load(const wstring& strFilePath)
 {
 	wchar_t ext[50] = L"";
-	_wsplitpath_s(_strFilePath.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, ext, 50);
+	_wsplitpath_s(strFilePath.c_str(), nullptr, 0, nullptr, 0, nullptr, 0, ext, 50);
 
 	HRESULT hr = S_OK;
 
 	if (!wcscmp(L".DDS", ext) || !wcscmp(L".dds", ext))
 	{
-		hr = LoadFromDDSFile(_strFilePath.c_str(), DDS_FLAGS_NONE, nullptr, m_image);
+		hr = LoadFromDDSFile(strFilePath.c_str(), DDS_FLAGS_NONE, nullptr, image_);
 	}
 	else if (!wcscmp(L".TGA", ext) || !wcscmp(L".tga", ext))
 	{
-		hr = LoadFromTGAFile(_strFilePath.c_str(), nullptr, m_image);
+		hr = LoadFromTGAFile(strFilePath.c_str(), nullptr, image_);
 	}
 	else 
 	{
-		hr = LoadFromWICFile(_strFilePath.c_str(), WIC_FLAGS_NONE, nullptr, m_image);
+		hr = LoadFromWICFile(strFilePath.c_str(), WIC_FLAGS_NONE, nullptr, image_);
 	}
 
 	if (FAILED(hr))
 		return E_FAIL;
 
-	CreateShaderResourceView(DEVICE, m_image.GetImages(), m_image.GetImageCount(), m_image.GetMetadata(), m_SRV.GetAddressOf());
+	CreateShaderResourceView(DEVICE, image_.GetImages(), image_.GetImageCount(), image_.GetMetadata(), shader_resource_view_.GetAddressOf());
 
-	m_SRV->GetResource((ID3D11Resource**)m_tex2D.GetAddressOf());
-	m_tex2D->GetDesc(&m_desc);
+	shader_resource_view_->GetResource((ID3D11Resource**)texure_2D_.GetAddressOf());
+	texure_2D_->GetDesc(&texture_desc_);
 
 	return S_OK;
 }
 
 void CTexture::UpdateData()
 {
-	if (m_piplineStage & PS_VERTEX)
+	if (pipline_stage_ & PS_VERTEX)
 	{
-		CONTEXT->VSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+		CONTEXT->VSSetShaderResources(register_number_, 1, shader_resource_view_.GetAddressOf());
 	}
-	if (m_piplineStage & PS_HULL)
+	if (pipline_stage_ & PS_HULL)
 	{
-		CONTEXT->HSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+		CONTEXT->HSSetShaderResources(register_number_, 1, shader_resource_view_.GetAddressOf());
 	}
-	if (m_piplineStage & PS_DOMAIN)
+	if (pipline_stage_ & PS_DOMAIN)
 	{
-		CONTEXT->DSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+		CONTEXT->DSSetShaderResources(register_number_, 1, shader_resource_view_.GetAddressOf());
 	}
-	if (m_piplineStage & PS_GEOMETRY)
+	if (pipline_stage_ & PS_GEOMETRY)
 	{
-		CONTEXT->GSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+		CONTEXT->GSSetShaderResources(register_number_, 1, shader_resource_view_.GetAddressOf());
 	}
-	if (m_piplineStage & PS_PIXEL)
+	if (pipline_stage_ & PS_PIXEL)
 	{
-		CONTEXT->PSSetShaderResources(m_registerNum, 1, m_SRV.GetAddressOf());
+		CONTEXT->PSSetShaderResources(register_number_, 1, shader_resource_view_.GetAddressOf());
 	}
 }

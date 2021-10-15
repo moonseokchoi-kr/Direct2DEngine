@@ -4,7 +4,7 @@
 #include "CDevice.h"
 
 CGraphicsShader::CGraphicsShader()
-	:m_topology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+	:topology_(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 {
 }
 
@@ -12,27 +12,27 @@ CGraphicsShader::~CGraphicsShader()
 {
 }
 
-HRESULT CGraphicsShader::CreateVertexShader(const wstring& _strFilePath, const char* _funcName)
+HRESULT CGraphicsShader::CreateVertexShader(const wstring& strFilePath, const char* funcName)
 {
 	if (FAILED(D3DCompileFromFile(
-		_strFilePath.c_str(),
+		strFilePath.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		_funcName,
+		funcName,
 		"vs_5_0",
 		D3DCOMPILE_DEBUG,
 		0,
-		m_vsBlob.GetAddressOf(),
-		m_errBlob.GetAddressOf()
+		vertex_shader_blob_.GetAddressOf(),
+		error_blob_.GetAddressOf()
 	)))
 	{
 		return E_FAIL;
 	};
 
-	DEVICE->CreateVertexShader(m_vsBlob->GetBufferPointer(), m_vsBlob->GetBufferSize(), nullptr, m_vtxShader.GetAddressOf());
+	DEVICE->CreateVertexShader(vertex_shader_blob_->GetBufferPointer(), vertex_shader_blob_->GetBufferSize(), nullptr, vertex_shader_.GetAddressOf());
 	int layoutCount = sizeof(g_layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 
-	if (FAILED(DEVICE->CreateInputLayout(g_layout, layoutCount, m_vsBlob->GetBufferPointer(), m_vsBlob->GetBufferSize(), m_layout.GetAddressOf())))
+	if (FAILED(DEVICE->CreateInputLayout(g_layout, layoutCount, vertex_shader_blob_->GetBufferPointer(), vertex_shader_blob_->GetBufferSize(), layout_.GetAddressOf())))
 	{
 		return E_FAIL;
 	}
@@ -40,38 +40,38 @@ HRESULT CGraphicsShader::CreateVertexShader(const wstring& _strFilePath, const c
 	return S_OK;
 }
 
-HRESULT CGraphicsShader::CreatePixelShader(const wstring& _strFilePath, const char* _funcName)
+HRESULT CGraphicsShader::CreatePixelShader(const wstring& strFilePath, const char* funcName)
 {
 	if (FAILED(D3DCompileFromFile(
-		_strFilePath.c_str(),
+		strFilePath.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		_funcName,
+		funcName,
 		"ps_5_0",
 		D3DCOMPILE_DEBUG,
 		0,
-		m_psBlob.GetAddressOf(),
-		m_errBlob.GetAddressOf()
+		pixel_shader_blob_.GetAddressOf(),
+		error_blob_.GetAddressOf()
 	)))
 	{
 		return E_FAIL;
 	}
 
 
-	DEVICE->CreatePixelShader(m_psBlob->GetBufferPointer(), m_psBlob->GetBufferSize(), nullptr, m_pxlShader.GetAddressOf());
+	DEVICE->CreatePixelShader(pixel_shader_blob_->GetBufferPointer(), pixel_shader_blob_->GetBufferSize(), nullptr, pixel_shader_.GetAddressOf());
 
 	return S_OK;
 }
 
 void CGraphicsShader::UpdateData()
 {
-	CONTEXT->VSSetShader(m_vtxShader.Get(), nullptr, 0);
-	CONTEXT->HSSetShader(m_hullShader.Get(), nullptr, 0);
-	CONTEXT->DSSetShader(m_domainShader.Get(), nullptr, 0);
-	CONTEXT->GSSetShader(m_geoShader.Get(), nullptr, 0);
-	CONTEXT->PSSetShader(m_pxlShader.Get(), nullptr, 0);
+	CONTEXT->VSSetShader(vertex_shader_.Get(), nullptr, 0);
+	CONTEXT->HSSetShader(hull_shader_.Get(), nullptr, 0);
+	CONTEXT->DSSetShader(domain_shader_.Get(), nullptr, 0);
+	CONTEXT->GSSetShader(geometry_shader_.Get(), nullptr, 0);
+	CONTEXT->PSSetShader(pixel_shader_.Get(), nullptr, 0);
 
-	CONTEXT->IASetInputLayout(m_layout.Get());
-	CONTEXT->IASetPrimitiveTopology(m_topology);
+	CONTEXT->IASetInputLayout(layout_.Get());
+	CONTEXT->IASetPrimitiveTopology(topology_);
 
 }

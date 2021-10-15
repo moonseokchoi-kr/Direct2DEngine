@@ -1,8 +1,8 @@
 #include "pch.h"
-#include "CMaterial.h"
-#include "CGraphicsShader.h"
-#include "CTexture.h"
 
+
+#include "CMaterial.h"
+#include "CTexture.h"
 
 #include "CConstBuffer.h"
 #include "CDevice.h"

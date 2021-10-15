@@ -3,7 +3,7 @@
 
 #include "CMesh.h"
 #include "CTexture.h"
-#include "CShader.h"
+#include "CGraphicsShader.h"
 
 #include "CGameObject.h"
 #include "CTransform.h"

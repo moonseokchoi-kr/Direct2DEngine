@@ -8,6 +8,7 @@
 /// 
 /// 버전
 /// 1.0 - 기본구조 작성 2021-09-27
+/// 1.1 - custom shared ptr 구성 2021-10-15
 /// </summary>
 class CResource :
     public CEntity
