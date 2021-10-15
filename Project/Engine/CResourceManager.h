@@ -3,7 +3,7 @@
 
 class CResource;
 class CMesh;
-class CShader;
+class CGraphicsShader;
 class CTexture;
 class CMaterial;
 
@@ -20,7 +20,7 @@ public:
 	void AddResource(const wstring& key, T* res);
 
 	template <typename T>
-	T* FindRes(const wstring& key);
+	Ptr<T> FindRes(const wstring& key);
 
 
 private:
@@ -44,7 +44,7 @@ RES_TYPE GetResourceType()
 	{
 		type = RES_TYPE::MESH;
 	}
-	if (info.hash_code() == typeid(CShader).hash_code())
+	if (info.hash_code() == typeid(CGraphicsShader).hash_code())
 	{
 		type = RES_TYPE::SHADER;
 	}
@@ -68,7 +68,7 @@ inline void CResourceManager::AddResource(const wstring& key, T* res)
 }
 
 template <typename T>
-inline T* CResourceManager::FindRes(const wstring& key)
+inline Ptr<T> CResourceManager::FindRes(const wstring& key)
 {
 	RES_TYPE type = GetResourceType<T>();
 	unordered_map<wstring, CResource*>::iterator iterator = resources_[static_cast<UINT>(type)].find(key);

@@ -24,19 +24,19 @@ void CCamera::Update()
 	Vec3 pos = GetTransform()->GetPos();
 	if(KEY_HOLD(KEY::W))
 	{
-		pos.y -= 0.5f * fDT;
+		pos.y -= 100.f * fDT;
 	}
 	if (KEY_HOLD(KEY::A))
 	{
-		pos.x -= 0.5f * fDT;
+		pos.x -= 100.f * fDT;
 	}
 	if (KEY_HOLD(KEY::S))
 	{
-		pos.y += 0.5f * fDT;
+		pos.y += 100.f * fDT;
 	}
 	if (KEY_HOLD(KEY::D))
 	{
-		pos.x += 0.5f * fDT;
+		pos.x += 100.f * fDT;
 	}
 	GetTransform()->SetPos(pos);
 

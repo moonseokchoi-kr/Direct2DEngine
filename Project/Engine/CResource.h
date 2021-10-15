@@ -1,6 +1,6 @@
 #pragma once
 #include "CEntity.h"
-
+#include "ptr.h"
 /// <summary>
 /// 게임내에서 사용되는 모든 리소스 들의 최상위 부모 클래스
 /// 
@@ -23,11 +23,14 @@ public:
     void SetRelativePath(const wstring& _path) { m_relativePath = _path; }
     const wstring& GetRelativePath() { return m_relativePath; }
 private:
-    void increaseRefCount() { ++m_refCount; }
-    void decreaseRefCount() { --m_refCount; }
+    void IncreaseReferenceCount() { ++m_refCount; }
+    void DecreaseReferenceCount() { --m_refCount; }
 private:
     wstring m_key;
     wstring m_relativePath;
     UINT m_refCount;
+
+    template<typename T>
+    friend class Ptr;
 };
 

@@ -3,7 +3,7 @@
 #include "CMaterial.h"
 #include "CResourceManager.h"
 #include "CMesh.h"
-#include "CShader.h"
+#include "CGraphicsShader.h"
 #include "CTexture.h"
 
 #include "CPathManager.h"
@@ -65,13 +65,13 @@ void CResourceManager::CreateDefaultMesh()
 
 void CResourceManager::CreateDefaultShader()
 {
-	CShader* stdShader = nullptr;
+	CGraphicsShader* stdShader = nullptr;
 
 	wstring strPath = CPathManager::GetInst()->GetContentPath();
 	strPath += L"shader\\std2d.fx";
-	stdShader = new CShader;
-	stdShader->CreateVtxShader(strPath, "VS_std");
-	stdShader->CreatePxlShader(strPath, "PS_std");
+	stdShader = new CGraphicsShader;
+	stdShader->CreateVertexShader(strPath, "VS_std");
+	stdShader->CreatePixelShader(strPath, "PS_std");
 
 	AddResource(L"std2DShader", stdShader);
 
@@ -95,7 +95,7 @@ void CResourceManager::CreateDefaultMaterial()
 
 	material = new CMaterial;
 
-	material->SetShader(CResourceManager::GetInst()->FindRes<CShader>(L"std2DShader"));
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 
 	AddResource(L"std2DMaterial", material);
 }

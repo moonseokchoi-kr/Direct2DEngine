@@ -1,11 +1,10 @@
 #pragma once
 #include "CComponent.h"
-
+#include "ptr.h"
 
 class CMaterial;
 class CTexture;
 class CMesh;
-class CShader;
 
 class CMeshRender :
     public CComponent
@@ -16,16 +15,16 @@ public:
 public:
     void Render() override;
     void FinalUpdate() override;
-    void UpdateData() override {};
+    void UpdateData() override {}
 public:
-    CMaterial* GetMaterial() { return material_; }
-    CMesh* GetMesh() { return mesh_; }
+    Ptr<CMaterial> GetMaterial() { return material_; }
+    Ptr<CMesh> GetMesh() { return mesh_; }
 	
 public:
-    void SetMaterial(CMaterial* material) { material_ = material; }
-    void SetMesh(CMesh* mesh) { mesh_ = mesh; }
+    void SetMaterial(Ptr<CMaterial> material) { material_ = material; }
+    void SetMesh(Ptr<CMesh> mesh) { mesh_ = mesh; }
 private:
-    CMaterial* material_;
-    CMesh* mesh_;
+    Ptr<CMaterial> material_;
+    Ptr<CMesh> mesh_;
 };
 

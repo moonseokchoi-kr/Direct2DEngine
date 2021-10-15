@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "CMaterial.h"
+#include "CGraphicsShader.h"
+#include "CTexture.h"
+
 
 #include "CConstBuffer.h"
 #include "CDevice.h"
-#include "CShader.h"
-#include "CTexture.h"
+
+
 
 CMaterial::CMaterial()
 	:data_{}
@@ -76,14 +79,10 @@ void CMaterial::UpdateData()
 
 	for(size_t i =0; i<texture_.size(); ++i)
 	{
-		if(nullptr != texture_[i])
+		if (nullptr != texture_[i])
 		{
 			texture_[i]->SetPipelineStage(PIPELINE_STAGE::PS_ALL, i);
 			texture_[i]->UpdateData();
-		}
-		else
-		{
-			
 		}
 	}
 }

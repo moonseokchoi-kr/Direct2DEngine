@@ -1,9 +1,8 @@
 #pragma once
 #include "CEntity.h"
 #include "CGameObject.h"
-class CCamera;
-class CTransform;
-class CGameObject;
+
+
 class CComponent :
     public CEntity
 {

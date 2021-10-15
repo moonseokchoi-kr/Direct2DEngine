@@ -190,11 +190,13 @@ call .\EngineCopy.bat</Command>
   <ItemGroup>
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CComponent.h" />
+    <ClInclude Include="CComputeShader.h" />
     <ClInclude Include="CConstBuffer.h" />
     <ClInclude Include="CCore.h" />
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CEntity.h" />
     <ClInclude Include="CGameObject.h" />
+    <ClInclude Include="CGraphicsShader.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CMaterial.h" />
@@ -210,6 +212,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CShader.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="ptr.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="SimpleMath.h" />
@@ -225,11 +228,13 @@ call .\EngineCopy.bat</Command>
   <ItemGroup>
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CComponent.cpp" />
+    <ClCompile Include="CComputeShader.cpp" />
     <ClCompile Include="CConstBuffer.cpp" />
     <ClCompile Include="CCore.cpp" />
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CEntity.cpp" />
     <ClCompile Include="CGameObject.cpp" />
+    <ClCompile Include="CGraphicsShader.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CMaterial.cpp" />

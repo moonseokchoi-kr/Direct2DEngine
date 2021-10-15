@@ -114,6 +114,12 @@
     <Filter Include="소스 파일\Scripts\CameraScirpt">
       <UniqueIdentifier>{013b7eb5-a917-406c-b4b0-e87928609448}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Resource\Shader\CComputeShader">
+      <UniqueIdentifier>{85634c3e-1695-4008-b6dc-17edec8ba8e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Resource\Shader\CGraphicsShader">
+      <UniqueIdentifier>{a436f519-4342-47b9-a8f7-c6aec2408da3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -211,6 +217,15 @@
     <ClInclude Include="CPlayerScript.h">
       <Filter>소스 파일\Scripts\PlayerScript</Filter>
     </ClInclude>
+    <ClInclude Include="ptr.h">
+      <Filter>소스 파일\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="CGraphicsShader.h">
+      <Filter>소스 파일\Resource\Shader\CGraphicsShader</Filter>
+    </ClInclude>
+    <ClInclude Include="CComputeShader.h">
+      <Filter>소스 파일\Resource\Shader\CComputeShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -294,6 +309,12 @@
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>소스 파일\Scripts\PlayerScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CGraphicsShader.cpp">
+      <Filter>소스 파일\Resource\Shader\CGraphicsShader</Filter>
+    </ClCompile>
+    <ClCompile Include="CComputeShader.cpp">
+      <Filter>소스 파일\Resource\Shader\CComputeShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

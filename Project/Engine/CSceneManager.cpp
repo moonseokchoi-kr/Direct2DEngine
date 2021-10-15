@@ -38,16 +38,16 @@ void CSceneManager::Init()
 	object->AddComponent(new CTransform);
 	object->AddComponent(new CMeshRender);
 	object->AddComponent(new CPlayerScript);
-	object->Transform()->SetPos(Vec3(0.f, 0.f, 500.f));
+	object->Transform()->SetPos(Vec3(0.f, 0.f, 300.f));
 	object->Transform()->SetScale(Vec3(1.f, 1.f, 1.f) * 100);
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 
-	CMaterial* material = object->MeshRender()->GetMaterial();
+	Ptr<CMaterial> material = object->MeshRender()->GetMaterial();
 	int a = 0;
 
 	material->SetData(SHADER_PARAM::INT_3, &a);
-	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"Background"));
+	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"Background").Get());
 
 	current_scene_->AddGameObject(object, 0);
 

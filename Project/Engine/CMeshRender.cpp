@@ -2,9 +2,15 @@
 #include "CMeshRender.h"
 
 #include "CMesh.h"
+#include "CTexture.h"
+#include "CShader.h"
+
 #include "CGameObject.h"
-#include "CMaterial.h"
 #include "CTransform.h"
+
+#include "CMaterial.h"
+#include "ptr.h"
+
 CMeshRender::CMeshRender()
 	:CComponent(COMPONENT_TYPE::MESHRENDER)
 	,mesh_(nullptr)

@@ -1,14 +1,5 @@
 #include "pch.h"
 
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CMaterial.cpp"
-
-
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CMesh.cpp"
-
-
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CMeshRender.cpp"
-
-
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CPathManager.cpp"
 
 
@@ -25,4 +16,7 @@
 
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CScene.cpp"
+
+
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CSceneManager.cpp"
 
