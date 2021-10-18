@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CEventManager.cpp"
+
+
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CGameObject.cpp"
 
 

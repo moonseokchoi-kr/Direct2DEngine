@@ -20,3 +20,6 @@
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CSceneManager.cpp"
 
+
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CScript.cpp"
+

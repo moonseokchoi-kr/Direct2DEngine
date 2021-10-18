@@ -9,10 +9,15 @@ public:
 
 public:
     void Update() override;
+
+public:
+    void CreateBullet();
 public:
     CLONE(CPlayerScript);
 private:
     float player_move_speed_;
+    float player_bullet_attack_speed_;
 
+    float accumulated_time_;
 };
 

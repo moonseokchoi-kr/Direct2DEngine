@@ -128,3 +128,10 @@ enum class SHADER_PARAM
 
 	END,
 };
+
+enum class EVENT_TYPE
+{
+	CREATE_OBJECT,
+	DELETE_OBJECT,
+	DELETE_DELAY_OBJECT,
+};

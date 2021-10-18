@@ -28,6 +28,7 @@ using std::wstring;
 using std::vector;
 using std::list;
 using std::unordered_map;
+using std::make_pair;
 using std::array;
 using std::to_wstring;
 

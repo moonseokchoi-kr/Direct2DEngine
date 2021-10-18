@@ -4,6 +4,7 @@
 #include "CKeyManager.h"
 #include "CPathManager.h"
 #include "CResourceManager.h"
+#include "CEventManager.h"
 #include "CDevice.h"
 #include "CSceneManager.h"
 
@@ -32,6 +33,7 @@ HRESULT CCore::Init(HWND hWnd, UINT x, UINT y)
     CKeyManager::GetInst()->Init();
     CResourceManager::GetInst()->Init();
     CSceneManager::GetInst()->Init();
+    
     return S_OK;
 }
 
@@ -40,6 +42,7 @@ void CCore::Progress()
     CTimeManager::GetInst()->Update();
     CKeyManager::GetInst()->Update();
     CSceneManager::GetInst()->Progress();
+    CEventManager::GetInst()->Update();
 }
 
 void CCore::ChangeWindowSize(UINT x, UINT y)

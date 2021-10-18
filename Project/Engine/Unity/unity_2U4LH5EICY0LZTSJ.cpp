@@ -1,8 +1,5 @@
 #include "pch.h"
 
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CScript.cpp"
-
-
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CShader.cpp"
 
 
@@ -19,4 +16,7 @@
 
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\func.cpp"
+
+
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\util.cpp"
 

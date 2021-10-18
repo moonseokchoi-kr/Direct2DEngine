@@ -37,16 +37,25 @@ public:
     void AddChild(CGameObject* child);
     const vector<CGameObject*> GetChildObjects() { return child_object_vector_; }
 
+    bool IsDead() { return object_dead_; }
+    bool IsDelete() { return object_delete_; }
 public:
     CLONE(CGameObject);
+
+private:
+    void SetDead(float t) { object_dead_ = true; dead_time = t; }
 
 private:
     array<CComponent*, static_cast<UINT>(COMPONENT_TYPE::END)> component_array_;
     CGameObject* parent_object_;
     vector<CGameObject*> child_object_vector_;
-
+    bool object_dead_;
+    bool object_delete_;
+    float delay_accumulated_time;
+    float dead_time;
     int layer_index_;
 
     friend class CLayer;
+    friend class CEventManager;
 };
 

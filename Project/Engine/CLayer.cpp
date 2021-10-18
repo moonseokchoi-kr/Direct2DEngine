@@ -31,23 +31,33 @@ void CLayer::LateUpdate()
 
 void CLayer::FinalUpdate()
 {
-	for (CGameObject* parent_object : parent_object_vector_)
+	vector<CGameObject*>::iterator iter = parent_object_vector_.begin();
+
+	for (; iter != parent_object_vector_.end();)
 	{
-		parent_object->FinalUpdate();
+		(*iter)->FinalUpdate();
+		if ((*iter)->IsDelete())
+		{
+			iter = parent_object_vector_.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
 	}
 }
 
 void CLayer::Render()
 {
-	for (CGameObject* layer_object : layer_object_vector_)
+	for (CGameObject* object : layer_object_vector_)
 	{
-		layer_object->Render();
+		object->Render();
 	}
 }
 
 void CLayer::AddGameObject(CGameObject* object, bool bMove)
 {
-	parent_object_vector_.push_back(object);
+ 	parent_object_vector_.push_back(object);
 
 	object->layer_index_ = layer_index_;
 

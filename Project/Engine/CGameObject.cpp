@@ -6,6 +6,7 @@
 
 #include "CSceneManager.h"
 #include "CScene.h"
+#include "CTimeManager.h"
 
 #include "CLayer.h"
 
@@ -13,6 +14,8 @@ CGameObject::CGameObject()
 	:component_array_{}
 	,parent_object_(nullptr)
 	,layer_index_(-1)
+	,object_dead_(false)
+	,object_delete_(false)
 {
 }
 
@@ -37,10 +40,24 @@ CGameObject::CGameObject(const CGameObject& origin)
 
 CGameObject::~CGameObject()
 {
+ 	int a = 0;
 }
 
 void CGameObject::Update()
 {
+	if (object_dead_)
+	{
+		if (object_delete_)
+			return;
+		delay_accumulated_time += fDT;
+		if (dead_time <= delay_accumulated_time)
+		{
+			object_delete_ = true;
+			return;
+		}
+	
+	}
+		
 	for (CComponent* component : component_array_)
 	{
 		if(nullptr != component)
@@ -55,6 +72,16 @@ void CGameObject::Update()
 
 void CGameObject::LateUpdate()
 {
+	if (object_dead_)
+	{
+		delay_accumulated_time += fDT;
+		if (dead_time <= delay_accumulated_time)
+		{
+			object_delete_ = true;
+			return;
+		}
+		
+	}
 	for (CComponent* component : component_array_)
 	{
 		if (nullptr != component)

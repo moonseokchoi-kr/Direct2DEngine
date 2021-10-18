@@ -51,26 +51,26 @@ void CSceneManager::Init()
 	material->SetData(SHADER_PARAM::INT_3, &a);
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"Background").Get());
 
-	const auto childObject = new CGameObject;
-	childObject->SetName(L"Child");
-	childObject->AddComponent(new CTransform);
-	childObject->AddComponent(new CMeshRender);
-
-	childObject->Transform()->SetPos(Vec3(2.f, 0.f, 0.f));
-	childObject->Transform()->SetScale(Vec3(1.f, 1.f, 1.f));
-	childObject->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	childObject->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
-
-
-	object->AddChild(childObject);
+// 	const auto childObject = new CGameObject;
+// 	childObject->SetName(L"Child");
+// 	childObject->AddComponent(new CTransform);
+// 	childObject->AddComponent(new CMeshRender);
+// 
+// 	childObject->Transform()->SetPos(Vec3(2.f, 0.f, 0.f));
+// 	childObject->Transform()->SetScale(Vec3(1.f, 1.f, 1.f));
+// 	childObject->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+// 	childObject->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
+// 
+// 
+// 	object->AddChild(childObject);
 
 	current_scene_->AddGameObject(object, 0,true);
 
 
-	const auto copyObject = object->Clone();
-	copyObject->SetName(L"copy");
-	copyObject->Transform()->SetPos(Vec3(-200.f, -200.f, 300.f));
-	current_scene_->AddGameObject(copyObject, 0, true);
+// 	const auto copyObject = object->Clone();
+// 	copyObject->SetName(L"copy");
+// 	copyObject->Transform()->SetPos(Vec3(-200.f, -200.f, 300.f));
+// 	current_scene_->AddGameObject(copyObject, 0, true);
 
 }
 

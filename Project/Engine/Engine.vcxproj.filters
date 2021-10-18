@@ -48,12 +48,6 @@
     <Filter Include="소스 파일\Header">
       <UniqueIdentifier>{7ab14e06-c6f7-4d30-8528-d9281c56648d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Manager\Key">
-      <UniqueIdentifier>{4cce0ce0-b0ad-4509-9f74-3aca177024aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Manager\Path">
-      <UniqueIdentifier>{8ad8300c-ac8a-4a63-9632-7886fb23d981}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Manager\Time">
       <UniqueIdentifier>{91cc3827-e6c2-44d3-9b3b-b19c0db1b584}</UniqueIdentifier>
     </Filter>
@@ -120,6 +114,18 @@
     <Filter Include="소스 파일\Resource\Shader\CGraphicsShader">
       <UniqueIdentifier>{a436f519-4342-47b9-a8f7-c6aec2408da3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Manager\EventManager">
+      <UniqueIdentifier>{6d5072fe-aa43-4d4b-9884-7e4920220f55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\PathManager">
+      <UniqueIdentifier>{8ad8300c-ac8a-4a63-9632-7886fb23d981}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\KeyManager">
+      <UniqueIdentifier>{4cce0ce0-b0ad-4509-9f74-3aca177024aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Scripts\BulletScript">
+      <UniqueIdentifier>{7783ea49-43fb-4f1e-8a13-0296ac1f4126}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -132,10 +138,10 @@
       <Filter>소스 파일\Module\single</Filter>
     </ClInclude>
     <ClInclude Include="CKeyManager.h">
-      <Filter>소스 파일\Manager\Key</Filter>
+      <Filter>소스 파일\Manager\KeyManager</Filter>
     </ClInclude>
     <ClInclude Include="CPathManager.h">
-      <Filter>소스 파일\Manager\Path</Filter>
+      <Filter>소스 파일\Manager\PathManager</Filter>
     </ClInclude>
     <ClInclude Include="CTimeManager.h">
       <Filter>소스 파일\Manager\Time</Filter>
@@ -226,16 +232,22 @@
     <ClInclude Include="CComputeShader.h">
       <Filter>소스 파일\Resource\Shader\CComputeShader</Filter>
     </ClInclude>
+    <ClInclude Include="CEventManager.h">
+      <Filter>소스 파일\Manager\EventManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CBulletScript.h">
+      <Filter>소스 파일\Scripts\BulletScript</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>defalut\pch</Filter>
     </ClCompile>
     <ClCompile Include="CKeyManager.cpp">
-      <Filter>소스 파일\Manager\Key</Filter>
+      <Filter>소스 파일\Manager\KeyManager</Filter>
     </ClCompile>
     <ClCompile Include="CPathManager.cpp">
-      <Filter>소스 파일\Manager\Path</Filter>
+      <Filter>소스 파일\Manager\PathManager</Filter>
     </ClCompile>
     <ClCompile Include="CTimeManager.cpp">
       <Filter>소스 파일\Manager\Time</Filter>
@@ -315,6 +327,12 @@
     </ClCompile>
     <ClCompile Include="CComputeShader.cpp">
       <Filter>소스 파일\Resource\Shader\CComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="CEventManager.cpp">
+      <Filter>소스 파일\Manager\EventManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CBulletScript.cpp">
+      <Filter>소스 파일\Scripts\BulletScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
