@@ -117,7 +117,8 @@ void CResourceManager::CreateDefaultShader()
 	stdShader = new CGraphicsShader;
 	stdShader->CreateVertexShader(strPath, "VS_std");
 	stdShader->CreatePixelShader(strPath, "PS_std");
-
+ 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+ 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 	AddResource(L"std2DShader", stdShader);
 
 }
@@ -127,7 +128,7 @@ void CResourceManager::CreateDefaultTexture()
 	CTexture* tex = nullptr;
 
 	wstring strPath = CPathManager::GetInst()->GetContentPath();
-	strPath += L"texture\\valkiry.DDS";
+	strPath += L"texture\\valkiry.PNG";
 	tex = new CTexture;
 	tex->Load(strPath);
 	

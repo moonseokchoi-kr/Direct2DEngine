@@ -77,6 +77,18 @@ HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 		return E_FAIL;
 	}
 
+	if (FAILED(CreateBlendState()))
+	{
+		MessageBox(nullptr, L"BlendState 생성 실패", L"Engine초기화 오류", MB_OK);
+		return E_FAIL;
+	}
+
+	if (FAILED(CreateRasterizerState()))
+	{
+		MessageBox(nullptr, L"Rasterizer 초기화 실패", L"Engine초기화 오류", MB_OK);
+		return E_FAIL;
+	}
+
 	return S_OK;
 }
 
@@ -238,6 +250,71 @@ HRESULT CDevice::CreateConstBuffer()
 	HR(const_buffers_[static_cast<UINT>(CB_TYPE::TRANSFORM)]->Create(L"Transform", sizeof(Transform), static_cast<UINT>(CB_TYPE::TRANSFORM)));
 	HR(const_buffers_[static_cast<UINT>(CB_TYPE::MATERIAL_CONST)]->Create(L"Material", sizeof(MaterialParameter), static_cast<UINT>(CB_TYPE::MATERIAL_CONST)));
 
+	return S_OK;
+}
+
+HRESULT CDevice::CreateBlendState()
+{
+	//ALPHA BLEND
+	D3D11_BLEND_DESC desc = {};
+	desc.AlphaToCoverageEnable = false;
+	desc.IndependentBlendEnable = false;
+	
+	desc.RenderTarget[0].BlendEnable = true;
+	
+	desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
+	desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+
+	desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	HR(DEVICE->CreateBlendState(&desc, blend_state_array_[static_cast<UINT>(BLEND_TYPE::ALPHA_BLEND)].GetAddressOf()));
+
+	//one one blend
+
+	desc.RenderTarget[0].BlendEnable = true;
+
+	desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	desc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+
+	desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+
+	desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	HR(DEVICE->CreateBlendState(&desc, blend_state_array_[static_cast<UINT>(BLEND_TYPE::ONE_ONE)].GetAddressOf()));
+
+
+	return S_OK;
+}
+
+HRESULT CDevice::CreateRasterizerState()
+{
+	D3D11_RASTERIZER_DESC desc = {};
+
+	desc.CullMode = D3D11_CULL_FRONT;
+	desc.FillMode = D3D11_FILL_SOLID;
+
+	HR(DEVICE->CreateRasterizerState(&desc, rasterizer_state_array_[static_cast<UINT>(RASTERIZER_TYPE::CULL_FRONT)].GetAddressOf()));
+
+
+	desc.CullMode = D3D11_CULL_NONE;
+	desc.FillMode = D3D11_FILL_SOLID;
+
+	HR(DEVICE->CreateRasterizerState(&desc, rasterizer_state_array_[static_cast<UINT>(RASTERIZER_TYPE::CULL_NONE)].GetAddressOf()));
+
+
+	desc.CullMode = D3D11_CULL_NONE;
+	desc.FillMode = D3D11_FILL_WIREFRAME;
+
+	HR(DEVICE->CreateRasterizerState(&desc, rasterizer_state_array_[static_cast<UINT>(RASTERIZER_TYPE::CULL_WIREFRAME)].GetAddressOf()));
+	
 	return S_OK;
 }
 

@@ -5,6 +5,9 @@
 
 CGraphicsShader::CGraphicsShader()
 	:topology_(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+	,rasterizer_type_(RASTERIZER_TYPE::CULL_BACK)
+	,blend_type_(BLEND_TYPE::DEFAULT)
+	,depth_stencil_type_(DEPTH_STENCIL_TYPE::LESS)
 {
 }
 
@@ -73,5 +76,12 @@ void CGraphicsShader::UpdateData()
 
 	CONTEXT->IASetInputLayout(layout_.Get());
 	CONTEXT->IASetPrimitiveTopology(topology_);
+
+	ComPtr<ID3D11RasterizerState> rasterizer = CDevice::GetInst()->GetRasterizerState(rasterizer_type_);
+	CONTEXT->RSSetState(rasterizer.Get());
+
+	ComPtr<ID3D11BlendState> blend = CDevice::GetInst()->GetBlendState(blend_type_);
+	CONTEXT->OMSetBlendState(blend.Get(), nullptr, 0xffffffff);
+
 
 }

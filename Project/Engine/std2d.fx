@@ -81,15 +81,9 @@ VTX_OUT VS_std(VTX_IN _in)
 float4 PS_std(VTX_OUT _in):SV_Target
 {
     float4 outputColor = _in.color ;
-    if(int_3)
-    {
-        outputColor = float4(1.f, 0.0f, 1.0f, 0.6f);
-    }
-    else
-    {
-        outputColor = tex_0.Sample(ati_sam, _in.uv);
-    }
    
+    outputColor = tex_0.Sample(ati_sam, _in.uv);
+       
     return outputColor;
 }
 
