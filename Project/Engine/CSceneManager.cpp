@@ -39,7 +39,7 @@ void CSceneManager::Init()
 	object->SetName(L"Parent");
 	object->AddComponent(new CTransform);
 	object->AddComponent(new CMeshRender);
-	object->AddComponent(new CPlayerScript);
+	
 	object->Transform()->SetPos(Vec3(0.f, 0.f, 300.f));
 	object->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"CircleMesh"));
@@ -50,7 +50,8 @@ void CSceneManager::Init()
 
 	material->SetData(SHADER_PARAM::INT_3, &a);
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"Background").Get());
-
+	const auto copyObject = object->Clone();
+	object->AddComponent(new CPlayerScript);
 // 	const auto childObject = new CGameObject;
 // 	childObject->SetName(L"Child");
 // 	childObject->AddComponent(new CTransform);
@@ -67,10 +68,10 @@ void CSceneManager::Init()
 	current_scene_->AddGameObject(object, 0,true);
 
 
-// 	const auto copyObject = object->Clone();
-// 	copyObject->SetName(L"copy");
-// 	copyObject->Transform()->SetPos(Vec3(-200.f, -200.f, 300.f));
-// 	current_scene_->AddGameObject(copyObject, 0, true);
+	
+	copyObject->SetName(L"copy");
+	copyObject->Transform()->SetPos(Vec3(-200.f, -200.f, 400.f));
+	current_scene_->AddGameObject(copyObject, 0, true);
 
 }
 

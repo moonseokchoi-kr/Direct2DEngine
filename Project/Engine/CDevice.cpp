@@ -89,6 +89,12 @@ HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 		return E_FAIL;
 	}
 
+	if (FAILED(CreateDepthStencilState()))
+	{
+		MessageBox(nullptr, L"DepthStencil 초기화 실패", L"Engine초기화 오류", MB_OK);
+		return E_FAIL;
+	}
+
 	return S_OK;
 }
 
@@ -241,14 +247,14 @@ HRESULT CDevice::CreateView()
 
 HRESULT CDevice::CreateConstBuffer()
 {
-	for (int i = 0; i < const_buffers_.size(); ++i)
+	for (int i = 0; i < const_buffer_array_.size(); ++i)
 	{
-		const_buffers_[i] = new CConstBuffer;
+		const_buffer_array_[i] = new CConstBuffer;
 	}
 
 
-	HR(const_buffers_[static_cast<UINT>(CB_TYPE::TRANSFORM)]->Create(L"Transform", sizeof(Transform), static_cast<UINT>(CB_TYPE::TRANSFORM)));
-	HR(const_buffers_[static_cast<UINT>(CB_TYPE::MATERIAL_CONST)]->Create(L"Material", sizeof(MaterialParameter), static_cast<UINT>(CB_TYPE::MATERIAL_CONST)));
+	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::TRANSFORM)]->Create(L"Transform", sizeof(Transform), static_cast<UINT>(CB_TYPE::TRANSFORM)));
+	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::MATERIAL_CONST)]->Create(L"Material", sizeof(MaterialParameter), static_cast<UINT>(CB_TYPE::MATERIAL_CONST)));
 
 	return S_OK;
 }
@@ -257,7 +263,9 @@ HRESULT CDevice::CreateBlendState()
 {
 	//ALPHA BLEND
 	D3D11_BLEND_DESC desc = {};
-	desc.AlphaToCoverageEnable = false;
+
+	//투명한 부분에 대한 깊이 값 기록을 안함
+	desc.AlphaToCoverageEnable = true;
 	desc.IndependentBlendEnable = false;
 	
 	desc.RenderTarget[0].BlendEnable = true;
@@ -318,6 +326,42 @@ HRESULT CDevice::CreateRasterizerState()
 	return S_OK;
 }
 
+HRESULT CDevice::CreateDepthStencilState()
+{
+	depth_stencil_state_array_[static_cast<UINT>(DEPTH_STENCIL_TYPE::LESS)] = nullptr;
+	
+	//LESS EQUAL
+	D3D11_DEPTH_STENCIL_DESC desc = {};
+	desc.DepthEnable = true;
+	desc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+	desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	desc.StencilEnable = false;
+	HR(DEVICE->CreateDepthStencilState(&desc, depth_stencil_state_array_[static_cast<UINT>(DEPTH_STENCIL_TYPE::LESS_EQUAL)].GetAddressOf()));
+	//GREATER
+	desc.DepthEnable = true;
+	desc.DepthFunc = D3D11_COMPARISON_GREATER;
+	desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	desc.StencilEnable = false;
+	HR(DEVICE->CreateDepthStencilState(&desc, depth_stencil_state_array_[static_cast<UINT>(DEPTH_STENCIL_TYPE::GRATER)].GetAddressOf()));
+	//NO_TEST
+	desc.DepthEnable = false;
+	desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	desc.StencilEnable = false;
+	HR(DEVICE->CreateDepthStencilState(&desc, depth_stencil_state_array_[static_cast<UINT>(DEPTH_STENCIL_TYPE::NO_TEST)].GetAddressOf()));
+	//NO_WRITE
+	desc.DepthEnable = true;
+	desc.DepthFunc = D3D11_COMPARISON_LESS;
+	desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	desc.StencilEnable = false;
+	HR(DEVICE->CreateDepthStencilState(&desc, depth_stencil_state_array_[static_cast<UINT>(DEPTH_STENCIL_TYPE::NO_WRITE)].GetAddressOf()));
+	//NO_TEST_NO_WRITE
+	desc.DepthEnable = false;
+	desc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	desc.StencilEnable = false;
+	HR(DEVICE->CreateDepthStencilState(&desc, depth_stencil_state_array_[static_cast<UINT>(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE)].GetAddressOf()));
+	return S_OK;
+}
+
 HRESULT CDevice::CreateSampler()
 {
 	D3D11_SAMPLER_DESC desc = {};
@@ -326,7 +370,7 @@ HRESULT CDevice::CreateSampler()
 	desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 	desc.Filter = D3D11_FILTER::D3D11_FILTER_ANISOTROPIC;
 
-	HR(DEVICE->CreateSamplerState(&desc, samplers_[0].GetAddressOf()));
+	HR(DEVICE->CreateSamplerState(&desc, sampler_state_array_[0].GetAddressOf()));
 
 
 	desc.AddressU = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
@@ -334,10 +378,10 @@ HRESULT CDevice::CreateSampler()
 	desc.AddressW = D3D11_TEXTURE_ADDRESS_MODE::D3D11_TEXTURE_ADDRESS_WRAP;
 	desc.Filter = D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT;
 
-	HR(DEVICE->CreateSamplerState(&desc, samplers_[1].GetAddressOf()));
+	HR(DEVICE->CreateSamplerState(&desc, sampler_state_array_[1].GetAddressOf()));
 
 
-	ID3D11SamplerState* sam[2] = { samplers_[0].Get(), samplers_[1].Get() };
+	ID3D11SamplerState* sam[2] = { sampler_state_array_[0].Get(), sampler_state_array_[1].Get() };
 
 	CONTEXT->VSSetSamplers(0, 2, sam);
 	CONTEXT->HSSetSamplers(0, 2, sam);

@@ -11,7 +11,7 @@ CCamera::CCamera()
 	:CComponent(COMPONENT_TYPE::CAMERA)
 	,angle_of_view_y_(90.f)
 	,far_z_(10000.f)
-	,projection_type_(PROJECTION_TYPE::PERSPECTIVE)
+	,projection_type_(PROJECTION_TYPE::ORTHO)
 {
 }
 

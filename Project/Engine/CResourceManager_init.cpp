@@ -112,6 +112,8 @@ void CResourceManager::CreateDefaultShader()
 {
 	CGraphicsShader* stdShader = nullptr;
 
+	//std2DShader
+
 	wstring strPath = CPathManager::GetInst()->GetContentPath();
 	strPath += L"shader\\std2d.fx";
 	stdShader = new CGraphicsShader;
@@ -121,6 +123,9 @@ void CResourceManager::CreateDefaultShader()
  	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 	AddResource(L"std2DShader", stdShader);
 
+
+	//colliderShader
+	
 }
 
 void CResourceManager::CreateDefaultTexture()

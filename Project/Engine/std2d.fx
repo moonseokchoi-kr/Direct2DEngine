@@ -6,6 +6,9 @@ cbuffer TRANSFORM : register(b0)
     row_major float4x4 worldMatrix;
     row_major float4x4 viewMatrix;
     row_major float4x4 projectionMatrix;
+    
+    row_major float4x4 worldViewMatrix;
+    row_major float4x4 wordlViewProjectionMatrix;
 };
 
 cbuffer MATERIAL : register(b1)
