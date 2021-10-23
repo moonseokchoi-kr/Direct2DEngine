@@ -7,6 +7,7 @@ class CMesh;
 class CGraphicsShader;
 class CTexture;
 class CMaterial;
+class CGameObject;
 
 class CResourceManager :
     public CSingleton<CResourceManager>
@@ -22,7 +23,11 @@ public:
 
 	template <typename T>
 	Ptr<T> FindRes(const wstring& key);
-
+	
+	Ptr<CTexture> LoadTexture(const wstring& key, const wstring& strPath);
+	Ptr<CGraphicsShader> LoadGraphicShader(const wstring& key, const wstring& strPath, BLEND_TYPE blendType = BLEND_TYPE::DEFAULT, DEPTH_STENCIL_TYPE depthType = DEPTH_STENCIL_TYPE::LESS, D3D11_PRIMITIVE_TOPOLOGY topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+public:
+	void AddPrefab(const wstring& stringKey, CGameObject* prototype);
 
 private:
 	void CreateDefaultMesh();

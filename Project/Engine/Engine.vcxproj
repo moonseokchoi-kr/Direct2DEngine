@@ -148,10 +148,10 @@
 call .\EngineCopy.bat</Command>
     </PostBuildEvent>
     <FxCompile>
-      <EntryPointName>VS_std</EntryPointName>
+      <EntryPointName>vs_main</EntryPointName>
     </FxCompile>
     <FxCompile>
-      <ShaderModel>5.0</ShaderModel>
+      <ShaderModel>4.0_level_9_3</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -208,6 +208,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CMeshRender.h" />
     <ClInclude Include="CPathManager.h" />
     <ClInclude Include="CPlayerScript.h" />
+    <ClInclude Include="CPrefab.h" />
     <ClInclude Include="CResource.h" />
     <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CScene.h" />
@@ -250,6 +251,7 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CMeshRender.cpp" />
     <ClCompile Include="CPathManager.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
+    <ClCompile Include="CPrefab.cpp" />
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CResourceManager_init.cpp" />
@@ -271,6 +273,7 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="collider2dshader.fx" />
     <FxCompile Include="std2d.fx" />
   </ItemGroup>
   <ItemGroup>

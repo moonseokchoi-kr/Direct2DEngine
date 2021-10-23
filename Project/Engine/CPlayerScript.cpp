@@ -9,6 +9,7 @@ CPlayerScript::CPlayerScript()
 	,accumulated_time_(0)
 	,player_bullet_attack_speed_(0.03f)
 {
+	player_bullet_prefab_ = CResourceManager::GetInst()->FindRes<CPrefab>(L"player_bullet_prefab");
 }
 
 CPlayerScript::~CPlayerScript()
@@ -72,26 +73,14 @@ void CPlayerScript::Update()
 
 void CPlayerScript::CreateBullet()
 {
-	Vec3 pos = GetTransform()->GetPos();
+
+
+	Vec3 position = GetTransform()->GetPos();
 	Vec3 scale = GetTransform()->GetScale();
-	Vec3 rot = GetTransform()->GetRotation();
 
-	CGameObject* bullet = new CGameObject;
-	bullet->SetName(L"Bullet");
-	bullet->AddComponent(new CTransform);
-	bullet->AddComponent(new CMeshRender);
-	bullet->AddComponent(new CBulletScript);
+	position.y += scale.y / 2.f;
 
-	Vec3 bulletPosition = pos;
-	bulletPosition.y += scale.y / 2.f;
-
-	bullet->Transform()->SetPos(bulletPosition);
-	bullet->Transform()->SetScale(Vec3(50.f, 50.f, 1.f));
-	
-	bullet->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	bullet->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
-
-	CreateObject(bullet, 0);
+	Instantiate(player_bullet_prefab_, position, 2);
 
 	
 }

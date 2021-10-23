@@ -6,6 +6,7 @@
 #include "CConstBuffer.h"
 
 #include "CResourceManager.h"
+#include "CScript.h"
 CCollider2D::CCollider2D()
 	:CComponent(COMPONENT_TYPE::COLLIDER2D)
 	,offset_position_(Vec3(0.f,0.f,0.f))
@@ -56,16 +57,32 @@ void CCollider2D::Render()
 void CCollider2D::OnCollisionEnter(CCollider2D* otherCollider)
 {
 	++collision_count_;
+	CScript* script = GetOwner()->Script();
+	if (script)
+	{
+		script->OnCollisionEnter(otherCollider);
+	}
+	
 	collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"collider2DMaterial_collision");
 }
 
 void CCollider2D::OnCollision(CCollider2D* otherCollider)
 {
+	CScript* script = GetOwner()->Script();
+	if (script)
+	{
+		script->OnCollision(otherCollider);
+	}
 }
 
 void CCollider2D::OnCollisionExit(CCollider2D* otherCollider)
 {
 	--collision_count_;
+	CScript* script = GetOwner()->Script();
+	if (script)
+	{
+		script->OnCollisionExit(otherCollider);
+	}
 	if (0 == collision_count_)
 	{
 		collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"collider2DMaterial_none");

@@ -17,7 +17,7 @@ CGraphicsShader::~CGraphicsShader()
 
 HRESULT CGraphicsShader::CreateVertexShader(const wstring& strFilePath, const char* funcName)
 {
-	if (FAILED(D3DCompileFromFile(
+	HR(D3DCompileFromFile(
 		strFilePath.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
@@ -27,18 +27,13 @@ HRESULT CGraphicsShader::CreateVertexShader(const wstring& strFilePath, const ch
 		0,
 		vertex_shader_blob_.GetAddressOf(),
 		error_blob_.GetAddressOf()
-	)))
-	{
-		return E_FAIL;
-	};
+	));
+	
 
 	DEVICE->CreateVertexShader(vertex_shader_blob_->GetBufferPointer(), vertex_shader_blob_->GetBufferSize(), nullptr, vertex_shader_.GetAddressOf());
 	int layoutCount = sizeof(g_layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 
-	if (FAILED(DEVICE->CreateInputLayout(g_layout, layoutCount, vertex_shader_blob_->GetBufferPointer(), vertex_shader_blob_->GetBufferSize(), layout_.GetAddressOf())))
-	{
-		return E_FAIL;
-	}
+	HR(DEVICE->CreateInputLayout(g_layout, layoutCount, vertex_shader_blob_->GetBufferPointer(), vertex_shader_blob_->GetBufferSize(), layout_.GetAddressOf()));
 
 	return S_OK;
 }

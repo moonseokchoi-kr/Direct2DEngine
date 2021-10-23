@@ -138,6 +138,9 @@
     <Filter Include="소스 파일\Manager\CollisionManager">
       <UniqueIdentifier>{776d0063-85a2-4fa2-9866-13d34bc420d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Resource\Prefab">
+      <UniqueIdentifier>{d19b6efc-60c4-4042-ae53-9deb2aa708dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -201,9 +204,6 @@
     <ClInclude Include="util.h">
       <Filter>소스 파일\Header</Filter>
     </ClInclude>
-    <ClInclude Include="CGameObject.h">
-      <Filter>소스 파일\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="CComponent.h">
       <Filter>소스 파일\Component</Filter>
     </ClInclude>
@@ -255,6 +255,12 @@
     </ClInclude>
     <ClInclude Include="CCollisionManager.h">
       <Filter>소스 파일\Manager\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CPrefab.h">
+      <Filter>소스 파일\Resource\Prefab</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameObject.h">
+      <Filter>소스 파일\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -358,9 +364,15 @@
     <ClCompile Include="CCollisionManager.cpp">
       <Filter>소스 파일\Manager\CollisionManager</Filter>
     </ClCompile>
+    <ClCompile Include="CPrefab.cpp">
+      <Filter>소스 파일\Resource\Prefab</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="std2d.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="collider2dshader.fx">
       <Filter>소스 파일\Shader</Filter>
     </FxCompile>
   </ItemGroup>

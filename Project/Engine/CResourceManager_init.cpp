@@ -5,7 +5,7 @@
 #include "CMesh.h"
 #include "CGraphicsShader.h"
 #include "CTexture.h"
-
+#include "CPrefab.h"
 #include "CPathManager.h"
 
 void CResourceManager::Init()
@@ -113,36 +113,54 @@ void CResourceManager::CreateDefaultShader()
 	CGraphicsShader* stdShader = nullptr;
 
 	//std2DShader
-
+	stdShader = new CGraphicsShader;
 	wstring strPath = CPathManager::GetInst()->GetContentPath();
 	strPath += L"shader\\std2d.fx";
-	stdShader = new CGraphicsShader;
-	stdShader->CreateVertexShader(strPath, "VS_std");
-	stdShader->CreatePixelShader(strPath, "PS_std");
- 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
- 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+
 	AddResource(L"std2DShader", stdShader);
-
-
 	//colliderShader
 	stdShader = new CGraphicsShader;
-	stdShader->CreateVertexShader(strPath, "vs_collider2DShader");
-	stdShader->CreatePixelShader(strPath, "ps_collider2DShader");
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"shader\\collider2dshader.fx";
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+
 	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE);
+	
 	AddResource(L"collder2DShader", stdShader);
 }
 
 void CResourceManager::CreateDefaultTexture()
 {
-	CTexture* tex = nullptr;
+	wstring strContent = CPathManager::GetInst()->GetContentPath();
+	CTexture* texture = nullptr;
 
-	wstring strPath = CPathManager::GetInst()->GetContentPath();
-	strPath += L"texture\\valkiry.PNG";
-	tex = new CTexture;
-	tex->Load(strPath);
+	wstring strFilePath = strContent + L"texture\\background.png";
+	texture = new CTexture;
+	texture->Load(strFilePath);
+	AddResource(L"background", texture);
+
+	wstring strContent = CPathManager::GetInst()->GetContentPath();
+	CTexture* texture = nullptr;
+
+	wstring strFilePath = strContent + L"texture\\raimu_player.png";
+	texture = new CTexture;
+	texture->Load(strFilePath);
+	AddResource(L"player", texture);
+
+	wstring strContent = CPathManager::GetInst()->GetContentPath();
+	CTexture* texture = nullptr;
+
+	wstring strFilePath = strContent + L"texture\\player.png";
+	texture = new CTexture;
+	texture->Load(strFilePath);
+	AddResource(L"monster", texture);
 	
-	AddResource(L"Background", tex);
 }
 
 void CResourceManager::CreateDefaultMaterial()
@@ -165,4 +183,46 @@ void CResourceManager::CreateDefaultMaterial()
 	int a = 1;
 	material->SetData(SHADER_PARAM::INT_0, &a);
 	AddResource(L"collider2DMaterial_collision",material);
+}
+
+
+Ptr<CTexture> CResourceManager::LoadTexture(const wstring& key, const wstring& strPath)
+{
+	Ptr<CTexture> texture = FindRes<CTexture>(key);
+	wstring contentPath = CPathManager::GetInst()->GetContentPath();
+	contentPath += strPath;
+	if (nullptr!=texture)
+	{
+		return texture;
+	}
+	texture->Load(contentPath);
+	AddResource(key, texture.Get());
+	return texture;
+}
+
+Ptr<CGraphicsShader> CResourceManager::LoadGraphicShader(const wstring& key, const wstring& strPath, BLEND_TYPE blendType, DEPTH_STENCIL_TYPE depthType , D3D11_PRIMITIVE_TOPOLOGY topology)
+{
+	Ptr<CGraphicsShader> shader = FindRes<CGraphicsShader>(key);
+	wstring contentPath = CPathManager::GetInst()->GetContentPath();
+	contentPath += strPath;
+	if (nullptr != shader)
+	{
+		return shader;
+	}
+	shader->CreateVertexShader(contentPath, "vs_main");
+	shader->CreatePixelShader(contentPath, "ps_main");
+	shader->SetBlendType(blendType);
+	shader->SetDepthStencilType(depthType);
+	shader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+	shader->SetTopology(topology);
+
+	AddResource(key, shader.Get());
+	return shader;
+}
+
+void CResourceManager::AddPrefab(const wstring& stringKey, CGameObject* prototype)
+{
+	Ptr<CPrefab> prefab = new CPrefab(prototype);
+
+	AddResource<CPrefab>(stringKey, prefab.Get());
 }

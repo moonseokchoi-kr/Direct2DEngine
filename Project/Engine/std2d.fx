@@ -54,23 +54,23 @@ SamplerState ati_sam : register(s0);
 SamplerState mip_sam : register(s1);
 
 
-struct VTX_IN
+struct VS_INPUT
 {
     float3 pos : POSITION;
     float4 color : COLOR;
     float2 uv : TEXCOORD;
 };
 
-struct VTX_OUT
+struct VS_OUTPUT
 {
     float4 pos : SV_Position;
     float4 color : COLOR;
     float2 uv : TEXCOORD;
 };
 
-VTX_OUT VS_std(VTX_IN _in)
+VS_OUTPUT vs_main(VS_INPUT _in)
 {
-    VTX_OUT output = (VTX_OUT) 0.f;
+    VS_OUTPUT output = (VS_OUTPUT) 0.f;
     float4 worldPos = mul(float4(_in.pos, 1.f), worldMatrix);
     float4 viewPos = mul(worldPos, viewMatrix);
     float4 projPos = mul(viewPos, projectionMatrix);
@@ -81,7 +81,7 @@ VTX_OUT VS_std(VTX_IN _in)
     return output;
 }
 
-float4 PS_std(VTX_OUT _in):SV_Target
+float4 ps_main(VS_OUTPUT _in) : SV_Target
 {
     float4 outputColor = _in.color ;
    
@@ -91,42 +91,5 @@ float4 PS_std(VTX_OUT _in):SV_Target
 }
 
 
-//=============
-//collider shader
-//=============
 
-struct VS_COL_INPUT
-{
-    float3 position : POSITION;
-};
-
-struct VS_COL_OUTPUT
-{
-    float4 position : SV_Position;
-};
-
-
-VS_COL_OUTPUT vs_collider2DShader(VS_COL_INPUT input)
-{
-    VS_COL_OUTPUT output = (VS_COL_OUTPUT) 0.f;
-    output.position = mul(float4(input.position, 1.f), worldViewProjectionMatrix);
-    
-    return output;
-}
-
-float4 ps_collider2DShader(VS_COL_OUTPUT input):SV_Target
-{
-    float4 outColor = (float4) 0.f;
-    
-    if(int_0)
-    {
-        outColor = float4(0.9f, 0.2f, 0.2f, 1.f);
-    }
-    else
-    {
-        outColor = float4(0.2f, 0.9f, 0.2f, 1.f);
-    }
-    
-    return outColor;
-}
 #endif

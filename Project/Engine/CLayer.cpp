@@ -36,7 +36,7 @@ void CLayer::FinalUpdate()
 	for (; iter != parent_object_vector_.end();)
 	{
 		(*iter)->FinalUpdate();
-		if ((*iter)->IsDelete())
+		if ((*iter)->IsDead())
 		{
 			iter = parent_object_vector_.erase(iter);
 		}

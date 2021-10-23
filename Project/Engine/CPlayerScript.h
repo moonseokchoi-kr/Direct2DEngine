@@ -19,5 +19,7 @@ private:
     float player_bullet_attack_speed_;
 
     float accumulated_time_;
+
+    Ptr<CPrefab> player_bullet_prefab_;
 };
 

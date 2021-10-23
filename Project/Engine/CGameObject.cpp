@@ -7,6 +7,7 @@
 
 #include "CSceneManager.h"
 #include "CScene.h"
+#include "CResourceManager.h"
 #include "CTimeManager.h"
 
 #include "CLayer.h"
@@ -15,14 +16,16 @@ CGameObject::CGameObject()
 	:component_array_{}
 	,parent_object_(nullptr)
 	,layer_index_(-1)
-	,object_dead_(false)
-	,object_delete_(false)
+	,object_state_(OBJECT_STATE::ALIVE)
 {
 }
 
 CGameObject::CGameObject(const CGameObject& origin)
-	:parent_object_(nullptr)
+	:CEntity(origin)
+	, component_array_{}
+	,parent_object_(nullptr)
 	,layer_index_(-1)
+	, object_state_(OBJECT_STATE::ALIVE)
 {
 	for (CComponent* component : origin.component_array_)
 	{
@@ -46,19 +49,8 @@ CGameObject::~CGameObject()
 
 void CGameObject::Update()
 {
-	if (object_dead_)
-	{
-		if (object_delete_)
-			return;
-		delay_accumulated_time += fDT;
-		if (dead_time <= delay_accumulated_time)
-		{
-			object_delete_ = true;
-			return;
-		}
-	
-	}
-		
+	if (CheckDead())
+		return;
 	for (CComponent* component : component_array_)
 	{
 		if(nullptr != component)
@@ -73,16 +65,9 @@ void CGameObject::Update()
 
 void CGameObject::LateUpdate()
 {
-	if (object_dead_)
-	{
-		delay_accumulated_time += fDT;
-		if (dead_time <= delay_accumulated_time)
-		{
-			object_delete_ = true;
-			return;
-		}
-		
-	}
+	if (CheckDead())
+		return;
+
 	for (CComponent* component : component_array_)
 	{
 		if (nullptr != component)
@@ -138,4 +123,33 @@ void CGameObject::AddChild(CGameObject* child)
 {
 	child_object_vector_.push_back(child);
 	child->parent_object_ = this;
+}
+
+
+
+bool CGameObject::CheckDead()
+{
+	if (OBJECT_STATE::RESERVE_DEAD == object_state_)
+	{
+		if (IsDead())
+			return true;
+		delay_accumulated_time += fDT;
+		if (dead_time <= delay_accumulated_time)
+		{
+			object_state_ = OBJECT_STATE::DEAD;
+			return true;
+		}
+
+	}
+	return false;
+}
+#include "CPrefab.h"
+void CGameObject::ReigsterAsPrefab(const wstring& prefabName)
+{
+	if (CResourceManager::GetInst()->FindRes<CPrefab>(prefabName).Get())
+	{
+		assert(nullptr);
+	}
+
+	CResourceManager::GetInst()->AddPrefab(prefabName, this);
 }

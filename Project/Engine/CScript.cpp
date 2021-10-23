@@ -24,17 +24,6 @@ void CScript::CreateObject(CGameObject* object, int layerIndex)
 
 }
 
-void CScript::CreateObject(CGameObject* object, Vec3 position, int layerIndex)
-{
-	Event evn = {};
-	object->Transform()->SetPos(position);
-	evn.event_type = EVENT_TYPE::CREATE_OBJECT;
-	evn.lParam = (DWORD_PTR)object;
-	evn.wParam = (DWORD_PTR)layerIndex;
-
-	CEventManager::GetInst()->AddEvent(evn);
-}
-
 void CScript::DeleteObject(CGameObject* object, float delay)
 {
 	Event evn = {};
@@ -44,4 +33,30 @@ void CScript::DeleteObject(CGameObject* object, float delay)
 	evn.wParam = (DWORD_PTR)delay;
 
 	CEventManager::GetInst()->AddEvent(evn);
+}
+
+void CScript::Instantiate(Ptr<CPrefab> prefab, int layerIndex)
+{
+	CGameObject* prototype = prefab->Instantiate();
+	CreateObject(prototype, layerIndex);
+}
+
+void CScript::Instantiate(Ptr<CPrefab> prefab, Vec3 position, int layerIndex,Vec3 rotation)
+{
+	CGameObject* prototype = prefab->Instantiate();
+	prototype->Transform()->SetPos(position);
+	prototype->Transform()->SetRotation(rotation);
+	CreateObject(prototype, layerIndex);
+}
+
+void CScript::OnCollisionEnter(CCollider2D* otherCollider)
+{
+}
+
+void CScript::OnCollision(CCollider2D* otherCollider)
+{
+}
+
+void CScript::OnCollisionExit(CCollider2D* otherCollider)
+{
 }
