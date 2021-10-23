@@ -145,18 +145,16 @@ void CResourceManager::CreateDefaultTexture()
 	texture->Load(strFilePath);
 	AddResource(L"background", texture);
 
-	wstring strContent = CPathManager::GetInst()->GetContentPath();
-	CTexture* texture = nullptr;
-
-	wstring strFilePath = strContent + L"texture\\raimu_player.png";
+	strContent = CPathManager::GetInst()->GetContentPath();
+	
+	strFilePath = strContent + L"texture\\raimu_player.png";
 	texture = new CTexture;
 	texture->Load(strFilePath);
 	AddResource(L"player", texture);
 
-	wstring strContent = CPathManager::GetInst()->GetContentPath();
-	CTexture* texture = nullptr;
+	 strContent = CPathManager::GetInst()->GetContentPath();
 
-	wstring strFilePath = strContent + L"texture\\player.png";
+	strFilePath = strContent + L"texture\\monster_yuki.png";
 	texture = new CTexture;
 	texture->Load(strFilePath);
 	AddResource(L"monster", texture);

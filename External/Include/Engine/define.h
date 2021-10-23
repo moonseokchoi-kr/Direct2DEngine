@@ -59,6 +59,7 @@ enum class RES_TYPE
 	TEXTURE,
 	MATERIAL,
 	METADATA,
+	PREFAB,
 	SOUND,
 	END,
 };

@@ -8,7 +8,7 @@ class CGraphicsShader;
 class CTexture;
 class CMaterial;
 class CGameObject;
-
+class CPrefab;
 class CResourceManager :
     public CSingleton<CResourceManager>
 {
@@ -39,7 +39,7 @@ private:
 
 };
 
-template<typename  T>
+template<typename  T> 
 RES_TYPE GetResourceType()
 {
 	const type_info& info = typeid(T);
@@ -61,6 +61,10 @@ RES_TYPE GetResourceType()
 	if (info.hash_code() == typeid(CMaterial).hash_code())
 	{
 		type = RES_TYPE::MATERIAL;
+	}
+	if (info.hash_code() == typeid(CPrefab).hash_code())
+	{
+		type = RES_TYPE::PREFAB;
 	}
 	return type;
 }

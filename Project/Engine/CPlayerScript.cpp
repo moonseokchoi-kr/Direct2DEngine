@@ -7,7 +7,7 @@
 CPlayerScript::CPlayerScript()
 	:player_move_speed_(400)
 	,accumulated_time_(0)
-	,player_bullet_attack_speed_(0.03f)
+	,player_bullet_attack_speed_(0.1f)
 {
 	player_bullet_prefab_ = CResourceManager::GetInst()->FindRes<CPrefab>(L"player_bullet_prefab");
 }
@@ -40,15 +40,6 @@ void CPlayerScript::Update()
 			* 0.5f, 0.f, 0.f);
 	}
 
-	if (KEY_HOLD(KEY::LBTN))
-	{
-		scale -= Vec3(1.f, 1.f, 1.f) * 300*fDT;
-	}
-	if (KEY_HOLD(KEY::RBTN))
-	{
-		scale += Vec3(1.f, 1.f, 1.f) * 300*fDT;
-	}
-
 	if (KEY_HOLD(KEY::Q))
 	{
 		rot.z += XM_2PI * fDT;
@@ -62,8 +53,9 @@ void CPlayerScript::Update()
 		if (player_bullet_attack_speed_ <= accumulated_time_)
 		{
 			CreateBullet();
+			accumulated_time_ = 0.f;
 		}
-		accumulated_time_ = 0.f;
+		
 	}
 	
 	GetTransform()->SetPos(pos);

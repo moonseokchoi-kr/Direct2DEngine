@@ -29,7 +29,7 @@ protected:
     void DeleteObject(CGameObject* object, float t =0.0f);
 
     void Instantiate(Ptr<CPrefab> prefab, int layerIndex = 0);
-    void Instantiate(Ptr<CPrefab> prefab, Vec3 position, Vec3 rotation = Vec3(0.f, 0.f, 0.f), int layerIndex = 0);
+    void Instantiate(Ptr<CPrefab> prefab, Vec3 position, int layerIndex = 0, Vec3 rotation = Vec3(0.f, 0.f, 0.f) );
 
 
 

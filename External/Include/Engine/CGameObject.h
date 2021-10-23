@@ -50,6 +50,8 @@ public:
 
     bool IsDead() { return OBJECT_STATE::DEAD == object_state_ ? true : false; }
 	OBJECT_STATE GetObjectState() {return object_state_;}
+
+    void ReigsterAsPrefab(const wstring& prefabName);
 public:
     CLONE(CGameObject);
 

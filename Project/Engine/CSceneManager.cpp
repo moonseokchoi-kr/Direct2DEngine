@@ -13,6 +13,8 @@
 #include "CLayer.h"
 #include "CTransform.h"
 
+void CreatePrefabs();
+
 CSceneManager::CSceneManager()
 	:current_scene_(nullptr)
 {
@@ -29,11 +31,13 @@ void CSceneManager::Init()
 {
 	current_scene_ = new CScene;
 
+	CreatePrefabs();
+
 	const auto background = new CGameObject;
 	background->AddComponent(new CTransform);
 	background->AddComponent(new CMeshRender);
 	background->Transform()->SetPos(Vec3(0.f, 0.f, 500.f));
-	background->Transform()->SetScale(Vec3(1.f, 1.f, 1.f));
+	background->Transform()->SetScale(Vec3(10000.f, 10000.f, 1.f));
 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	CMaterial* backgroundMaterial = new CMaterial;
 	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
@@ -74,8 +78,10 @@ void CSceneManager::Init()
 	monster->AddComponent(new CCollider2D);
 	
 	monster->SetName(L"Monster");
-	monster->Transform()->SetPos(Vec3(0, 400.f, 300.f));
+	monster->Transform()->SetPos(Vec3(0, 200.f, 300.f));
+	monster->Transform()->SetScale(Vec3(100.f, 150.f, 1.f));
 	monster->Collider2D()->SetOffsetScale(Vec2(0.85f, 0.85f));
+	monster->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	CMaterial* monsterMaterial = new CMaterial;
 	monsterMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	monsterMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"monster").Get());
