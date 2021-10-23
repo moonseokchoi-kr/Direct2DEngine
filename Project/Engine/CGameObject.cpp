@@ -3,6 +3,7 @@
 #include "CTransform.h"
 #include "CComponent.h"
 #include "CMeshRender.h"
+#include "CCollider2D.h"
 
 #include "CSceneManager.h"
 #include "CScene.h"
@@ -114,9 +115,14 @@ void CGameObject::FinalUpdate()
 
 void CGameObject::Render()
 {
-	if (nullptr == MeshRender())
-		return;
-	MeshRender()->Render();
+	if (nullptr != MeshRender())
+	{
+		MeshRender()->Render();
+	}
+	if (nullptr != Collider2D())
+	{
+		Collider2D()->Render();
+	}
 }
 
 void CGameObject::AddComponent(CComponent* comp)

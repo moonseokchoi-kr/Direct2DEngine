@@ -51,9 +51,9 @@ void CResourceManager::CreateDefaultMesh()
 	indexBuffer.push_back(0);
 	indexBuffer.push_back(1);
 	indexBuffer.push_back(2);
-	indexBuffer.push_back(0);
 	indexBuffer.push_back(2);
 	indexBuffer.push_back(3);
+	indexBuffer.push_back(0);
 
 	mesh = new CMesh;
 	mesh->Create(vertexBuffer.data(), (UINT)vertexBuffer.size(), indexBuffer.data(), (UINT)indexBuffer.size());
@@ -125,7 +125,12 @@ void CResourceManager::CreateDefaultShader()
 
 
 	//colliderShader
-	
+	stdShader = new CGraphicsShader;
+	stdShader->CreateVertexShader(strPath, "vs_collider2DShader");
+	stdShader->CreatePixelShader(strPath, "ps_collider2DShader");
+	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE);
+	AddResource(L"collder2DShader", stdShader);
 }
 
 void CResourceManager::CreateDefaultTexture()
@@ -149,4 +154,15 @@ void CResourceManager::CreateDefaultMaterial()
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 
 	AddResource(L"std2DMaterial", material);
+	
+	//colliderMaterial
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"collder2DShader"));
+	AddResource(L"collider2DMaterial_none", material);
+
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"collder2DShader"));
+	int a = 1;
+	material->SetData(SHADER_PARAM::INT_0, &a);
+	AddResource(L"collider2DMaterial_collision",material);
 }

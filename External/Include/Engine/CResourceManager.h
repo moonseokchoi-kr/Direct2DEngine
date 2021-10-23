@@ -1,5 +1,6 @@
 #pragma once
 #include "CMesh.h"
+#include "CTexture.h"
 
 class CResource;
 class CMesh;

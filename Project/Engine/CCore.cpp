@@ -7,6 +7,7 @@
 #include "CEventManager.h"
 #include "CDevice.h"
 #include "CSceneManager.h"
+#include "CCollisionManager.h"
 
 CCore::CCore()
     :hWnd_(nullptr)

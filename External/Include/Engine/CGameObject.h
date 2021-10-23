@@ -4,6 +4,7 @@
 class CComponent;
 class CMeshRender;
 class CTransform;
+class CCollider2D;
 class CCamera;
 
 
@@ -30,7 +31,7 @@ public:
     GET_COMPONENT(Transform, COMPONENT_TYPE::TRANSFORM);
     GET_COMPONENT(MeshRender, COMPONENT_TYPE::MESHRENDER);
     GET_COMPONENT(Camera, COMPONENT_TYPE::CAMERA);
-
+    GET_COMPONENT(Collider2D, COMPONENT_TYPE::COLLIDER2D);
     CGameObject* GetParent() { return parent_object_; }
 
 

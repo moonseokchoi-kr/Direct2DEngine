@@ -4,9 +4,11 @@
 #include "CCamera.h"
 #include "CGameObject.h"
 #include "CMaterial.h"
+#include "CCollider2D.h"
 #include "CMeshRender.h"
 #include "CPlayerScript.h"
 #include "CResourceManager.h"
+#include "CCollisionManager.h"
 #include "CScene.h"
 #include "CLayer.h"
 #include "CTransform.h"
@@ -36,12 +38,13 @@ void CSceneManager::Init()
 	current_scene_->AddGameObject(camera, 0,true);
 
 	const auto object = new CGameObject;
-	object->SetName(L"Parent");
+	object->SetName(L"Player");
 	object->AddComponent(new CTransform);
 	object->AddComponent(new CMeshRender);
-	
+	object->AddComponent(new CCollider2D);
 	object->Transform()->SetPos(Vec3(0.f, 0.f, 300.f));
 	object->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
+	object->Collider2D()->SetOffsetScale(Vec2(0.85f, 0.85f));
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"CircleMesh"));
 	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 
@@ -69,9 +72,11 @@ void CSceneManager::Init()
 
 
 	
-	copyObject->SetName(L"copy");
+	copyObject->SetName(L"Monster");
 	copyObject->Transform()->SetPos(Vec3(-200.f, -200.f, 400.f));
-	current_scene_->AddGameObject(copyObject, 0, true);
+	current_scene_->AddGameObject(copyObject, 1, true);
+
+	CCollisionManager::GetInst()->CheckLayer(0, 1);
 
 }
 
@@ -80,5 +85,6 @@ void CSceneManager::Progress()
 	current_scene_->Update();
 	current_scene_->LateUpdate();
 	current_scene_->FinalUpdate();
+	CCollisionManager::GetInst()->Update();
 	current_scene_->Render();
 }

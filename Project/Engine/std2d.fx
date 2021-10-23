@@ -8,7 +8,7 @@ cbuffer TRANSFORM : register(b0)
     row_major float4x4 projectionMatrix;
     
     row_major float4x4 worldViewMatrix;
-    row_major float4x4 wordlViewProjectionMatrix;
+    row_major float4x4 worldViewProjectionMatrix;
 };
 
 cbuffer MATERIAL : register(b1)
@@ -90,4 +90,43 @@ float4 PS_std(VTX_OUT _in):SV_Target
     return outputColor;
 }
 
+
+//=============
+//collider shader
+//=============
+
+struct VS_COL_INPUT
+{
+    float3 position : POSITION;
+};
+
+struct VS_COL_OUTPUT
+{
+    float4 position : SV_Position;
+};
+
+
+VS_COL_OUTPUT vs_collider2DShader(VS_COL_INPUT input)
+{
+    VS_COL_OUTPUT output = (VS_COL_OUTPUT) 0.f;
+    output.position = mul(float4(input.position, 1.f), worldViewProjectionMatrix);
+    
+    return output;
+}
+
+float4 ps_collider2DShader(VS_COL_OUTPUT input):SV_Target
+{
+    float4 outColor = (float4) 0.f;
+    
+    if(int_0)
+    {
+        outColor = float4(0.9f, 0.2f, 0.2f, 1.f);
+    }
+    else
+    {
+        outColor = float4(0.2f, 0.9f, 0.2f, 1.f);
+    }
+    
+    return outColor;
+}
 #endif

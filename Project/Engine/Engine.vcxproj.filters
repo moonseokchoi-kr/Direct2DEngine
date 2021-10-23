@@ -126,6 +126,18 @@
     <Filter Include="소스 파일\Scripts\BulletScript">
       <UniqueIdentifier>{7783ea49-43fb-4f1e-8a13-0296ac1f4126}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Component\2DCollider">
+      <UniqueIdentifier>{686c6217-acfb-4d6f-82d9-7f2a28f0845a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Component\2DCollider\2DBoxCollider">
+      <UniqueIdentifier>{02330868-3ada-43c7-9b92-41ac77201fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Component\2DCollider\2DCirCleCollider">
+      <UniqueIdentifier>{963a64fa-cbbb-4fb4-8da3-f942cd9e1e4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\CollisionManager">
+      <UniqueIdentifier>{776d0063-85a2-4fa2-9866-13d34bc420d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -238,6 +250,12 @@
     <ClInclude Include="CBulletScript.h">
       <Filter>소스 파일\Scripts\BulletScript</Filter>
     </ClInclude>
+    <ClInclude Include="CCollider2D.h">
+      <Filter>소스 파일\Component\2DCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionManager.h">
+      <Filter>소스 파일\Manager\CollisionManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -333,6 +351,12 @@
     </ClCompile>
     <ClCompile Include="CBulletScript.cpp">
       <Filter>소스 파일\Scripts\BulletScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollider2D.cpp">
+      <Filter>소스 파일\Component\2DCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionManager.cpp">
+      <Filter>소스 파일\Manager\CollisionManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

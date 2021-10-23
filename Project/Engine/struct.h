@@ -14,6 +14,8 @@ struct Transform
 	Matrix world_matrix;
 	Matrix view_matrix;
 	Matrix projection_matrix;
+	Matrix world_view_matrix;
+	Matrix world_view_projection_matrix;
 };
 
 struct MaterialParameter

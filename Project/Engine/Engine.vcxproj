@@ -190,6 +190,8 @@ call .\EngineCopy.bat</Command>
   <ItemGroup>
     <ClInclude Include="CBulletScript.h" />
     <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CCollider2D.h" />
+    <ClInclude Include="CCollisionManager.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CComputeShader.h" />
     <ClInclude Include="CConstBuffer.h" />
@@ -230,6 +232,8 @@ call .\EngineCopy.bat</Command>
   <ItemGroup>
     <ClCompile Include="CBulletScript.cpp" />
     <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CCollider2D.cpp" />
+    <ClCompile Include="CCollisionManager.cpp" />
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CComputeShader.cpp" />
     <ClCompile Include="CConstBuffer.cpp" />

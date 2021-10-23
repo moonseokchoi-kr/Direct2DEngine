@@ -21,6 +21,9 @@ public:
     void AddGameObject(CGameObject* object, bool bMove);
     void RegisterObject(CGameObject* object) { layer_object_vector_.push_back(object); }
 
+    const vector<CGameObject*> GetLayerObjects() { return layer_object_vector_; }
+    const vector < CGameObject*> GetParentObjects() { return parent_object_vector_; }
+
     CLayer* Clone() { return nullptr; }
 private:
     vector<CGameObject*> parent_object_vector_;
