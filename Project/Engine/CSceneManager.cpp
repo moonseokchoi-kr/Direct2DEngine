@@ -36,7 +36,7 @@ void CSceneManager::Init()
 	const auto background = new CGameObject;
 	background->AddComponent(new CTransform);
 	background->AddComponent(new CMeshRender);
-	background->Transform()->SetPos(Vec3(0.f, 0.f, 500.f));
+	background->Transform()->SetPosition(Vec3(0.f, 0.f, 500.f));
 	background->Transform()->SetScale(Vec3(10000.f, 10000.f, 1.f));
 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	CMaterial* backgroundMaterial = new CMaterial;
@@ -51,7 +51,7 @@ void CSceneManager::Init()
 	const auto camera = new CGameObject;
 	camera->AddComponent(new CTransform);
 	camera->AddComponent(new CCamera);
-	camera->Transform()->SetPos(Vec3(0.f, 0.f, 0.f));
+	camera->Transform()->SetPosition(Vec3(0.f, 0.f, 0.f));
 	//카메라 1번
 	current_scene_->AddGameObject(camera, 1,true);
 
@@ -61,7 +61,7 @@ void CSceneManager::Init()
 	object->AddComponent(new CMeshRender);
 	object->AddComponent(new CPlayerScript);
 	object->AddComponent(new CCollider2D);
-	object->Transform()->SetPos(Vec3(0.f, 0.f, 300.f));
+	object->Transform()->SetPosition(Vec3(0.f, 0.f, 300.f));
 	object->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
 	object->Collider2D()->SetOffsetScale(Vec2(0.85f, 0.85f));
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
@@ -78,7 +78,7 @@ void CSceneManager::Init()
 	monster->AddComponent(new CCollider2D);
 	
 	monster->SetName(L"Monster");
-	monster->Transform()->SetPos(Vec3(0, 200.f, 300.f));
+	monster->Transform()->SetPosition(Vec3(0, 200.f, 300.f));
 	monster->Transform()->SetScale(Vec3(100.f, 150.f, 1.f));
 	monster->Collider2D()->SetOffsetScale(Vec2(0.85f, 0.85f));
 	monster->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));

@@ -19,7 +19,7 @@ CPlayerScript::~CPlayerScript()
 void CPlayerScript::Update()
 {
 	accumulated_time_ += fDT;
-	Vec3 pos = GetTransform()->GetPos();
+	Vec3 pos = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
 	Vec3 rot = GetTransform()->GetRotation();
 	if (KEY_HOLD(KEY::UP))
@@ -58,7 +58,7 @@ void CPlayerScript::Update()
 		
 	}
 	
-	GetTransform()->SetPos(pos);
+	GetTransform()->SetPosition(pos);
 	GetTransform()->SetScale(scale);
 	GetTransform()->SetRotation(rot);
 }
@@ -67,7 +67,7 @@ void CPlayerScript::CreateBullet()
 {
 
 
-	Vec3 position = GetTransform()->GetPos();
+	Vec3 position = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
 
 	position.y += scale.y / 2.f;

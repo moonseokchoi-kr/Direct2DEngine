@@ -141,6 +141,9 @@
     <Filter Include="소스 파일\Resource\Prefab">
       <UniqueIdentifier>{d19b6efc-60c4-4042-ae53-9deb2aa708dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Scripts\MonsterScript">
+      <UniqueIdentifier>{d45a6a49-1d78-46ae-bd83-f0f1ab3ec5ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -262,6 +265,12 @@
     <ClInclude Include="CGameObject.h">
       <Filter>소스 파일\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="CMonsterBulletScript.h">
+      <Filter>소스 파일\Scripts\BulletScript</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>소스 파일\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -366,6 +375,9 @@
     </ClCompile>
     <ClCompile Include="CPrefab.cpp">
       <Filter>소스 파일\Resource\Prefab</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterBulletScript.cpp">
+      <Filter>소스 파일\Scripts\BulletScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

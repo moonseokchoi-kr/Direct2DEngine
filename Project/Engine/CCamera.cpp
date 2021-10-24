@@ -21,7 +21,7 @@ CCamera::~CCamera()
 
 void CCamera::Update()
 {
-	Vec3 pos = GetTransform()->GetPos();
+	Vec3 pos = GetTransform()->GetPosition();
 	if(KEY_HOLD(KEY::W))
 	{
 		pos.y -= 100.f * fDT;
@@ -38,7 +38,7 @@ void CCamera::Update()
 	{
 		pos.x += 100.f * fDT;
 	}
-	GetTransform()->SetPos(pos);
+	GetTransform()->SetPosition(pos);
 
 }
 
@@ -49,7 +49,7 @@ void CCamera::LateUpdate()
 
 void CCamera::FinalUpdate()
 {
-	const Vec3 pos = GetTransform()->GetPos();
+	const Vec3 pos = GetTransform()->GetPosition();
 	const Vec2 resolution = CDevice::GetInst()->GetResolution();
 	view_matrix_ = XMMatrixTranslation(pos.x, pos.y, pos.z);
 	view_matrix_ = view_matrix_.Invert();

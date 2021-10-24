@@ -12,11 +12,11 @@ CBulletScript::~CBulletScript()
 
 void CBulletScript::Update()
 {
-	Vec3 position = GetTransform()->GetPos();
+	Vec3 position = GetTransform()->GetPosition();
 	
 	position.y += fDT * bullet_speead_;
 
-	GetTransform()->SetPos(position);
+	GetTransform()->SetPosition(position);
 
 	DeleteObject(GetOwner(), 2.f);
 }
