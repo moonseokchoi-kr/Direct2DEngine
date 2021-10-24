@@ -111,7 +111,7 @@ void CSceneManager::Init()
 	monster->MeshRender()->SetMaterial(monsterMaterial);
 
 	const auto monsterLeftShooter = monster->Clone();
-	monsterLeftShooter->AddComponent(new CMonsterScript(0.6f,0.2f));
+	monsterLeftShooter->AddComponent(new CMonsterScript(0.3f));
 	monsterLeftShooter->SetName(L"monster_left_shooter");
 	monsterLeftShooter->Transform()->SetPosition(Vec3(-70.f, 300.f, 300.f));
 	monsterLeftShooter->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));

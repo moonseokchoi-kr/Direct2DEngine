@@ -145,6 +145,19 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST);
 
 	AddResource(L"monster_hp_shader", stdShader);
+
+
+	//monster bullet
+	stdShader = new CGraphicsShader;
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"shader\\monsterbulletshader.fx";
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+
+	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST);
+
+	AddResource(L"monster_bullet_shader", stdShader);
 }
 
 void CResourceManager::CreateDefaultTexture()
@@ -171,6 +184,18 @@ void CResourceManager::CreateDefaultTexture()
 	texture->Load(strFilePath);
 	AddResource(L"monster", texture);
 	
+	texture = new CTexture;
+	wstring strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"texture\\monster_bullet.png";
+	texture->Load(strPath);
+	AddResource(L"monster_bullet_red", texture);
+
+
+	texture = new CTexture;
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"texture\\monster_bullet_1.png";
+	texture->Load(strPath);
+	AddResource(L"monster_bullet_blue", texture);
 }
 
 void CResourceManager::CreateDefaultMaterial()
@@ -198,6 +223,19 @@ void CResourceManager::CreateDefaultMaterial()
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"monster_hp_shader"));
 	AddResource(L"monster_hp_material", material);
+
+
+	//bullet material
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"monster_bullet_red").Get());
+	AddResource(L"monster_bulluet_red_material", material);
+
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"monster_bullet_blue").Get());
+	AddResource(L"monster_bulluet_blue_material", material);
+	
 }
 
 

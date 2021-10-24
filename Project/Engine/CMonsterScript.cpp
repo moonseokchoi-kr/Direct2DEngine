@@ -11,18 +11,20 @@ CMonsterScript::CMonsterScript()
 	, bullet_angle_rate_{ }
 	, bullet_type_(ENEMY_BULLET_TYPE::COMBINE_SPIRAL)
 	, shoot_count_(11)
-	, attack_time_(0.3f)
-	, attack_during_time_(0.2f)
-	, interval_(0.1f)
+	, attack_time_(0.4f)
+	,accumulated_time_(0.3f)
+	, interval_(0.0f)
 	, init_(false)
 	, is_move_(false)
-	, monster_move_time(2.f)
+	, monster_state_(MONSTER_STATE::IDLE)
+	,monster_prev_state_(MONSTER_STATE::IDLE)
+	, monster_state_time_(0.5f)
 	,bullet_speed_rate_{}
 {
 	SetRandomPattern();
 }
 
-CMonsterScript::CMonsterScript(float attack_time, float interval)
+CMonsterScript::CMonsterScript(float attack_time)
 	:bullet_start_angle_(0)
 	, bullet_angle_{ }
 	, bullet_rotate_angle_{ }
@@ -30,15 +32,15 @@ CMonsterScript::CMonsterScript(float attack_time, float interval)
 	, bullet_type_(ENEMY_BULLET_TYPE::COMBINE_SPIRAL)
 	, shoot_count_(11)
 	, attack_time_(attack_time)
-	, attack_during_time_(0.2f)
-	, interval_(interval)
+	, interval_(attack_time)
 	, is_move_(false)
 	, init_(false)
-	, monster_move_time(1.f)
+	, monster_state_(MONSTER_STATE::IDLE)
+	, monster_prev_state_(MONSTER_STATE::IDLE)
+	, monster_state_time_(0.5f)
 	, bullet_speed_rate_{}
 {
 	SetRandomPattern();
-	attack_during_time_ = interval * 2.f;
 }
 
 CMonsterScript::~CMonsterScript()
@@ -53,45 +55,8 @@ void CMonsterScript::Update()
 		DeleteObject(GetOwner());
 		return;
 	}
-	accumulated_time_ += fDT;
-	move_accumulated_time_ += fDT;
-	if (attack_time_ <= accumulated_time_ && !is_move_ )
-	{
-		Fire();
-		if (!init_)
-			SetRandomPattern();
-		is_move_ = true;
-		accumulated_time_ = 0.0f;
-	}
-	if (monster_move_time <= move_accumulated_time_ && is_move_)
-	{
-		random_device rd;
-		mt19937 gen(rd());
-		std::uniform_int_distribution<> dist(1, 4);
-		if (is_right_)
-		{
-			position.x += 100.f*dist(gen);
-			position.y += -30.f * dist(gen);
-			is_right_ = false;
-		}
-		else
-		{
-			position.x += -100.f *dist(gen);
-			position.y += 30.f * dist(gen);
-			is_right_ = true;
-		}
-		if (abs(position.x) >= 300.f)
-		{
-			position.x = 0.f;
-		}
-		if (abs(position.y) >= 300.f)
-		{
-			position.y = 300.f;
-		}
-		GetTransform()->SetPosition(position);
-		move_accumulated_time_ = 0.0f;
-	}
-
+	UpdateState();
+	UpdateAnimation();
 }
 
 void CMonsterScript::OnCollisionEnter(CCollider2D* otherCollider)
@@ -119,7 +84,7 @@ CBulletScript* CMonsterScript::CreateBulletMoveDirection(int index = 0)
 
 	script->SetMoveDirection(bulletDirection);
 	script->SetMoveSpeedRate(bullet_speed_rate_[index]);
-	script->SetMoveSpeed(50000.f * 2);
+	script->SetMoveSpeed(30000.f * 2);
 	script->SetRotationAngle(bullet_rotate_angle_[index]);
 	return script;
 }
@@ -132,6 +97,8 @@ void CMonsterScript::SetRandomPattern()
 
 	bullet_type_ = static_cast<ENEMY_BULLET_TYPE>(dist(gen));
 
+	spiral_time_ = 0.05f;
+	spiral_accumulated_time_ = 0.0f;
 	switch (bullet_type_)
 	{
 	case ENEMY_BULLET_TYPE::DIRECTIONAL:
@@ -150,6 +117,7 @@ void CMonsterScript::SetRandomPattern()
 		bullet_angle_rate_[0] = 10;
 		bullet_angle_rate_[1] = 10;
 		shoot_count_ = 2;
+
 		init_ = true;
 	}
 		break;
@@ -180,6 +148,7 @@ void CMonsterScript::SetRandomPattern()
 		bullet_speed_rate_[0] = 200.f;
 		bullet_speed_rate_[1] = 200.f;
 		shoot_count_ = 2;
+
 		init_ = true;
 	}
 		break;
@@ -199,6 +168,8 @@ void CMonsterScript::SetRandomPattern()
 		bullet_speed_rate_[0] = 0;
 		bullet_speed_rate_[2] = 0;
 		shoot_count_ = 4;
+		spiral_time_ = 0.1f;
+		spiral_accumulated_time_ = 0.0f;
 		init_ = true;
 	}
 		break;
@@ -208,7 +179,7 @@ void CMonsterScript::SetRandomPattern()
 		{
 			bullet_angle_[i] = (360.f / bullet_angle_.size()) * i;
 		}
-
+		attack_time_ = attack_time_ * 2.f;
 		bullet_angle_rate_.fill(10);
 
 		bullet_rotate_angle_.fill(20);
@@ -235,16 +206,80 @@ void CMonsterScript::SetRandomPattern()
 	break;
 	case ENEMY_BULLET_TYPE::CIRCLE:
 	{
-		bullet_angle_[0] = 180;
+		bullet_angle_[0] = 90;
 		bullet_angle_[1] = 0;
-		bullet_angle_rate_[0] = 10;
+		bullet_angle_rate_[0] = 5;
 		bullet_angle_rate_[1] = 10;
-		shoot_count_ = 10;
+		shoot_count_ = 5;
 		init_ = true;
 	}
 		break;
 	default:
 		break;
+	}
+}
+
+void CMonsterScript::UpdateState()
+{
+	accumulated_time_ += fDT;
+	if (monster_state_time_ >= accumulated_time_)
+		return;
+	if (MONSTER_STATE::IDLE == monster_prev_state_)
+	{
+		monster_prev_state_ = monster_state_;
+		monster_state_ = MONSTER_STATE::ATTACK;
+	}
+	if (MONSTER_STATE::MOVE == monster_prev_state_)
+	{
+		monster_prev_state_ = monster_state_;
+		monster_state_ = MONSTER_STATE::IDLE;
+	}
+	if (MONSTER_STATE::ATTACK == monster_prev_state_)
+	{
+		random_device rd;
+		mt19937 gen(rd());
+		std::uniform_int_distribution<> dist(-4, 4);
+		int i = dist(gen);
+		move_dirction = Vec3(30.f*i,30.f*i,0.0f);
+		init_ = false;
+		monster_prev_state_ = monster_state_;
+		monster_state_ = MONSTER_STATE::MOVE;
+	}
+	accumulated_time_ = 0.0f;;
+}
+
+void CMonsterScript::UpdateAnimation()
+{
+	
+	Vec3 position = GetTransform()->GetPosition();
+	Vec3 scale = GetTransform()->GetScale();
+	if (MONSTER_STATE::MOVE == monster_state_)
+	{
+		position += move_dirction*fDT;
+		if (abs(position.x) >= 400.f - scale.x / 2.f )
+		{
+			position.x = 400.f-scale.x/2.f;
+		}
+		if (abs(position.y) >= 450.f - scale.x / 2.f)
+		{
+			position.y = 450.f - scale.x / 2.f;
+		}
+		GetTransform()->SetPosition(position);
+	}
+	if (MONSTER_STATE::ATTACK == monster_state_)
+	{
+		
+		if (!init_)
+			SetRandomPattern();
+		if (attack_time_ >= interval_)
+		{
+			Fire();
+			interval_ += fDT;
+		}
+		else
+		{
+			interval_ = 0.f;
+		}
 	}
 }
 
@@ -267,21 +302,18 @@ void CMonsterScript::CreateBullet(int index = 0)
 
 	bullet->Collider2D()->SetOffsetScale(Vec2(0.8f, 0.8f));
 
-	bullet->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	bullet->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"CircleMesh"));
 
-	Ptr<CTexture> bulletTex = new CTexture;
-	wstring strPath = CPathManager::GetInst()->GetContentPath();
-	strPath += L"texture\\player_bullet.png";
-	bulletTex->Load(strPath);
-	CResourceManager::GetInst()->AddResource(L"player_bullet", bulletTex.Get());
+	int bullet_type = (int)bullet_type_;
 
-
-	CMaterial* bulletMaterial = new CMaterial;
-	bulletMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
-	bulletMaterial->SetData(SHADER_PARAM::TEX_0, bulletTex.Get());
-	CResourceManager::GetInst()->AddResource(L"bulletMaterial", bulletMaterial);
-	bullet->MeshRender()->SetMaterial(bulletMaterial);
-
+	if (bullet_type % 2)
+	{
+		bullet->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"monster_bulluet_red_material"));
+	}
+	else
+	{
+		bullet->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"monster_bulluet_blue_material"));
+	}
 	CreateObject(bullet, 3);
 }
 
@@ -295,64 +327,43 @@ void CMonsterScript::Fire()
 	case ENEMY_BULLET_TYPE::BENT_SPIRAL:
 	case ENEMY_BULLET_TYPE::COMBINE_SPIRAL:
 	case ENEMY_BULLET_TYPE::WASHER_SPIRAL:
-	{
-		if (attack_during_time_ >= interval_)
+
+	{	
+		spiral_accumulated_time_ += fDT;
+		if (spiral_time_ <= spiral_accumulated_time_)
 		{
 			for (int i = 0; i < shoot_count_; ++i)
 			{
 				CreateBullet(i);
 			}
-			attack_during_time_ -= fDT;
+			spiral_accumulated_time_ = 0.f;
 		}
-		else
-		{
-			init_ = false;
-			attack_during_time_ = interval_ * 2;
-		}
+
 	}
 		break;
 	case ENEMY_BULLET_TYPE::MULTIPLE_SPIRAL:
+	case ENEMY_BULLET_TYPE::N_WAY:
 	{
-		if (attack_during_time_ >= interval_)
+		spiral_accumulated_time_ += fDT;
+		if (spiral_time_ <= spiral_accumulated_time_)
 		{
 			for (int i = 0; i < shoot_count_; ++i)
 			{
 				CreateBullet();
 			}
-			attack_during_time_ -= fDT;
+			spiral_accumulated_time_ = 0.f;
+			
 		}
-		else
-		{
-			init_ = false;
-			attack_during_time_ = interval_ * 2;
-		}
-	}
-	break;
-	case ENEMY_BULLET_TYPE::N_WAY:
-	{
-		for (int i = 0; i < shoot_count_; i++)
-		{
-			CreateBullet();
-		}
-		init_ = false;
 	}
 	break;
 	case ENEMY_BULLET_TYPE::CIRCLE:
 	{
-		if (attack_during_time_ >= interval_)
+
+		for (int i = 0; i < shoot_count_; ++i)
 		{
-			for (int i = 0; i < shoot_count_; ++i)
-			{
-				CreateBullet();
-				CreateBullet(1);
-			}
-			attack_during_time_ -= fDT;
+			CreateBullet();
+			CreateBullet(1);
 		}
-	
-		
-		init_ = false;
-		attack_during_time_ = interval_ * 2;
-		
 	}
 	break;
 	default:
