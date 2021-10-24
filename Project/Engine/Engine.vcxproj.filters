@@ -144,9 +144,6 @@
     <Filter Include="소스 파일\Scripts\MonsterScript">
       <UniqueIdentifier>{d45a6a49-1d78-46ae-bd83-f0f1ab3ec5ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Scripts\MonsterScript\Shooter">
-      <UniqueIdentifier>{8199c152-f8d1-44f1-b564-1f7ec3d87581}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -231,7 +228,6 @@
     <ClInclude Include="CLayer.h">
       <Filter>소스 파일\Manager\SceneManger\Layer</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="CMaterial.h">
       <Filter>소스 파일\Resource\Material</Filter>
     </ClInclude>
@@ -272,6 +268,10 @@
       <Filter>소스 파일\Header</Filter>
     </ClInclude>
     <ClInclude Include="CMonsterScript.h">
+      <Filter>소스 파일\Scripts\MonsterScript</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="CMonsterHpBar.h">
       <Filter>소스 파일\Scripts\MonsterScript</Filter>
     </ClInclude>
   </ItemGroup>
@@ -382,12 +382,18 @@
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>소스 파일\Scripts\PlayerScript</Filter>
     </ClCompile>
+    <ClCompile Include="CMonsterHpBar.cpp">
+      <Filter>소스 파일\Scripts\MonsterScript</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="std2d.fx">
       <Filter>소스 파일\Shader</Filter>
     </FxCompile>
     <FxCompile Include="collider2dshader.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="monsterhpshader.fx">
       <Filter>소스 파일\Shader</Filter>
     </FxCompile>
   </ItemGroup>

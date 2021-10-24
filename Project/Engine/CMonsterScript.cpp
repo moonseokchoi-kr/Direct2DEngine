@@ -2,6 +2,8 @@
 #include "CMonsterScript.h"
 #include "CCollider2D.h"
 
+float CMonsterScript::hp = 100.0f;
+
 CMonsterScript::CMonsterScript()
 	:bullet_start_angle_(0)
 	, bullet_angle_{ }
@@ -13,10 +15,30 @@ CMonsterScript::CMonsterScript()
 	, attack_during_time_(0.2f)
 	, interval_(0.1f)
 	, init_(false)
-	, hp(100.f)
+	, is_move_(false)
+	, monster_move_time(2.f)
 	,bullet_speed_rate_{}
 {
 	SetRandomPattern();
+}
+
+CMonsterScript::CMonsterScript(float attack_time, float interval)
+	:bullet_start_angle_(0)
+	, bullet_angle_{ }
+	, bullet_rotate_angle_{ }
+	, bullet_angle_rate_{ }
+	, bullet_type_(ENEMY_BULLET_TYPE::COMBINE_SPIRAL)
+	, shoot_count_(11)
+	, attack_time_(attack_time)
+	, attack_during_time_(0.2f)
+	, interval_(interval)
+	, is_move_(false)
+	, init_(false)
+	, monster_move_time(1.f)
+	, bullet_speed_rate_{}
+{
+	SetRandomPattern();
+	attack_during_time_ = interval * 2.f;
 }
 
 CMonsterScript::~CMonsterScript()
@@ -25,21 +47,51 @@ CMonsterScript::~CMonsterScript()
 
 void CMonsterScript::Update()
 {
+	Vec3 position = GetTransform()->GetPosition();
 	if (hp <= 0)
 	{
 		DeleteObject(GetOwner());
 		return;
 	}
 	accumulated_time_ += fDT;
-
-	if (attack_time_ <= accumulated_time_)
+	move_accumulated_time_ += fDT;
+	if (attack_time_ <= accumulated_time_ && !is_move_ )
 	{
 		Fire();
 		if (!init_)
 			SetRandomPattern();
-		
+		is_move_ = true;
 		accumulated_time_ = 0.0f;
 	}
+	if (monster_move_time <= move_accumulated_time_ && is_move_)
+	{
+		random_device rd;
+		mt19937 gen(rd());
+		std::uniform_int_distribution<> dist(1, 4);
+		if (is_right_)
+		{
+			position.x += 100.f*dist(gen);
+			position.y += -30.f * dist(gen);
+			is_right_ = false;
+		}
+		else
+		{
+			position.x += -100.f *dist(gen);
+			position.y += 30.f * dist(gen);
+			is_right_ = true;
+		}
+		if (abs(position.x) >= 300.f)
+		{
+			position.x = 0.f;
+		}
+		if (abs(position.y) >= 300.f)
+		{
+			position.y = 300.f;
+		}
+		GetTransform()->SetPosition(position);
+		move_accumulated_time_ = 0.0f;
+	}
+
 }
 
 void CMonsterScript::OnCollisionEnter(CCollider2D* otherCollider)
@@ -180,6 +232,16 @@ void CMonsterScript::SetRandomPattern()
 		shoot_count_ = 10;
 		bullet_angle_rate_[0] = (360 - bullet_start_angle_) / shoot_count_;
 	}
+	break;
+	case ENEMY_BULLET_TYPE::CIRCLE:
+	{
+		bullet_angle_[0] = 180;
+		bullet_angle_[1] = 0;
+		bullet_angle_rate_[0] = 10;
+		bullet_angle_rate_[1] = 10;
+		shoot_count_ = 10;
+		init_ = true;
+	}
 		break;
 	default:
 		break;
@@ -265,7 +327,7 @@ void CMonsterScript::Fire()
 			attack_during_time_ = interval_ * 2;
 		}
 	}
-
+	break;
 	case ENEMY_BULLET_TYPE::N_WAY:
 	{
 		for (int i = 0; i < shoot_count_; i++)
@@ -274,7 +336,25 @@ void CMonsterScript::Fire()
 		}
 		init_ = false;
 	}
-		break;
+	break;
+	case ENEMY_BULLET_TYPE::CIRCLE:
+	{
+		if (attack_during_time_ >= interval_)
+		{
+			for (int i = 0; i < shoot_count_; ++i)
+			{
+				CreateBullet();
+				CreateBullet(1);
+			}
+			attack_during_time_ -= fDT;
+		}
+	
+		
+		init_ = false;
+		attack_during_time_ = interval_ * 2;
+		
+	}
+	break;
 	default:
 		break;
 	}

@@ -133,6 +133,18 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE);
 	
 	AddResource(L"collder2DShader", stdShader);
+
+	//HP bar
+	stdShader = new CGraphicsShader;
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"shader\\monsterhpshader.fx";
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+
+	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST);
+
+	AddResource(L"monster_hp_shader", stdShader);
 }
 
 void CResourceManager::CreateDefaultTexture()
@@ -181,6 +193,11 @@ void CResourceManager::CreateDefaultMaterial()
 	int a = 1;
 	material->SetData(SHADER_PARAM::INT_0, &a);
 	AddResource(L"collider2DMaterial_collision",material);
+
+	//hp material
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"monster_hp_shader"));
+	AddResource(L"monster_hp_material", material);
 }
 
 
