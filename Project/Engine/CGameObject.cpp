@@ -65,7 +65,7 @@ void CGameObject::Update()
 
 void CGameObject::LateUpdate()
 {
-	if (CheckDead())
+	if (OBJECT_STATE::DEAD == object_state_)
 		return;
 
 	for (CComponent* component : component_array_)
@@ -100,14 +100,15 @@ void CGameObject::FinalUpdate()
 
 void CGameObject::Render()
 {
-	if (nullptr != MeshRender())
-	{
-		MeshRender()->Render();
-	}
 	if (nullptr != Collider2D())
 	{
 		Collider2D()->Render();
 	}
+	if (nullptr != MeshRender())
+	{
+		MeshRender()->Render();
+	}
+
 }
 
 void CGameObject::AddComponent(CComponent* comp)

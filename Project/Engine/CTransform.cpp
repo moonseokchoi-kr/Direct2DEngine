@@ -16,17 +16,15 @@ CTransform::~CTransform()
 {
 }
 
-
-
 void CTransform::FinalUpdate()
 {
 	Matrix translateMat = XMMatrixTranslation(local_position_.x, local_position_.y, local_position_.z);
 
 	Matrix scaleMat = XMMatrixScaling(local_scale_.x, local_scale_.y, local_scale_.z);
 
-	Matrix rotationXMat = XMMatrixRotationX(local_rotation_.x);
-	Matrix rotationYMat = XMMatrixRotationY(local_rotation_.y);
-	Matrix rotationZMat = XMMatrixRotationZ(local_rotation_.z);
+	Matrix rotationXMat = XMMatrixRotationX(XMConvertToRadians(local_rotation_.x));
+	Matrix rotationYMat = XMMatrixRotationY(XMConvertToRadians(local_rotation_.y));
+	Matrix rotationZMat = XMMatrixRotationZ(XMConvertToRadians(local_rotation_.z));
 	Matrix rotationMat = rotationXMat * rotationYMat * rotationZMat;
 
 	world_matrix_ = scaleMat * rotationMat * translateMat;

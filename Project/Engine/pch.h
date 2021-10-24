@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <random>
 #include <unordered_map>
 #include <array>
 #include <cmath>
@@ -31,7 +32,8 @@ using std::unordered_map;
 using std::make_pair;
 using std::array;
 using std::to_wstring;
-
+using std::random_device;
+using std::mt19937;
 #include "singleton.h"
 
 //DirectX 11 Header

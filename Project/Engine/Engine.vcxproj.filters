@@ -144,6 +144,9 @@
     <Filter Include="소스 파일\Scripts\MonsterScript">
       <UniqueIdentifier>{d45a6a49-1d78-46ae-bd83-f0f1ab3ec5ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Scripts\MonsterScript\Shooter">
+      <UniqueIdentifier>{8199c152-f8d1-44f1-b564-1f7ec3d87581}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -265,11 +268,11 @@
     <ClInclude Include="CGameObject.h">
       <Filter>소스 파일\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="CMonsterBulletScript.h">
-      <Filter>소스 파일\Scripts\BulletScript</Filter>
-    </ClInclude>
     <ClInclude Include="common.h">
       <Filter>소스 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterScript.h">
+      <Filter>소스 파일\Scripts\MonsterScript</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -352,9 +355,6 @@
     <ClCompile Include="CScript.cpp">
       <Filter>소스 파일\Component\Script</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>소스 파일\Scripts\PlayerScript</Filter>
-    </ClCompile>
     <ClCompile Include="CGraphicsShader.cpp">
       <Filter>소스 파일\Resource\Shader\CGraphicsShader</Filter>
     </ClCompile>
@@ -376,8 +376,11 @@
     <ClCompile Include="CPrefab.cpp">
       <Filter>소스 파일\Resource\Prefab</Filter>
     </ClCompile>
-    <ClCompile Include="CMonsterBulletScript.cpp">
-      <Filter>소스 파일\Scripts\BulletScript</Filter>
+    <ClCompile Include="CMonsterScript.cpp">
+      <Filter>소스 파일\Scripts\MonsterScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>소스 파일\Scripts\PlayerScript</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@
 #include "CMeshRender.h"
 #include "CMaterial.h"
 #include "CTransform.h"
+#include "CCollider2D.h"
 #include "CPrefab.h"
 
 

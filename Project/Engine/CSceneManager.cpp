@@ -6,7 +6,10 @@
 #include "CMaterial.h"
 #include "CCollider2D.h"
 #include "CMeshRender.h"
+
 #include "CPlayerScript.h"
+#include "CMonsterScript.h"
+
 #include "CResourceManager.h"
 #include "CCollisionManager.h"
 #include "CScene.h"
@@ -56,14 +59,14 @@ void CSceneManager::Init()
 	current_scene_->AddGameObject(camera, 1,true);
 
 	const auto object = new CGameObject;
-	object->SetName(L"Player");
+	object->SetName(L"player");
 	object->AddComponent(new CTransform);
 	object->AddComponent(new CMeshRender);
 	object->AddComponent(new CPlayerScript);
 	object->AddComponent(new CCollider2D);
 	object->Transform()->SetPosition(Vec3(0.f, 0.f, 300.f));
 	object->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
-	object->Collider2D()->SetOffsetScale(Vec2(0.85f, 0.85f));
+	object->Collider2D()->SetOffsetScale(Vec2(0.20f, 0.30f));
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 
@@ -76,11 +79,11 @@ void CSceneManager::Init()
 	monster->AddComponent(new CTransform);
 	monster->AddComponent(new CMeshRender);
 	monster->AddComponent(new CCollider2D);
-	
-	monster->SetName(L"Monster");
+	monster->AddComponent(new CMonsterScript);
+	monster->SetName(L"monster");
 	monster->Transform()->SetPosition(Vec3(0, 200.f, 300.f));
 	monster->Transform()->SetScale(Vec3(100.f, 150.f, 1.f));
-	monster->Collider2D()->SetOffsetScale(Vec2(0.85f, 0.85f));
+	monster->Collider2D()->SetOffsetScale(Vec2(0.75f, 0.80f));
 	monster->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	CMaterial* monsterMaterial = new CMaterial;
 	monsterMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
@@ -111,19 +114,19 @@ void CreatePrefabs()
 {
 	//Bullet
 
-	CGameObject* bullet = new CGameObject;
-	bullet->SetName(L"Bullet");
-	bullet->AddComponent(new CTransform);
-	bullet->AddComponent(new CMeshRender);
-	bullet->AddComponent(new CCollider2D);
-	bullet->AddComponent(new CBulletScript);
+	CGameObject* playerBullet = new CGameObject;
+	playerBullet->SetName(L"player_bullet");
+	playerBullet->AddComponent(new CTransform);
+	playerBullet->AddComponent(new CMeshRender);
+	playerBullet->AddComponent(new CCollider2D);
+	playerBullet->AddComponent(new CBulletScript);
 
-	bullet->Transform()->SetScale(Vec3(50.f, 50.f, 1.f));
-	bullet->Transform()->SetRotation(Vec3(0.f, 0.f, XM_PI / 2.f));
+	playerBullet->Transform()->SetScale(Vec3(25.f, 50.f, 1.f));
+	playerBullet->Transform()->SetRotation(Vec3(0.f, 0.f, 0.f));
 
-	bullet->Collider2D()->SetOffsetScale(Vec2(0.8f, 0.8f));
+	playerBullet->Collider2D()->SetOffsetScale(Vec2(1.f, 1.f));
 
-	bullet->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	playerBullet->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 
 	Ptr<CTexture> bulletTex = new CTexture;
 	wstring strPath = CPathManager::GetInst()->GetContentPath();
@@ -136,7 +139,7 @@ void CreatePrefabs()
 	bulletMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	bulletMaterial->SetData(SHADER_PARAM::TEX_0, bulletTex.Get());
 	CResourceManager::GetInst()->AddResource(L"bulletMaterial", bulletMaterial);
-	bullet->MeshRender()->SetMaterial(bulletMaterial);
+	playerBullet->MeshRender()->SetMaterial(bulletMaterial);
 
-	bullet->ReigsterAsPrefab(L"player_bullet_prefab");
+	playerBullet->ReigsterAsPrefab(L"player_bullet_prefab");
 }

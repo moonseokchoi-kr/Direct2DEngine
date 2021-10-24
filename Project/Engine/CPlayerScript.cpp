@@ -42,11 +42,11 @@ void CPlayerScript::Update()
 
 	if (KEY_HOLD(KEY::Q))
 	{
-		rot.z += XM_2PI * fDT;
+		rot.z += 100.f*fDT;
 	}
 	if (KEY_HOLD(KEY::E))
 	{
-		rot.z -= XM_2PI * fDT;
+		rot.z -= 100.f*fDT;
 	}
 	if (KEY_HOLD(KEY::SPACE))
 	{
@@ -65,8 +65,6 @@ void CPlayerScript::Update()
 
 void CPlayerScript::CreateBullet()
 {
-
-
 	Vec3 position = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
 
