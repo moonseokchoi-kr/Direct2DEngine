@@ -278,9 +278,15 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="collider2dshader.fx" />
-    <FxCompile Include="monsterhpshader.fx" />
-    <FxCompile Include="std2d.fx" />
+    <FxCompile Include="collider2dshader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+    </FxCompile>
+    <FxCompile Include="monsterhpshader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+    </FxCompile>
+    <FxCompile Include="std2d.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Engine.rc" />

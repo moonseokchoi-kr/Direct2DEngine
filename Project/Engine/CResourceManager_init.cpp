@@ -122,6 +122,8 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 
 	AddResource(L"std2DShader", stdShader);
+
+	//Ptr<CGraphicsShader> ptr = LoadGraphicShader(L"std2DShader", L"shader\\std2d.fx", BLEND_TYPE::ALPHA_BLEND, DEPTH_STENCIL_TYPE::LESS, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	//colliderShader
 	stdShader = new CGraphicsShader;
 	strPath = CPathManager::GetInst()->GetContentPath();
@@ -172,7 +174,7 @@ void CResourceManager::CreateDefaultTexture()
 
 	strContent = CPathManager::GetInst()->GetContentPath();
 	
-	strFilePath = strContent + L"texture\\raimu_player.png";
+	strFilePath = strContent + L"texture\\player.png";
 	texture = new CTexture;
 	texture->Load(strFilePath);
 	AddResource(L"player", texture);
@@ -201,11 +203,15 @@ void CResourceManager::CreateDefaultTexture()
 void CResourceManager::CreateDefaultMaterial()
 {
 	CMaterial* material = nullptr;
-
+	int a = 1;
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	AddResource(L"std2DMaterial", material);
 
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	material->SetData(SHADER_PARAM::INT_0, &a);
+	AddResource(L"std2DMaterial_hit", material);
 
 	//colliderMaterial
 	material = new CMaterial;
@@ -214,7 +220,7 @@ void CResourceManager::CreateDefaultMaterial()
 
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"collder2DShader"));
-	int a = 1;
+	
 	material->SetData(SHADER_PARAM::INT_0, &a);
 	AddResource(L"collider2DMaterial_collision",material);
 

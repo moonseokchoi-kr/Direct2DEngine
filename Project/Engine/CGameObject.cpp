@@ -101,13 +101,13 @@ void CGameObject::FinalUpdate()
 
 void CGameObject::Render()
 {
-	if (nullptr != Collider2D())
-	{
-		Collider2D()->Render();
-	}
 	if (nullptr != MeshRender())
 	{
 		MeshRender()->Render();
+	}
+	if (nullptr != Collider2D())
+	{
+		Collider2D()->Render();
 	}
 
 }

@@ -135,8 +135,9 @@ void CSceneManager::Progress()
 	current_scene_->Update();
 	current_scene_->LateUpdate();
 	current_scene_->FinalUpdate();
-	current_scene_->Render();
 	CCollisionManager::GetInst()->Update();
+	current_scene_->Render();
+	
 }
 
 #include "CBulletScript.h"

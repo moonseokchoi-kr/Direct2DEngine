@@ -54,34 +54,34 @@ void CCollider2D::Render()
 	collider_mesh_->Render();
 }
 
-void CCollider2D::OnCollisionEnter(CCollider2D* otherCollider)
+void CCollider2D::OnCollisionEnter(CGameObject* otherObject)
 {
 	++collision_count_;
-	CScript* script = GetOwner()->Script();
+	CScript* script = GetOwner()->GetScript();
 	if (script)
 	{
-		script->OnCollisionEnter(otherCollider);
+		script->OnCollisionEnter(otherObject);
 	}
 	
 	collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"collider2DMaterial_collision");
 }
 
-void CCollider2D::OnCollision(CCollider2D* otherCollider)
+void CCollider2D::OnCollision(CGameObject* otherObject)
 {
-	CScript* script = GetOwner()->Script();
+	CScript* script = GetOwner()->GetScript();
 	if (script)
 	{
-		script->OnCollision(otherCollider);
+		script->OnCollision(otherObject);
 	}
 }
 
-void CCollider2D::OnCollisionExit(CCollider2D* otherCollider)
+void CCollider2D::OnCollisionExit(CGameObject* otherObject)
 {
 	--collision_count_;
-	CScript* script = GetOwner()->Script();
+	CScript* script = GetOwner()->GetScript();
 	if (script)
 	{
-		script->OnCollisionExit(otherCollider);
+		script->OnCollisionExit(otherObject);
 	}
 	if (0 == collision_count_)
 	{

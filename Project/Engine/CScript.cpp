@@ -49,14 +49,14 @@ void CScript::Instantiate(Ptr<CPrefab> prefab, Vec3 position, int layerIndex,Vec
 	CreateObject(prototype, layerIndex);
 }
 
-void CScript::OnCollisionEnter(CCollider2D* otherCollider)
+void CScript::OnCollisionEnter(CGameObject* otherObject)
 {
 }
 
-void CScript::OnCollision(CCollider2D* otherCollider)
+void CScript::OnCollision(CGameObject* otherObject)
 {
 }
 
-void CScript::OnCollisionExit(CCollider2D* otherCollider)
+void CScript::OnCollisionExit(CGameObject* otherObject)
 {
 }

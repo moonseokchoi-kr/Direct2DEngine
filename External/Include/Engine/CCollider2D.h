@@ -26,9 +26,9 @@ public:
     void Render();
 
 public:
-    void OnCollisionEnter(CCollider2D* otherCollider);
-    void OnCollision(CCollider2D* otherCollider);
-    void OnCollisionExit(CCollider2D* otherCollider);
+    void OnCollisionEnter(CGameObject* otherObject);
+    void OnCollision(CGameObject* otherObject);
+    void OnCollisionExit(CGameObject* otherObject);
 private:
     Vec3 offset_position_;
     Vec3 final_position_;

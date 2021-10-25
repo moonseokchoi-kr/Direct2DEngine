@@ -61,17 +61,16 @@ void CMonsterScript::Update()
 	UpdateAnimation();
 }
 
-void CMonsterScript::OnCollisionEnter(CCollider2D* otherCollider)
+void CMonsterScript::OnCollisionEnter(CGameObject* otherObject)
 {
-	CGameObject* object = otherCollider->GetOwner();
-	if (L"player_bullet" == object->GetName())
+	if (L"player_bullet" == otherObject->GetName())
 	{
 		//OutputDebugString(L"총돌했습니다!\n");
 		hp -= 1;
 	}
 }
 
-void CMonsterScript::OnCollisionExit(CCollider2D* otherCollider)
+void CMonsterScript::OnCollisionExit(CGameObject* otherObject)
 {
 
 }

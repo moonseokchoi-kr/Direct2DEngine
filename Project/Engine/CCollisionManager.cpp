@@ -108,14 +108,14 @@ void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 					if (vecLeft[i]->IsDead() || vecRight[j]->IsDead())
 					{
 						//둘중 하나가 삭제 예정이라면 충돌을 해제
-						leftCol->OnCollisionExit(rightCol);
-						rightCol->OnCollisionExit(leftCol);
+						leftCol->OnCollisionExit(rightCol->GetOwner());
+						rightCol->OnCollisionExit(leftCol->GetOwner());
 						iter->second = false;
 					}
 					else
 					{
-						leftCol->OnCollision(rightCol);
-						rightCol->OnCollision(leftCol);
+						leftCol->OnCollision(rightCol->GetOwner());
+						rightCol->OnCollision(leftCol->GetOwner());
 					}
 				}
 
@@ -125,8 +125,8 @@ void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 					//근데 둘중 누가 삭제예정이라면 충돌시키지 않음
 					if (!vecLeft[i]->IsDead() && !vecRight[j]->IsDead())
 					{
-						leftCol->OnCollisionEnter(rightCol);
-						rightCol->OnCollisionEnter(leftCol);
+						leftCol->OnCollisionEnter(rightCol->GetOwner());
+						rightCol->OnCollisionEnter(leftCol->GetOwner());
 						iter->second = true;
 					}
 				}
@@ -138,8 +138,8 @@ void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 
 				if (iter->second)
 				{
-					leftCol->OnCollisionExit(rightCol);
-					rightCol->OnCollisionExit(leftCol);
+					leftCol->OnCollisionExit(rightCol->GetOwner());
+					rightCol->OnCollisionExit(leftCol->GetOwner());
 					iter->second = false;
 				}
 			}

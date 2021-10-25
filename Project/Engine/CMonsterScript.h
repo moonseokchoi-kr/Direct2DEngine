@@ -20,8 +20,8 @@ public:
     ~CMonsterScript();
 public:
     void Update() override;
-	void OnCollisionEnter(CCollider2D* otherCollider);
-	void OnCollisionExit(CCollider2D* otherCollider);
+	void OnCollisionEnter(CGameObject* otherCollider);
+	void OnCollisionExit(CGameObject* otherCollider);
 public:
     CLONE(CMonsterScript);
 private:
