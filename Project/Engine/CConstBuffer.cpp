@@ -65,6 +65,8 @@ HRESULT CConstBuffer::Create(const wstring& _strName, UINT _bufferSize, UINT _re
 
 void CConstBuffer::SetData(void* _data, UINT _size)
 {
+	assert(!(desc_.ByteWidth < _size));
+
 	D3D11_MAPPED_SUBRESOURCE subRes = {};
 
 	CONTEXT->Map(const_buffer_.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &subRes);

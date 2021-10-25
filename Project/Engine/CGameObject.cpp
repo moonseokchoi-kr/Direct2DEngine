@@ -23,8 +23,8 @@ CGameObject::CGameObject()
 CGameObject::CGameObject(const CGameObject& origin)
 	:CEntity(origin)
 	, component_array_{}
-	,parent_object_(nullptr)
-	,layer_index_(-1)
+	, parent_object_(nullptr)
+	, layer_index_(-1)
 	, object_state_(OBJECT_STATE::ALIVE)
 {
 	for (CComponent* component : origin.component_array_)

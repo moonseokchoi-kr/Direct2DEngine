@@ -211,6 +211,7 @@ void CResourceManager::CreateDefaultMaterial()
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	material->SetData(SHADER_PARAM::INT_0, &a);
+	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"player").Get());
 	AddResource(L"std2DMaterial_hit", material);
 
 	//colliderMaterial
