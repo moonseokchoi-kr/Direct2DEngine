@@ -21,15 +21,20 @@ public:
 public:
     void Update() override;
 	void OnCollisionEnter(CCollider2D* otherCollider);
+	void OnCollisionExit(CCollider2D* otherCollider);
 public:
     CLONE(CMonsterScript);
 private:
     void CreateBullet(int index);
+	void Directional();
+	void Spiral();
+	void Circle();
     void Fire();
     CBulletScript* CreateBulletMoveDirection(int index);
     void SetRandomPattern();
 	void UpdateState();
 	void UpdateAnimation();
+	float CalculateTargetDegree();
 public:
 	static float GetHp() { return hp; };
 private:
@@ -39,6 +44,7 @@ private:
 	bool is_right_;
 	bool is_move_;
 	float bullet_start_angle_;
+	float bullet_speed_;
 	array<float, 6> bullet_rotate_angle_;
 	array<float, 6> bullet_speed_rate_;
 	array<float, 6> bullet_angle_;

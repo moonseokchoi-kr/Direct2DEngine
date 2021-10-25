@@ -9,7 +9,8 @@ public:
 
 public:
     void Update() override;
-
+    void OnCollisionEnter(CCollider2D* otherCollider) override;
+    void OnCollisionExit(CCollider2D* otherCollider) override;
 public:
     void CreateBullet();
 public:

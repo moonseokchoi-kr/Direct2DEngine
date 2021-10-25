@@ -13,6 +13,7 @@ CDevice::CDevice()
 }
 CDevice::~CDevice()
 {
+	Safe_Delete_Array(const_buffer_array_);
 }
 HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 {
@@ -238,7 +239,7 @@ HRESULT CDevice::CreateView()
 
 	HR(device_->CreateTexture2D(&desc, 0, depth_stencil_buffer_.GetAddressOf()));
 	
-	HR(device_->CreateDepthStencilView(depth_stencil_buffer_.Get(), nullptr, depth_stencil_view_.GetAddressOf()))
+	HR(device_->CreateDepthStencilView(depth_stencil_buffer_.Get(), nullptr, depth_stencil_view_.GetAddressOf()));
 
 	context_->OMSetRenderTargets(1, render_target_view_.GetAddressOf(), depth_stencil_view_.Get());
 

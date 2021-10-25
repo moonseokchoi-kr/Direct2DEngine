@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "CMonsterScript.h"
-#include "CCollider2D.h"
-
+#include "CScene.h"
+#include "CSceneManager.h"
+#include "CGameObject.h"
 float CMonsterScript::hp = 100.0f;
 
 CMonsterScript::CMonsterScript()
@@ -9,16 +10,16 @@ CMonsterScript::CMonsterScript()
 	, bullet_angle_{ }
 	, bullet_rotate_angle_{ }
 	, bullet_angle_rate_{ }
-	, bullet_type_(ENEMY_BULLET_TYPE::COMBINE_SPIRAL)
+	, bullet_type_(ENEMY_BULLET_TYPE::N_WAY)
 	, shoot_count_(11)
-	, attack_time_(0.4f)
-	,accumulated_time_(0.3f)
+	, attack_time_(5.f)
+	,accumulated_time_(0.5f)
 	, interval_(0.0f)
 	, init_(false)
 	, is_move_(false)
 	, monster_state_(MONSTER_STATE::IDLE)
 	,monster_prev_state_(MONSTER_STATE::IDLE)
-	, monster_state_time_(0.5f)
+	, monster_state_time_(accumulated_time_)
 	,bullet_speed_rate_{}
 {
 	SetRandomPattern();
@@ -29,12 +30,13 @@ CMonsterScript::CMonsterScript(float attack_time)
 	, bullet_angle_{ }
 	, bullet_rotate_angle_{ }
 	, bullet_angle_rate_{ }
-	, bullet_type_(ENEMY_BULLET_TYPE::COMBINE_SPIRAL)
+	, bullet_type_(ENEMY_BULLET_TYPE::MULTIPLE_SPIRAL)
 	, shoot_count_(11)
 	, attack_time_(attack_time)
 	, interval_(attack_time)
 	, is_move_(false)
 	, init_(false)
+	, accumulated_time_(0.0f)
 	, monster_state_(MONSTER_STATE::IDLE)
 	, monster_prev_state_(MONSTER_STATE::IDLE)
 	, monster_state_time_(0.5f)
@@ -69,6 +71,11 @@ void CMonsterScript::OnCollisionEnter(CCollider2D* otherCollider)
 	}
 }
 
+void CMonsterScript::OnCollisionExit(CCollider2D* otherCollider)
+{
+
+}
+
 
 #include "CBulletScript.h"
 
@@ -84,7 +91,7 @@ CBulletScript* CMonsterScript::CreateBulletMoveDirection(int index = 0)
 
 	script->SetMoveDirection(bulletDirection);
 	script->SetMoveSpeedRate(bullet_speed_rate_[index]);
-	script->SetMoveSpeed(30000.f * 2);
+	script->SetMoveSpeed(bullet_speed_);
 	script->SetRotationAngle(bullet_rotate_angle_[index]);
 	return script;
 }
@@ -97,14 +104,16 @@ void CMonsterScript::SetRandomPattern()
 
 	bullet_type_ = static_cast<ENEMY_BULLET_TYPE>(dist(gen));
 
-	spiral_time_ = 0.05f;
+	spiral_time_ = 0.1f;
 	spiral_accumulated_time_ = 0.0f;
+	bullet_speed_ = 60000.f;
 	switch (bullet_type_)
 	{
 	case ENEMY_BULLET_TYPE::DIRECTIONAL:
 	{
-		bullet_start_angle_ = -90;
-		bullet_angle_[0] = bullet_start_angle_;
+		spiral_time_ = 0.4f;
+		spiral_accumulated_time_ = 0.0f;
+		bullet_angle_[0] = CalculateTargetDegree();
 		bullet_angle_rate_[0] = 0;
 		shoot_count_ = 1;
 		init_ = true;
@@ -131,9 +140,15 @@ void CMonsterScript::SetRandomPattern()
 		break;
 	case ENEMY_BULLET_TYPE::MULTIPLE_SPIRAL:
 	{
-		bullet_start_angle_ = 180;
-		shoot_count_ = 10;
-		bullet_angle_rate_[0] = (360 - bullet_start_angle_) / shoot_count_;
+		shoot_count_ = 4;
+		bullet_speed_ = 120000.f;
+		for (int i = 0; i < shoot_count_; ++i)
+		{
+			bullet_angle_[i] = (360 / shoot_count_)*i;
+			//bullet_speed_rate_[i] = 10 + 10 * i;
+		}
+		bullet_angle_rate_.fill(0.5);
+	
 		init_ = true;
 	}
 		break;
@@ -154,9 +169,10 @@ void CMonsterScript::SetRandomPattern()
 		break;
 	case ENEMY_BULLET_TYPE::COMBINE_SPIRAL:
 	{
-		for (int i = 0; i < bullet_angle_.size(); ++i)
+		shoot_count_ = 5;
+		for (int i = 0; i < shoot_count_; ++i)
 		{
-			bullet_angle_[i] = (360.f / bullet_angle_.size()) * i;
+			bullet_angle_[i] = (360.f / shoot_count_) * i;
 		}
 
 		bullet_angle_rate_.fill(10);
@@ -167,7 +183,6 @@ void CMonsterScript::SetRandomPattern()
 		bullet_speed_rate_.fill(300);
 		bullet_speed_rate_[0] = 0;
 		bullet_speed_rate_[2] = 0;
-		shoot_count_ = 4;
 		spiral_time_ = 0.1f;
 		spiral_accumulated_time_ = 0.0f;
 		init_ = true;
@@ -180,28 +195,37 @@ void CMonsterScript::SetRandomPattern()
 			bullet_angle_[i] = (360.f / bullet_angle_.size()) * i;
 		}
 		attack_time_ = attack_time_ * 2.f;
-		bullet_angle_rate_.fill(10);
+		bullet_angle_rate_[0] =1;
+		bullet_angle_rate_[1] =5;
+		bullet_angle_rate_[2] =1;
+		bullet_angle_rate_[3] =5;
+		bullet_angle_rate_[4] =1;
+		bullet_angle_rate_[5] =5;
 
 		bullet_rotate_angle_.fill(20);
-		bullet_rotate_angle_[0] = 0;
-		bullet_rotate_angle_[2] = 0;
-		bullet_rotate_angle_[4] = 0;
+		bullet_rotate_angle_[0] = 5;
+		bullet_rotate_angle_[2] = 5;
+		bullet_rotate_angle_[4] = 5;
 
 
 		bullet_speed_rate_.fill(300);
-		bullet_speed_rate_[0] = 0;
-		bullet_speed_rate_[2] = 0;
-		bullet_speed_rate_[4] = 0;
+		bullet_speed_rate_[0] = 100;
+		bullet_speed_rate_[2] = 200;
+		bullet_speed_rate_[4] = 300;
 		shoot_count_ = 6;
 		init_ = true;
 	}
 		break;
 	case ENEMY_BULLET_TYPE::N_WAY:
 	{
-		bullet_start_angle_ = 180;
-		bullet_angle_[0] = bullet_start_angle_;
+
+		spiral_time_ = 0.4f;
+		spiral_accumulated_time_ = 0.0f;
+		bullet_angle_[0] = 180.f;
 		shoot_count_ = 10;
-		bullet_angle_rate_[0] = (360 - bullet_start_angle_) / shoot_count_;
+		bullet_angle_rate_[0] = 180.f / shoot_count_;
+		bullet_speed_rate_[0] = -10.f;
+		init_ = true;
 	}
 	break;
 	case ENEMY_BULLET_TYPE::CIRCLE:
@@ -222,6 +246,8 @@ void CMonsterScript::SetRandomPattern()
 void CMonsterScript::UpdateState()
 {
 	accumulated_time_ += fDT;
+	if (attack_time_ >= interval_ && MONSTER_STATE::ATTACK == monster_state_)
+		return;
 	if (monster_state_time_ >= accumulated_time_)
 		return;
 	if (MONSTER_STATE::IDLE == monster_prev_state_)
@@ -241,7 +267,6 @@ void CMonsterScript::UpdateState()
 		std::uniform_int_distribution<> dist(-4, 4);
 		int i = dist(gen);
 		move_dirction = Vec3(30.f*i,30.f*i,0.0f);
-		init_ = false;
 		monster_prev_state_ = monster_state_;
 		monster_state_ = MONSTER_STATE::MOVE;
 	}
@@ -279,8 +304,22 @@ void CMonsterScript::UpdateAnimation()
 		else
 		{
 			interval_ = 0.f;
+			init_ = false;
 		}
 	}
+}
+
+float CMonsterScript::CalculateTargetDegree()
+{
+	CGameObject* target = CSceneManager::GetInst()->GetCurrentScene()->GetObjectWithName(L"player");
+	if (nullptr == target->Transform() || nullptr == GetOwner())
+		return -90;
+	Vec3 direction = (target->Transform()->GetPosition() - GetTransform()->GetPosition()).Normalize();
+	float radian = asinf(direction.y);
+	float degree = (radian * 180.f) / XM_PI;
+	if (target->Transform()->GetPosition().x < 0)
+		degree -= 90;
+	return degree;
 }
 
 
@@ -289,7 +328,7 @@ void CMonsterScript::CreateBullet(int index = 0)
 {
 	CGameObject* bullet = new CGameObject;
 	CBulletScript* script = nullptr;
-	bullet->SetName(L"Bullet");
+	bullet->SetName(L"monster_bullet");
 	bullet->AddComponent(new CTransform);
 	bullet->AddComponent(new CMeshRender);
 	bullet->AddComponent(new CCollider2D);
@@ -300,7 +339,7 @@ void CMonsterScript::CreateBullet(int index = 0)
 	bullet->Transform()->SetScale(Vec3(25.f, 25.f, 1.f));
 	bullet->Transform()->SetRotation(Vec3(0.f, 0.f, 0.f));
 
-	bullet->Collider2D()->SetOffsetScale(Vec2(0.8f, 0.8f));
+	bullet->Collider2D()->SetOffsetScale(Vec2(0.6f, 0.6f));
 
 	bullet->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"CircleMesh"));
 
@@ -317,18 +356,29 @@ void CMonsterScript::CreateBullet(int index = 0)
 	CreateObject(bullet, 3);
 }
 
+void CMonsterScript::Directional()
+{
+
+}
+
+void CMonsterScript::Spiral()
+{
+
+}
+
+void CMonsterScript::Circle()
+{
+}
+
 void CMonsterScript::Fire()
 {
 	switch (bullet_type_)
 	{
-	case ENEMY_BULLET_TYPE::DIRECTIONAL:
-	case ENEMY_BULLET_TYPE::SPIRAL:
 	case ENEMY_BULLET_TYPE::BI_DIRECTIONAL:
 	case ENEMY_BULLET_TYPE::BENT_SPIRAL:
 	case ENEMY_BULLET_TYPE::COMBINE_SPIRAL:
-	case ENEMY_BULLET_TYPE::WASHER_SPIRAL:
-
 	{	
+
 		spiral_accumulated_time_ += fDT;
 		if (spiral_time_ <= spiral_accumulated_time_)
 		{
@@ -341,7 +391,43 @@ void CMonsterScript::Fire()
 
 	}
 		break;
+	case ENEMY_BULLET_TYPE::WASHER_SPIRAL:
+	{
+		spiral_accumulated_time_ += fDT;
+		if (spiral_time_ <= spiral_accumulated_time_)
+		{
+			for (int i = 0; i < shoot_count_; ++i)
+			{
+				CreateBullet(i);
+			}
+			spiral_accumulated_time_ = 0.f;
+		}
+	}
+	break;
+	case ENEMY_BULLET_TYPE::DIRECTIONAL:
+	case ENEMY_BULLET_TYPE::SPIRAL:
+	{
+		spiral_accumulated_time_ += fDT;
+		if (spiral_time_ <= spiral_accumulated_time_)
+		{
+			CreateBullet();
+			spiral_accumulated_time_ = 0.f;
+		}
+	}
+	break;
 	case ENEMY_BULLET_TYPE::MULTIPLE_SPIRAL:
+	{
+		spiral_accumulated_time_ += fDT;
+		if (spiral_time_ <= spiral_accumulated_time_)
+		{
+			for (int i = 0; i < shoot_count_; ++i)
+			{
+				CreateBullet(i);
+			}
+			spiral_accumulated_time_ = 0.f;
+		}
+	}
+	break;
 	case ENEMY_BULLET_TYPE::N_WAY:
 	{
 		spiral_accumulated_time_ += fDT;
@@ -352,17 +438,22 @@ void CMonsterScript::Fire()
 				CreateBullet();
 			}
 			spiral_accumulated_time_ = 0.f;
-			
+			bullet_angle_[0] = 180;
+
 		}
 	}
 	break;
 	case ENEMY_BULLET_TYPE::CIRCLE:
 	{
-
-		for (int i = 0; i < shoot_count_; ++i)
+		spiral_accumulated_time_ += fDT;
+		if (spiral_time_ <= spiral_accumulated_time_)
 		{
-			CreateBullet();
-			CreateBullet(1);
+			for (int i = 0; i < shoot_count_; ++i)
+			{
+				CreateBullet();
+				CreateBullet(1);
+			}
+			spiral_accumulated_time_ = 0.f;
 		}
 	}
 	break;

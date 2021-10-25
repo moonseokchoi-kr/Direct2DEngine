@@ -63,6 +63,21 @@ void CPlayerScript::Update()
 	GetTransform()->SetRotation(rot);
 }
 
+void CPlayerScript::OnCollisionEnter(CCollider2D* otherCollider)
+{
+	CGameObject* object = otherCollider->GetOwner();
+	if (L"monster_bullet" == object->GetName())
+	{
+		//OutputDebugString(L"총돌했습니다!\n");
+		GetOwner()->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial_hit"));
+	}
+}
+
+void CPlayerScript::OnCollisionExit(CCollider2D* otherCollider)
+{
+	GetOwner()->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
+}
+
 void CPlayerScript::CreateBullet()
 {
 	Vec3 position = GetTransform()->GetPosition();

@@ -203,11 +203,10 @@ void CResourceManager::CreateDefaultMaterial()
 	CMaterial* material = nullptr;
 
 	material = new CMaterial;
-
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
-
 	AddResource(L"std2DMaterial", material);
-	
+
+
 	//colliderMaterial
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"collder2DShader"));

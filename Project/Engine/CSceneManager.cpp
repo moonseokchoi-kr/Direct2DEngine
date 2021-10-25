@@ -64,7 +64,7 @@ void CSceneManager::Init()
 	hpBarMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"monster_hp_shader"));
 	CResourceManager::GetInst()->AddResource(L"monster_hp_material", hpBarMaterial);
 	hpBar->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"monster_hp_material"));
-
+	delete hpBarMaterial;
 	//4번 UI
 	current_scene_->AddGameObject(hpBar, 4, true);
 
@@ -85,7 +85,7 @@ void CSceneManager::Init()
 	object->AddComponent(new CCollider2D);
 	object->Transform()->SetPosition(Vec3(0.f, -300.f, 300.f));
 	object->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
-	object->Collider2D()->SetOffsetScale(Vec2(0.20f, 0.30f));
+	object->Collider2D()->SetOffsetScale(Vec2(0.10f, 0.15f));
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 
@@ -107,27 +107,24 @@ void CSceneManager::Init()
 	monsterMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	monsterMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"monster").Get());
 
-	CResourceManager::GetInst()->AddResource(L"monsterMaterial", backgroundMaterial);
+	CResourceManager::GetInst()->AddResource(L"monster_material", monsterMaterial);
 	monster->MeshRender()->SetMaterial(monsterMaterial);
 
 	const auto monsterLeftShooter = monster->Clone();
-	monsterLeftShooter->AddComponent(new CMonsterScript(0.3f));
+	monsterLeftShooter->AddComponent(new CMonsterScript(10.f));
 	monsterLeftShooter->SetName(L"monster_left_shooter");
 	monsterLeftShooter->Transform()->SetPosition(Vec3(-70.f, 300.f, 300.f));
 	monsterLeftShooter->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	monsterLeftShooter->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"collider2DMaterial_none"));
 
-	const auto monsterRightShooter = monsterLeftShooter->Clone();
-	monsterRightShooter->Transform()->SetPosition(Vec3(70.f, 300.f, 300.f));
-	monsterRightShooter->SetName(L"monster_right_shooter");
+ 	current_scene_->AddGameObject(monsterLeftShooter, 3, true);
 
 	monster->AddComponent(new CCollider2D);
 	monster->Collider2D()->SetOffsetScale(Vec2(0.75f, 0.80f));
 	monster->AddComponent(new CMonsterScript);
 	//몬스터 3번
 	current_scene_->AddGameObject(monster, 3, true);
-	current_scene_->AddGameObject(monsterLeftShooter, 3, true);
-	current_scene_->AddGameObject(monsterRightShooter, 3, true);
+
 
 	CCollisionManager::GetInst()->CheckLayer(2, 3);
 
@@ -138,8 +135,8 @@ void CSceneManager::Progress()
 	current_scene_->Update();
 	current_scene_->LateUpdate();
 	current_scene_->FinalUpdate();
-	CCollisionManager::GetInst()->Update();
 	current_scene_->Render();
+	CCollisionManager::GetInst()->Update();
 }
 
 #include "CBulletScript.h"

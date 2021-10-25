@@ -84,9 +84,10 @@ VS_OUTPUT vs_main(VS_INPUT _in)
 float4 ps_main(VS_OUTPUT _in) : SV_Target
 {
     float4 outputColor = _in.color ;
-   
+    
     outputColor = tex_0.Sample(ati_sam, _in.uv);
-       
+    
+    
     return outputColor;
 }
 

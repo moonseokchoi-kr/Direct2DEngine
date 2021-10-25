@@ -11,7 +11,7 @@ CEventManager::CEventManager()
 
 CEventManager::~CEventManager()
 {
-
+	Safe_Delete_Vec(dead_object_vector_);
 }
 
 

@@ -44,7 +44,8 @@ CGameObject::CGameObject(const CGameObject& origin)
 
 CGameObject::~CGameObject()
 {
- 	int a = 0;
+	Safe_Delete_Array(component_array_);
+	Safe_Delete_Vec(child_object_vector_);
 }
 
 void CGameObject::Update()

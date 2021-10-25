@@ -151,7 +151,7 @@ call .\EngineCopy.bat</Command>
       <EntryPointName>vs_main</EntryPointName>
     </FxCompile>
     <FxCompile>
-      <ShaderModel>4.0_level_9_3</ShaderModel>
+      <ShaderModel>5.0</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -181,7 +181,7 @@ call .\EngineCopy.bat</Command>
 call .\EngineCopy.bat</Command>
     </PostBuildEvent>
     <FxCompile>
-      <EntryPointName>VS_std</EntryPointName>
+      <EntryPointName>vs_main</EntryPointName>
     </FxCompile>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
