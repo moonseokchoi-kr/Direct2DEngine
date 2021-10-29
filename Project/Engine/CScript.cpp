@@ -44,19 +44,19 @@ void CScript::Instantiate(Ptr<CPrefab> prefab, int layerIndex)
 void CScript::Instantiate(Ptr<CPrefab> prefab, Vec3 position, int layerIndex,Vec3 rotation)
 {
 	CGameObject* prototype = prefab->Instantiate();
-	prototype->Transform()->SetPos(position);
+	prototype->Transform()->SetPosition(position);
 	prototype->Transform()->SetRotation(rotation);
 	CreateObject(prototype, layerIndex);
 }
 
-void CScript::OnCollisionEnter(CCollider2D* otherCollider)
+void CScript::OnCollisionEnter(CGameObject* otherObject)
 {
 }
 
-void CScript::OnCollision(CCollider2D* otherCollider)
+void CScript::OnCollision(CGameObject* otherObject)
 {
 }
 
-void CScript::OnCollisionExit(CCollider2D* otherCollider)
+void CScript::OnCollisionExit(CGameObject* otherObject)
 {
 }

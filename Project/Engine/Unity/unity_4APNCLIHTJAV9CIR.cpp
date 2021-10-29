@@ -1,5 +1,8 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CDevice.cpp"
+
+
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CEntity.cpp"
 
 
@@ -18,11 +21,5 @@
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CLayer.cpp"
 
 
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CMaterial.cpp"
-
-
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CMesh.cpp"
-
-
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CMeshRender.cpp"
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CLight2D.cpp"
 

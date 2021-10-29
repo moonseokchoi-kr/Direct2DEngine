@@ -6,6 +6,7 @@
 #include "CMeshRender.h"
 #include "CMaterial.h"
 #include "CTransform.h"
+#include "CCollider2D.h"
 #include "CPrefab.h"
 
 
@@ -18,9 +19,9 @@ public:
 public:
     void FinalUpdate() final {};
 public:
-	virtual void OnCollisionEnter(CCollider2D* otherCollider);
-	virtual void OnCollision(CCollider2D* otherCollider);
-	virtual void OnCollisionExit(CCollider2D* otherCollider);
+	virtual void OnCollisionEnter(CGameObject* otherObject);
+	virtual void OnCollision(CGameObject* otherObject);
+	virtual void OnCollisionExit(CGameObject* otherObject);
 private:
     void UpdateData()  override {};
 

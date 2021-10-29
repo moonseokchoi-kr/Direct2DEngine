@@ -16,6 +16,7 @@ class CTransform;
 class CCollider2D;
 class CCamera;
 class CScript;
+class CLight2D;
 
 class CGameObject :
     public CEntity
@@ -41,7 +42,8 @@ public:
     GET_COMPONENT(MeshRender, COMPONENT_TYPE::MESHRENDER);
     GET_COMPONENT(Camera, COMPONENT_TYPE::CAMERA);
     GET_COMPONENT(Collider2D, COMPONENT_TYPE::COLLIDER2D);
-    GET_COMPONENT(Script, COMPONENT_TYPE::SCRIPT);
+    GET_COMPONENT(Light2D, COMPONENT_TYPE::LIGHT2D);
+    CScript* GetScript() { return (CScript*)component_array_[static_cast<UINT>(COMPONENT_TYPE::SCRIPT)]; }
     CGameObject* GetParent() { return parent_object_; }
 
 

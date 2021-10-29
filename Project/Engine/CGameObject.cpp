@@ -23,8 +23,8 @@ CGameObject::CGameObject()
 CGameObject::CGameObject(const CGameObject& origin)
 	:CEntity(origin)
 	, component_array_{}
-	,parent_object_(nullptr)
-	,layer_index_(-1)
+	, parent_object_(nullptr)
+	, layer_index_(-1)
 	, object_state_(OBJECT_STATE::ALIVE)
 {
 	for (CComponent* component : origin.component_array_)
@@ -44,7 +44,8 @@ CGameObject::CGameObject(const CGameObject& origin)
 
 CGameObject::~CGameObject()
 {
- 	int a = 0;
+	Safe_Delete_Array(component_array_);
+	Safe_Delete_Vec(child_object_vector_);
 }
 
 void CGameObject::Update()
@@ -65,7 +66,7 @@ void CGameObject::Update()
 
 void CGameObject::LateUpdate()
 {
-	if (CheckDead())
+	if (OBJECT_STATE::DEAD == object_state_)
 		return;
 
 	for (CComponent* component : component_array_)
@@ -108,6 +109,7 @@ void CGameObject::Render()
 	{
 		Collider2D()->Render();
 	}
+
 }
 
 void CGameObject::AddComponent(CComponent* comp)

@@ -23,6 +23,3 @@
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CCore.cpp"
 
-
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CDevice.cpp"
-

@@ -1,12 +1,6 @@
 #include "pch.h"
 
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CPathManager.cpp"
-
-
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CPlayerScript.cpp"
-
-
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CPrefab.cpp"
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CRenderManager.cpp"
 
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CResource.cpp"
@@ -25,4 +19,7 @@
 
 
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CScript.cpp"
+
+
+#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CShader.cpp"
 

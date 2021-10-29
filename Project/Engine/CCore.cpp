@@ -8,6 +8,8 @@
 #include "CDevice.h"
 #include "CSceneManager.h"
 #include "CCollisionManager.h"
+#include "CRenderManager.h"
+
 
 CCore::CCore()
     :hWnd_(nullptr)
@@ -28,10 +30,9 @@ HRESULT CCore::Init(HWND hWnd, UINT x, UINT y)
     {
         return E_FAIL;
     }
-
+	CPathManager::GetInst()->Init();
+	CKeyManager::GetInst()->Init();
     CTimeManager::GetInst()->Init();
-    CPathManager::GetInst()->Init();
-    CKeyManager::GetInst()->Init();
     CResourceManager::GetInst()->Init();
     CSceneManager::GetInst()->Init();
     
@@ -43,6 +44,7 @@ void CCore::Progress()
     CTimeManager::GetInst()->Update();
     CKeyManager::GetInst()->Update();
     CSceneManager::GetInst()->Progress();
+    CRenderManager::GetInst()->Render();
     CEventManager::GetInst()->Update();
 }
 

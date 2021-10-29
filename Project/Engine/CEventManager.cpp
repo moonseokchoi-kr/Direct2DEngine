@@ -11,7 +11,7 @@ CEventManager::CEventManager()
 
 CEventManager::~CEventManager()
 {
-
+	Safe_Delete_Vec(dead_object_vector_);
 }
 
 
@@ -58,7 +58,7 @@ void CEventManager::excute(const Event& _event)
 		CGameObject* object = (CGameObject*)_event.lParam;
 		if (OBJECT_STATE::ALIVE == object->GetObjectState())
 		{
-			object->SetDead(static_cast<float>(_event.wParam));
+ 			object->SetDead(static_cast<float>(_event.wParam));
 			dead_object_vector_.push_back(object);
 
 		}

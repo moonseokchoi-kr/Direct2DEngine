@@ -84,3 +84,15 @@ void CScene::AddGameObject(CGameObject* object, UINT layerType, bool bMove)
 
 	layer_array_[layerType]->AddGameObject(object, bMove);
 }
+
+CGameObject* CScene::GetObjectWithName(const wstring& objectName)
+{
+	CGameObject* object = nullptr;
+	for (CLayer* layer : layer_array_)
+	{
+		object = layer->FindObjectWithName(objectName);
+		if (nullptr != object)
+			return object;
+	}
+	return object;
+}

@@ -141,6 +141,18 @@
     <Filter Include="소스 파일\Resource\Prefab">
       <UniqueIdentifier>{d19b6efc-60c4-4042-ae53-9deb2aa708dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Scripts\MonsterScript">
+      <UniqueIdentifier>{d45a6a49-1d78-46ae-bd83-f0f1ab3ec5ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Manager\RenderManager">
+      <UniqueIdentifier>{44bd7a98-fe66-48d1-a073-7e92b12a796c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Component\Light2D">
+      <UniqueIdentifier>{119c1be1-deff-4ba0-b99b-ff8c263fb63c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Component\Light3D">
+      <UniqueIdentifier>{2c8bf8b2-7b6c-4425-a46f-c7aba01443f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -225,7 +237,6 @@
     <ClInclude Include="CLayer.h">
       <Filter>소스 파일\Manager\SceneManger\Layer</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="CMaterial.h">
       <Filter>소스 파일\Resource\Material</Filter>
     </ClInclude>
@@ -261,6 +272,22 @@
     </ClInclude>
     <ClInclude Include="CGameObject.h">
       <Filter>소스 파일\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="common.h">
+      <Filter>소스 파일\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterScript.h">
+      <Filter>소스 파일\Scripts\MonsterScript</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="CMonsterHpBar.h">
+      <Filter>소스 파일\Scripts\MonsterScript</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderManager.h">
+      <Filter>소스 파일\Manager\RenderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CLight2D.h">
+      <Filter>소스 파일\Component\Light2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -343,9 +370,6 @@
     <ClCompile Include="CScript.cpp">
       <Filter>소스 파일\Component\Script</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>소스 파일\Scripts\PlayerScript</Filter>
-    </ClCompile>
     <ClCompile Include="CGraphicsShader.cpp">
       <Filter>소스 파일\Resource\Shader\CGraphicsShader</Filter>
     </ClCompile>
@@ -367,12 +391,42 @@
     <ClCompile Include="CPrefab.cpp">
       <Filter>소스 파일\Resource\Prefab</Filter>
     </ClCompile>
+    <ClCompile Include="CMonsterScript.cpp">
+      <Filter>소스 파일\Scripts\MonsterScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>소스 파일\Scripts\PlayerScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterHpBar.cpp">
+      <Filter>소스 파일\Scripts\MonsterScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderManager.cpp">
+      <Filter>소스 파일\Manager\RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CLight2D.cpp">
+      <Filter>소스 파일\Component\Light2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="std2d.fx">
       <Filter>소스 파일\Shader</Filter>
     </FxCompile>
     <FxCompile Include="collider2dshader.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="monsterhpshader.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="struct.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="value.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="function.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="light2dshader.fx">
       <Filter>소스 파일\Shader</Filter>
     </FxCompile>
   </ItemGroup>

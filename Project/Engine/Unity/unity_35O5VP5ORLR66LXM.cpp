@@ -1,8 +1,5 @@
 #include "pch.h"
 
-#include "D:\Project\cpp\Direct2DEngine\Project\Engine\CShader.cpp"
-
-
 #include "D:\Project\cpp\Direct2DEngine\Project\Engine\CTexture.cpp"
 
 

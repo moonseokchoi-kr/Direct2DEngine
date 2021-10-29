@@ -151,7 +151,7 @@ call .\EngineCopy.bat</Command>
       <EntryPointName>vs_main</EntryPointName>
     </FxCompile>
     <FxCompile>
-      <ShaderModel>4.0_level_9_3</ShaderModel>
+      <ShaderModel>5.0</ShaderModel>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -181,7 +181,7 @@ call .\EngineCopy.bat</Command>
 call .\EngineCopy.bat</Command>
     </PostBuildEvent>
     <FxCompile>
-      <EntryPointName>VS_std</EntryPointName>
+      <EntryPointName>vs_main</EntryPointName>
     </FxCompile>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
@@ -203,12 +203,17 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CGraphicsShader.h" />
     <ClInclude Include="CKeyManager.h" />
     <ClInclude Include="CLayer.h" />
+    <ClInclude Include="CLight2D.h" />
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshRender.h" />
+    <ClInclude Include="CMonsterHpBar.h" />
+    <ClInclude Include="CMonsterScript.h" />
+    <ClInclude Include="common.h" />
     <ClInclude Include="CPathManager.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPrefab.h" />
+    <ClInclude Include="CRenderManager.h" />
     <ClInclude Include="CResource.h" />
     <ClInclude Include="CResourceManager.h" />
     <ClInclude Include="CScene.h" />
@@ -246,12 +251,16 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CGraphicsShader.cpp" />
     <ClCompile Include="CKeyManager.cpp" />
     <ClCompile Include="CLayer.cpp" />
+    <ClCompile Include="CLight2D.cpp" />
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshRender.cpp" />
+    <ClCompile Include="CMonsterHpBar.cpp" />
+    <ClCompile Include="CMonsterScript.cpp" />
     <ClCompile Include="CPathManager.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPrefab.cpp" />
+    <ClCompile Include="CRenderManager.cpp" />
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CResourceManager_init.cpp" />
@@ -273,8 +282,63 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="collider2dshader.fx" />
-    <FxCompile Include="std2d.fx" />
+    <FxCompile Include="collider2dshader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="function.fx">
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">vs_main</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+    </FxCompile>
+    <FxCompile Include="light2dshader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="monsterhpshader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="std2d.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="struct.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">vs_main</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">main</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="value.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">main</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">main</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">fx</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Engine.rc" />

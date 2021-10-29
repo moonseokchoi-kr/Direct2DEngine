@@ -75,6 +75,9 @@ void CGraphicsShader::UpdateData()
 	ComPtr<ID3D11RasterizerState> rasterizer = CDevice::GetInst()->GetRasterizerState(rasterizer_type_);
 	CONTEXT->RSSetState(rasterizer.Get());
 
+	ComPtr<ID3D11DepthStencilState> depthStencil = CDevice::GetInst()->GetDepthStencilState(depth_stencil_type_);
+	CONTEXT->OMSetDepthStencilState(depthStencil.Get(), 0);
+
 	ComPtr<ID3D11BlendState> blend = CDevice::GetInst()->GetBlendState(blend_type_);
 	CONTEXT->OMSetBlendState(blend.Get(), nullptr, 0xffffffff);
 

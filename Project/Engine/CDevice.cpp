@@ -13,6 +13,7 @@ CDevice::CDevice()
 }
 CDevice::~CDevice()
 {
+	Safe_Delete_Array(const_buffer_array_);
 }
 HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 {
@@ -100,7 +101,7 @@ HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 
 void CDevice::ClearTarget()
 {
-	float color[4] = { 0.4f,0.4f,0.4f,1.0f };
+	float color[4] = { 0.0f,0.0f,0.0f,0.0f };
 	context_->ClearRenderTargetView(render_target_view_.Get(), color);
 	context_->ClearDepthStencilView(depth_stencil_view_.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f ,0);
 }
@@ -238,7 +239,7 @@ HRESULT CDevice::CreateView()
 
 	HR(device_->CreateTexture2D(&desc, 0, depth_stencil_buffer_.GetAddressOf()));
 	
-	HR(device_->CreateDepthStencilView(depth_stencil_buffer_.Get(), nullptr, depth_stencil_view_.GetAddressOf()))
+	HR(device_->CreateDepthStencilView(depth_stencil_buffer_.Get(), nullptr, depth_stencil_view_.GetAddressOf()));
 
 	context_->OMSetRenderTargets(1, render_target_view_.GetAddressOf(), depth_stencil_view_.Get());
 
@@ -255,7 +256,7 @@ HRESULT CDevice::CreateConstBuffer()
 
 	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::TRANSFORM)]->Create(L"Transform", sizeof(Transform), static_cast<UINT>(CB_TYPE::TRANSFORM)));
 	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::MATERIAL_CONST)]->Create(L"Material", sizeof(MaterialParameter), static_cast<UINT>(CB_TYPE::MATERIAL_CONST)));
-
+	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::LIGHT2D)]->Create(L"Light2D",sizeof(LightInfo)*50+16, static_cast<UINT>(CB_TYPE::LIGHT2D)))
 	return S_OK;
 }
 
@@ -269,7 +270,7 @@ HRESULT CDevice::CreateBlendState()
 	desc.IndependentBlendEnable = false;
 	
 	desc.RenderTarget[0].BlendEnable = true;
-	
+
 	desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 	desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
 	desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;

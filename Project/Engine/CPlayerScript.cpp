@@ -19,7 +19,7 @@ CPlayerScript::~CPlayerScript()
 void CPlayerScript::Update()
 {
 	accumulated_time_ += fDT;
-	Vec3 pos = GetTransform()->GetPos();
+	Vec3 pos = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
 	Vec3 rot = GetTransform()->GetRotation();
 	if (KEY_HOLD(KEY::UP))
@@ -42,11 +42,11 @@ void CPlayerScript::Update()
 
 	if (KEY_HOLD(KEY::Q))
 	{
-		rot.z += XM_2PI * fDT;
+		rot.z += 100.f*fDT;
 	}
 	if (KEY_HOLD(KEY::E))
 	{
-		rot.z -= XM_2PI * fDT;
+		rot.z -= 100.f*fDT;
 	}
 	if (KEY_HOLD(KEY::SPACE))
 	{
@@ -57,17 +57,30 @@ void CPlayerScript::Update()
 		}
 		
 	}
-	
-	GetTransform()->SetPos(pos);
+	GetTransform()->SetPosition(pos);
 	GetTransform()->SetScale(scale);
 	GetTransform()->SetRotation(rot);
 }
 
+void CPlayerScript::OnCollisionEnter(CGameObject* otherObject)
+{
+	if (L"monster_bullet" == otherObject->GetName())
+	{
+		//OutputDebugString(L"총돌했습니다!\n");
+		is_hit_ = 1;
+		GetMeshRender()->GetCloneMaterial()->SetData(SHADER_PARAM::INT_0, &is_hit_);		
+	}
+}
+
+void CPlayerScript::OnCollisionExit(CGameObject* otherObject)
+{
+	if(0==GetCollider2D()->GetCollisionCount())
+		GetMeshRender()->GetSharedMaterial();
+}
+
 void CPlayerScript::CreateBullet()
 {
-
-
-	Vec3 position = GetTransform()->GetPos();
+	Vec3 position = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
 
 	position.y += scale.y / 2.f;

@@ -54,37 +54,41 @@ void CCollider2D::Render()
 	collider_mesh_->Render();
 }
 
-void CCollider2D::OnCollisionEnter(CCollider2D* otherCollider)
+void CCollider2D::OnCollisionEnter(CGameObject* otherObject)
 {
 	++collision_count_;
-	CScript* script = GetOwner()->Script();
-	if (script)
-	{
-		script->OnCollisionEnter(otherCollider);
-	}
-	
+	CScript* script = GetOwner()->GetScript();
 	collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"collider2DMaterial_collision");
-}
 
-void CCollider2D::OnCollision(CCollider2D* otherCollider)
-{
-	CScript* script = GetOwner()->Script();
 	if (script)
 	{
-		script->OnCollision(otherCollider);
+		script->OnCollisionEnter(otherObject);
+	}
+}
+	
+	
+	
+
+void CCollider2D::OnCollision(CGameObject* otherObject)
+{
+	CScript* script = GetOwner()->GetScript();
+	if (script)
+	{
+		script->OnCollision(otherObject);
 	}
 }
 
-void CCollider2D::OnCollisionExit(CCollider2D* otherCollider)
+void CCollider2D::OnCollisionExit(CGameObject* otherObject)
 {
 	--collision_count_;
-	CScript* script = GetOwner()->Script();
-	if (script)
-	{
-		script->OnCollisionExit(otherCollider);
-	}
+	CScript* script = GetOwner()->GetScript();
 	if (0 == collision_count_)
 	{
 		collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"collider2DMaterial_none");
 	}
+	if (script)
+	{
+		script->OnCollisionExit(otherObject);
+	}
+	
 }

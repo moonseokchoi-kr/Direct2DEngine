@@ -85,3 +85,13 @@ void CLayer::AddGameObject(CGameObject* object, bool bMove)
 		}
 	}
 }
+
+CGameObject* CLayer::FindObjectWithName(const wstring& objectName)
+{
+	for (CGameObject* object : parent_object_vector_)
+	{
+		if (objectName == object->GetName())
+			return object;
+	}
+	return nullptr;
+}
