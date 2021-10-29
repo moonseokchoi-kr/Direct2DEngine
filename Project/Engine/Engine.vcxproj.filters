@@ -144,6 +144,15 @@
     <Filter Include="소스 파일\Scripts\MonsterScript">
       <UniqueIdentifier>{d45a6a49-1d78-46ae-bd83-f0f1ab3ec5ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Manager\RenderManager">
+      <UniqueIdentifier>{44bd7a98-fe66-48d1-a073-7e92b12a796c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Component\Light2D">
+      <UniqueIdentifier>{119c1be1-deff-4ba0-b99b-ff8c263fb63c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Component\Light3D">
+      <UniqueIdentifier>{2c8bf8b2-7b6c-4425-a46f-c7aba01443f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -274,6 +283,12 @@
     <ClInclude Include="CMonsterHpBar.h">
       <Filter>소스 파일\Scripts\MonsterScript</Filter>
     </ClInclude>
+    <ClInclude Include="CRenderManager.h">
+      <Filter>소스 파일\Manager\RenderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CLight2D.h">
+      <Filter>소스 파일\Component\Light2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -384,6 +399,12 @@
     </ClCompile>
     <ClCompile Include="CMonsterHpBar.cpp">
       <Filter>소스 파일\Scripts\MonsterScript</Filter>
+    </ClCompile>
+    <ClCompile Include="CRenderManager.cpp">
+      <Filter>소스 파일\Manager\RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CLight2D.cpp">
+      <Filter>소스 파일\Component\Light2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
