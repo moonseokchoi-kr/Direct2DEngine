@@ -101,7 +101,7 @@ HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 
 void CDevice::ClearTarget()
 {
-	float color[4] = { 0.4f,0.4f,0.4f,0.0f };
+	float color[4] = { 0.0f,0.0f,0.0f,0.0f };
 	context_->ClearRenderTargetView(render_target_view_.Get(), color);
 	context_->ClearDepthStencilView(depth_stencil_view_.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f ,0);
 }

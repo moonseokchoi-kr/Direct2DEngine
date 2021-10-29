@@ -79,6 +79,7 @@ void CMaterial::UpdateData()
 
 	for(size_t i =0; i<texture_array_.size(); ++i)
 	{
+
 		if (nullptr != texture_array_[i])
 		{
 			texture_array_[i]->SetPipelineStage(PIPELINE_STAGE::PS_ALL, i);

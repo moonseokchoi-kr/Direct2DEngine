@@ -417,6 +417,18 @@
     <FxCompile Include="monsterhpshader.fx">
       <Filter>소스 파일\Shader</Filter>
     </FxCompile>
+    <FxCompile Include="struct.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="value.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="function.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="light2dshader.fx">
+      <Filter>소스 파일\Shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Engine.rc">

@@ -6,6 +6,7 @@
 #include "CMaterial.h"
 #include "CCollider2D.h"
 #include "CMeshRender.h"
+#include "CLight2D.h"
 
 #include "CPlayerScript.h"
 #include "CMonsterScript.h"
@@ -46,7 +47,7 @@ void CSceneManager::Init()
 	background->Transform()->SetScale(Vec3(10000.f, 10000.f, 1.f));
 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	CMaterial* backgroundMaterial = new CMaterial;
-	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DMaterial_lights"));
 	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
 	CResourceManager::GetInst()->AddResource(L"backgoundMaterial", backgroundMaterial);
 	background->MeshRender()->SetMaterial(backgroundMaterial);
@@ -70,6 +71,17 @@ void CSceneManager::Init()
 	//4번 UI
 	current_scene_->AddGameObject(hpBar, 4, true);
 
+	const auto light = new CGameObject;
+	light->AddComponent(new CTransform);
+	light->AddComponent(new CLight2D);
+	light->SetName(L"light_test");
+	light->Transform()->SetPosition(Vec3(0.f, -200.f, 0.f));
+	light->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	light->Light2D()->SetLightRange(300.f);
+	light->Light2D()->SetLightColor(Vec4(1.f, 1.f, 1.f,1.f));
+
+	current_scene_->AddGameObject(light, 0, true);
+
 
 	//카메라
 	const auto camera = new CGameObject;
@@ -91,7 +103,7 @@ void CSceneManager::Init()
 	object->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
 	object->Collider2D()->SetOffsetScale(Vec2(0.10f, 0.15f));
 	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
+	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial_lights"));
 
 	Ptr<CMaterial> material = object->MeshRender()->GetMaterial();
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"player").Get());

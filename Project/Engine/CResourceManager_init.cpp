@@ -155,11 +155,23 @@ void CResourceManager::CreateDefaultShader()
 	strPath += L"shader\\monsterbulletshader.fx";
 	stdShader->CreateVertexShader(strPath, "vs_main");
 	stdShader->CreatePixelShader(strPath, "ps_main");
-
-	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST);
+	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 
 	AddResource(L"monster_bullet_shader", stdShader);
+
+
+	//light shader
+	stdShader = new CGraphicsShader;
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"shader\\light2dshader.fx";
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+	
+
+	AddResource(L"light2D_shader", stdShader);
 }
 
 void CResourceManager::CreateDefaultTexture()
@@ -208,11 +220,10 @@ void CResourceManager::CreateDefaultMaterial()
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	AddResource(L"std2DMaterial", material);
 
+
 	material = new CMaterial;
-	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
-	material->SetData(SHADER_PARAM::INT_0, &a);
-	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"player").Get());
-	AddResource(L"std2DMaterial_hit", material);
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"light2D_shader"));
+	AddResource(L"std2DMaterial_lights", material);
 
 	//colliderMaterial
 	material = new CMaterial;

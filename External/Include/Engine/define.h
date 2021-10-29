@@ -48,6 +48,7 @@ enum class CB_TYPE
 {
 	TRANSFORM,
 	MATERIAL_CONST,
+	GLOBAL,
 	LIGHT2D,
 	END,
 };
