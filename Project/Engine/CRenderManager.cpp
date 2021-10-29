@@ -47,7 +47,7 @@ int CRenderManager::RegisterCamera(CCamera* camera, int cameraIndex)
 	if (-1 == cameraIndex)
 	{
 		camera_vector_.push_back(camera);
-		return camera_vector_.size() - 1;
+		return static_cast<int>(camera_vector_.size() - 1);
 	}
 	else
 	{
@@ -65,7 +65,7 @@ int CRenderManager::RegisterCamera(CCamera* camera, int cameraIndex)
 				assert(!(0 == cameraIndex));
 
 				camera_vector_.push_back(camera);
-				return camera_vector_.size() - 1;
+				return static_cast<int>(camera_vector_.size() - 1);
 			}
 			else
 			{

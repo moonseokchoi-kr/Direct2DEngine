@@ -12,10 +12,11 @@ public:
     void LateUpdate() override;
     void FinalUpdate() override;
 	void UpdateData() override{};
-
+    void Render() override;
 public:
     void SetProjectionType(PROJECTION_TYPE type) { projection_type_ = type; }
-
+    void CheckAllLayout() { layer_check_out_ = 0xffffffff; }
+    void SetMainCamera() { camera_index_ = 0; }
 public:
     CLONE(CCamera);
 
@@ -25,5 +26,9 @@ private:
     Matrix projection_matrix_;
     float far_z_;
     float angle_of_view_y_;
+
+    UINT layer_check_out_;
+
+    int camera_index_;
 };
 

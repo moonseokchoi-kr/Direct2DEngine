@@ -174,7 +174,7 @@ void CResourceManager::CreateDefaultTexture()
 
 	strContent = CPathManager::GetInst()->GetContentPath();
 	
-	strFilePath = strContent + L"texture\\player.png";
+	strFilePath = strContent + L"texture\\raimu_player.png";
 	texture = new CTexture;
 	texture->Load(strFilePath);
 	AddResource(L"player", texture);

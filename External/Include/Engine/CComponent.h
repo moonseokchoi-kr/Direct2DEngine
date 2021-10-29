@@ -24,6 +24,7 @@ public:
     CTransform* GetTransform() { return owner_->Transform(); }
     CMeshRender* GetMeshRender() { return owner_->MeshRender(); }
     CCamera* GetCamera() { return owner_->Camera(); }
+    CCollider2D* GetCollider2D(){ return owner_->Collider2D(); }
 
 public:
     virtual CComponent* Clone() = 0;

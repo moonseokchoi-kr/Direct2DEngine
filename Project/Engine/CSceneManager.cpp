@@ -13,6 +13,8 @@
 
 #include "CResourceManager.h"
 #include "CCollisionManager.h"
+
+
 #include "CScene.h"
 #include "CLayer.h"
 #include "CTransform.h"
@@ -73,6 +75,8 @@ void CSceneManager::Init()
 	const auto camera = new CGameObject;
 	camera->AddComponent(new CTransform);
 	camera->AddComponent(new CCamera);
+	camera->Camera()->CheckAllLayout();
+	camera->Camera()->SetMainCamera();
 	camera->Transform()->SetPosition(Vec3(0.f, 0.f, 0.f));
 	//카메라 1번
 	current_scene_->AddGameObject(camera, 1,true);
@@ -136,7 +140,7 @@ void CSceneManager::Progress()
 	current_scene_->LateUpdate();
 	current_scene_->FinalUpdate();
 	CCollisionManager::GetInst()->Update();
-	current_scene_->Render();
+
 	
 }
 

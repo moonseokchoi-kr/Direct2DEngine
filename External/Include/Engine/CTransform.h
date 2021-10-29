@@ -20,6 +20,7 @@ public:
     void SetRotation(Vec3 _rotation) { local_rotation_ = _rotation; }
 
     Matrix GetWorldMatrix() { return world_matrix_; }
+    Vec3 GetWorldPos() { return world_matrix_.Translation(); }
     Vec3 GetWorldScale();
 public:
     CLONE(CTransform);

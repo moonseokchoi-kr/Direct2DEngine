@@ -27,6 +27,13 @@ struct MaterialParameter
 	array<Matrix, 4> matrix_arr;
 };
 
+struct LightColor
+{
+	Vec4 light_color;
+	Vec4 light_specular;
+	Vec4 light_ambient;
+};
+
 struct LightInfo
 {
 	LightColor light_color;
@@ -39,9 +46,3 @@ struct LightInfo
 	Vec3 padding;
 };
 
-struct LightColor
-{
-	Vec4 light_color;
-	Vec4 light_specular;
-	Vec4 light_ambient;
-};

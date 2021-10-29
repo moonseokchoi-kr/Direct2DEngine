@@ -10,8 +10,6 @@ CPlayerScript::CPlayerScript()
 	,player_bullet_attack_speed_(0.1f)
 {
 	player_bullet_prefab_ = CResourceManager::GetInst()->FindRes<CPrefab>(L"player_bullet_prefab");
-	player_hit_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial_hit");
-	player_no_hit_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial");
 }
 
 CPlayerScript::~CPlayerScript()
@@ -59,14 +57,6 @@ void CPlayerScript::Update()
 		}
 		
 	}
-	if (is_hit_)
-	{
-		GetOwner()->MeshRender()->SetMaterial(player_hit_material_);
-	}
-	else
-	{
-		GetOwner()->MeshRender()->SetMaterial(player_no_hit_material_);
-	}
 	GetTransform()->SetPosition(pos);
 	GetTransform()->SetScale(scale);
 	GetTransform()->SetRotation(rot);
@@ -77,14 +67,15 @@ void CPlayerScript::OnCollisionEnter(CGameObject* otherObject)
 	if (L"monster_bullet" == otherObject->GetName())
 	{
 		//OutputDebugString(L"총돌했습니다!\n");
-		is_hit_ = true;
-		
+		is_hit_ = 1;
+		GetMeshRender()->GetCloneMaterial()->SetData(SHADER_PARAM::INT_0, &is_hit_);		
 	}
 }
 
 void CPlayerScript::OnCollisionExit(CGameObject* otherObject)
 {
-	is_hit_ = false;
+	if(0==GetCollider2D()->GetCollisionCount())
+		GetMeshRender()->GetSharedMaterial();
 }
 
 void CPlayerScript::CreateBullet()

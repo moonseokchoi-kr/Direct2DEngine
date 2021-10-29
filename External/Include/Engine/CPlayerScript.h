@@ -18,11 +18,9 @@ public:
 private:
     float player_move_speed_;
     float player_bullet_attack_speed_;
-    bool is_hit_;
+    int is_hit_;
     float hit_accumulated_time_;
     float accumulated_time_;
-    Ptr<CMaterial> player_hit_material_;
-    Ptr<CMaterial> player_no_hit_material_;
     Ptr<CPrefab> player_bullet_prefab_;
 };
 

@@ -52,7 +52,7 @@ Ptr<CMaterial> CMeshRender::GetCloneMaterial()
 {
 	if (nullptr != shared_material_)
 	{
-		if (nullptr != clone_material_)
+		if (nullptr == clone_material_)
 		{
 			clone_material_ = shared_material_->Clone();
 		}

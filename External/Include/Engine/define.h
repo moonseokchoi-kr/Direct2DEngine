@@ -48,6 +48,7 @@ enum class CB_TYPE
 {
 	TRANSFORM,
 	MATERIAL_CONST,
+	LIGHT2D,
 	END,
 };
 
@@ -170,4 +171,11 @@ enum class DEPTH_STENCIL_TYPE
 
 	END,
 
+};
+
+enum class LIGHT_TYPE
+{
+	DIR,
+	POINT,
+	SPOT,
 };

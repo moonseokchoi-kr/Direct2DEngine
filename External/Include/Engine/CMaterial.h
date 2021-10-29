@@ -16,6 +16,8 @@ public:
 public:
     void SetData(SHADER_PARAM param, void* data);
 	void UpdateData() override;
+
+    CLONE(CMaterial);
 public:
     void SetShader(Ptr<CGraphicsShader> shader) { shader_ = shader; }
     Ptr<CGraphicsShader> GetShader() { return shader_; }

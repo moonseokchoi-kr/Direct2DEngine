@@ -15,7 +15,8 @@ public:
     void Render() override;
 public:
     void SetProjectionType(PROJECTION_TYPE type) { projection_type_ = type; }
-
+    void CheckAllLayout() { layer_check_out_ = 0xffffffff; }
+    void SetMainCamera() { camera_index_ = 0; }
 public:
     CLONE(CCamera);
 

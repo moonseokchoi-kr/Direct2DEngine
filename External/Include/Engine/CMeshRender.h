@@ -17,15 +17,22 @@ public:
     void FinalUpdate() override;
     void UpdateData() override {}
 public:
-    Ptr<CMaterial> GetMaterial() { return material_; }
-    Ptr<CMesh> GetMesh() { return mesh_; }
+
 	
     CLONE(CMeshRender);
 public:
-    void SetMaterial(Ptr<CMaterial> material) { material_ = material; }
+	Ptr<CMaterial> GetMaterial() { return current_material_; }
+	Ptr<CMesh> GetMesh() { return mesh_; }
+
+    Ptr<CMaterial> GetSharedMaterial();
+    Ptr<CMaterial> GetCloneMaterial();
+
+    void SetMaterial(Ptr<CMaterial> material);
     void SetMesh(Ptr<CMesh> mesh) { mesh_ = mesh; }
 private:
-    Ptr<CMaterial> material_;
+    Ptr<CMaterial> current_material_;
+    Ptr<CMaterial> shared_material_;
+    Ptr<CMaterial> clone_material_;
     Ptr<CMesh> mesh_;
 };
 

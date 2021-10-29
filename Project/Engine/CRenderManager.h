@@ -17,7 +17,7 @@ public:
     {
         light2D_vector_.push_back(light);
 
-        return light2D_vector_.size() - 1;
+        return static_cast<int>(light2D_vector_.size() - 1);
     }
 
 private:

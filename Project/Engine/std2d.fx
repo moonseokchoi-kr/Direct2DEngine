@@ -89,8 +89,6 @@ float4 ps_main(VS_OUTPUT _in) : SV_Target
     
     if (int_0)
     {
-        //outputColor *= float4(1.f, 1.f, 1.f, 0.5f);
-        //outputColor.r *= 2.f;
         outputColor.r *= 2.f;
     }
    
