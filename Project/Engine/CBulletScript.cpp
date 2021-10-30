@@ -24,15 +24,13 @@ void CBulletScript::Update()
 	}
 }
 
-void CBulletScript::OnCollisionEnter(CCollider2D* otherCollider)
+void CBulletScript::OnCollisionEnter(CGameObject* otherOject)
 {
-	CGameObject* object = otherCollider->GetOwner();
-  	if (L"player" == object->GetName() || L"monster" == object->GetName())
+	if (L"player" == otherOject->GetName() || L"monster" == otherOject->GetName())
 	{
 		DeleteObject(GetOwner());
 	}
 }
-	
 
 
 void CBulletScript::MoveBulluet()

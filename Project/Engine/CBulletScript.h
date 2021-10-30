@@ -10,7 +10,7 @@ public:
 public:
 	void Update() override;
 public:
-    void OnCollisionEnter(CCollider2D* otherCollider);
+    void OnCollisionEnter(CGameObject* otherOject) override;
 public:
     void SetMoveDirection(Vec3 direction) { move_direction_ = direction; }
     void SetMoveSpeed(float speed) { move_speed_ = speed; }

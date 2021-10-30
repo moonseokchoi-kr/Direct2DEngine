@@ -9,6 +9,7 @@
 #include "CCollider2D.h"
 #include "CPrefab.h"
 
+class CCollider2D;
 
 class CScript :
     public CComponent
@@ -18,10 +19,7 @@ public:
     ~CScript();
 public:
     void FinalUpdate() final {};
-public:
-	virtual void OnCollisionEnter(CGameObject* otherObject);
-	virtual void OnCollision(CGameObject* otherObject);
-	virtual void OnCollisionExit(CGameObject* otherObject);
+
 private:
     void UpdateData()  override {};
 
@@ -31,10 +29,15 @@ protected:
 
     void Instantiate(Ptr<CPrefab> prefab, int layerIndex = 0);
     void Instantiate(Ptr<CPrefab> prefab, Vec3 position, int layerIndex = 0, Vec3 rotation = Vec3(0.f, 0.f, 0.f) );
-
+protected:
+	virtual void OnCollisionEnter(CGameObject* otherObject);
+	virtual void OnCollision(CGameObject* otherObject);
+	virtual void OnCollisionExit(CGameObject* otherObject);
 
 
 private:
     int script_type_;
+
+    friend class CCollider2D;
 };
 
