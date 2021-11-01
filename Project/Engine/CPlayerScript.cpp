@@ -1,13 +1,15 @@
 #include "pch.h"
 #include "CPlayerScript.h"
 #include "CBulletScript.h"
-
+#include "CAnimation2D.h"
 
 
 CPlayerScript::CPlayerScript()
 	:player_move_speed_(400)
 	,accumulated_time_(0)
 	,player_bullet_attack_speed_(0.1f)
+	,preMoveDir(0)
+	,moveDir(0)
 {
 	player_bullet_prefab_ = CResourceManager::GetInst()->FindRes<CPrefab>(L"player_bullet_prefab");
 }
@@ -18,6 +20,7 @@ CPlayerScript::~CPlayerScript()
 
 void CPlayerScript::Update()
 {
+	preMoveDir = moveDir;
 	accumulated_time_ += fDT;
 	Vec3 pos = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
@@ -25,19 +28,27 @@ void CPlayerScript::Update()
 	if (KEY_HOLD(KEY::UP))
 	{
 		pos += Vec3(0.f, fDT * player_move_speed_ * 0.5f, 0.f);
+		moveDir = 0;
 	}
 	if (KEY_HOLD(KEY::DOWN))
 	{
 		pos -= Vec3(0.f, fDT * player_move_speed_ * 0.5f, 0.f);
+		moveDir = 0;
 	}
 	if (KEY_HOLD(KEY::LEFT))
 	{
 		pos -= Vec3(fDT * player_move_speed_ * 0.5f, 0.f, 0.f);
+		moveDir = -1;
 	}
 	if (KEY_HOLD(KEY::RIGHT))
 	{
 		pos += Vec3(fDT * player_move_speed_
 			* 0.5f, 0.f, 0.f);
+		moveDir = 1;
+	}
+	if (KEY_AWAY(KEY::RIGHT) || KEY_AWAY(KEY::LEFT))
+	{
+		moveDir = 0;
 	}
 
 	if (KEY_HOLD(KEY::Q))
@@ -60,6 +71,7 @@ void CPlayerScript::Update()
 	GetTransform()->SetPosition(pos);
 	GetTransform()->SetScale(scale);
 	GetTransform()->SetRotation(rot);
+	UpdateAnimation();
 }
 
 void CPlayerScript::OnCollisionEnter(CGameObject* otherObject)
@@ -88,4 +100,32 @@ void CPlayerScript::CreateBullet()
 	Instantiate(player_bullet_prefab_, position, 2);
 
 	
+}
+
+void CPlayerScript::UpdateAnimation()
+{
+	if (moveDir == preMoveDir)
+	{
+		if(moveDir == 0)
+			GetAnimator2D()->Play(L"FLY", 0, true);
+		if (moveDir == -1)
+		{
+			if (GetAnimator2D()->GetCurrentAnimation()->GetCurrentFrame() < 4)
+			{
+				return;
+			}
+			else
+			{
+				GetAnimator2D()->Play(L"FLY_LEFT", 4, true);
+			}
+		}
+			
+	}
+	else
+	{
+		if (moveDir == 0)
+			GetAnimator2D()->Play(L"FLY", 0, true);
+		if (moveDir == -1)
+			GetAnimator2D()->Play(L"FLY_LEFT", 0, true);
+	}
 }

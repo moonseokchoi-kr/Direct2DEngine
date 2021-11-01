@@ -7,6 +7,7 @@
 
 #include "CGameObject.h"
 #include "CTransform.h"
+#include "CAnimator2D.h"
 
 #include "CMaterial.h"
 #include "ptr.h"
@@ -30,8 +31,19 @@ void CMeshRender::Render()
 		return;
 	}
 
-	GetOwner()->Transform()->UpdateData();
+	GetTransform()->UpdateData();
 	
+	if (GetAnimator2D())
+	{
+		GetAnimator2D()->UpdateData();
+		int a = 1;
+		current_material_->SetData(SHADER_PARAM::INT_3, &a);
+	}
+	else
+	{
+		int a = 0;
+		current_material_->SetData(SHADER_PARAM::INT_3, &a);
+	}
 	current_material_->UpdateData();
 	
 

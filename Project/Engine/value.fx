@@ -47,6 +47,11 @@ cbuffer LIGHT2D : register(b3)
     uint3 padding;
 }
 
+cbuffer ANIMATE2D : register(b4)
+{
+    AnimationFrame animation_array[50];
+}
+
 Texture2D tex_0 : register(t0);
 Texture2D tex_1 : register(t1);
 Texture2D tex_2 : register(t2);
@@ -63,7 +68,7 @@ Texture2DArray texarr_1 : register(t9);
 TextureCube texcube_0 : register(t10);
 TextureCube texcube_1 : register(t11);
 
-Texture2D altras_tex : register(t12);
+Texture2D atlas_tex : register(t12);
 
 SamplerState ati_sam : register(s0);
 SamplerState mip_sam : register(s1);

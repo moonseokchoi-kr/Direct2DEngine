@@ -21,5 +21,13 @@ struct LightInfo
     float3 padding;
 };
 
+struct AnimationFrame
+{
+    float2 leftTop;
+    float2 size;
+    float2 fullSize;
+    float2 offset;
+};
+
 
 #endif

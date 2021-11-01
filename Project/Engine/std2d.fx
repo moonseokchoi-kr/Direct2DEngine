@@ -28,20 +28,32 @@ VS_OUTPUT vs_main(VS_INPUT _in)
     output.pos = projPos;
     output.color = _in.color;
     output.uv = _in.uv;
+    
     return output;
 }
 
 float4 ps_main(VS_OUTPUT _in) : SV_Target
 {
-    float4 outputColor = _in.color;
+    float4 outputColor = (float4)0.f;
     
-    outputColor = tex_0.Sample(ati_sam, _in.uv);
-    
-    if (int_0)
+    if(int_3)
     {
-        outputColor.r *= 2.f;
+        float2 animationUV = (_in.uv * animation_array[0].fullSize);
+        float2 rangeUV = (animation_array[0].fullSize - animation_array[0].size) / 2.f + animation_array[0].offset;
+        
+        if (rangeUV.x < animationUV.x && animationUV.x < rangeUV.x + animation_array[0].size.x && rangeUV.y < animationUV.y && animationUV.y < rangeUV.y + animation_array[0].size.y)
+        {
+            animationUV += (animation_array[0].leftTop - animation_array[0].offset);
+            return atlas_tex.Sample(ati_sam, animationUV);
+        } 
+        clip(-1);
+
     }
-   
+    else
+    {
+        outputColor = tex_0.Sample(ati_sam, _in.uv);
+    }
+ 
     
     return outputColor;
 }

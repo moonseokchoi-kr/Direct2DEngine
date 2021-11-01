@@ -26,6 +26,8 @@ public:
         pipline_stage_ = pipelineStage;
         register_number_ = registerNum;
     }
+    UINT GetWidth() { return texture_desc_.Width; }
+    UINT GetHeight() { return texture_desc_.Height; }
 private:
 	HRESULT Load(const wstring& strFilePath) override;
 private:

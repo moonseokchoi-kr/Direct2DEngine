@@ -253,10 +253,10 @@ HRESULT CDevice::CreateConstBuffer()
 		const_buffer_array_[i] = new CConstBuffer;
 	}
 
-
 	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::TRANSFORM)]->Create(L"Transform", sizeof(Transform), static_cast<UINT>(CB_TYPE::TRANSFORM)));
 	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::MATERIAL_CONST)]->Create(L"Material", sizeof(MaterialParameter), static_cast<UINT>(CB_TYPE::MATERIAL_CONST)));
 	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::LIGHT2D)]->Create(L"Light2D",sizeof(LightInfo)*50+16, static_cast<UINT>(CB_TYPE::LIGHT2D)))
+	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::ANIMATE2D)]->Create(L"Animate2D",sizeof(AnimationData)*50, static_cast<UINT>(CB_TYPE::ANIMATE2D)))
 	return S_OK;
 }
 

@@ -13,9 +13,12 @@ public:
     void OnCollisionExit(CGameObject* otherObjectr) override;
 public:
     void CreateBullet();
+    void UpdateAnimation();
 public:
     CLONE(CPlayerScript);
 private:
+    int moveDir;
+    int preMoveDir;
     float player_move_speed_;
     float player_bullet_attack_speed_;
     int is_hit_;

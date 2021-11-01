@@ -8,6 +8,7 @@
 #include "CTransform.h"
 #include "CCollider2D.h"
 #include "CPrefab.h"
+#include "CAnimator2D.h"
 
 class CCollider2D;
 
