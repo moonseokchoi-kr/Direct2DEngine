@@ -8,8 +8,8 @@ CResourceManager::CResourceManager()
 
 CResourceManager::~CResourceManager()
 {
-	for(size_t i =0; i<resrouce_array_.size(); ++i)
+	for(size_t i =0; i<resource_array_.size(); ++i)
 	{
-		Safe_Delete_Map(resrouce_array_[i]);
+		Safe_Delete_Map(resource_array_[i]);
 	}
 }

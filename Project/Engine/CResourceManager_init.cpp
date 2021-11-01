@@ -163,40 +163,11 @@ void CResourceManager::CreateDefaultShader()
 
 void CResourceManager::CreateDefaultTexture()
 {
-	wstring strContent = CPathManager::GetInst()->GetContentPath();
-	CTexture* texture = nullptr;
-
-	wstring strFilePath = strContent + L"texture\\background.png";
-	texture = new CTexture;
-	texture->Load(strFilePath);
-	AddResource(L"background", texture);
-
-	strContent = CPathManager::GetInst()->GetContentPath();
-	
-	strFilePath = strContent + L"texture\\sakuya_player.png";
-	texture = new CTexture;
-	texture->Load(strFilePath);
-	AddResource(L"player", texture);
-
-	 strContent = CPathManager::GetInst()->GetContentPath();
-
-	strFilePath = strContent + L"texture\\monster.png";
-	texture = new CTexture;
-	texture->Load(strFilePath);
-	AddResource(L"monster", texture);
-	
-	texture = new CTexture;
-	wstring strPath = CPathManager::GetInst()->GetContentPath();
-	strPath += L"texture\\monster_bullet_red.png";
-	texture->Load(strPath);
-	AddResource(L"monster_bullet_red", texture);
-
-
-	texture = new CTexture;
-	strPath = CPathManager::GetInst()->GetContentPath();
-	strPath += L"texture\\monster_bullet_blue.png";
-	texture->Load(strPath);
-	AddResource(L"monster_bullet_blue", texture);
+	LoadRes<CTexture>(L"background", L"texture\\background.png");
+	LoadRes<CTexture>(L"player", L"texture\\sakuya_player.png");
+	LoadRes<CTexture>(L"monster", L"texture\\monster.png");
+	LoadRes<CTexture>(L"monster_bullet_red", L"texture\\monster_bullet_red.png");
+	LoadRes<CTexture>(L"monster_bullet_blue", L"texture\\monster_bullet_blue.png");
 }
 
 void CResourceManager::CreateDefaultMaterial()
@@ -243,19 +214,6 @@ void CResourceManager::CreateDefaultMaterial()
 }
 
 
-Ptr<CTexture> CResourceManager::LoadTexture(const wstring& key, const wstring& strPath)
-{
-	Ptr<CTexture> texture = FindRes<CTexture>(key);
-	wstring contentPath = CPathManager::GetInst()->GetContentPath();
-	contentPath += strPath;
-	if (nullptr!=texture)
-	{
-		return texture;
-	}
-	texture->Load(contentPath);
-	AddResource(key, texture.Get());
-	return texture;
-}
 
 Ptr<CGraphicsShader> CResourceManager::LoadGraphicShader(const wstring& key, const wstring& strPath, BLEND_TYPE blendType, DEPTH_STENCIL_TYPE depthType , D3D11_PRIMITIVE_TOPOLOGY topology)
 {

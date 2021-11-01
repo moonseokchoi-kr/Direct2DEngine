@@ -51,12 +51,19 @@ Texture2D tex_0 : register(t0);
 Texture2D tex_1 : register(t1);
 Texture2D tex_2 : register(t2);
 Texture2D tex_3 : register(t3);
+Texture2D tex_4 : register(t4);
+Texture2D tex_5 : register(t5);
+Texture2D tex_6 : register(t6);
+Texture2D tex_7 : register(t7);
 
-Texture2DArray texarr_0 : register(t4);
-Texture2DArray texarr_1 : register(t5);
 
-TextureCube texcube_0 : register(t6);
-TextureCube texcube_1 : register(t7);
+Texture2DArray texarr_0 : register(t8);
+Texture2DArray texarr_1 : register(t9);
+
+TextureCube texcube_0 : register(t10);
+TextureCube texcube_1 : register(t11);
+
+Texture2D altras_tex : register(t12);
 
 SamplerState ati_sam : register(s0);
 SamplerState mip_sam : register(s1);

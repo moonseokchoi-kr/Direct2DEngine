@@ -10,6 +10,9 @@
 /// 1.0 - 扁夯备炼 累己 2021-09-27
 /// 1.1 - custom shared ptr 备己 2021-10-15
 /// </summary>
+/// 
+class CResourceManager;
+
 class CResource :
     public CEntity
 {
@@ -23,8 +26,11 @@ public:
 
     void SetRelativePath(const wstring& path) { relative_path_ = path; }
     const wstring& GetRelativePath() { return relative_path_; }
-
+protected:
+    virtual HRESULT Load(const wstring& filePath) { assert(nullptr); return E_FAIL; }
+    virtual HRESULT Save(const wstring& relativePath) { assert(nullptr); return E_FAIL; }
     CResource* Clone() { return nullptr; }
+    
 private:
     void IncreaseReferenceCount() { ++reference_count_; }
     void DecreaseReferenceCount() { --reference_count_; }
@@ -35,6 +41,7 @@ private:
 
     template<typename T>
     friend class Ptr;
+    friend class CResourceManager;
 
 };
 

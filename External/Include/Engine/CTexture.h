@@ -15,9 +15,8 @@ public:
     CTexture();
     ~CTexture();
 
-public:
-    HRESULT Load(const wstring& strFilePath);
 
+public:
     // CResource을(를) 통해 상속됨
     virtual void UpdateData() override;
 
@@ -27,6 +26,8 @@ public:
         pipline_stage_ = pipelineStage;
         register_number_ = registerNum;
     }
+private:
+	HRESULT Load(const wstring& strFilePath) override;
 private:
     ScratchImage image_;
     ComPtr<ID3D11Texture2D> texure_2D_;

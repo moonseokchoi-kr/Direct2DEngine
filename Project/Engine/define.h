@@ -50,6 +50,7 @@ enum class CB_TYPE
 	MATERIAL_CONST,
 	GLOBAL,
 	LIGHT2D,
+	ANIMATE2D,
 	END,
 };
 
@@ -123,6 +124,10 @@ enum class SHADER_PARAM
 	TEX_1,
 	TEX_2,
 	TEX_3,
+	TEX_4,
+	TEX_5,
+	TEX_6,
+	TEX_7,
 	TEX_ARR_0,
 	TEX_ARR_1,
 	TEX_CUBE_0,

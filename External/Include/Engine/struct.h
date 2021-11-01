@@ -9,22 +9,18 @@ struct Vertex
 
 typedef Vertex VTX;
 
-struct Transform
+struct AnimationData
 {
-	Matrix world_matrix;
-	Matrix view_matrix;
-	Matrix projection_matrix;
-	Matrix world_view_matrix;
-	Matrix world_view_projection_matrix;
+	Vec2 left_top;
+	Vec2 size;
+	Vec2 full_size;
+	Vec2 offset;
 };
 
-struct MaterialParameter
+struct AnimationFrame
 {
-	array<int, 4> int_arr;
-	array<float, 4> float_arr;
-	array<Vec2, 4> vec2_arr;
-	array<Vec4, 4> vec4_arr;
-	array<Matrix, 4> matrix_arr;
+	AnimationData animation_data;
+	float duration;
 };
 
 struct LightColor
@@ -45,4 +41,24 @@ struct LightInfo
 	float light_angle;
 	Vec3 padding;
 };
+
+
+struct Transform
+{
+	Matrix world_matrix;
+	Matrix view_matrix;
+	Matrix projection_matrix;
+	Matrix world_view_matrix;
+	Matrix world_view_projection_matrix;
+};
+
+struct MaterialParameter
+{
+	array<int, 4> int_arr;
+	array<float, 4> float_arr;
+	array<Vec2, 4> vec2_arr;
+	array<Vec4, 4> vec4_arr;
+	array<Matrix, 4> matrix_arr;
+};
+
 

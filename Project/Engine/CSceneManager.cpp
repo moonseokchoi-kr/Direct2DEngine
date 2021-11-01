@@ -174,12 +174,8 @@ void CreatePrefabs()
 
 	playerBullet->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 
-	Ptr<CTexture> bulletTex = new CTexture;
-	wstring strPath = CPathManager::GetInst()->GetContentPath();
-	strPath += L"texture\\player_bullet.png";
-	bulletTex->Load(strPath);
-	CResourceManager::GetInst()->AddResource(L"player_bullet", bulletTex.Get());
-
+	
+	Ptr<CTexture> bulletTex = CResourceManager::GetInst()->LoadRes<CTexture>(L"player_bullet", L"texture\\player_bullet.png");
 
 	CMaterial* bulletMaterial = new CMaterial;
 	bulletMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
