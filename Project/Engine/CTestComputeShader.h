@@ -16,7 +16,7 @@ public:
 	virtual void UpdateData() override;
 	virtual void Clear() override;
 public:
-    void SetTexture(Ptr<CTexture>& texture) { target_texture_ = texture; }
+    void SetTargetTexture(Ptr<CTexture>& texture) { target_texture_ = texture; }
 
 
 private:

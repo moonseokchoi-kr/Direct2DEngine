@@ -5,16 +5,27 @@ class CComputeShader :
 {
 public:
     CComputeShader();
+    CComputeShader(UINT groupX, UINT groupY, UINT groupZ);
     ~CComputeShader();
 
 public:
     HRESULT CreateComputeShader(const wstring& _strFilePath, const char* _funcName);
+    virtual void  Excute() = 0;
 
-    virtual void UpdateData();
+protected:
+    virtual void UpdateData() = 0;
+    virtual void Clear() = 0;
+
+protected:
+    void Dispatch(UINT groupX, UINT groupY, UINT groupZ);
 
 private:
     ComPtr<ID3DBlob> compute_shader_blob_;
     ComPtr<ID3D11ComputeShader> compute_shader_;
+    
+    int group_thread_x_;
+    int group_thread_y_;
+    int group_thread_z_;
 
 };
 

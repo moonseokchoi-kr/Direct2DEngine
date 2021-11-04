@@ -13,6 +13,7 @@ public:
 
 public:
     CScene* GetCurrentScene() { return current_scene_; }
+    void InitTestMap();
 private:
     CScene* current_scene_;
 };

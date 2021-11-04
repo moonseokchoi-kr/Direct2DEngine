@@ -1,6 +1,7 @@
 #pragma once
 #include "CMesh.h"
 #include "CTexture.h"
+#include "CComputeShader.h"
 
 class CResource;
 class CMesh;
@@ -10,6 +11,7 @@ class CMaterial;
 class CGameObject;
 class CPrefab;
 class CPathManager;
+class CComputeShader;
 
 class CResourceManager :
     public CSingleton<CResourceManager>
@@ -38,6 +40,7 @@ private:
 	void CreateDefaultShader();
 	void CreateDefaultTexture();
 	void CreateDefaultMaterial();
+	void CreateDefaultComputeShader();
 private:
     array<unordered_map<wstring, CResource*>,static_cast<UINT>(RES_TYPE::END)> resource_array_;
 
@@ -56,7 +59,11 @@ RES_TYPE GetResourceType()
 	}
 	if (info.hash_code() == typeid(CGraphicsShader).hash_code())
 	{
-		type = RES_TYPE::SHADER;
+		type = RES_TYPE::GRAPHIC_SHADER;
+	}
+	if (info.hash_code() == typeid(CComputeShader).hash_code())
+	{
+		type = RES_TYPE::PREFAB;
 	}
 	if (info.hash_code() == typeid(CTexture).hash_code())
 	{
@@ -70,6 +77,7 @@ RES_TYPE GetResourceType()
 	{
 		type = RES_TYPE::PREFAB;
 	}
+	
 	return type;
 }
 

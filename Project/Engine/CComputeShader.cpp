@@ -22,12 +22,8 @@ CComputeShader::~CComputeShader()
 
 HRESULT CComputeShader::CreateComputeShader(const wstring& _strFilePath, const char* _funcName)
 {
-    if (FAILED(D3DCompileFromFile(_strFilePath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, _funcName, "cs_5_0",
-        D3DCOMPILE_DEBUG, 0, compute_shader_blob_.GetAddressOf(), error_blob_.GetAddressOf())))
-    {
-        MessageBoxA(nullptr, (char*)error_blob_->GetBufferPointer(), "Compute Shader Error!!", MB_OK);
-        assert(nullptr);
-    }
+    HR(D3DCompileFromFile(_strFilePath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, _funcName, "cs_5_0",
+        D3DCOMPILE_DEBUG, 0, compute_shader_blob_.GetAddressOf(), error_blob_.GetAddressOf()))
     HR(DEVICE->CreateComputeShader(compute_shader_blob_->GetBufferPointer(), compute_shader_blob_->GetBufferSize(), nullptr, compute_shader_.GetAddressOf()));
 
     return S_OK;

@@ -6,6 +6,7 @@
 #include "CGraphicsShader.h"
 #include "CTexture.h"
 #include "CPrefab.h"
+#include "CTestComputeShader.h"
 #include "CPathManager.h"
 
 void CResourceManager::Init()
@@ -14,6 +15,7 @@ void CResourceManager::Init()
 	CreateDefaultShader();
 	CreateDefaultTexture();
 	CreateDefaultMaterial();
+	CreateDefaultComputeShader();
 }
 
 void CResourceManager::CreateDefaultMesh()
@@ -169,7 +171,7 @@ void CResourceManager::CreateDefaultTexture()
 	LoadRes<CTexture>(L"monster_bullet_red", L"texture\\monster_bullet_red.png");
 	LoadRes<CTexture>(L"monster_bullet_blue", L"texture\\monster_bullet_blue.png");
 
-	CreateTexture(L"ComputeShaderTest", 1024, 1024, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS, DXGI_FORMAT_R8G8B8A8_UNORM);
+	CreateTexture(L"compute_shader_tex", 1024, 1024, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS, DXGI_FORMAT_R8G8B8A8_UNORM);
 }
 
 void CResourceManager::CreateDefaultMaterial()
@@ -213,6 +215,16 @@ void CResourceManager::CreateDefaultMaterial()
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"monster_bullet_blue").Get());
 	AddResource(L"monster_bulluet_blue_material", material);
 	
+}
+
+void CResourceManager::CreateDefaultComputeShader()
+{
+	wstring contentPath = CPathManager::GetInst()->GetContentPath();
+
+	Ptr<CComputeShader> cs = new CTestComputeShader;
+	cs->CreateComputeShader(contentPath + L"shader\\test_compute_shader.fx", "cs_main");
+	AddResource<CComputeShader>(L"test_compute_shader", cs.Get());
+
 }
 
 
