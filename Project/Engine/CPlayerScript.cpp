@@ -106,8 +106,7 @@ void CPlayerScript::UpdateAnimation()
 {
 	if (moveDir == preMoveDir)
 	{
-		if(moveDir == 0)
-			GetAnimator2D()->Play(L"FLY", 0, true);
+	
 		if (moveDir == -1)
 		{
 			if (GetAnimator2D()->GetCurrentAnimation()->GetCurrentFrame() < 4)
