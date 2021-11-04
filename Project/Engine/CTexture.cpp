@@ -67,11 +67,11 @@ void CTexture::UpdateData()
 	}
 }
 
-void CTexture::UpdateDataRW()
+void CTexture::UpdateDataRW(UINT registerNumber)
 {
 	ID3D11UnorderedAccessView* uav = unordered_access_view_.Get();
 	UINT i = -1;
-	CONTEXT->CSSetUnorderedAccessViews(register_number_, 1, &uav, &i);
+	CONTEXT->CSSetUnorderedAccessViews(registerNumber, 1, &uav, &i);
 }
 
 HRESULT CTexture::Create(UINT width, UINT height, UINT flags, DXGI_FORMAT format)

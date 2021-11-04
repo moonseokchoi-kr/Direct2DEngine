@@ -150,6 +150,12 @@
     <Filter Include="소스 파일\Component\Animate2D\Animation">
       <UniqueIdentifier>{2ea045a6-7ad4-473f-909f-1332b7107a3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\ShaderCode\ComputeShader">
+      <UniqueIdentifier>{6baaac69-b692-4f1d-bdc6-dccfe93da83f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ShaderCode\GraphicShader">
+      <UniqueIdentifier>{41b5d8a1-7b7e-4a0e-8dc3-f977adb8d769}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -290,6 +296,9 @@
     <ClInclude Include="CAnimation2D.h">
       <Filter>소스 파일\Component\Animate2D\Animation</Filter>
     </ClInclude>
+    <ClInclude Include="CTestComputeShader.h">
+      <Filter>소스 파일\ShaderCode\ComputeShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -415,6 +424,9 @@
     <ClCompile Include="CAnimation2D.cpp">
       <Filter>소스 파일\Component\Animate2D\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="CTestComputeShader.cpp">
+      <Filter>소스 파일\ShaderCode\ComputeShader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -422,19 +434,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="collider2dshader.fx">
-      <Filter>소스 파일\ShaderCode</Filter>
-    </FxCompile>
     <FxCompile Include="function.fx">
-      <Filter>소스 파일\ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="light2dshader.fx">
-      <Filter>소스 파일\ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="monsterhpshader.fx">
-      <Filter>소스 파일\ShaderCode</Filter>
-    </FxCompile>
-    <FxCompile Include="std2d.fx">
       <Filter>소스 파일\ShaderCode</Filter>
     </FxCompile>
     <FxCompile Include="struct.fx">
@@ -442,6 +442,21 @@
     </FxCompile>
     <FxCompile Include="value.fx">
       <Filter>소스 파일\ShaderCode</Filter>
+    </FxCompile>
+    <FxCompile Include="monsterhpshader.fx">
+      <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
+    </FxCompile>
+    <FxCompile Include="std2d.fx">
+      <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
+    </FxCompile>
+    <FxCompile Include="light2dshader.fx">
+      <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
+    </FxCompile>
+    <FxCompile Include="collider2dshader.fx">
+      <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
+    </FxCompile>
+    <FxCompile Include="test_compute_shader.fx">
+      <Filter>소스 파일\ShaderCode\ComputeShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

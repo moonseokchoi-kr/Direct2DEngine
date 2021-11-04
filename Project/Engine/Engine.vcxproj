@@ -224,6 +224,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CScript.h" />
     <ClInclude Include="CShader.h" />
+    <ClInclude Include="CTestComputeShader.h" />
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CTransform.h" />
@@ -272,6 +273,7 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CScript.cpp" />
     <ClCompile Include="CShader.cpp" />
+    <ClCompile Include="CTestComputeShader.cpp" />
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CTransform.cpp" />
@@ -313,6 +315,7 @@ call .\EngineCopy.bat</Command>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
     </FxCompile>
+    <FxCompile Include="test_compute_shader.fx" />
     <FxCompile Include="value.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
