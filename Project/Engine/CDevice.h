@@ -1,6 +1,8 @@
 #pragma once
 
 class CConstBuffer;
+class CTexture;
+
 class CDevice
 	:public CSingleton<CDevice>
 {
@@ -50,8 +52,8 @@ private:
 
 	ComPtr<IDXGISwapChain> swap_chain_;
 	ComPtr<ID3D11Texture2D> depth_stencil_buffer_;
-	ComPtr<ID3D11RenderTargetView> render_target_view_;
-	ComPtr<ID3D11DepthStencilView> depth_stencil_view_;
+	CTexture* render_target_texture_;
+	CTexture* depth_stencil_texture_;
 	D3D11_VIEWPORT	view_port_;
 
 

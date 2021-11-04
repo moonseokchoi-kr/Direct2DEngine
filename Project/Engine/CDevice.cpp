@@ -2,6 +2,10 @@
 
 #include "CDevice.h"
 #include "CConstBuffer.h"
+#include "CTexture.h"
+
+#include "CResourceManager.h"
+
 CDevice::CDevice()
 	:hWnd_(nullptr)
 	,device_(nullptr)
@@ -102,8 +106,8 @@ HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 void CDevice::ClearTarget()
 {
 	float color[4] = { 0.0f,0.0f,0.0f,0.0f };
-	context_->ClearRenderTargetView(render_target_view_.Get(), color);
-	context_->ClearDepthStencilView(depth_stencil_view_.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f ,0);
+	context_->ClearRenderTargetView(render_target_texture_->GetRenderTargetView(), color);
+	context_->ClearDepthStencilView(depth_stencil_texture_->GetDepthStencilView(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f ,0);
 }
 
 void CDevice::Present()
@@ -118,40 +122,22 @@ HRESULT CDevice::OnReSize(Vec2 _resolution)
 	assert(context_);
 	assert(device_);
 	assert(swap_chain_);
-	//comptr로 선언되면 공유횟수가 0가 되어야 릴리즈됨, 근데 만약 강제로 릴리즈시키면 참조하고 있던애들이 붕뜨게됨, 문제는 참조하고 있던 애들이 누군지 모름
-	//강제로 부서도 되는지 모르겠음
-	render_target_view_->Release();
-	render_target_view_ = nullptr;
-	depth_stencil_view_->Release();
-	depth_stencil_view_ = nullptr;
-	depth_stencil_buffer_->Release();
-	depth_stencil_buffer_ = nullptr;
-	
+
+	render_target_texture_->GetRenderTargetView()->Release();
+	depth_stencil_texture_->GetDepthStencilView()->Release();
+
 
 	HR(swap_chain_->ResizeBuffers(1, static_cast<UINT>(resolution_.x), static_cast<UINT>(resolution_.y), DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	ComPtr<ID3D11Texture2D> backBuffer;
+	D3D11_TEXTURE2D_DESC desc;
 	HR(swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf())));
-	HR(device_->CreateRenderTargetView(backBuffer.Get(), 0, render_target_view_.GetAddressOf()));
-	
+	backBuffer->GetDesc(&desc);
+	HR(render_target_texture_->Resize(desc.Width,desc.Height));
+	HR(depth_stencil_texture_->Resize((UINT)resolution_.x, (UINT)resolution_.y));
 
-	D3D11_TEXTURE2D_DESC depthStencilDesc = {};
 
-	depthStencilDesc.Width = static_cast<UINT>(resolution_.x);
-	depthStencilDesc.Height = static_cast<UINT>(resolution_.y);
-	depthStencilDesc.MipLevels = 1;
-	depthStencilDesc.ArraySize = 1;
-	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	depthStencilDesc.SampleDesc.Quality = 1;
-	depthStencilDesc.SampleDesc.Count = 0;
-	depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
-	depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	depthStencilDesc.CPUAccessFlags = 0;
-	depthStencilDesc.MiscFlags = 0;
-
-	HR(device_->CreateTexture2D(&depthStencilDesc, 0, depth_stencil_buffer_.GetAddressOf()));
-	HR(device_->CreateDepthStencilView(depth_stencil_buffer_.Get(), nullptr, depth_stencil_view_.GetAddressOf()));
-
-	CONTEXT->OMSetRenderTargets(1, render_target_view_.GetAddressOf(), depth_stencil_view_.Get());
+	ID3D11RenderTargetView* rtv = render_target_texture_->GetRenderTargetView();
+	CONTEXT->OMSetRenderTargets(1, &rtv, depth_stencil_texture_->GetDepthStencilView());
 
 	view_port_.TopLeftX = 0;
 	view_port_.TopLeftY = 0;
@@ -218,30 +204,14 @@ HRESULT CDevice::CreateView()
 	//RTV
 	ComPtr<ID3D11Texture2D> backBuffer = nullptr;
 	swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf()));
-	HR(device_->CreateRenderTargetView(backBuffer.Get(), nullptr, render_target_view_.GetAddressOf()));
 	
+	render_target_texture_ = CResourceManager::GetInst()->CreateTexture(L"RenderTargetTexture", backBuffer).Get();
 
-	//DRV
-	D3D11_TEXTURE2D_DESC desc = {};
+	depth_stencil_texture_ = CResourceManager::GetInst()->CreateTexture(L"DepthStencilTexture", (UINT)resolution_.x, (UINT)resolution_.y, D3D11_BIND_DEPTH_STENCIL, DXGI_FORMAT_D24_UNORM_S8_UINT).Get();
 
-	desc.Width = static_cast<UINT>(resolution_.x);
-	desc.Height = static_cast<UINT>(resolution_.y);
 
-	desc.MipLevels = 1;
-	desc.ArraySize = 1;
-
-	desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	desc.SampleDesc.Count = 1;
-	desc.SampleDesc.Quality = 0;
-
-	desc.Usage = D3D11_USAGE_DEFAULT;
-	desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-
-	HR(device_->CreateTexture2D(&desc, 0, depth_stencil_buffer_.GetAddressOf()));
-	
-	HR(device_->CreateDepthStencilView(depth_stencil_buffer_.Get(), nullptr, depth_stencil_view_.GetAddressOf()));
-
-	context_->OMSetRenderTargets(1, render_target_view_.GetAddressOf(), depth_stencil_view_.Get());
+	ID3D11RenderTargetView* rtv = render_target_texture_->GetRenderTargetView();
+	context_->OMSetRenderTargets(1, &rtv, depth_stencil_texture_->GetDepthStencilView());
 
 	return S_OK;
 }

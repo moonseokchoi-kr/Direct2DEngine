@@ -168,6 +168,8 @@ void CResourceManager::CreateDefaultTexture()
 	LoadRes<CTexture>(L"monster", L"texture\\monster.png");
 	LoadRes<CTexture>(L"monster_bullet_red", L"texture\\monster_bullet_red.png");
 	LoadRes<CTexture>(L"monster_bullet_blue", L"texture\\monster_bullet_blue.png");
+
+	CreateTexture(L"ComputeShaderTest", 1024, 1024, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS, DXGI_FORMAT_R8G8B8A8_UNORM);
 }
 
 void CResourceManager::CreateDefaultMaterial()
@@ -241,3 +243,4 @@ void CResourceManager::AddPrefab(const wstring& stringKey, CGameObject* prototyp
 
 	AddResource<CPrefab>(stringKey, prefab.Get());
 }
+

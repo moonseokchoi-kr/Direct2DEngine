@@ -31,6 +31,8 @@ public:
 public:
 	void AddPrefab(const wstring& stringKey, CGameObject* prototype);
 
+	Ptr<CTexture> CreateTexture(const wstring& key, UINT width, UINT height, UINT flags, DXGI_FORMAT format);
+	Ptr<CTexture> CreateTexture(const wstring& key, ComPtr<ID3D11Texture2D> texture2D);
 private:
 	void CreateDefaultMesh();
 	void CreateDefaultShader();
