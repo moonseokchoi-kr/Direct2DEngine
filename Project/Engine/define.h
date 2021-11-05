@@ -32,6 +32,7 @@ typedef Vector4 Vec4;
 
 enum PIPELINE_STAGE
 {
+	PS_COMPUTE = 0x00,
 	PS_VERTEX = 0x01,
 	PS_HULL = 0x02,
 	PS_DOMAIN = 0x04,

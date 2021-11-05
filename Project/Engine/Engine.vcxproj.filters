@@ -156,6 +156,9 @@
     <Filter Include="소스 파일\ShaderCode\GraphicShader">
       <UniqueIdentifier>{41b5d8a1-7b7e-4a0e-8dc3-f977adb8d769}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Device\StructureBuffer">
+      <UniqueIdentifier>{cf835603-c9e9-431b-91ee-2478e8c6e1df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -299,6 +302,9 @@
     <ClInclude Include="CTestComputeShader.h">
       <Filter>소스 파일\ShaderCode\ComputeShader</Filter>
     </ClInclude>
+    <ClInclude Include="CStructuredBuffer.h">
+      <Filter>소스 파일\Device\StructureBuffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -426,6 +432,9 @@
     </ClCompile>
     <ClCompile Include="CTestComputeShader.cpp">
       <Filter>소스 파일\ShaderCode\ComputeShader</Filter>
+    </ClCompile>
+    <ClCompile Include="CStructuredBuffer.cpp">
+      <Filter>소스 파일\Device\StructureBuffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

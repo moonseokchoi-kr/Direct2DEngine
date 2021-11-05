@@ -23,4 +23,7 @@ void CTestComputeShader::UpdateData()
 void CTestComputeShader::Clear()
 {
 	target_texture_->ClearRW(0);
+	target_texture_ = nullptr;
+
+	
 }
