@@ -1,5 +1,13 @@
 #pragma once
 #include "CShader.h"
+
+#include "CDevice.h"
+#include "CConstBuffer.h"
+#include "CStructuredBuffer.h"
+
+#include "CResourceManager.h"
+#include "CTimeManager.h"
+#include "CMaterial.h"
 class CComputeShader :
     public CShader
 {
@@ -18,6 +26,8 @@ protected:
 
 protected:
     void Dispatch(UINT groupX, UINT groupY, UINT groupZ);
+protected:
+    MaterialParameter parameter_;
 
 private:
     ComPtr<ID3DBlob> compute_shader_blob_;

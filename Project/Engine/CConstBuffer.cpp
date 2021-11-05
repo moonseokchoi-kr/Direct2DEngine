@@ -44,6 +44,11 @@ void CConstBuffer::UpdateData()
 
 }
 
+void CConstBuffer::UpdateDataComputeShdaer()
+{
+	CONTEXT->CSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
+}
+
 HRESULT CConstBuffer::Create(const wstring& _strName, UINT _bufferSize, UINT _registerNumber)
 {
 	SetName(_strName);

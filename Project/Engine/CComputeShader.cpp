@@ -33,6 +33,10 @@ void CComputeShader::Dispatch(UINT groupX, UINT groupY, UINT groupZ)
 {
     UpdateData();
 
+    static CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::MATERIAL_CONST);
+    cb->SetData(&parameter_, sizeof(MaterialParameter));
+    cb->UpdateDataComputeShdaer();
+
     CONTEXT->CSSetShader(compute_shader_.Get(), nullptr, 0);
     CONTEXT->Dispatch(groupX, groupY, groupZ);
 

@@ -52,7 +52,11 @@ void CSceneManager::Init()
 	Ptr<CTexture> csTestTex = CResourceManager::GetInst()->FindRes<CTexture>(L"compute_shader_tex");
 	Ptr<CTestComputeShader> testCs = (CTestComputeShader*)CResourceManager::GetInst()->FindRes<CComputeShader>(L"test_compute_shader").Get();
 	
+	testCs->SetInt(0);
+	testCs->Excute();
+
 	testCs->SetTargetTexture(csTestTex);
+	testCs->SetInt(1);
 	testCs->Excute();
 
 	const auto object = new CGameObject;

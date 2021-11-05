@@ -6,9 +6,9 @@
 CStructuredBuffer::CStructuredBuffer()
 	:buffer_desc_{}
 	,buffer_type_(STRUCTURE_BUFFER_TYPE::READ_ONLY)
-	,pipeline_stage_(-1)
-	,register_number_(-1)
-	,register_number_rw_(-1)
+	,pipeline_stage_(0)
+	,register_number_(0)
+	,register_number_rw_(0)
 {
 }
 

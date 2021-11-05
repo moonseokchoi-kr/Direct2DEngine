@@ -9,7 +9,7 @@ public:
 
 public:
     virtual void UpdateData();
-    
+    void UpdateDataComputeShdaer();
     HRESULT Create(const wstring& _strName, UINT _bufferSize, UINT _registerNumber);
     void SetData(void* _data, UINT _size);
     void SetPipelineStage(UINT _pipelineState) { pipeline_state_ = _pipelineState; }
