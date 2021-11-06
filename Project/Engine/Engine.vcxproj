@@ -214,6 +214,8 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CMonsterHpBar.h" />
     <ClInclude Include="CMonsterScript.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="CParticleSystem.h" />
+    <ClInclude Include="CParticleUpdateShader.h" />
     <ClInclude Include="CPathManager.h" />
     <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPrefab.h" />
@@ -263,6 +265,8 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CMeshRender.cpp" />
     <ClCompile Include="CMonsterHpBar.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />
+    <ClCompile Include="CParticleSystem.cpp" />
+    <ClCompile Include="CParticleUpdateShader.cpp" />
     <ClCompile Include="CPathManager.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPrefab.cpp" />
@@ -308,6 +312,12 @@ call .\EngineCopy.bat</Command>
     <FxCompile Include="monsterhpshader.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+    </FxCompile>
+    <FxCompile Include="particle_shader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+    </FxCompile>
+    <FxCompile Include="particle_update_shader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
     </FxCompile>
     <FxCompile Include="std2d.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>

@@ -30,4 +30,13 @@ struct AnimationFrame
 };
 
 
+struct Particle
+{
+    float3 worldPosition;
+    float3 color;
+    float3 scale;
+    float currnetLifeTime;
+    float maxLifeTime;
+};
+
 #endif

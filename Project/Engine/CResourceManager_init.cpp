@@ -7,6 +7,7 @@
 #include "CTexture.h"
 #include "CPrefab.h"
 #include "CTestComputeShader.h"
+#include "CParticleUpdateShader.h"
 #include "CPathManager.h"
 
 void CResourceManager::Init()
@@ -161,6 +162,17 @@ void CResourceManager::CreateDefaultShader()
 	
 
 	AddResource(L"light2D_shader", stdShader);
+
+	stdShader = new CGraphicsShader;
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"shader\\particle_shader.fx";
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+
+
+	AddResource(L"particle_shader", stdShader);
 }
 
 void CResourceManager::CreateDefaultTexture()
@@ -214,6 +226,10 @@ void CResourceManager::CreateDefaultMaterial()
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"monster_bullet_blue").Get());
 	AddResource(L"monster_bulluet_blue_material", material);
+
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"particle_shader"));
+	AddResource(L"patricle_material", material);
 	
 }
 
@@ -225,8 +241,18 @@ void CResourceManager::CreateDefaultComputeShader()
 	cs->CreateComputeShader(contentPath + L"shader\\test_compute_shader.fx", "cs_main");
 	AddResource<CComputeShader>(L"test_compute_shader", cs.Get());
 
+	cs = new CParticleUpdateShader;
+	cs->CreateComputeShader(contentPath + L"shader\\particle_update_shader.fx", "cs_main");
+	AddResource<CComputeShader>(L"particle_update_shader", cs.Get());
+
 }
 
+void CResourceManager::AddPrefab(const wstring& stringKey, CGameObject* prototype)
+{
+	Ptr<CPrefab> prefab = new CPrefab(prototype);
+
+	AddResource<CPrefab>(stringKey, prefab.Get());
+}
 
 
 Ptr<CGraphicsShader> CResourceManager::LoadGraphicShader(const wstring& key, const wstring& strPath, BLEND_TYPE blendType, DEPTH_STENCIL_TYPE depthType , D3D11_PRIMITIVE_TOPOLOGY topology)
@@ -249,10 +275,4 @@ Ptr<CGraphicsShader> CResourceManager::LoadGraphicShader(const wstring& key, con
 	return shader;
 }
 
-void CResourceManager::AddPrefab(const wstring& stringKey, CGameObject* prototype)
-{
-	Ptr<CPrefab> prefab = new CPrefab(prototype);
-
-	AddResource<CPrefab>(stringKey, prefab.Get());
-}
 

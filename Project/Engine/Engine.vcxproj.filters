@@ -159,6 +159,15 @@
     <Filter Include="소스 파일\Device\StructureBuffer">
       <UniqueIdentifier>{cf835603-c9e9-431b-91ee-2478e8c6e1df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Component\ParticleSystem">
+      <UniqueIdentifier>{e5c464ab-debb-49e2-8e87-00a3307a44f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ShaderCode\ComputeShader\ParticleUpdateShader">
+      <UniqueIdentifier>{58a82fc1-5168-4d4f-af38-1c84edd1c99c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ShaderCode\ComputeShader\Test">
+      <UniqueIdentifier>{d38ceda1-58bf-4673-a811-cfc83991e18b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -299,11 +308,17 @@
     <ClInclude Include="CAnimation2D.h">
       <Filter>소스 파일\Component\Animate2D\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="CTestComputeShader.h">
-      <Filter>소스 파일\ShaderCode\ComputeShader</Filter>
-    </ClInclude>
     <ClInclude Include="CStructuredBuffer.h">
       <Filter>소스 파일\Device\StructureBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="CParticleSystem.h">
+      <Filter>소스 파일\Component\ParticleSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="CTestComputeShader.h">
+      <Filter>소스 파일\ShaderCode\ComputeShader\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="CParticleUpdateShader.h">
+      <Filter>소스 파일\ShaderCode\ComputeShader\ParticleUpdateShader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -430,11 +445,17 @@
     <ClCompile Include="CAnimation2D.cpp">
       <Filter>소스 파일\Component\Animate2D\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="CTestComputeShader.cpp">
-      <Filter>소스 파일\ShaderCode\ComputeShader</Filter>
-    </ClCompile>
     <ClCompile Include="CStructuredBuffer.cpp">
       <Filter>소스 파일\Device\StructureBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticleSystem.cpp">
+      <Filter>소스 파일\Component\ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="CTestComputeShader.cpp">
+      <Filter>소스 파일\ShaderCode\ComputeShader\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="CParticleUpdateShader.cpp">
+      <Filter>소스 파일\ShaderCode\ComputeShader\ParticleUpdateShader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -465,7 +486,13 @@
       <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
     </FxCompile>
     <FxCompile Include="test_compute_shader.fx">
-      <Filter>소스 파일\ShaderCode\ComputeShader</Filter>
+      <Filter>소스 파일\ShaderCode\ComputeShader\Test</Filter>
+    </FxCompile>
+    <FxCompile Include="particle_update_shader.fx">
+      <Filter>소스 파일\ShaderCode\ComputeShader\ParticleUpdateShader</Filter>
+    </FxCompile>
+    <FxCompile Include="particle_shader.fx">
+      <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
