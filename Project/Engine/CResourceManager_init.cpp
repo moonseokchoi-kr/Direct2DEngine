@@ -229,7 +229,7 @@ void CResourceManager::CreateDefaultMaterial()
 
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"particle_shader"));
-	AddResource(L"patricle_material", material);
+	AddResource(L"particle_material", material);
 	
 }
 

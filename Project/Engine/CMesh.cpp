@@ -53,6 +53,12 @@ void CMesh::Render()
 	CONTEXT->DrawIndexed(m_idxCount, 0, 0);
 }
 
+void CMesh::RenderParticle(UINT renderCount)
+{
+	UpdateData();
+	CONTEXT->DrawIndexedInstanced(m_idxCount, renderCount, 0, 0, 0);
+}
+
 void CMesh::UpdateData()
 {
 	UINT stride = sizeof(VTX);

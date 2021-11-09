@@ -19,9 +19,10 @@ public:
     void FinalUpdate() override;
 
     void Render();
-
+    
 public:
     CLONE(CParticleSystem);
+
 private:
     Ptr<CMesh>  particle_mesh_;
     Ptr<CMaterial> particle_material_;

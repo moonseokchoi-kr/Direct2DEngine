@@ -7,7 +7,7 @@
 RWStructuredBuffer<Particle> g_particle : register(u0);
 
 [numthreads(32,1,1)]
-void cs_main(int3 _id)
+void cs_main(int3 _id: SV_DispatchThreadID)
 {
     
 }

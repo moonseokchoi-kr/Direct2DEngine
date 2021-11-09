@@ -4,6 +4,8 @@
 #include "CComponent.h"
 #include "CMeshRender.h"
 #include "CCollider2D.h"
+#include "CParticleSystem.h"
+
 
 #include "CSceneManager.h"
 #include "CScene.h"
@@ -104,6 +106,11 @@ void CGameObject::Render()
 	if (nullptr != MeshRender())
 	{
 		MeshRender()->Render();
+	}
+
+	if (nullptr != ParticleSystem())
+	{
+		ParticleSystem()->Render();
 	}
 	if (nullptr != Collider2D())
 	{

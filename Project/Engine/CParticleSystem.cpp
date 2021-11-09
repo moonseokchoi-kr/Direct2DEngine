@@ -9,14 +9,26 @@
 CParticleSystem::CParticleSystem()
 	:CComponent(COMPONENT_TYPE::PARTICLESYSTEM)
 	, particle_buffer_(nullptr)
-	, max_particle_count_(5)
+	, max_particle_count_(100)
 {
 	particle_mesh_ = CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh");
 	particle_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"particle_material");
 	particle_update_shader_ = static_cast<CParticleUpdateShader*>(CResourceManager::GetInst()->FindRes<CComputeShader>(L"particle_update_shader").Get());
 
 	particle_buffer_ = new CStructuredBuffer;
-	particle_buffer_->Create(sizeof(Particle), max_particle_count_, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr);
+
+	array<Particle, 100> particleArray = { };
+
+	float dist = 15.f;
+	float view_scale = 10.f;
+
+	for (int i = 0; i < max_particle_count_; ++i)
+	{
+		particleArray[i].world_position = Vec3(((float)max_particle_count_ / 2.f) * -dist + (float)i * dist, 0.f, 100.f);
+		particleArray[i].view_scale = Vec3(view_scale, view_scale, 1.f);
+	}
+
+	particle_buffer_->Create(sizeof(Particle), max_particle_count_, STRUCTURE_BUFFER_TYPE::READ_WRITE, particleArray.data());
 
 }
 
@@ -32,22 +44,19 @@ CParticleSystem::~CParticleSystem()
 
 void CParticleSystem::UpdateData()
 {
-	particle_update_shader_->SetParticleBuffer(particle_buffer_);
-	particle_update_shader_->Excute();
+	GetTransform()->UpdateData();
+	particle_buffer_->UpdateData(PIPELINE_STAGE::PS_VERTEX, 13);
 }
 
 void CParticleSystem::FinalUpdate()
 {
-	UpdateData();
-
-	particle_mesh_->Render();
+	particle_update_shader_->SetParticleBuffer(particle_buffer_);
+	particle_update_shader_->Excute();
 }
 
 void CParticleSystem::Render()
 {
-	GetTransform()->UpdateData();
-	particle_mesh_->UpdateData();
+	UpdateData();
 	particle_material_->UpdateData();
-
-	particle_buffer_->UpdateData(PIPELINE_STAGE::PS_VERTEX, 13);
+	particle_mesh_->RenderParticle(max_particle_count_);
 }

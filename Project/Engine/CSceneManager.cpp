@@ -11,6 +11,7 @@
 #include "CPlayerScript.h"
 #include "CMonsterScript.h"
 #include "CMonsterHpBar.h"
+#include "CParticleSystem.h"
 
 #include "CResourceManager.h"
 #include "CCollisionManager.h"
@@ -49,32 +50,12 @@ void CSceneManager::Init()
 	//CreatePrefabs();
 	//InitTestMap();
 	
-	Ptr<CTexture> csTestTex = CResourceManager::GetInst()->FindRes<CTexture>(L"compute_shader_tex");
-	Ptr<CTestComputeShader> testCs = (CTestComputeShader*)CResourceManager::GetInst()->FindRes<CComputeShader>(L"test_compute_shader").Get();
-	
-	testCs->SetInt(0);
-	testCs->Excute();
+	CGameObject* particleObject = new CGameObject;
 
-	testCs->SetTargetTexture(csTestTex);
-	testCs->SetInt(1);
-	testCs->Excute();
+	particleObject->AddComponent(new CTransform);
+	particleObject->AddComponent(new CParticleSystem);
 
-	const auto object = new CGameObject;
-
-	object->SetName(L"test_object");
-
-	object->AddComponent(new CTransform);
-	object->AddComponent(new CMeshRender);
-
-	object->Transform()->SetPosition(Vec3(0.f, 0.f, 100.f));
-	object->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
-
-	object->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	object->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
-	Ptr<CMaterial> cloneMaterial = object->MeshRender()->GetCloneMaterial();
-	cloneMaterial->SetData(SHADER_PARAM::TEX_0, csTestTex.Get());
-
-	current_scene_->AddGameObject(object, 0, true);
+	current_scene_->AddGameObject(particleObject, 2, true);
 
 
 }

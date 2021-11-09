@@ -17,8 +17,8 @@ void CBulletScript::Update()
 	MoveBulluet();
 	move_speed_ += move_speed_rate_;
 	Vec3 position = GetTransform()->GetPosition();
-	Vec3 scale = GetTransform()->GetScale();
-	if (abs(position.x) >= CDevice::GetInst()->GetResolution().x + (scale.x / 2.f) || abs(position.y) >= CDevice::GetInst()->GetResolution().y + (scale.y / 2.f))
+	Vec3 view_scale = GetTransform()->GetScale();
+	if (abs(position.x) >= CDevice::GetInst()->GetResolution().x + (view_scale.x / 2.f) || abs(position.y) >= CDevice::GetInst()->GetResolution().y + (view_scale.y / 2.f))
 	{
 		DeleteObject(GetOwner());
 	}
