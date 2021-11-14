@@ -5,7 +5,7 @@ CTestComputeShader::CTestComputeShader()
 	:CComputeShader(1024,1,1)
 {
 	test_buffer_ = new CStructuredBuffer;
-	test_buffer_->Create(sizeof(Vec4), 1, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr);
+	test_buffer_->Create(sizeof(Vec4), 1, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr, false);
 }
 
 CTestComputeShader::~CTestComputeShader()

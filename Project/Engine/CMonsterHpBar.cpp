@@ -11,7 +11,7 @@ CMonsterHpBar::~CMonsterHpBar()
 
 void CMonsterHpBar::Update()
 {
-	Vec3 view_scale = GetTransform()->GetScale();
-	view_scale.x = CMonsterScript::GetHp() * 10.f;
-	GetTransform()->SetScale(view_scale);
+	Vec3 scale = GetTransform()->GetScale();
+	scale.x = CMonsterScript::GetHp() * 10.f;
+	GetTransform()->SetScale(scale);
 }

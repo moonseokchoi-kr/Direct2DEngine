@@ -8,7 +8,7 @@ CTimeManager::CTimeManager()
 	, prev_count_{}
 	, frequency_{}
 	, delta_time_(0.)
-	, acc_(1.)
+	, acc_(0.)
 	, call_count_(0)
 	, stopped_(false)
 	, stop_time_{}
@@ -57,7 +57,6 @@ void CTimeManager::Update()
 	if (delta_time_ > (1. / 60.))
 		delta_time_ = (1. / 60.);
 #endif
-	Render();
 }
 
 void CTimeManager::Render()
@@ -72,7 +71,7 @@ void CTimeManager::Render()
 		call_count_ = 0;
 
 		wchar_t szBuffer[255] = {}; 
-		swprintf_s(szBuffer, L"FPS : %d,  DT : %lf   , TotalTime : %lf", fps_, delta_time_, GetTotalTime());
+		swprintf_s(szBuffer, L"FPS : %d,  DT : %lf", fps_, delta_time_);
 		SetWindowText(CCore::GetInst()->GetMainHwnd(), szBuffer);
 	}
 }

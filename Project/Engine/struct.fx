@@ -33,12 +33,10 @@ struct AnimationFrame
 struct Particle
 {
     float3 worldPosition;
-    float3 viewScale;
-    float3 viewRotation;
     float3 color;
+    float3 scale;
     float currnetLifeTime;
     float maxLifeTime;
-    int isActive;
 };
 
 #endif

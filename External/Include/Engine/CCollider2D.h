@@ -16,7 +16,7 @@ public:
 
 public:
     void SetOffsetPosition(Vec2 position) { offset_position_ = Vec3(position.x, position.y, 0.f); }
-    void SetOffsetScale(Vec2 view_scale) { offset_scale_ = Vec3(view_scale.x, view_scale.y, 1.f); }
+    void SetOffsetScale(Vec2 scale) { offset_scale_ = Vec3(scale.x, scale.y, 1.f); }
     const Matrix& GetColliderWorldMatrix() { return collider_world_matrix_; }
     int GetCollisionCount() { return collision_count_; }
 public:
