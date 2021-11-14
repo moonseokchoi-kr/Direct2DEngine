@@ -212,7 +212,7 @@ HRESULT CDevice::CreateView()
 
 	ID3D11RenderTargetView* rtv = render_target_texture_->GetRenderTargetView();
 	context_->OMSetRenderTargets(1, &rtv, depth_stencil_texture_->GetDepthStencilView());
-
+	g_global.resolution = resolution_;
 	return S_OK;
 }
 
@@ -225,8 +225,9 @@ HRESULT CDevice::CreateConstBuffer()
 
 	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::TRANSFORM)]->Create(L"Transform", sizeof(Transform), static_cast<UINT>(CB_TYPE::TRANSFORM)));
 	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::MATERIAL_CONST)]->Create(L"Material", sizeof(MaterialParameter), static_cast<UINT>(CB_TYPE::MATERIAL_CONST)));
-	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::LIGHT2D)]->Create(L"Light2D",sizeof(LightInfo)*50+16, static_cast<UINT>(CB_TYPE::LIGHT2D)))
-	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::ANIMATE2D)]->Create(L"Animate2D",sizeof(AnimationData)*50, static_cast<UINT>(CB_TYPE::ANIMATE2D)))
+	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::GLOBAL)]->Create(L"Global",sizeof(GlobalData),static_cast<UINT>(CB_TYPE::GLOBAL)));
+	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::LIGHT2D)]->Create(L"Light2D", sizeof(LightInfo) * 50 + 16, static_cast<UINT>(CB_TYPE::LIGHT2D)));
+	HR(const_buffer_array_[static_cast<UINT>(CB_TYPE::ANIMATE2D)]->Create(L"Animate2D", sizeof(AnimationData) * 50, static_cast<UINT>(CB_TYPE::ANIMATE2D)));
 	return S_OK;
 }
 
@@ -234,9 +235,26 @@ HRESULT CDevice::CreateBlendState()
 {
 	//ALPHA BLEND
 	D3D11_BLEND_DESC desc = {};
-
 	//투명한 부분에 대한 깊이 값 기록을 안함
 	desc.AlphaToCoverageEnable = true;
+	desc.IndependentBlendEnable = false;
+
+	desc.RenderTarget[0].BlendEnable = true;
+
+	desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
+	desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+
+	desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	HR(DEVICE->CreateBlendState(&desc, blend_state_array_[static_cast<UINT>(BLEND_TYPE::COVERAGE)].GetAddressOf()));
+
+	//알파블렌드
+	desc.AlphaToCoverageEnable = false;
 	desc.IndependentBlendEnable = false;
 	
 	desc.RenderTarget[0].BlendEnable = true;

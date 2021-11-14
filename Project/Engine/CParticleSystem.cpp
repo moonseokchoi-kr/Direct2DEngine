@@ -9,9 +9,18 @@
 CParticleSystem::CParticleSystem()
 	:CComponent(COMPONENT_TYPE::PARTICLESYSTEM)
 	, particle_buffer_(nullptr)
+	, particle_shared_data_buffer_(nullptr)
 	, max_particle_count_(100)
+	, accumlated_time_(0)
+	, start_scale_(Vec3(1.f, 1.f, 0.f))
+	, end_scale_(Vec3(50.f, 50.f, 0.f))
+	, spawn_range_(Vec3(500.f, 500.f, 0.f))
+	, particle_min_life_(2.f)
+	, particle_max_life_(5.f)
+	, spawn_prequency_(0.1f)
+	
 {
-	particle_mesh_ = CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh");
+	particle_mesh_ = CResourceManager::GetInst()->FindRes<CMesh>(L"PointMesh");
 	particle_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"particle_material");
 	particle_update_shader_ = static_cast<CParticleUpdateShader*>(CResourceManager::GetInst()->FindRes<CComputeShader>(L"particle_update_shader").Get());
 
@@ -40,7 +49,7 @@ CParticleSystem::~CParticleSystem()
 void CParticleSystem::UpdateData()
 {
 	GetTransform()->UpdateData();
-	particle_buffer_->UpdateData(PIPELINE_STAGE::PS_VERTEX, 13);
+	particle_buffer_->UpdateData(PIPELINE_STAGE::PS_VERTEX, 14);
 }
 
 void CParticleSystem::FinalUpdate()

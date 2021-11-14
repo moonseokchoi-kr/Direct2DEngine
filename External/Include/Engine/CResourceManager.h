@@ -43,6 +43,7 @@ private:
 	void CreateDefaultComputeShader();
 private:
     array<unordered_map<wstring, CResource*>,static_cast<UINT>(RES_TYPE::END)> resource_array_;
+	unordered_map<wstring,CTexture*> defalut_texture_map_;
 
 };
 

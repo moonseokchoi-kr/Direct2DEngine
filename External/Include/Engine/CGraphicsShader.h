@@ -13,7 +13,7 @@ public:
 
 	HRESULT CreateVertexShader(const wstring& strFilePath, const char* functionName);
 	HRESULT CreatePixelShader(const wstring& strFilePath, const char* functionName);
-
+	HRESULT CreateGeometryShader(const wstring& strFilePath, const char* functionName);
 	virtual void UpdateData();
 
 public:

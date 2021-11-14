@@ -18,6 +18,8 @@ CRenderManager::~CRenderManager()
 
 void CRenderManager::Render()
 {
+	UpdateGloabalData();
+
 	UpdateLight2D();
 
 	CDevice::GetInst()->ClearTarget();
@@ -97,3 +99,12 @@ void CRenderManager::UpdateLight2D()
 	constBuffer->UpdateData();
 
 }
+
+void CRenderManager::UpdateGloabalData()
+{
+	static CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::GLOBAL);
+	cb->SetData(&g_global, sizeof(GlobalData));
+	cb->SetPipelineStage(PS_ALL);
+	cb->UpdateData();
+}
+

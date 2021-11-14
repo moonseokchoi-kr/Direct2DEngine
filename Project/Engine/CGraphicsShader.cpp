@@ -17,7 +17,7 @@ CGraphicsShader::~CGraphicsShader()
 
 HRESULT CGraphicsShader::CreateVertexShader(const wstring& strFilePath, const char* funcName)
 {
-	HR(D3DCompileFromFile(
+	if (FAILED(D3DCompileFromFile(
 		strFilePath.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
@@ -27,7 +27,11 @@ HRESULT CGraphicsShader::CreateVertexShader(const wstring& strFilePath, const ch
 		0,
 		vertex_shader_blob_.GetAddressOf(),
 		error_blob_.GetAddressOf()
-	));
+	)))
+	{
+		MessageBoxA(nullptr, (char*)error_blob_->GetBufferPointer(), "vertex_shader_error!", MB_OK);
+		return E_FAIL;
+	}
 	
 
 	DEVICE->CreateVertexShader(vertex_shader_blob_->GetBufferPointer(), vertex_shader_blob_->GetBufferSize(), nullptr, vertex_shader_.GetAddressOf());
@@ -40,7 +44,7 @@ HRESULT CGraphicsShader::CreateVertexShader(const wstring& strFilePath, const ch
 
 HRESULT CGraphicsShader::CreatePixelShader(const wstring& strFilePath, const char* funcName)
 {
-	if (FAILED(D3DCompileFromFile(
+	HR(D3DCompileFromFile(
 		strFilePath.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
@@ -50,14 +54,26 @@ HRESULT CGraphicsShader::CreatePixelShader(const wstring& strFilePath, const cha
 		0,
 		pixel_shader_blob_.GetAddressOf(),
 		error_blob_.GetAddressOf()
-	)))
-	{
-		return E_FAIL;
-	}
-
-
+	));
 	DEVICE->CreatePixelShader(pixel_shader_blob_->GetBufferPointer(), pixel_shader_blob_->GetBufferSize(), nullptr, pixel_shader_.GetAddressOf());
 
+	return S_OK;
+}
+
+HRESULT CGraphicsShader::CreateGeometryShader(const wstring& strFilePath, const char* functionName)
+{
+	HR(D3DCompileFromFile(
+		strFilePath.c_str(),
+		nullptr,
+		D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		functionName,
+		"gs_5_0",
+		D3DCOMPILE_DEBUG,
+		0,
+		geometry_shader_blob_.GetAddressOf(),
+		error_blob_.GetAddressOf()));
+
+	DEVICE->CreateGeometryShader(geometry_shader_blob_->GetBufferPointer(), geometry_shader_blob_->GetBufferSize(), nullptr, geometry_shader_.GetAddressOf());
 	return S_OK;
 }
 

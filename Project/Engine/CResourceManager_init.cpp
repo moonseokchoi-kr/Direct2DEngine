@@ -28,7 +28,25 @@ void CResourceManager::CreateDefaultMesh()
 	VTX vertex;
 	//
 	// =========
-	// Rect Mesh
+	// Point Mesh
+	// =========
+	// 
+	vertex.pos = Vec3(0.f, 0.f, 0.f);
+	vertex.color = Vec4(1.f, 1.f, 1.f, 1.f);
+	vertex.uv = Vec2(0.f, 0.f);
+	vertexBuffer.push_back(vertex);
+
+	indexBuffer.push_back(0);
+
+	mesh = new CMesh;
+	mesh->Create(vertexBuffer.data(), static_cast<UINT>(vertexBuffer.size()), indexBuffer.data(), static_cast<UINT>(indexBuffer.size()));
+	AddResource(L"PointMesh", mesh);
+
+	vertexBuffer.clear();
+	indexBuffer.clear();
+	//
+	// =========
+	// Rectancle Mesh\
 	// =========
 	// 
 	vertex.pos = Vec3(-0.5f, 0.5f, 0);
@@ -121,7 +139,7 @@ void CResourceManager::CreateDefaultShader()
 	strPath += L"shader\\std2d.fx";
 	stdShader->CreateVertexShader(strPath, "vs_main");
 	stdShader->CreatePixelShader(strPath, "ps_main");
-	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetBlendType(BLEND_TYPE::COVERAGE);
 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 
 	AddResource(L"std2DShader", stdShader);
@@ -157,19 +175,25 @@ void CResourceManager::CreateDefaultShader()
 	strPath += L"shader\\light2dshader.fx";
 	stdShader->CreateVertexShader(strPath, "vs_main");
 	stdShader->CreatePixelShader(strPath, "ps_main");
-	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetBlendType(BLEND_TYPE::COVERAGE);
 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 	
 
 	AddResource(L"light2D_shader", stdShader);
 
+	//particle shader
 	stdShader = new CGraphicsShader;
 	strPath = CPathManager::GetInst()->GetContentPath();
 	strPath += L"shader\\particle_shader.fx";
 	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreateGeometryShader(strPath, "gs_main");
 	stdShader->CreatePixelShader(strPath, "ps_main");
+
+
 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_WRITE);
 
 
 	AddResource(L"particle_shader", stdShader);
@@ -182,6 +206,16 @@ void CResourceManager::CreateDefaultTexture()
 	LoadRes<CTexture>(L"monster", L"texture\\monster.png");
 	LoadRes<CTexture>(L"monster_bullet_red", L"texture\\monster_bullet_red.png");
 	LoadRes<CTexture>(L"monster_bullet_blue", L"texture\\monster_bullet_blue.png");
+	CTexture* tex = new CTexture;
+	wstring strContent = CPathManager::GetInst()->GetContentPath();
+	tex->Load(strContent + L"texture\\global\\noise_01.png");
+	defalut_texture_map_.insert(make_pair(L"noise_01", tex));
+
+	g_global.noise_texture_resolution = Vec2((float)tex->GetWidth(), (float)tex->GetHeight());
+
+	tex->SetPipelineStage(PIPELINE_STAGE::PS_ALL, 13);
+	tex->UpdateData();
+
 
 	CreateTexture(L"compute_shader_tex", 1024, 1024, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS, DXGI_FORMAT_R8G8B8A8_UNORM);
 }
