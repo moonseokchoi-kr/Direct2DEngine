@@ -40,6 +40,7 @@ CParticleSystem::CParticleSystem(const CParticleSystem& origin)
 CParticleSystem::~CParticleSystem()
 {
 	SafeDelete(particle_buffer_);
+	SafeDelete(particle_shared_data_buffer_);
 }
 
 void CParticleSystem::UpdateData()

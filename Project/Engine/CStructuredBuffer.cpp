@@ -16,11 +16,12 @@ CStructuredBuffer::~CStructuredBuffer()
 {
 }
 
-HRESULT CStructuredBuffer::Create(UINT elementSize, UINT elementCount, STRUCTURE_BUFFER_TYPE type, void* initialData)
+HRESULT CStructuredBuffer::Create(UINT elementSize, UINT elementCount, STRUCTURE_BUFFER_TYPE type, void* initialData, bool cpuAccess)
 {
 	element_size_ = elementSize;
 	element_count_ = elementCount;
 	buffer_type_ = type;
+	cpu_access_ = cpuAccess;
 
 	buffer_desc_.ByteWidth = element_size_ * element_count_;
 
@@ -31,10 +32,6 @@ HRESULT CStructuredBuffer::Create(UINT elementSize, UINT elementCount, STRUCTURE
 	else if (STRUCTURE_BUFFER_TYPE::READ_WRITE == buffer_type_)
 	{
 		buffer_desc_.BindFlags = D3D11_BIND_SHADER_RESOURCE|D3D11_BIND_UNORDERED_ACCESS;
-	}
-	else
-	{
-
 	}
 
 	buffer_desc_.Usage = D3D11_USAGE_DEFAULT;
@@ -62,12 +59,34 @@ HRESULT CStructuredBuffer::Create(UINT elementSize, UINT elementCount, STRUCTURE
 
 	HR(DEVICE->CreateShaderResourceView(structured_buffer_.Get(), &srvDesc, shader_resource_view_.GetAddressOf()));
 
-	if (STRUCTURE_BUFFER_TYPE::CPU_ACCESS == buffer_type_||STRUCTURE_BUFFER_TYPE::READ_WRITE == buffer_type_)
+	if (STRUCTURE_BUFFER_TYPE::READ_WRITE == buffer_type_)
 	{
 		D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
 		uavDesc.ViewDimension = D3D11_UAV_DIMENSION_BUFFER;
 		uavDesc.Buffer.NumElements = element_count_;
 		HR(DEVICE->CreateUnorderedAccessView(structured_buffer_.Get(), &uavDesc, unordered_access_view_.GetAddressOf()));
+	}
+
+	if (cpu_access_)
+	{
+		desc_cpu_read_.ByteWidth = element_size_ * element_count_;
+		desc_cpu_read_.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		desc_cpu_read_.Usage = D3D11_USAGE_DEFAULT;
+		desc_cpu_read_.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
+		desc_cpu_read_.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+		desc_cpu_read_.StructureByteStride = element_size_;
+
+		HR(DEVICE->CreateBuffer(&desc_cpu_read_, nullptr, structured_buffer_cpu_read_.GetAddressOf()));
+
+		desc_cpu_write_.ByteWidth = element_size_ * element_count_;
+		desc_cpu_write_.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+		desc_cpu_write_.Usage = D3D11_USAGE_DYNAMIC;
+		desc_cpu_write_.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+		desc_cpu_write_.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+		desc_cpu_write_.StructureByteStride = element_size_;
+
+		HR(DEVICE->CreateBuffer(&desc_cpu_write_, nullptr, structured_buffer_cpu_write_.GetAddressOf()));
+
 	}
 
 	return S_OK;
@@ -143,4 +162,22 @@ void CStructuredBuffer::Clear()
 	UINT i = -1;
 	CONTEXT->CSSetUnorderedAccessViews(register_number_rw_, 1, &uav, &i);
 
+}
+
+void CStructuredBuffer::GetData(void* dest, UINT destSize)
+{
+	CONTEXT->CopyResource(structured_buffer_cpu_read_.Get(), structured_buffer_.Get());
+	D3D11_MAPPED_SUBRESOURCE sub = {};
+	CONTEXT->Map(structured_buffer_cpu_read_.Get(), 0, D3D11_MAP_READ, 0, &sub);
+	memcpy(dest, sub.pData, destSize);
+	CONTEXT->Unmap(structured_buffer_cpu_read_.Get(), 0);
+}
+
+void CStructuredBuffer::SetData(void* src, UINT srcSize)
+{
+	D3D11_MAPPED_SUBRESOURCE sub = {};
+	CONTEXT->Map(structured_buffer_cpu_write_.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
+	memcpy(sub.pData, src, srcSize);
+	CONTEXT->Unmap(structured_buffer_cpu_write_.Get(), 0);
+	CONTEXT->CopyResource(structured_buffer_.Get(), structured_buffer_cpu_write_.Get());
 }
