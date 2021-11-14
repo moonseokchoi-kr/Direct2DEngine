@@ -20,6 +20,7 @@ public:
 
     void Render();
     
+    void Clear();
 public:
     CLONE(CParticleSystem);
 

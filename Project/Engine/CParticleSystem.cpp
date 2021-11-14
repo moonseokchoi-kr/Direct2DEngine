@@ -17,18 +17,12 @@ CParticleSystem::CParticleSystem()
 
 	particle_buffer_ = new CStructuredBuffer;
 
-	array<Particle, 100> particleArray = { };
 
-	float dist = 15.f;
-	float view_scale = 10.f;
+	particle_buffer_->Create(sizeof(Particle), max_particle_count_, STRUCTURE_BUFFER_TYPE::READ_WRITE,nullptr,false);
 
-	for (int i = 0; i < max_particle_count_; ++i)
-	{
-		particleArray[i].world_position = Vec3(((float)max_particle_count_ / 2.f) * -dist + (float)i * dist, 0.f, 100.f);
-		particleArray[i].view_scale = Vec3(view_scale, view_scale, 1.f);
-	}
+	particle_shared_data_buffer_ = new CStructuredBuffer;
 
-	particle_buffer_->Create(sizeof(Particle), max_particle_count_, STRUCTURE_BUFFER_TYPE::READ_WRITE, particleArray.data());
+	particle_shared_data_buffer_->Create(sizeof(ParticleSharedData), 1, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr,true);
 
 }
 
@@ -51,7 +45,22 @@ void CParticleSystem::UpdateData()
 
 void CParticleSystem::FinalUpdate()
 {
+	accumlated_time_ += fDT;
+	if (spawn_prequency_ < accumlated_time_)
+	{
+		accumlated_time_ = 0;
+
+		ParticleSharedData shared = {};
+		shared.activable_count = 1;
+		particle_shared_data_buffer_->SetData(&shared, sizeof(ParticleSharedData));
+	}
 	particle_update_shader_->SetParticleBuffer(particle_buffer_);
+	particle_update_shader_->SetParticleSharedBuffer(particle_shared_data_buffer_);
+	particle_update_shader_->SetObjectPos(GetTransform()->GetWorldPos());
+	particle_update_shader_->SetSpawnRange(spawn_range_);
+	particle_update_shader_->SetStartScale(start_scale_);
+	particle_update_shader_->SetEndScale(end_scale_);
+
 	particle_update_shader_->Excute();
 }
 
@@ -60,4 +69,11 @@ void CParticleSystem::Render()
 	UpdateData();
 	particle_material_->UpdateData();
 	particle_mesh_->RenderParticle(max_particle_count_);
+
+	Clear();
+}
+
+void CParticleSystem::Clear()
+{
+	particle_buffer_->Clear();
 }
