@@ -73,3 +73,19 @@ struct Particle
 	int is_active;
 };
 
+
+struct PatrcleShadredData
+{
+	int activable_count;
+	int current_active_count;
+	Vec3 range;
+};
+
+struct GlobalData
+{
+	Vec2 resolution;
+	Vec2 noise_texture_resolution;
+	float delta_time;
+	float accumulated_time;
+	Vec2 padding;
+};
