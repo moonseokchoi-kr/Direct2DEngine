@@ -23,7 +23,7 @@ void CPlayerScript::Update()
 	preMoveDir = moveDir;
 	accumulated_time_ += fDT;
 	Vec3 pos = GetTransform()->GetPosition();
-	Vec3 scale = GetTransform()->GetScale();
+	Vec3 view_scale = GetTransform()->GetScale();
 	Vec3 rot = GetTransform()->GetRotation();
 	if (KEY_HOLD(KEY::UP))
 	{
@@ -69,7 +69,7 @@ void CPlayerScript::Update()
 		
 	}
 	GetTransform()->SetPosition(pos);
-	GetTransform()->SetScale(scale);
+	GetTransform()->SetScale(view_scale);
 	GetTransform()->SetRotation(rot);
 	UpdateAnimation();
 }
@@ -93,9 +93,9 @@ void CPlayerScript::OnCollisionExit(CGameObject* otherObject)
 void CPlayerScript::CreateBullet()
 {
 	Vec3 position = GetTransform()->GetPosition();
-	Vec3 scale = GetTransform()->GetScale();
+	Vec3 view_scale = GetTransform()->GetScale();
 
-	position.y += scale.y / 2.f;
+	position.y += view_scale.y / 2.f;
 
 	Instantiate(player_bullet_prefab_, position, 2);
 

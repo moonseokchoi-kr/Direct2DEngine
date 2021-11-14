@@ -276,17 +276,17 @@ void CMonsterScript::UpdateAnimation()
 {
 	
 	Vec3 position = GetTransform()->GetPosition();
-	Vec3 scale = GetTransform()->GetScale();
+	Vec3 view_scale = GetTransform()->GetScale();
 	if (MONSTER_STATE::MOVE == monster_state_)
 	{
 		position += move_dirction*fDT;
-		if (abs(position.x) >= 400.f - scale.x / 2.f )
+		if (abs(position.x) >= 400.f - view_scale.x / 2.f )
 		{
-			position.x = 400.f-scale.x/2.f;
+			position.x = 400.f-view_scale.x/2.f;
 		}
-		if (abs(position.y) >= 450.f - scale.x / 2.f)
+		if (abs(position.y) >= 450.f - view_scale.x / 2.f)
 		{
-			position.y = 450.f - scale.x / 2.f;
+			position.y = 450.f - view_scale.x / 2.f;
 		}
 		GetTransform()->SetPosition(position);
 	}

@@ -574,7 +574,7 @@ namespace DirectX
             void Translation(const Vector3& v) { _41 = v.x; _42 = v.y; _43 = v.z; }
 
             // Matrix operations
-            bool Decompose(Vector3& scale, Quaternion& rotation, Vector3& translation);
+            bool Decompose(Vector3& view_scale, Quaternion& rotation, Vector3& translation);
 
             Matrix Transpose() const;
             void Transpose(Matrix& result) const;
@@ -595,7 +595,7 @@ namespace DirectX
 
             static Matrix CreateScale(const Vector3& scales);
             static Matrix CreateScale(float xs, float ys, float zs);
-            static Matrix CreateScale(float scale);
+            static Matrix CreateScale(float view_scale);
 
             static Matrix CreateRotationX(float radians);
             static Matrix CreateRotationY(float radians);

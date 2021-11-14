@@ -65,6 +65,10 @@ void CTexture::UpdateData()
 	{
 		CONTEXT->PSSetShaderResources(register_number_, 1, shader_resource_view_.GetAddressOf());
 	}
+	if (pipline_stage_ & PS_COMPUTE)
+	{
+		CONTEXT->CSSetShaderResources(register_number_, 1, shader_resource_view_.GetAddressOf());
+	}
 }
 
 void CTexture::UpdateDataRW(UINT registerNumber)

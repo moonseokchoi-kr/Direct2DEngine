@@ -65,10 +65,12 @@ struct MaterialParameter
 struct Particle
 {
 	Vec3 world_position;
+	Vec3 view_scale;
+	Vec3 view_rotation;
 	Vec3 color;
-	Vec3 scale;
 	float current_time;
 	float max_life_time;
+	int is_active;
 };
 
 

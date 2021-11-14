@@ -4,6 +4,7 @@
 CParticleUpdateShader::CParticleUpdateShader()
 	:CComputeShader(32,1,1)
 	,particle_buffer_(nullptr)
+	,particle_shared_buffer_(nullptr)
 {
 }
 
