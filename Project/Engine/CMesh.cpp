@@ -2,21 +2,23 @@
 #include "CMesh.h"
 #include "CDevice.h"
 CMesh::CMesh()
-	:m_vtxSysmem(nullptr)
-	,m_vtxCount(0)
-	,m_idxSysmem(nullptr)
-	,m_idxCount(0)
+	:vertex_system_memory_(nullptr)
+	,vertex_count_(0)
+	,index_system_memory_(nullptr)
+	,index_count_(0)
 {
 }
 
 CMesh::~CMesh()
 {
+	SafeDelete(vertex_system_memory_);
+	SafeDelete(index_system_memory_);
 }
 
 void CMesh::Create(VTX* _vtx, UINT _vtxCount, UINT* _idx, UINT _idxCount)
 {
-	m_vtxCount = _vtxCount;
-	m_idxCount = _idxCount;
+	vertex_count_ = _vtxCount;
+	index_count_ = _idxCount;
 
 	D3D11_BUFFER_DESC desc = {};
 	desc.ByteWidth = sizeof(VTX) * _vtxCount;
@@ -26,7 +28,7 @@ void CMesh::Create(VTX* _vtx, UINT _vtxCount, UINT* _idx, UINT _idxCount)
 	D3D11_SUBRESOURCE_DATA sub = {};
 	sub.pSysMem = _vtx;
 
-	if (FAILED(DEVICE->CreateBuffer(&desc, &sub, m_vtxBuffer.GetAddressOf())))
+	if (FAILED(DEVICE->CreateBuffer(&desc, &sub, vertex_buffer_.GetAddressOf())))
 	{
 		assert(nullptr);
 	}
@@ -41,7 +43,7 @@ void CMesh::Create(VTX* _vtx, UINT _vtxCount, UINT* _idx, UINT _idxCount)
 
 	sub.pSysMem = _idx;
 
-	if (FAILED(DEVICE->CreateBuffer(&desc, &sub, m_idxBuffer.GetAddressOf())))
+	if (FAILED(DEVICE->CreateBuffer(&desc, &sub, index_buffer_.GetAddressOf())))
 	{
 		assert(nullptr);
 	}
@@ -50,19 +52,19 @@ void CMesh::Create(VTX* _vtx, UINT _vtxCount, UINT* _idx, UINT _idxCount)
 void CMesh::Render()
 {
 	UpdateData();
-	CONTEXT->DrawIndexed(m_idxCount, 0, 0);
+	CONTEXT->DrawIndexed(index_count_, 0, 0);
 }
 
 void CMesh::RenderParticle(UINT renderCount)
 {
 	UpdateData();
-	CONTEXT->DrawIndexedInstanced(m_idxCount, renderCount, 0, 0, 0);
+	CONTEXT->DrawIndexedInstanced(index_count_, renderCount, 0, 0, 0);
 }
 
 void CMesh::UpdateData()
 {
 	UINT stride = sizeof(VTX);
 	UINT offset = 0;
-	CONTEXT->IASetVertexBuffers(0, 1, m_vtxBuffer.GetAddressOf(), &stride, &offset);
-	CONTEXT->IASetIndexBuffer(m_idxBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+	CONTEXT->IASetVertexBuffers(0, 1, vertex_buffer_.GetAddressOf(), &stride, &offset);
+	CONTEXT->IASetIndexBuffer(index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
 }

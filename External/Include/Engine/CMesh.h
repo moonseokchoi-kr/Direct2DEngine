@@ -27,13 +27,13 @@ public:
 public:
 
 private:
-    ComPtr<ID3D11Buffer> m_vtxBuffer;
-    ComPtr<ID3D11Buffer> m_idxBuffer;
+    ComPtr<ID3D11Buffer> vertex_buffer_;
+    ComPtr<ID3D11Buffer> index_buffer_;
     
-    VTX*  m_vtxSysmem;
-    UINT* m_idxSysmem;
+    VTX*  vertex_system_memory_;
+    UINT* index_system_memory_;
 
-    UINT m_vtxCount;
-    UINT m_idxCount;
+    UINT vertex_count_;
+    UINT index_count_;
 };
 

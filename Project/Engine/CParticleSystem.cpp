@@ -25,9 +25,20 @@ CParticleSystem::CParticleSystem()
 	particle_update_shader_ = static_cast<CParticleUpdateShader*>(CResourceManager::GetInst()->FindRes<CComputeShader>(L"particle_update_shader").Get());
 
 	particle_buffer_ = new CStructuredBuffer;
-
-
 	particle_buffer_->Create(sizeof(Particle), max_particle_count_, STRUCTURE_BUFFER_TYPE::READ_WRITE,nullptr,false);
+
+	///임시용 데이터
+	array<Particle, 100> particleArray = {};
+	float dist = 10.f;
+	float scale = 5.f;
+
+	for (int i = 0; i < max_particle_count_; ++i)
+	{
+		particleArray[i].world_position = Vec3(((float)max_particle_count_ / 2.f) * -dist + (float)i * dist, 0.f, 100.f);
+		particleArray[i].view_scale = Vec3(scale, scale, 1.f);
+		particleArray[i].is_active = true;
+	}
+
 
 	particle_shared_data_buffer_ = new CStructuredBuffer;
 
@@ -49,26 +60,26 @@ CParticleSystem::~CParticleSystem()
 void CParticleSystem::UpdateData()
 {
 	GetTransform()->UpdateData();
-	particle_buffer_->UpdateData(PIPELINE_STAGE::PS_VERTEX, 14);
+	particle_buffer_->UpdateData(PIPELINE_STAGE::PS_VERTEX | PIPELINE_STAGE::PS_GEOMETRY | PIPELINE_STAGE::PS_PIXEL, 14);
 }
 
 void CParticleSystem::FinalUpdate()
 {
-	accumlated_time_ += fDT;
-	if (spawn_prequency_ < accumlated_time_)
-	{
-		accumlated_time_ = 0;
-
-		ParticleSharedData shared = {};
-		shared.activable_count = 1;
-		particle_shared_data_buffer_->SetData(&shared, sizeof(ParticleSharedData));
-	}
+// 	accumlated_time_ += fDT;
+// 	if (spawn_prequency_ < accumlated_time_)
+// 	{
+// 		accumlated_time_ = 0;
+// 
+// 		ParticleSharedData shared = {};
+// 		shared.activable_count = 1;
+// 		particle_shared_data_buffer_->SetData(&shared, sizeof(ParticleSharedData));
+// 	}
 	particle_update_shader_->SetParticleBuffer(particle_buffer_);
 	particle_update_shader_->SetParticleSharedBuffer(particle_shared_data_buffer_);
-	particle_update_shader_->SetObjectPos(GetTransform()->GetWorldPos());
-	particle_update_shader_->SetSpawnRange(spawn_range_);
-	particle_update_shader_->SetStartScale(start_scale_);
-	particle_update_shader_->SetEndScale(end_scale_);
+// 	particle_update_shader_->SetObjectPos(GetTransform()->GetWorldPos());
+// 	particle_update_shader_->SetSpawnRange(spawn_range_);
+// 	particle_update_shader_->SetStartScale(start_scale_);
+// 	particle_update_shader_->SetEndScale(end_scale_);
 
 	particle_update_shader_->Excute();
 }

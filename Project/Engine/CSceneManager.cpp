@@ -55,7 +55,7 @@ void CSceneManager::Init()
 	particleObject->AddComponent(new CTransform);
 	particleObject->AddComponent(new CParticleSystem);
 
-	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
+	//particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
 	current_scene_->AddGameObject(particleObject, 2, true);
 
 
