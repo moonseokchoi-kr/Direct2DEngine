@@ -38,28 +38,19 @@ cbuffer MATERIAL : register(b1)
     row_major matrix mat_1;
     row_major matrix mat_2;
     row_major matrix mat_3;
-};
+}
 
 cbuffer LIGHT2D : register(b3)
 {
     LightInfo light2DArray[50];
     uint light2DCount;
     uint3 padding;
-};
-
-cbuffer GLOABAL_DATA : register(b2)
-{
-    float2 resolution;
-    float2 noise_resolution;
-    float g_dt;
-    float g_accumulated_time;
-    float g_padding;
-};
+}
 
 cbuffer ANIMATE2D : register(b4)
 {
     AnimationFrame animation_array[50];
-};
+}
 
 Texture2D tex_0 : register(t0);
 Texture2D tex_1 : register(t1);
@@ -78,7 +69,6 @@ TextureCube texcube_0 : register(t10);
 TextureCube texcube_1 : register(t11);
 
 Texture2D atlas_tex : register(t12);
-Texture2D noise_tex : register(t13);
 
 SamplerState ati_sam : register(s0);
 SamplerState mip_sam : register(s1);

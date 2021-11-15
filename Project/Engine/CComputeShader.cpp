@@ -6,7 +6,6 @@ CComputeShader::CComputeShader()
     :group_thread_x_(-1)
     ,group_thread_y_(-1)
     ,group_thread_z_(-1)
-    ,parameter_{}
 {
 }
 

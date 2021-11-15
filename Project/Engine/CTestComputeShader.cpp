@@ -2,10 +2,10 @@
 #include "CTestComputeShader.h"
 
 CTestComputeShader::CTestComputeShader()
-	:CComputeShader(1024, 1, 1)
+	:CComputeShader(1024,1,1)
 {
 	test_buffer_ = new CStructuredBuffer;
-	test_buffer_->Create(sizeof(Vec4), 1, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr, false);
+	test_buffer_->Create(sizeof(Vec4), 1, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr);
 }
 
 CTestComputeShader::~CTestComputeShader()
@@ -35,6 +35,6 @@ void CTestComputeShader::Clear()
 {
 	target_texture_->ClearRW(0);
 	target_texture_ = nullptr;
-
+	
 	test_buffer_->Clear();
 }

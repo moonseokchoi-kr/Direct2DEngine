@@ -10,5 +10,3 @@ D3D11_INPUT_ELEMENT_DESC g_layout[3] =
 };
 
 Transform g_transform = {};
-
-GlobalData g_global = {};
