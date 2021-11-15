@@ -57,7 +57,7 @@ void gs_main(point VERTEX_OUTPUT input[1], inout TriangleStream<GEOMETRY_OUTPUT>
     // 3 -- 2
     output[0].position = float4(viewPos.x - viewScale.x / 2.f, viewPos.y + viewScale.y / 2.f, viewPos.z, 1.f);
     output[0].position = mul(output[0].position, projectionMatrix);
-    output[0].tex = float2(0.f, 0.);
+    output[0].tex = float2(0.f, 0.f);
     
     output[1].position = float4(viewPos.x + viewScale.x / 2.f, viewPos.y + viewScale.y / 2.f, viewPos.z, 1.f);
     output[1].position = mul(output[1].position, projectionMatrix);
@@ -81,9 +81,7 @@ void gs_main(point VERTEX_OUTPUT input[1], inout TriangleStream<GEOMETRY_OUTPUT>
     outputStream.Append(output[0]);
     outputStream.Append(output[1]);
     outputStream.RestartStrip();
-
 }
-
 
 
 

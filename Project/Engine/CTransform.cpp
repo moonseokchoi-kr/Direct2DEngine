@@ -46,7 +46,7 @@ void CTransform::UpdateData()
 
 
 	cb->SetData(&g_transform, sizeof(Transform));
-	cb->SetPipelineStage(PS_VERTEX);
+	cb->SetPipelineStage(PS_NONPIXEL);
 	cb->UpdateData();
 }
 
