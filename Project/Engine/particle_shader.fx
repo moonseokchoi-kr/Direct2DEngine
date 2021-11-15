@@ -8,15 +8,13 @@ StructuredBuffer<Particle> g_particle : register(t13);
 struct VERTEX_INPUT
 {
     float3 position : POSITION;
-    float2 tex : TEXCOORD;
-    
     uint instanceID : SV_InstanceID;
 };
 
 struct VERTEX_OUTPUT
 {
-    float4 position : SV_Position;
-    float2 tex : TEXCOORD;
+    float3 position : POSITION;
+    uint instanceID : FOG;
 };
 
 
@@ -24,28 +22,72 @@ VERTEX_OUTPUT vs_main(VERTEX_INPUT input)
 {
     VERTEX_OUTPUT output= (VERTEX_OUTPUT) 0.f;
     
-    float3 pos = g_particle[input.instanceID].worldPosition;
-    float3 scale = g_particle[input.instanceID].viewScale;
-    
-    matrix worldMat =
-    {
-        scale.x, 0, 0, 0,
-        0, scale.y, 0, 0,
-        0, 0, scale.z, 0,
-        pos.x, pos.y, pos.z, 1
-    };
-    
-    float4 worldPosition = mul(float4(input.position, 1.f), worldMat);
-    float4 viewPosition = mul(worldPosition, viewMatrix);
-    output.position = mul(viewPosition,projectionMatrix);
-    output.tex = input.tex;
+    output.position = input.position;
+    output.instanceID = input.instanceID;
     
     
     return output;
 }
 
+struct GEOMETRY_OUTPUT
+{
+    float4 position : SV_Position;
+    float2 tex : TEXCOORD;
+};
 
-float4 ps_main(VERTEX_OUTPUT output):SV_Target
+
+[maxvertexcount(6)]
+void gs_main(point VERTEX_OUTPUT input[1], inout TriangleStream<GEOMETRY_OUTPUT> outputStream)
+{
+    if (0 == g_particle[input[0].instanceID].isActive)
+    {
+        return;
+    }
+    
+    // 출력시킬 4개의 정점 ( 1개 -> 4개로 분할 )
+    GEOMETRY_OUTPUT output[4] = { (GEOMETRY_OUTPUT) 0.f, (GEOMETRY_OUTPUT) 0.f, (GEOMETRY_OUTPUT) 0.f, (GEOMETRY_OUTPUT) 0.f };
+    
+    float3 worldPosition = g_particle[input[0].instanceID].worldPosition;
+    float3 viewScale = g_particle[input[0].instanceID].viewScale;
+    
+    float3 viewPos = mul(float4(worldPosition, 1.f), viewMatrix).xyz;
+    
+    // 0 -- 1
+    // | \  |
+    // 3 -- 2
+    output[0].position = float4(viewPos.x - viewScale.x / 2.f, viewPos.y + viewScale.y / 2.f, viewPos.z, 1.f);
+    output[0].position = mul(output[0].position, projectionMatrix);
+    output[0].tex = float2(0.f, 0.);
+    
+    output[1].position = float4(viewPos.x + viewScale.x / 2.f, viewPos.y + viewScale.y / 2.f, viewPos.z, 1.f);
+    output[1].position = mul(output[1].position, projectionMatrix);
+    output[1].tex = float2(1.f, 0.f);
+    
+    output[2].position = float4(viewPos.x + viewScale.x / 2.f, viewPos.y - viewScale.y / 2.f, viewPos.z, 1.f);
+    output[2].position = mul(output[2].position, projectionMatrix);
+    output[2].tex = float2(1.f, 1.f);
+    
+    output[3].position = float4(viewPos.x - viewScale.x / 2.f, viewPos.y - viewScale.y / 2.f, viewPos.z, 1.f);
+    output[3].position = mul(output[3].position, projectionMatrix);
+    output[3].tex = float2(0.f, 1.f);
+    
+        
+    outputStream.Append(output[0]);
+    outputStream.Append(output[2]);
+    outputStream.Append(output[3]);
+    outputStream.RestartStrip();
+    
+    outputStream.Append(output[2]);
+    outputStream.Append(output[0]);
+    outputStream.Append(output[1]);
+    outputStream.RestartStrip();
+
+}
+
+
+
+
+float4 ps_main(GEOMETRY_OUTPUT input):SV_Target
 {
     float4 outColor = (float4) 0.f;
     

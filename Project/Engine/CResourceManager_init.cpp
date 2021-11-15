@@ -28,6 +28,26 @@ void CResourceManager::CreateDefaultMesh()
 	VTX vertex;
 	//
 	// =========
+	// Point Mesh
+	// =========
+	// 
+
+	vertex.pos = Vec3(0.f, 0.f, 0.f);
+	vertex.color = Vec4(1.f, 1.f, 1.f, 1.f);
+	vertex.uv = Vec2(0.f, 0.f);
+	vertexBuffer.push_back(vertex);
+	indexBuffer.push_back(0);
+
+	mesh = new CMesh;
+	mesh->Create(vertexBuffer.data(), (UINT)vertexBuffer.size(), indexBuffer.data(), (UINT)indexBuffer.size());
+	AddResource(L"PointMesh", mesh);
+	
+	vertexBuffer.clear();
+	indexBuffer.clear();
+
+
+	//
+	// =========
 	// Rect Mesh
 	// =========
 	// 
@@ -166,11 +186,15 @@ void CResourceManager::CreateDefaultShader()
 	stdShader = new CGraphicsShader;
 	strPath = CPathManager::GetInst()->GetContentPath();
 	strPath += L"shader\\particle_shader.fx";
+
 	stdShader->CreateVertexShader(strPath, "vs_main");
 	stdShader->CreatePixelShader(strPath, "ps_main");
-	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
-	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+	stdShader->CreateGeometryShader(strPath, "gs_main");
 
+	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
+	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_WRITE);
+	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 
 	AddResource(L"particle_shader", stdShader);
 }

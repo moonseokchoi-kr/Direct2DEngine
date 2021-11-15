@@ -15,22 +15,26 @@ CGraphicsShader::~CGraphicsShader()
 {
 }
 
-HRESULT CGraphicsShader::CreateVertexShader(const wstring& strFilePath, const char* funcName)
+HRESULT CGraphicsShader::CreateVertexShader(const wstring& strFilePath, const char* functionName)
 {
-	HR(D3DCompileFromFile(
+	if (FAILED(D3DCompileFromFile(
 		strFilePath.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		funcName,
+		functionName,
 		"vs_5_0",
 		D3DCOMPILE_DEBUG,
 		0,
 		vertex_shader_blob_.GetAddressOf(),
 		error_blob_.GetAddressOf()
-	));
+	)))
+	{
+		MessageBoxA(nullptr, (char*)error_blob_->GetBufferPointer(), "VertexShader ERROR!!", MB_OK);
+		return E_FAIL;
+	}
 	
 
-	DEVICE->CreateVertexShader(vertex_shader_blob_->GetBufferPointer(), vertex_shader_blob_->GetBufferSize(), nullptr, vertex_shader_.GetAddressOf());
+	HR(DEVICE->CreateVertexShader(vertex_shader_blob_->GetBufferPointer(), vertex_shader_blob_->GetBufferSize(), nullptr, vertex_shader_.GetAddressOf()));
 	int layoutCount = sizeof(g_layout) / sizeof(D3D11_INPUT_ELEMENT_DESC);
 
 	HR(DEVICE->CreateInputLayout(g_layout, layoutCount, vertex_shader_blob_->GetBufferPointer(), vertex_shader_blob_->GetBufferSize(), layout_.GetAddressOf()));
@@ -38,13 +42,13 @@ HRESULT CGraphicsShader::CreateVertexShader(const wstring& strFilePath, const ch
 	return S_OK;
 }
 
-HRESULT CGraphicsShader::CreatePixelShader(const wstring& strFilePath, const char* funcName)
+HRESULT CGraphicsShader::CreatePixelShader(const wstring& strFilePath, const char* functionName)
 {
 	if (FAILED(D3DCompileFromFile(
 		strFilePath.c_str(),
 		nullptr,
 		D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		funcName,
+		functionName,
 		"ps_5_0",
 		D3DCOMPILE_DEBUG,
 		0,
@@ -52,15 +56,39 @@ HRESULT CGraphicsShader::CreatePixelShader(const wstring& strFilePath, const cha
 		error_blob_.GetAddressOf()
 	)))
 	{
+		MessageBoxA(nullptr, (char*)error_blob_->GetBufferPointer(), "PixelShder ERROR!!", MB_OK);
 		return E_FAIL;
 	}
 
 
-	DEVICE->CreatePixelShader(pixel_shader_blob_->GetBufferPointer(), pixel_shader_blob_->GetBufferSize(), nullptr, pixel_shader_.GetAddressOf());
+	HR(DEVICE->CreatePixelShader(pixel_shader_blob_->GetBufferPointer(), pixel_shader_blob_->GetBufferSize(), nullptr, pixel_shader_.GetAddressOf()));
 
 	return S_OK;
 }
 
+
+HRESULT CGraphicsShader::CreateGeometryShader(const wstring& strFilePath, const char* functionName)
+{
+	if (FAILED(D3DCompileFromFile(
+		strFilePath.c_str(),
+		nullptr,
+		D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		functionName,
+		"gs_5_0",
+		D3DCOMPILE_DEBUG,
+		0,
+		geometry_shader_blob_.GetAddressOf(),
+		error_blob_.GetAddressOf()
+	)))
+	{
+		MessageBoxA(nullptr, (char*)error_blob_->GetBufferPointer(), "GeometryShader ERROR!!", MB_OK);
+		return E_FAIL;
+	}
+
+	HR(DEVICE->CreateGeometryShader(geometry_shader_blob_->GetBufferPointer(), geometry_shader_blob_->GetBufferSize(), nullptr, geometry_shader_.GetAddressOf()));
+
+	return S_OK;
+}
 void CGraphicsShader::UpdateData()
 {
 	CONTEXT->VSSetShader(vertex_shader_.Get(), nullptr, 0);
