@@ -38,7 +38,7 @@ void CTransform::FinalUpdate()
 
 void CTransform::UpdateData()
 {
-	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
+	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::TRANSFORM);
 
 	g_transform.world_matrix = world_matrix_;
 	g_transform.world_view_matrix = g_transform.world_matrix * g_transform.view_matrix;

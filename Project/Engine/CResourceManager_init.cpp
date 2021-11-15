@@ -207,6 +207,15 @@ void CResourceManager::CreateDefaultTexture()
 	LoadRes<CTexture>(L"monster_bullet_red", L"texture\\monster_bullet_red.png");
 	LoadRes<CTexture>(L"monster_bullet_blue", L"texture\\monster_bullet_blue.png");
 
+	wstring contentPath = CPathManager::GetInst()->GetContentPath();
+	CTexture* noise = new CTexture;
+	noise->Load(contentPath + L"texture\\global\\noise_01");
+	g_global.noise_texture_resolution = Vec2((float)noise->GetWidth(), (float)noise->GetHeight());
+	default_tex_map_.insert(make_pair(L"noise_01", noise));
+
+	noise->SetPipelineStage(PIPELINE_STAGE::PS_ALL, 13);
+	noise->UpdateData();
+
 	CreateTexture(L"compute_shader_tex", 1024, 1024, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS, DXGI_FORMAT_R8G8B8A8_UNORM);
 }
 

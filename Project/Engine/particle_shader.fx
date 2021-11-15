@@ -3,7 +3,7 @@
 
 #include "value.fx"
 
-StructuredBuffer<Particle> g_particle : register(t13);
+StructuredBuffer<Particle> g_particle : register(t14);
 
 struct VERTEX_INPUT
 {

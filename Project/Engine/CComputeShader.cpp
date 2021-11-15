@@ -33,7 +33,7 @@ void CComputeShader::Dispatch(UINT groupX, UINT groupY, UINT groupZ)
 {
     UpdateData();
 
-    static CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::MATERIAL_CONST);
+    static CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::MATERIAL_CONST);
     cb->SetData(&parameter_, sizeof(MaterialParameter));
     cb->UpdateDataComputeShdaer();
 

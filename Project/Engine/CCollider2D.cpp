@@ -23,7 +23,7 @@ CCollider2D::~CCollider2D()
 
 void CCollider2D::UpdateData()
 {
-	CConstBuffer* constantBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRANSFORM);
+	CConstBuffer* constantBuffer = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::TRANSFORM);
 	g_transform.world_matrix = collider_world_matrix_;
 	g_transform.world_view_matrix = g_transform.world_matrix * g_transform.view_matrix;
 	g_transform.world_view_projection_matrix = g_transform.world_view_matrix * g_transform.projection_matrix;

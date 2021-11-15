@@ -26,6 +26,11 @@ protected:
 
 protected:
     void Dispatch(UINT groupX, UINT groupY, UINT groupZ);
+
+protected:
+    UINT GetGroupPerThreadX() { return group_thread_x_; }
+    UINT GetGroupPerThreadY() { return group_thread_y_; }
+    UINT GetGroupPerThreadZ() { return group_thread_z_; }
 protected:
     MaterialParameter parameter_;
 

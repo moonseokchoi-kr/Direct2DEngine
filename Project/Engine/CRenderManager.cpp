@@ -91,9 +91,18 @@ void CRenderManager::UpdateLight2D()
 	}
 	lightStruct.count = static_cast<int>(light2D_vector_.size());
 
-	CConstBuffer* constBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::LIGHT2D);
+	CConstBuffer* constBuffer = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::LIGHT2D);
 	constBuffer->SetData(&lightStruct, sizeof(lightStruct));
 	constBuffer->SetPipelineStage(PIPELINE_STAGE::PS_ALL);
 	constBuffer->UpdateData();
 
+}
+
+void CRenderManager::UpdataGlobalData()
+{
+	static CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::GLOBAL);
+	cb->SetData(&g_global, sizeof(GlobalData));
+	cb->SetPipelineStage(PS_ALL);
+	cb->UpdateData();
+	cb->UpdateDataComputeShdaer();
 }

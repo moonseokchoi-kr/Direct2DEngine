@@ -72,7 +72,7 @@ void CMaterial::UpdateData()
 {
 	shader_->UpdateData();
 
-	static CConstBuffer* const_buffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::MATERIAL_CONST);
+	static CConstBuffer* const_buffer = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::MATERIAL_CONST);
 	const_buffer->SetData(&data_, sizeof(MaterialParameter));
 	const_buffer->SetPipelineStage(PIPELINE_STAGE::PS_ALL);
 	const_buffer->UpdateData();

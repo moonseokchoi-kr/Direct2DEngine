@@ -46,7 +46,7 @@ enum PIPELINE_STAGE
 };
 
 
-enum class CB_TYPE
+enum class CONSTANT_BUFFER_TYPE
 {
 	TRANSFORM,
 	MATERIAL_CONST,

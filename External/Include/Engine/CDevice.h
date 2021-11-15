@@ -20,7 +20,7 @@ public:
 	float GetAspectRatio() { return resolution_.x / resolution_.y; }
 	Vec2 GetResolution() { return resolution_; }
 	
-	CConstBuffer* GetConstBuffer(CB_TYPE type) { return const_buffer_array_[static_cast<UINT>(type)]; }
+	CConstBuffer* GetConstBuffer(CONSTANT_BUFFER_TYPE type) { return const_buffer_array_[static_cast<UINT>(type)]; }
 	
 	ComPtr<ID3D11RasterizerState> GetRasterizerState(RASTERIZER_TYPE type) { return rasterizer_state_array_[static_cast<UINT>(type)]; }
 	ComPtr<ID3D11BlendState> GetBlendState(BLEND_TYPE type) { return blend_state_array_[static_cast<UINT>(type)]; }
@@ -42,7 +42,7 @@ private:
 	ComPtr<ID3D11DeviceContext> context_;
 	
 
-	array<CConstBuffer*, static_cast<UINT>(CB_TYPE::END)> const_buffer_array_;
+	array<CConstBuffer*, static_cast<UINT>(CONSTANT_BUFFER_TYPE::END)> const_buffer_array_;
 	array<ComPtr<ID3D11DepthStencilState>, static_cast<UINT>(DEPTH_STENCIL_TYPE::END)> depth_stencil_state_array_;
 	array<ComPtr<ID3D11SamplerState>, 2> sampler_state_array_;
 	array<ComPtr<ID3D11BlendState>, static_cast<UINT>(BLEND_TYPE::END)> blend_state_array_;

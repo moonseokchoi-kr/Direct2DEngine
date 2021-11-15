@@ -40,6 +40,16 @@ cbuffer MATERIAL : register(b1)
     row_major matrix mat_3;
 }
 
+cbuffer GLOBAL : register(b2)
+{
+    float2 g_noise_tex_resolution;
+    float2 g_resolution;
+    float g_dt;
+    float g_accumulate_time;
+    float2 g_padding;
+}
+
+
 cbuffer LIGHT2D : register(b3)
 {
     LightInfo light2DArray[50];
@@ -69,6 +79,7 @@ TextureCube texcube_0 : register(t10);
 TextureCube texcube_1 : register(t11);
 
 Texture2D atlas_tex : register(t12);
+Texture2D noise_tex : register(t13);
 
 SamplerState ati_sam : register(s0);
 SamplerState mip_sam : register(s1);

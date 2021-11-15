@@ -41,4 +41,11 @@ struct Particle
     int isActive;
 };
 
+struct ParticleShared
+{
+    int activableCount;
+    int currentActiveCount;
+    float3 range;
+};
+
 #endif

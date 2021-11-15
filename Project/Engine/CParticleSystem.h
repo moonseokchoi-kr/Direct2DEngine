@@ -29,7 +29,10 @@ private:
     Ptr<CMaterial> particle_material_;
     Ptr<CParticleUpdateShader> particle_update_shader_;
     CStructuredBuffer* particle_buffer_;
+    CStructuredBuffer* particle_shared_data_buffer_;
 
     UINT    max_particle_count_;
+
+    float   accumulate_time_;
 };
 

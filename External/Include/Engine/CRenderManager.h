@@ -22,6 +22,7 @@ public:
 
 private:
     void UpdateLight2D();
+    void UpdataGlobalData();
 private:
     vector<CCamera*> camera_vector_;
     vector<CLight2D*> light2D_vector_;

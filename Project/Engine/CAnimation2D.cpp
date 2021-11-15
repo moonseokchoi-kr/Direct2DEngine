@@ -50,7 +50,7 @@ void CAnimation2D::UpdateData()
 {
 	AnimationData data;
 	data = frame_vector_[current_frame_].animation_data;
-	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CB_TYPE::ANIMATE2D);
+	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::ANIMATE2D);
 	cb->SetData(&data, sizeof(AnimationData));
 	cb->SetPipelineStage(PIPELINE_STAGE::PS_PIXEL);
 	cb->UpdateData();
