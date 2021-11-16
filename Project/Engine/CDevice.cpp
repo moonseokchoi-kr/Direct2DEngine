@@ -238,8 +238,9 @@ HRESULT CDevice::CreateBlendState()
 	//ALPHA BLEND
 	D3D11_BLEND_DESC desc = {};
 
-	//투명한 부분에 대한 깊이 값 기록을 안함
-	desc.AlphaToCoverageEnable = true;
+
+	//Alpha Blend
+	desc.AlphaToCoverageEnable = false;
 	desc.IndependentBlendEnable = false;
 	
 	desc.RenderTarget[0].BlendEnable = true;
@@ -256,8 +257,13 @@ HRESULT CDevice::CreateBlendState()
 
 	HR(DEVICE->CreateBlendState(&desc, blend_state_array_[static_cast<UINT>(BLEND_TYPE::ALPHA_BLEND)].GetAddressOf()));
 
+	//Alpha Blend Coverage
+	desc.AlphaToCoverageEnable = true;
+	HR(DEVICE->CreateBlendState(&desc, blend_state_array_[static_cast<UINT>(BLEND_TYPE::ALPHA_BLEND_COVERAGE)].GetAddressOf()));
+	
 	//one one blend
-
+	desc.AlphaToCoverageEnable = false;
+	desc.IndependentBlendEnable = false;
 	desc.RenderTarget[0].BlendEnable = true;
 
 	desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;

@@ -2,6 +2,8 @@
 #define _PARTICLE_
 
 #include "value.fx"
+#include "function.fx"
+#define PARTICLE_TEX tex_0
 
 StructuredBuffer<Particle> g_particle : register(t14);
 
@@ -32,6 +34,7 @@ VERTEX_OUTPUT vs_main(VERTEX_INPUT input)
 struct GEOMETRY_OUTPUT
 {
     float4 position : SV_Position;
+    float4 color : COLOR;
     float2 tex : TEXCOORD;
 };
 
@@ -58,18 +61,23 @@ void gs_main(point VERTEX_OUTPUT input[1], inout TriangleStream<GEOMETRY_OUTPUT>
     output[0].position = float4(viewPos.x - viewScale.x / 2.f, viewPos.y + viewScale.y / 2.f, viewPos.z, 1.f);
     output[0].position = mul(output[0].position, projectionMatrix);
     output[0].tex = float2(0.f, 0.f);
+    output[0].color.rgb = g_particle[input[0].instanceID].color;
     
     output[1].position = float4(viewPos.x + viewScale.x / 2.f, viewPos.y + viewScale.y / 2.f, viewPos.z, 1.f);
     output[1].position = mul(output[1].position, projectionMatrix);
     output[1].tex = float2(1.f, 0.f);
+    output[1].color.rgb = g_particle[input[0].instanceID].color;
+    
     
     output[2].position = float4(viewPos.x + viewScale.x / 2.f, viewPos.y - viewScale.y / 2.f, viewPos.z, 1.f);
     output[2].position = mul(output[2].position, projectionMatrix);
     output[2].tex = float2(1.f, 1.f);
+    output[2].color.rgb = g_particle[input[0].instanceID].color;
     
     output[3].position = float4(viewPos.x - viewScale.x / 2.f, viewPos.y - viewScale.y / 2.f, viewPos.z, 1.f);
     output[3].position = mul(output[3].position, projectionMatrix);
     output[3].tex = float2(0.f, 1.f);
+    output[3].color.rgb = g_particle[input[0].instanceID].color;
     
         
     outputStream.Append(output[0]);
@@ -89,7 +97,8 @@ float4 ps_main(GEOMETRY_OUTPUT input):SV_Target
 {
     float4 outColor = (float4) 0.f;
     
-    outColor = float4(1.0f, 0.f, 0.f, 1.0f);
+    float alpha = PARTICLE_TEX.Sample(ati_sam, input.tex).a;
+    outColor = float4(input.color.rgb, alpha);
     
     return outColor;
 }

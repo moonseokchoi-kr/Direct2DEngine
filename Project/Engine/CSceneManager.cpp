@@ -47,6 +47,17 @@ void CSceneManager::Init()
 	camera->Transform()->SetPosition(Vec3(0.f, 0.f, 0.f));
 	//카메라 1번
 	current_scene_->AddGameObject(camera, 1, true);
+
+	const auto light = new CGameObject;
+	light->AddComponent(new CTransform);
+	light->AddComponent(new CLight2D);
+	light->SetName(L"light_test");
+	light->Transform()->SetPosition(Vec3(0.f, -200.f, 0.f));
+	light->Light2D()->SetLightType(LIGHT_TYPE::POINT);
+	light->Light2D()->SetLightRange(300.f);
+	light->Light2D()->SetLightColor(Vec4(1.f, 1.f, 1.f, 1.f));
+
+	current_scene_->AddGameObject(light, 0, true);
 	//CreatePrefabs();
 	//InitTestMap();
 	
@@ -54,7 +65,7 @@ void CSceneManager::Init()
 
 	particleObject->AddComponent(new CTransform);
 	particleObject->AddComponent(new CParticleSystem);
-
+	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
 	current_scene_->AddGameObject(particleObject, 2, true);
 
 
@@ -135,16 +146,7 @@ void CSceneManager::InitTestMap()
 	//4번 UI
 	current_scene_->AddGameObject(hpBar, 4, true);
 
-	const auto light = new CGameObject;
-	light->AddComponent(new CTransform);
-	light->AddComponent(new CLight2D);
-	light->SetName(L"light_test");
-	light->Transform()->SetPosition(Vec3(0.f, -200.f, 0.f));
-	light->Light2D()->SetLightType(LIGHT_TYPE::POINT);
-	light->Light2D()->SetLightRange(300.f);
-	light->Light2D()->SetLightColor(Vec4(1.f, 1.f, 1.f, 1.f));
 
-	current_scene_->AddGameObject(light, 0, true);
 
 
 

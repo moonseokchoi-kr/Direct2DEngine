@@ -68,6 +68,7 @@ struct Particle
 	Vec3 view_scale;
 	Vec3 view_rotation;
 	Vec3 color;
+	Vec3 direction;
 	float current_time;
 	float max_life_time;
 	int is_active;

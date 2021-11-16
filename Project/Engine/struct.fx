@@ -36,6 +36,7 @@ struct Particle
     float3 viewScale;
     float3 viewRotation;
     float3 color;
+    float3 direction;
     float currnetLifeTime;
     float maxLifeTime;
     int isActive;

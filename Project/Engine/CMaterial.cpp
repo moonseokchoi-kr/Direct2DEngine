@@ -61,10 +61,10 @@ void CMaterial::SetData(SHADER_PARAM param, void* data)
 	case SHADER_PARAM::TEX_ARR_1: 
 	case SHADER_PARAM::TEX_CUBE_0: 
 	case SHADER_PARAM::TEX_CUBE_1: 
-	case SHADER_PARAM::TEX_END:
 		texture_array_[static_cast<UINT>(param) - static_cast<UINT>(SHADER_PARAM::TEX_0)] = static_cast<CTexture*>(data);
-	break;
-	default: ;
+		break;
+	default: 
+		break;
 	}
 }
 

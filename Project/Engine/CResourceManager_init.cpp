@@ -194,7 +194,6 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
 	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_WRITE);
-	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 
 	AddResource(L"particle_shader", stdShader);
 }
@@ -206,10 +205,10 @@ void CResourceManager::CreateDefaultTexture()
 	LoadRes<CTexture>(L"monster", L"texture\\monster.png");
 	LoadRes<CTexture>(L"monster_bullet_red", L"texture\\monster_bullet_red.png");
 	LoadRes<CTexture>(L"monster_bullet_blue", L"texture\\monster_bullet_blue.png");
-
+	LoadRes<CTexture>(L"particle_01", L"texture\\particle\\AlphaCircle.png");
 	wstring contentPath = CPathManager::GetInst()->GetContentPath();
 	CTexture* noise = new CTexture;
-	noise->Load(contentPath + L"texture\\global\\noise_01");
+	noise->Load(contentPath + L"texture\\global\\noise_01.png");
 	g_global.noise_texture_resolution = Vec2((float)noise->GetWidth(), (float)noise->GetHeight());
 	default_tex_map_.insert(make_pair(L"noise_01", noise));
 

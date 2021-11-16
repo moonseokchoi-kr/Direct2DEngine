@@ -65,7 +65,6 @@ void CScene::FinalUpdate()
 
 void CScene::Render()
 {
-	CDevice::GetInst()->ClearTarget();
 
 	for (size_t i = 0; i < layer_array_.size(); ++i)
 	{
@@ -74,8 +73,6 @@ void CScene::Render()
 			layer_array_[i]->Render();
 		}
 	}
-
-	CDevice::GetInst()->Present();
 }
 
 void CScene::AddGameObject(CGameObject* object, UINT layerType, bool bMove)

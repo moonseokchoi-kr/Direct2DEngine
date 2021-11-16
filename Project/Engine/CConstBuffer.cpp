@@ -5,7 +5,7 @@
 #include "CDevice.h"
 CConstBuffer::CConstBuffer()
 	:desc_{}
-	,pipeline_state_(0)
+	,pipeline_stage_(0)
 	,register_num_(0)
 {
 }
@@ -16,37 +16,36 @@ CConstBuffer::~CConstBuffer()
 
 void CConstBuffer::UpdateData()
 {
-	if (pipeline_state_ & PS_VERTEX)
+	if (pipeline_stage_ & PS_VERTEX)
 	{
 		CONTEXT->VSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
-	if (pipeline_state_ & PS_HULL)
+	if (pipeline_stage_ & PS_HULL)
 	{
 		CONTEXT->HSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
-	if (pipeline_state_ & PS_DOMAIN)
+	if (pipeline_stage_ & PS_DOMAIN)
 	{
 		CONTEXT->DSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
-	if (pipeline_state_ & PS_GEOMETRY)
+	if (pipeline_stage_ & PS_GEOMETRY)
 	{
 		CONTEXT->GSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
-	if (pipeline_state_ & PS_PIXEL)
+	if (pipeline_stage_ & PS_PIXEL)
 	{
 		CONTEXT->PSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 
 	}
+	if (pipeline_stage_ & PS_COMPUTE)
+	{
+		CONTEXT->CSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
+	}
 
-}
-
-void CConstBuffer::UpdateDataComputeShdaer()
-{
-	CONTEXT->CSSetConstantBuffers(register_num_, 1, const_buffer_.GetAddressOf());
 }
 
 HRESULT CConstBuffer::Create(const wstring& _strName, UINT _bufferSize, UINT _registerNumber)
@@ -62,6 +61,7 @@ HRESULT CConstBuffer::Create(const wstring& _strName, UINT _bufferSize, UINT _re
 
 	if (FAILED(DEVICE->CreateBuffer(&desc_, nullptr, const_buffer_.GetAddressOf())))
 	{
+		assert(nullptr);
 		return E_FAIL;
 	}
 

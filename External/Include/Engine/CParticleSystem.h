@@ -27,11 +27,28 @@ public:
 private:
     Ptr<CMesh>  particle_mesh_;
     Ptr<CMaterial> particle_material_;
+    
     Ptr<CParticleUpdateShader> particle_update_shader_;
+
+    Ptr<CTexture> particle_texture_;
+
     CStructuredBuffer* particle_buffer_;
     CStructuredBuffer* particle_shared_data_buffer_;
 
     UINT    max_particle_count_;
+    Vec3    spawn_range_;
+    Vec3    min_scale_;
+    Vec3    max_scale_;
+    Vec4    start_color_;
+    Vec4    end_color_;
+    
+    float   particle_min_life_;
+    float   particle_max_life_;
+
+    float   min_speed_;
+    float   max_speed_;
+
+    float   particle_spawn_frequency_;
 
     float   accumulate_time_;
 };

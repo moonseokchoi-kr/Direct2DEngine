@@ -18,6 +18,8 @@ CRenderManager::~CRenderManager()
 
 void CRenderManager::Render()
 {
+	UpdataGlobalData();
+
 	UpdateLight2D();
 
 	CDevice::GetInst()->ClearTarget();
@@ -104,5 +106,4 @@ void CRenderManager::UpdataGlobalData()
 	cb->SetData(&g_global, sizeof(GlobalData));
 	cb->SetPipelineStage(PS_ALL);
 	cb->UpdateData();
-	cb->UpdateDataComputeShdaer();
 }
