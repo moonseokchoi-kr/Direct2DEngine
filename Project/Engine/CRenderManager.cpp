@@ -1,10 +1,15 @@
 #include "pch.h"
 #include "CRenderManager.h"
-
+#include "CResourceManager.h"
 #include "CDevice.h"
+
 #include "CLight2D.h"
 #include "CCamera.h"
 #include "CConstBuffer.h"
+
+
+
+
 CRenderManager::CRenderManager()
 {
 	//메인카메라 자리 선점
@@ -14,6 +19,16 @@ CRenderManager::CRenderManager()
 CRenderManager::~CRenderManager()
 {
 
+}
+
+void CRenderManager::Init()
+{
+	Vec2 resolution = CDevice::GetInst()->GetResolution();
+
+	post_effect_target_ = CResourceManager::GetInst()->CreateTexture(L"post_effect_traget_texture", (UINT)resolution.x, (UINT)resolution.y, D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE, DXGI_FORMAT_R8G8B8A8_UNORM);
+
+	Ptr<CMaterial> post_effect_material = CResourceManager::GetInst()->FindRes<CMaterial>(L"post_effect_material");
+	post_effect_material->SetData(SHADER_PARAM::TEX_0, post_effect_target_.Get());
 }
 
 void CRenderManager::Render()
@@ -26,14 +41,19 @@ void CRenderManager::Render()
 
 	if (nullptr != camera_vector_[0])
 	{
-		camera_vector_[0]->Render();
+		camera_vector_[0]->SeperateRenderObject();
+
+		camera_vector_[0]->RenderFoward();
+		camera_vector_[0]->RenderParticle();
+		camera_vector_[0]->RenderPostEffect();
 	}
 
 	for (size_t i = 1; i < camera_vector_.size(); ++i)
 	{
 		if(nullptr != camera_vector_[i])
 			continue;
-		camera_vector_[i]->Render();
+		camera_vector_[i]->SeperateRenderObject();
+		camera_vector_[i]->RenderFoward();
 	}
 
 	CDevice::GetInst()->Present();
@@ -76,6 +96,12 @@ int CRenderManager::RegisterCamera(CCamera* camera, int cameraIndex)
 			}
 		}
 	}
+}
+
+void CRenderManager::CopyRenderTexture()
+{
+	Ptr<CTexture> rtTex = CResourceManager::GetInst()->FindRes<CTexture>(L"RenderTargetTexture");
+	CONTEXT->CopyResource(post_effect_target_->GetTex2D(), rtTex->GetTex2D());
 }
 
 void CRenderManager::UpdateLight2D()

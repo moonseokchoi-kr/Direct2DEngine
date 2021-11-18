@@ -189,3 +189,11 @@ enum class LIGHT_TYPE
 	POINT,
 	SPOT,
 };
+
+enum class RENDER_TIMING
+{
+	FOWARD,
+	PARTICLE,
+	POST_EFFECT,
+	NONE,
+};

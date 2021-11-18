@@ -8,6 +8,7 @@ CGraphicsShader::CGraphicsShader()
 	,rasterizer_type_(RASTERIZER_TYPE::CULL_BACK)
 	,blend_type_(BLEND_TYPE::DEFAULT)
 	,depth_stencil_type_(DEPTH_STENCIL_TYPE::LESS)
+	,render_timing_(RENDER_TIMING::NONE)
 {
 }
 

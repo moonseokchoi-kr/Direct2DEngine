@@ -21,11 +21,8 @@ struct VS_OUTPUT
 VS_OUTPUT vs_main(VS_INPUT _in)
 {
     VS_OUTPUT output = (VS_OUTPUT) 0.f;
-    float4 worldPos = mul(float4(_in.pos, 1.f), worldMatrix);
-    float4 viewPos = mul(worldPos, viewMatrix);
-    float4 projPos = mul(viewPos, projectionMatrix);
     
-    output.pos = projPos;
+    output.pos = mul(float4(_in.pos, 1.f), worldViewProjectionMatrix);
     output.color = _in.color;
     output.uv = _in.uv;
     
@@ -44,14 +41,14 @@ float4 ps_main(VS_OUTPUT _in) : SV_Target
         if (rangeUV.x < animationUV.x && animationUV.x < rangeUV.x + animation_array[0].size.x && rangeUV.y < animationUV.y && animationUV.y < rangeUV.y + animation_array[0].size.y)
         {
             animationUV += (animation_array[0].leftTop - animation_array[0].offset);
-            return atlas_tex.Sample(ati_sam, animationUV);
+            return atlas_tex.Sample(mip_sam, animationUV);
         } 
         clip(-1);
 
     }
     else
     {
-        outputColor = tex_0.Sample(ati_sam, _in.uv);
+        outputColor = tex_0.Sample(mip_sam, _in.uv);
     }
  
     

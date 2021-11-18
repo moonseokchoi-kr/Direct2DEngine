@@ -19,6 +19,8 @@ public:
 	virtual void UpdateData();
 
 public:
+	RENDER_TIMING GetRenderTiming() { return render_timing_; }
+	void SetRenderTiming(RENDER_TIMING timing) { render_timing_ = timing; }
 	void SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology) { topology_ = topology; }
 	void SetRasterizerType(RASTERIZER_TYPE type) { rasterizer_type_ = type; }
 	void SetBlendType(BLEND_TYPE type) { blend_type_ = type; }
@@ -41,6 +43,7 @@ private:
 	RASTERIZER_TYPE rasterizer_type_;
 	BLEND_TYPE blend_type_;
 	DEPTH_STENCIL_TYPE depth_stencil_type_;
+	RENDER_TIMING render_timing_;
 
 
 	D3D11_PRIMITIVE_TOPOLOGY topology_;

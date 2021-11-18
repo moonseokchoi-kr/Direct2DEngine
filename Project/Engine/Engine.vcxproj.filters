@@ -168,6 +168,9 @@
     <Filter Include="소스 파일\ShaderCode\ComputeShader\Test">
       <UniqueIdentifier>{d38ceda1-58bf-4673-a811-cfc83991e18b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Scripts\Util">
+      <UniqueIdentifier>{4cb95d04-376d-43f8-81a0-ac448dedb56b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -320,6 +323,9 @@
     <ClInclude Include="CParticleUpdateShader.h">
       <Filter>소스 파일\ShaderCode\ComputeShader\ParticleUpdateShader</Filter>
     </ClInclude>
+    <ClInclude Include="CMoveScript.h">
+      <Filter>소스 파일\Scripts\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -403,9 +409,6 @@
     <ClCompile Include="CRenderManager.cpp">
       <Filter>소스 파일\Manager\Render</Filter>
     </ClCompile>
-    <ClCompile Include="CSceneManager.cpp">
-      <Filter>소스 파일\Manager\SceneManager</Filter>
-    </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>소스 파일\Manager\SceneManager\Scene</Filter>
     </ClCompile>
@@ -457,6 +460,12 @@
     <ClCompile Include="CParticleUpdateShader.cpp">
       <Filter>소스 파일\ShaderCode\ComputeShader\ParticleUpdateShader</Filter>
     </ClCompile>
+    <ClCompile Include="CMoveScript.cpp">
+      <Filter>소스 파일\Scripts\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneManager.cpp">
+      <Filter>소스 파일\Manager\SceneManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -492,6 +501,9 @@
       <Filter>소스 파일\ShaderCode\ComputeShader\ParticleUpdateShader</Filter>
     </FxCompile>
     <FxCompile Include="particle_shader.fx">
+      <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
+    </FxCompile>
+    <FxCompile Include="post_effect.fx">
       <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
     </FxCompile>
   </ItemGroup>

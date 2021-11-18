@@ -34,6 +34,7 @@ HRESULT CCore::Init(HWND hWnd, UINT x, UINT y)
 	CKeyManager::GetInst()->Init();
     CTimeManager::GetInst()->Init();
     CResourceManager::GetInst()->Init();
+    CRenderManager::GetInst()->Init();
     CSceneManager::GetInst()->Init();
     
     return S_OK;

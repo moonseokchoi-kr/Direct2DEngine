@@ -9,6 +9,7 @@
 #include "CLight2D.h"
 #include "CAnimator2D.h"
 #include "CPlayerScript.h"
+#include "CMoveScript.h"
 #include "CMonsterScript.h"
 #include "CMonsterHpBar.h"
 #include "CParticleSystem.h"
@@ -45,8 +46,24 @@ void CSceneManager::Init()
 	camera->Camera()->CheckAllLayout();
 	camera->Camera()->SetMainCamera();
 	camera->Transform()->SetPosition(Vec3(0.f, 0.f, 0.f));
+	camera->Camera()->SetProjectionType(PROJECTION_TYPE::ORTHO);
 	//카메라 1번
 	current_scene_->AddGameObject(camera, 1, true);
+
+	const auto background = new CGameObject;
+	background->AddComponent(new CTransform);
+	background->AddComponent(new CMeshRender);
+	background->Transform()->SetPosition(Vec3(0.f, 0.f, 2000.f));
+	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
+	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	CMaterial* backgroundMaterial = new CMaterial;
+	int a = 0;
+	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
+	CResourceManager::GetInst()->AddResource(L"backgoundMaterial", backgroundMaterial);
+	background->MeshRender()->SetMaterial(backgroundMaterial);
+	//boss hp ui
+	current_scene_->AddGameObject(background, 0, true);
 
 	const auto light = new CGameObject;
 	light->AddComponent(new CTransform);
@@ -68,6 +85,18 @@ void CSceneManager::Init()
 	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
 	current_scene_->AddGameObject(particleObject, 2, true);
 
+	CGameObject* postEffectObject = new CGameObject;
+	postEffectObject->AddComponent(new CTransform);
+	postEffectObject->AddComponent(new CMeshRender);
+	postEffectObject->AddComponent(new CMoveScript);
+	postEffectObject->Transform()->SetPosition(Vec3(0.f, 0.f, 400.f));
+	postEffectObject->Transform()->SetScale(Vec3(300.f, 300.f, 0.f));
+	postEffectObject->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	postEffectObject->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"post_effect_material"));
+	postEffectObject->MeshRender()->GetSharedMaterial()->SetData(SHADER_PARAM::TEX_1, CResourceManager::GetInst()->FindRes<CTexture>(L"heat_distortion_effet_noise").Get());
+	postEffectObject->MeshRender()->GetSharedMaterial()->SetData(SHADER_PARAM::TEX_2, CResourceManager::GetInst()->FindRes<CTexture>(L"radial").Get());
+
+	current_scene_->AddGameObject(postEffectObject, 0, true);
 
 }
 
@@ -105,6 +134,7 @@ void CreatePrefabs()
 	CMaterial* bulletMaterial = new CMaterial;
 	bulletMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	bulletMaterial->SetData(SHADER_PARAM::TEX_0, bulletTex.Get());
+
 	CResourceManager::GetInst()->AddResource(L"bulletMaterial", bulletMaterial);
 	playerBullet->MeshRender()->SetMaterial(bulletMaterial);
 
@@ -119,7 +149,7 @@ void CSceneManager::InitTestMap()
 	background->AddComponent(new CTransform);
 	background->AddComponent(new CMeshRender);
 	background->Transform()->SetPosition(Vec3(0.f, 0.f, 500.f));
-	background->Transform()->SetScale(Vec3(10000.f, 10000.f, 1.f));
+	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	CMaterial* backgroundMaterial = new CMaterial;
 	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DMaterial_lights"));
@@ -160,7 +190,7 @@ void CSceneManager::InitTestMap()
 	player->AddComponent(new CCollider2D);
 	player->Transform()->SetPosition(Vec3(0.f, -300.f, 300.f));
 	player->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
-	player->Collider2D()->SetOffsetScale(Vec2(0.10f, 0.15f));
+	player->Collider2D()->SetOffsetScale(Vec2(0.10f, 0.15f)); 
 	player->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	player->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 

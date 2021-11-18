@@ -32,6 +32,7 @@ void CTransform::FinalUpdate()
 	if (GetOwner()->GetParent())
 	{
 		world_matrix_ *= GetOwner()->GetParent()->Transform()->GetWorldMatrix();
+
 	}
 
 }

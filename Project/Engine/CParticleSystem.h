@@ -22,6 +22,9 @@ public:
     
     void Clear();
 public:
+    Ptr<CMesh> GetMesh() { return particle_mesh_; }
+    Ptr<CMaterial> GetMaterial() { return particle_material_; }
+public:
     CLONE(CParticleSystem);
 
 private:

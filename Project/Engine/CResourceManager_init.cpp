@@ -143,7 +143,7 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->CreatePixelShader(strPath, "ps_main");
 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
-
+	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
 	AddResource(L"std2DShader", stdShader);
 
 	//Ptr<CGraphicsShader> ptr = LoadGraphicShader(L"std2DShader", L"shader\\std2d.fx", BLEND_TYPE::ALPHA_BLEND, DEPTH_STENCIL_TYPE::LESS, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -156,6 +156,7 @@ void CResourceManager::CreateDefaultShader()
 
 	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE);
+	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
 	
 	AddResource(L"collder2DShader", stdShader);
 
@@ -165,9 +166,10 @@ void CResourceManager::CreateDefaultShader()
 	strPath += L"shader\\monsterhpshader.fx";
 	stdShader->CreateVertexShader(strPath, "vs_main");
 	stdShader->CreatePixelShader(strPath, "ps_main");
+	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
 
-	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST);
+	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
 
 	AddResource(L"monster_hp_shader", stdShader);
 
@@ -179,6 +181,7 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->CreatePixelShader(strPath, "ps_main");
 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
 	
 
 	AddResource(L"light2D_shader", stdShader);
@@ -194,8 +197,22 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_POINTLIST);
 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
 	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_WRITE);
-
+	stdShader->SetRenderTiming(RENDER_TIMING::PARTICLE);
 	AddResource(L"particle_shader", stdShader);
+
+
+	stdShader = new CGraphicsShader;
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"shader\\post_effect.fx";
+
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+
+	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE);
+	stdShader->SetRenderTiming(RENDER_TIMING::POST_EFFECT);
+	AddResource(L"post_effect_shader", stdShader);
 }
 
 void CResourceManager::CreateDefaultTexture()
@@ -206,6 +223,9 @@ void CResourceManager::CreateDefaultTexture()
 	LoadRes<CTexture>(L"monster_bullet_red", L"texture\\monster_bullet_red.png");
 	LoadRes<CTexture>(L"monster_bullet_blue", L"texture\\monster_bullet_blue.png");
 	LoadRes<CTexture>(L"particle_01", L"texture\\particle\\AlphaCircle.png");
+	LoadRes<CTexture>(L"heat_distortion_effet_noise", L"texture\\posteffect\\noise.png");
+	LoadRes<CTexture>(L"radial", L"texture\\posteffect\\radial.png");
+
 	wstring contentPath = CPathManager::GetInst()->GetContentPath();
 	CTexture* noise = new CTexture;
 	noise->Load(contentPath + L"texture\\global\\noise_01.png");
@@ -221,7 +241,7 @@ void CResourceManager::CreateDefaultTexture()
 void CResourceManager::CreateDefaultMaterial()
 {
 	CMaterial* material = nullptr;
-	int a = 1;
+
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	AddResource(L"std2DMaterial", material);
@@ -232,6 +252,7 @@ void CResourceManager::CreateDefaultMaterial()
 	AddResource(L"std2DMaterial_lights", material);
 
 	//colliderMaterial
+	int a = 1;
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"collder2DShader"));
 	AddResource(L"collider2DMaterial_none", material);
@@ -263,6 +284,10 @@ void CResourceManager::CreateDefaultMaterial()
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"particle_shader"));
 	AddResource(L"particle_material", material);
 	
+
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"post_effect_shader"));
+	AddResource(L"post_effect_material", material);
 }
 
 void CResourceManager::CreateDefaultComputeShader()

@@ -42,8 +42,8 @@ cbuffer MATERIAL : register(b1)
 
 cbuffer GLOBAL : register(b2)
 {
-    float2 g_noise_tex_resolution;
     float2 g_resolution;
+    float2 g_noise_tex_resolution;
     float g_dt;
     float g_accumulate_time;
     float2 g_padding;

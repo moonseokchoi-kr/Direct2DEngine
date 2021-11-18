@@ -24,6 +24,7 @@ CMeshRender::~CMeshRender()
 {
 }
 
+
 void CMeshRender::Render()
 {
 	if (nullptr == current_material_ || nullptr == current_material_->GetShader() || nullptr == mesh_)
