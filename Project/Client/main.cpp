@@ -7,7 +7,7 @@
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 
-#include "CWidgetManager.h"
+#include "WidgetManager.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "Engine/Engine_debug.lib")
@@ -50,7 +50,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     CCore::GetInst()->Progress();
 
-    CWidgetManager::GetInst()->Init(g_hwnd);
+    WidgetManager::GetInst()->Init(g_hwnd);
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
@@ -74,8 +74,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             CCore::GetInst()->Progress();
 
-            CWidgetManager::GetInst()->Update();
-            CWidgetManager::GetInst()->Render();
+            WidgetManager::GetInst()->Update();
+            WidgetManager::GetInst()->Render();
 
             CDevice::GetInst()->Present();
         }

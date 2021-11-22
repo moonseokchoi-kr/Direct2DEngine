@@ -28,6 +28,21 @@
     <Filter Include="ImGui">
       <UniqueIdentifier>{aa4f0f78-1b6f-4bce-81b8-e146cb40157e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI">
+      <UniqueIdentifier>{42c71b4b-0742-459b-97c2-3aa4b9ff0f7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector">
+      <UniqueIdentifier>{2e1c2fbb-192d-4068-ab40-3bcaf2ba67df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\MeshRender">
+      <UniqueIdentifier>{f2247730-31c1-40ff-a64f-7026a1ffc361}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Transform">
+      <UniqueIdentifier>{7816eda7-3102-46ab-9598-307eb7845b4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource">
+      <UniqueIdentifier>{a64c7a5a-36fb-4fed-9bb0-cc443730a87f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -45,10 +60,10 @@
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CWidgetManager.h">
+    <ClInclude Include="WidgetManager.h">
       <Filter>소스 파일\Tool\ImGuiManager</Filter>
     </ClInclude>
-    <ClInclude Include="CWidget.h">
+    <ClInclude Include="Widget.h">
       <Filter>소스 파일\Tool\Widget</Filter>
     </ClInclude>
     <ClInclude Include="imconfig.h">
@@ -75,6 +90,12 @@
     <ClInclude Include="imgui_impl_win32.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="MenuWidget.h">
+      <Filter>소스 파일\Tool\Widget\MenuBar</Filter>
+    </ClInclude>
+    <ClInclude Include="InspectorWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -96,10 +117,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CWidgetManager.cpp">
+    <ClCompile Include="WidgetManager.cpp">
       <Filter>소스 파일\Tool\ImGuiManager</Filter>
     </ClCompile>
-    <ClCompile Include="CWidget.cpp">
+    <ClCompile Include="Widget.cpp">
       <Filter>소스 파일\Tool\Widget</Filter>
     </ClCompile>
     <ClCompile Include="imgui.cpp">
@@ -122,6 +143,12 @@
     </ClCompile>
     <ClCompile Include="imgui_impl_win32.cpp">
       <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\MenuBar</Filter>
+    </ClCompile>
+    <ClCompile Include="InspectorWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

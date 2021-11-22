@@ -163,8 +163,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CWidget.h" />
-    <ClInclude Include="CWidgetManager.h" />
+    <ClInclude Include="InspectorWidget.h" />
+    <ClInclude Include="MenuWidget.h" />
+    <ClInclude Include="Widget.h" />
+    <ClInclude Include="WidgetManager.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="imconfig.h" />
@@ -187,8 +189,10 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CWidget.cpp" />
-    <ClCompile Include="CWidgetManager.cpp" />
+    <ClCompile Include="InspectorWidget.cpp" />
+    <ClCompile Include="MenuWidget.cpp" />
+    <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="WidgetManager.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />

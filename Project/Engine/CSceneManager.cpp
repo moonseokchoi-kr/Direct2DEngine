@@ -80,6 +80,7 @@ void CSceneManager::Init()
 	
 	CGameObject* particleObject = new CGameObject;
 
+	particleObject->SetName(L"particle");
 	particleObject->AddComponent(new CTransform);
 	particleObject->AddComponent(new CParticleSystem);
 	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
@@ -237,4 +238,41 @@ void CSceneManager::InitTestMap()
 
 
 	CCollisionManager::GetInst()->CheckLayer(2, 3);
+}
+
+CGameObject* CSceneManager::FindObjectByName(const wstring& name)
+{
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		const auto layer = current_scene_->GetLayer(i);
+
+		const auto& object_vector = layer->GetLayerObjects();
+
+		for (const auto object : object_vector)
+		{
+			if (object->GetName() == name)
+			{
+				return object;
+			}
+		}
+	}
+	return nullptr;
+}
+
+void CSceneManager::FindObjectByName(const wstring& name, vector<CGameObject*>& object_vector)
+{
+	for (UINT i = 0; i < MAX_LAYER; ++i)
+	{
+		CLayer* layer = current_scene_->GetLayer(i);
+
+		const vector<CGameObject*>& objectVector = layer->GetLayerObjects();
+
+		for (const auto object : objectVector)
+		{
+			if (object->GetName() == name)
+			{
+				object_vector.push_back(object);
+			}
+		}
+	}
 }
