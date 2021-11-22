@@ -6,7 +6,7 @@ class Widget
 {
 public:
 	Widget(const string& name);
-	~Widget();
+	virtual ~Widget();
 
 public:
 	virtual void Update() = 0;

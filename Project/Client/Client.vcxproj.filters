@@ -150,5 +150,8 @@
     <ClCompile Include="InspectorWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector</Filter>
     </ClCompile>
+    <ClCompile Include="simple_math_extern.cpp">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

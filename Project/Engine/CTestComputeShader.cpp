@@ -10,6 +10,7 @@ CTestComputeShader::CTestComputeShader()
 
 CTestComputeShader::~CTestComputeShader()
 {
+	SafeDelete(test_buffer_);
 }
 
 void CTestComputeShader::Excute()

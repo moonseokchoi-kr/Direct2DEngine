@@ -191,6 +191,7 @@
   <ItemGroup>
     <ClCompile Include="InspectorWidget.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
+    <ClCompile Include="simple_math_extern.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="WidgetManager.cpp" />
     <ClCompile Include="imgui.cpp" />

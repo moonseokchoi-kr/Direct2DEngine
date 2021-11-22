@@ -2,6 +2,7 @@
 #include "CResourceManager.h"
 
 CResourceManager::CResourceManager()
+	:resource_array_{}
 {
 
 }
@@ -12,6 +13,7 @@ CResourceManager::~CResourceManager()
 	{
 		Safe_Delete_Map(resource_array_[i]);
 	}
+	Safe_Delete_Map(default_tex_map_);
 }
 
 
