@@ -4,6 +4,7 @@
 #include <Engine/CResource.h>
 
 class CGameObject;
+class ComponentWidget;
 
 class InspectorWidget :
     public Widget
@@ -22,5 +23,6 @@ private:
 private:
     CGameObject* target_object_;
     Ptr<CResource> target_resource_;
+    array<ComponentWidget*, static_cast<UINT>(COMPONENT_TYPE::END)> component_widget_array_;
 };
 

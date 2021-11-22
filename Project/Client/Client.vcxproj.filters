@@ -34,14 +34,17 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector">
       <UniqueIdentifier>{2e1c2fbb-192d-4068-ab40-3bcaf2ba67df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\MeshRender">
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component">
+      <UniqueIdentifier>{c67f000e-fe6e-43c5-bf0f-f77fda40fc94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender">
       <UniqueIdentifier>{f2247730-31c1-40ff-a64f-7026a1ffc361}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Transform">
-      <UniqueIdentifier>{7816eda7-3102-46ab-9598-307eb7845b4a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource">
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Resource">
       <UniqueIdentifier>{a64c7a5a-36fb-4fed-9bb0-cc443730a87f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Transform">
+      <UniqueIdentifier>{7816eda7-3102-46ab-9598-307eb7845b4a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +98,12 @@
     </ClInclude>
     <ClInclude Include="InspectorWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="simple_math_extern.cpp">
       <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Transform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
