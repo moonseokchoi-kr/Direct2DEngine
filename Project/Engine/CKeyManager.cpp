@@ -30,6 +30,7 @@ int g_arrVK[(int)KEY::LAST] =
 	'C',
 	'V',
 	'B',
+	'M',
 	
 	VK_MENU,
 	VK_LCONTROL,

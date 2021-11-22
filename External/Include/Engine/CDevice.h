@@ -9,6 +9,7 @@ class CDevice
 	SINGLE(CDevice);
 public:
 	HRESULT Init(HWND mainHWnd, Vec2 resoultion);
+	void InitRender();
 public:
 	void ClearTarget();
 	void Present();

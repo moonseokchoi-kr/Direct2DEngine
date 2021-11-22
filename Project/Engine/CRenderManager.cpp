@@ -33,6 +33,8 @@ void CRenderManager::Init()
 
 void CRenderManager::Render()
 {
+	CDevice::GetInst()->InitRender();
+
 	UpdataGlobalData();
 
 	UpdateLight2D();
@@ -55,8 +57,6 @@ void CRenderManager::Render()
 		camera_vector_[i]->SeperateRenderObject();
 		camera_vector_[i]->RenderFoward();
 	}
-
-	CDevice::GetInst()->Present();
 
 	camera_vector_.clear();
 	camera_vector_.resize(1);

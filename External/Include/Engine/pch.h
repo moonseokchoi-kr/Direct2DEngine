@@ -26,6 +26,7 @@
 #include <crtdbg.h>
 
 using std::wstring;
+using std::string;
 using std::vector;
 using std::list;
 using std::unordered_map;

@@ -103,6 +103,12 @@ HRESULT CDevice::Init(HWND mainHWnd, Vec2 resoultion)
 	return S_OK;
 }
 
+void CDevice::InitRender()
+{
+	ID3D11RenderTargetView* rtv = render_target_texture_->GetRenderTargetView();
+	context_->OMSetRenderTargets(1, &rtv, depth_stencil_texture_->GetDepthStencilView());
+}
+
 void CDevice::ClearTarget()
 {
 	float color[4] = { 0.0f,0.0f,0.0f,0.0f };
