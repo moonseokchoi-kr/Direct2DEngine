@@ -46,6 +46,24 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Transform">
       <UniqueIdentifier>{7816eda7-3102-46ab-9598-307eb7845b4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Collider2D">
+      <UniqueIdentifier>{9a3877e0-a6e4-4831-9cf0-5e1b92739099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\RigidBody">
+      <UniqueIdentifier>{c1455ce6-62aa-425e-82af-5e8833e13e04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Animation">
+      <UniqueIdentifier>{335f5b30-d8d7-43a5-8c25-5248726fd7f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Particle">
+      <UniqueIdentifier>{cb99acb1-6fed-46b5-8ffc-2a7b8e0b8d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Camera">
+      <UniqueIdentifier>{f2ba3f39-5847-4dae-98f3-6c6bd26de1ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Light2D">
+      <UniqueIdentifier>{9f1e989b-d46f-460b-99d4-67401709e4c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -104,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="TransformWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="TransformWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

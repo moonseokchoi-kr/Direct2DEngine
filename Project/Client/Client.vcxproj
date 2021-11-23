@@ -166,6 +166,7 @@
     <ClInclude Include="ComponentWidget.h" />
     <ClInclude Include="InspectorWidget.h" />
     <ClInclude Include="MenuWidget.h" />
+    <ClInclude Include="MeshRenderWidget.h" />
     <ClInclude Include="TransformWidget.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="WidgetManager.h" />
@@ -194,6 +195,7 @@
     <ClCompile Include="ComponentWidget.cpp" />
     <ClCompile Include="InspectorWidget.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
+    <ClCompile Include="MeshRenderWidget.cpp" />
     <ClCompile Include="simple_math_extern.cpp" />
     <ClCompile Include="TransformWidget.cpp" />
     <ClCompile Include="Widget.cpp" />

@@ -5,7 +5,7 @@
 #include <Engine/CTransform.h>
 
 TransformWidget::TransformWidget()
-	:ComponentWidget("Transform",Vec2(0,150))
+	:ComponentWidget("Transform",Vec2(0,100))
 {
 }
 
@@ -24,71 +24,32 @@ void TransformWidget::Update()
 
 		ImGui::AlignTextToFramePadding();
 
-		// position
-		ImGui::Text("Position");
-		ImGui::SameLine(80);
+		if (ImGui::BeginTable("transform_spilt", 2, ImGuiTableFlags_Resizable|ImGuiTableFlags_NoPadInnerX|ImGuiTableFlags_RowBg,ImVec2(0,0),0.f))
+		{
+			ImGui::TableNextColumn();
+			//Position
+			ImGui::Text("Position");
+			ImGui::TableNextColumn();
+			ImGui::DragFloat3("##InputPos", pos, 0.001f, 0.0f, 0.0f, "%.3f");
+			
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+			// Scale
+			
+			ImGui::Text("Scale");
+			ImGui::TableNextColumn();
+			ImGui::DragFloat3("##InputScale", scale, 0.001f, 0.0f, 0.0f, "%.3f");
 
-		ImGui::Text("X");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(80);
-		ImGui::DragFloat("##InputPosX", &pos.x, 0.001f, 0.f, 0.f, "%.3f");
 
-		ImGui::SameLine();
-		ImGui::Text("Y");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(80);
-		ImGui::DragFloat("##InputPosY", &pos.y, 0.001f, 0.f, 0.f, "%.3f");
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+			// Rotation
+			ImGui::Text("Rotation");
+			ImGui::TableNextColumn();
+			ImGui::DragFloat3("##InputRot", rot, 0.001f, 0.0f, 0.0f, "%.3f");
+			ImGui::EndTable();
+		}
 
-		ImGui::SameLine();
-		ImGui::Text("Z");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(80);
-		ImGui::DragFloat("##InputPosZ", &pos.z, 0.001f, 0.f, 0.f, "%.3f");
-
-		// scale
-		ImGui::Text("Scale");
-		ImGui::SameLine(80);
-
-		ImGui::Text("X");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(80);
-		ImGui::DragFloat("##InputScaleX", &scale.x, 0.001f, 0.f, 0.f, "%.3f");
-
-		ImGui::SameLine();
-		ImGui::Text("Y");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(80);
-		ImGui::DragFloat("##InputScaleY", &scale.y, 0.001f, 0.f, 0.f, "%.3f");
-
-		ImGui::SameLine();
-		ImGui::Text("Z");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(80);
-		ImGui::DragFloat("##InputScaleZ", &scale.z, 0.001f, 0.f, 0.f, "%.3f");
-
-		// rot
-		ImGui::Text("Rotation");
-		ImGui::SameLine(80);
-
-		ImGui::Text("X");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(80);
-		ImGui::DragFloat("##InputRotX", &rot.x, 0.001f, 0.f, 0.f, "%.3f");
-
-		ImGui::SameLine();
-		ImGui::Text("Y");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(80);
-		ImGui::DragFloat("##InputRotY", &rot.y, 0.001f, 0.f, 0.f, "%.3f");
-
-		ImGui::SameLine();
-		ImGui::Text("Z");
-		ImGui::SameLine();
-		ImGui::PushItemWidth(80);
-		ImGui::DragFloat("##InputRotZ", &rot.z, 0.001f, 0.f, 0.f, "%.3f");
-
-		ImGui::Spacing();
-		ImGui::Separator();
 
 		tf->SetPosition(pos);
 		tf->SetScale(scale);

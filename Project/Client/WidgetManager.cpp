@@ -134,7 +134,7 @@ void WidgetManager::CreateWidgets()
 	AddWidget(widget->GetName(), widget);
 
 	widget = new InspectorWidget;
-	CGameObject* target = CSceneManager::GetInst()->FindObjectByName(L"particle");
+	CGameObject* target = CSceneManager::GetInst()->FindObjectByName(L"post_effect");
 	dynamic_cast<InspectorWidget*>(widget)->SetGameObject(target);
 	AddWidget(widget->GetName(), widget);
 }
@@ -143,7 +143,6 @@ void WidgetManager::AddWidget(const string& key, Widget* widget)
 {
 	Widget* wg = FindWidget(key);
 	assert(!wg);
-
 	widget_map_.insert(make_pair(key, widget));
 }
 

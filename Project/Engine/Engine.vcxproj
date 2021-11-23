@@ -232,6 +232,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CTransform.h" />
+    <ClInclude Include="CGameUIManager.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="extern.h" />
     <ClInclude Include="framework.h" />
@@ -285,6 +286,7 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CTransform.cpp" />
+    <ClCompile Include="CGameUIManager.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="pch.cpp">

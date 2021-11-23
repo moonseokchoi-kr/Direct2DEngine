@@ -90,10 +90,11 @@ public:
 
 	~Ptr()
 	{
-		if (nullptr != resource_)
+		if (nullptr != resource_ && resource_->GetReferenceCount() != 0)
 		{
 			resource_->DecreaseReferenceCount();
 		}
+
 	}
 private:
 

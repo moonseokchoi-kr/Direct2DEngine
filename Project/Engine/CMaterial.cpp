@@ -2,7 +2,6 @@
 
 
 #include "CMaterial.h"
-#include "CTexture.h"
 
 #include "CConstBuffer.h"
 #include "CDevice.h"

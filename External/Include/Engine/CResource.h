@@ -34,6 +34,7 @@ protected:
 private:
     void IncreaseReferenceCount() { ++reference_count_; }
     void DecreaseReferenceCount() { --reference_count_; }
+    UINT GetReferenceCount() { return reference_count_; }
 private:
     wstring key_;
     wstring relative_path_;

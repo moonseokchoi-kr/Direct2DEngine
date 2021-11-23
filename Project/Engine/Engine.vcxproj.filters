@@ -171,6 +171,12 @@
     <Filter Include="소스 파일\Scripts\Util">
       <UniqueIdentifier>{4cb95d04-376d-43f8-81a0-ac448dedb56b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Manager\UI">
+      <UniqueIdentifier>{6c461efc-9fed-4166-8c9a-f019f8be4f64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Component\UI">
+      <UniqueIdentifier>{943d3782-b279-4da7-805b-a28edcc4d71c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -326,6 +332,9 @@
     <ClInclude Include="CMoveScript.h">
       <Filter>소스 파일\Scripts\Util</Filter>
     </ClInclude>
+    <ClInclude Include="CGameUIManager.h">
+      <Filter>소스 파일\Manager\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -465,6 +474,9 @@
     </ClCompile>
     <ClCompile Include="CSceneManager.cpp">
       <Filter>소스 파일\Manager\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameUIManager.cpp">
+      <Filter>소스 파일\Manager\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

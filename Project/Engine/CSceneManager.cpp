@@ -87,6 +87,7 @@ void CSceneManager::Init()
 	current_scene_->AddGameObject(particleObject, 2, true);
 
 	CGameObject* postEffectObject = new CGameObject;
+	postEffectObject->SetName(L"post_effect");
 	postEffectObject->AddComponent(new CTransform);
 	postEffectObject->AddComponent(new CMeshRender);
 	postEffectObject->AddComponent(new CMoveScript);

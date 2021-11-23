@@ -12,7 +12,6 @@ ComponentWidget::ComponentWidget(const string& name, Vec2 size)
 
 ComponentWidget::~ComponentWidget()
 {
-	SafeDelete(target_object_);
 }
 
 void ComponentWidget::Start()
@@ -27,5 +26,8 @@ void ComponentWidget::Start()
 
 void ComponentWidget::End()
 {
+	ImGui::Spacing();
+	ImGui::Separator();
+	ImGui::Spacing();
 	ImGui::EndChild();
 }
