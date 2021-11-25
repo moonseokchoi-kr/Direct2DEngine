@@ -87,6 +87,7 @@ template <typename T>
 inline void CResourceManager::AddResource(const wstring& key, T* res)
 {
 	RES_TYPE type = GetResourceType<T>();
+	res->SetName(key);
 	resource_array_[static_cast<UINT>(type)].insert(make_pair(key,res));
 }
 

@@ -12,7 +12,6 @@ InspectorWidget::InspectorWidget()
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::TRANSFORM)] = new TransformWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::MESHRENDER)] = new MeshRenderWidget;
 }
-
 InspectorWidget::~InspectorWidget()
 {
 	Safe_Delete_Array(component_widget_array_);
