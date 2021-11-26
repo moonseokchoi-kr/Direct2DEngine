@@ -27,11 +27,13 @@
 
 using std::wstring;
 using std::string;
+
 using std::vector;
 using std::list;
 using std::unordered_map;
 using std::make_pair;
 using std::array;
+
 using std::to_wstring;
 using std::random_device;
 using std::mt19937;

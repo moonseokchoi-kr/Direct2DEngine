@@ -163,7 +163,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationWidget.h" />
+    <ClInclude Include="ModalListWidget.h" />
     <ClInclude Include="ComponentWidget.h" />
+    <ClInclude Include="imgui_util.h" />
     <ClInclude Include="InspectorWidget.h" />
     <ClInclude Include="MenuWidget.h" />
     <ClInclude Include="MeshRenderWidget.h" />
@@ -192,7 +195,10 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationWidget.cpp" />
+    <ClCompile Include="ModalListWidget.cpp" />
     <ClCompile Include="ComponentWidget.cpp" />
+    <ClCompile Include="imgui_util.cpp" />
     <ClCompile Include="InspectorWidget.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="MeshRenderWidget.cpp" />

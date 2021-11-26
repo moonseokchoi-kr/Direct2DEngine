@@ -126,6 +126,7 @@ Widget* WidgetManager::FindWidget(const string& key)
 #include <Engine/CGameObject.h>
 #include "MenuWidget.h"
 #include "InspectorWidget.h"
+#include "ModalListWidget.h"
 void WidgetManager::CreateWidgets()
 {
 	Widget* widget = nullptr;
@@ -137,6 +138,16 @@ void WidgetManager::CreateWidgets()
 	CGameObject* target = CSceneManager::GetInst()->FindObjectByName(L"post_effect");
 	dynamic_cast<InspectorWidget*>(widget)->SetGameObject(target);
 	AddWidget(widget->GetName(), widget);
+
+	widget = new ModalListWidget;
+	widget->Deactivate();
+	AddWidget(widget->GetName(), widget);
+
+	for (const auto& pair : widget_map_)
+	{
+		pair.second->Init();
+	}
+
 }
 
 void WidgetManager::AddWidget(const string& key, Widget* widget)

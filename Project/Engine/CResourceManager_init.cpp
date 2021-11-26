@@ -247,9 +247,9 @@ void CResourceManager::CreateDefaultMaterial()
 	AddResource(L"std2DMaterial", material);
 
 
-// 	material = new CMaterial;
-// 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"light2D_shader"));
-// 	AddResource(L"std2DMaterial_lights", material);
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"light2D_shader"));
+	AddResource(L"std2DMaterial_lights", material);
 
 	//colliderMaterial
 	int a = 1;

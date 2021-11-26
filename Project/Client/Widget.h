@@ -9,10 +9,11 @@ public:
 	virtual ~Widget();
 
 public:
+	virtual void Init(){}
 	virtual void Update() = 0;
 
 public:
-	void Activate() { is_active_ = true; }
+	virtual void Activate() { is_active_ = true; }
 	void Deactivate() { is_active_ = false; }
 	bool IsActive() { return is_active_; }
 

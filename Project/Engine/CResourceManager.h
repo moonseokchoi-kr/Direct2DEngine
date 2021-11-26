@@ -2,16 +2,15 @@
 #include "CMesh.h"
 #include "CTexture.h"
 #include "CComputeShader.h"
+#include "CPrefab.h"
+#include "CTexture.h"
+#include "CMaterial.h"
+#include "CGraphicsShader.h"
 
 class CResource;
-class CMesh;
-class CGraphicsShader;
-class CTexture;
-class CMaterial;
 class CGameObject;
-class CPrefab;
 class CPathManager;
-class CComputeShader;
+
 
 class CResourceManager :
     public CSingleton<CResourceManager>
@@ -29,7 +28,16 @@ public:
 	Ptr<T> FindRes(const wstring& key);
 	template<typename T>
 	Ptr<T> LoadRes(const wstring& key, const wstring& strRelativePath);
+
+	template<typename T>
+	const unordered_map<wstring, CResource*> GetResource();
+	
 	Ptr<CGraphicsShader> LoadGraphicShader(const wstring& key, const wstring& strPath, BLEND_TYPE blendType = BLEND_TYPE::DEFAULT, DEPTH_STENCIL_TYPE depthType = DEPTH_STENCIL_TYPE::LESS, D3D11_PRIMITIVE_TOPOLOGY topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	
+
+
+
+
 public:
 	void AddPrefab(const wstring& stringKey, CGameObject* prototype);
 
@@ -47,8 +55,11 @@ private:
 
 };
 
+
+
+
 template<typename  T> 
-RES_TYPE GetResourceType()
+inline RES_TYPE GetResourceType()
 {
 	const type_info& info = typeid(T);
 
@@ -82,6 +93,13 @@ RES_TYPE GetResourceType()
 	return type;
 }
 
+
+template<typename T>
+inline const unordered_map<wstring, CResource*> CResourceManager::GetResource()
+{
+	RES_TYPE type = GetResourceType<T>();
+	return resource_array_[(UINT)type];
+};
 
 template <typename T>
 inline void CResourceManager::AddResource(const wstring& key, T* res)

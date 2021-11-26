@@ -9,6 +9,11 @@ public:
 
 public:
     void Update() override;
-    
+
+private:
+    void ChangeMesh(DWORD_PTR instance, DWORD_PTR meshName);
+    void ChangeMaterial(DWORD_PTR instance, DWORD_PTR materialName);
+private:
+
 };
 

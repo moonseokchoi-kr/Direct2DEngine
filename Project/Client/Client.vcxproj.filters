@@ -64,6 +64,12 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Light2D">
       <UniqueIdentifier>{9f1e989b-d46f-460b-99d4-67401709e4c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\PopUp">
+      <UniqueIdentifier>{f33740ed-8b73-4e52-bfed-b92c4f4598c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\imguiUtil">
+      <UniqueIdentifier>{6ce58251-4984-42a3-8f91-a0831aa80a0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -125,6 +131,15 @@
     </ClInclude>
     <ClInclude Include="MeshRenderWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
+    </ClInclude>
+    <ClInclude Include="ModalListWidget.h">
+      <Filter>소스 파일\Tool\Widget\PopUp</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_util.h">
+      <Filter>소스 파일\Tool\imguiUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,6 +206,15 @@
     </ClCompile>
     <ClCompile Include="MeshRenderWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
+    </ClCompile>
+    <ClCompile Include="ModalListWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\PopUp</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_util.cpp">
+      <Filter>소스 파일\Tool\imguiUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
