@@ -163,7 +163,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationTool.h" />
     <ClInclude Include="AnimationWidget.h" />
+    <ClInclude Include="ContentBrowserComboWidget.h" />
     <ClInclude Include="ModalListWidget.h" />
     <ClInclude Include="ComponentWidget.h" />
     <ClInclude Include="imgui_util.h" />
@@ -195,7 +197,9 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationTool.cpp" />
     <ClCompile Include="AnimationWidget.cpp" />
+    <ClCompile Include="ContentBrowserComboWidget.cpp" />
     <ClCompile Include="ModalListWidget.cpp" />
     <ClCompile Include="ComponentWidget.cpp" />
     <ClCompile Include="imgui_util.cpp" />

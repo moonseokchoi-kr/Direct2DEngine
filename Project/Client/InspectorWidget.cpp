@@ -2,6 +2,7 @@
 #include "InspectorWidget.h"
 #include "TransformWidget.h"
 #include "MeshRenderWidget.h"
+#include "AnimationWidget.h"
 #include <Engine/CGameObject.h>
 
 InspectorWidget::InspectorWidget()
@@ -11,6 +12,7 @@ InspectorWidget::InspectorWidget()
 {
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::TRANSFORM)] = new TransformWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::MESHRENDER)] = new MeshRenderWidget;
+	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::ANIMATOR2D)] = new AnimationWidget;
 }
 InspectorWidget::~InspectorWidget()
 {

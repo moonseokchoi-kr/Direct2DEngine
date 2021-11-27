@@ -100,6 +100,29 @@ void CSceneManager::Init()
 
 	current_scene_->AddGameObject(postEffectObject, 0, true);
 
+	//플레이어 생성
+	const auto player = new CGameObject;
+	player->SetName(L"player");
+	player->AddComponent(new CTransform);
+	player->AddComponent(new CMeshRender);
+	player->AddComponent(new CAnimator2D);
+	//player->AddComponent(new CPlayerScript);
+	player->AddComponent(new CCollider2D);
+	player->Transform()->SetPosition(Vec3(0.f, -300.f, 300.f));
+	player->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
+	player->Collider2D()->SetOffsetScale(Vec2(0.10f, 0.15f));
+	player->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	player->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
+
+	Ptr<CMaterial> material = player->MeshRender()->GetMaterial();
+	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"player").Get());
+	Ptr<CTexture> playerTex = CResourceManager::GetInst()->LoadRes<CTexture>(L"player_tex", L"texture\\anim_texture\\sakuya_player.png");
+	player->Animator2D()->CreateAnimation(L"FLY", playerTex, 0, 0, 32, 46, 4, 0.07f);
+	player->Animator2D()->CreateAnimation(L"FLY_LEFT", playerTex, 0, 46, 32, 46, 7, 0.07f);
+	player->Animator2D()->Play(L"FLY", 0, true);
+
+	//플레이어 2번
+	current_scene_->AddGameObject(player, 2, true);
 }
 
 void CSceneManager::Progress()

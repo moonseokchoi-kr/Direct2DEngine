@@ -26,7 +26,7 @@ public:
 
 public:
     CAnimation2D* GetCurrentAnimation() { return current_animation_; }
-
+    const unordered_map<wstring, CAnimation2D*>& GetAnimations() { return animation_map_; }
 private:
     unordered_map<wstring, CAnimation2D*> animation_map_;
     CAnimation2D* current_animation_;

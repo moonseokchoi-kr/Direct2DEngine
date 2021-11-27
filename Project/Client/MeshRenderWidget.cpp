@@ -7,7 +7,7 @@
 #include <Engine/CMaterial.h>
 #include <Engine/CResourceManager.h>
 MeshRenderWidget::MeshRenderWidget()
-	:ComponentWidget("MeshRender", Vec2(0.f,150.f))
+	:ComponentWidget("MeshRender", Vec2(0.f,100.f))
 {
 }
 
@@ -46,7 +46,7 @@ void MeshRenderWidget::Update()
 					{
 						WideCharToMultiByte(CP_ACP, 0, pair.first.c_str(), -1, szBuffer.data(), (int)pair.first.size(), nullptr, nullptr);
 						listWidget->AddItem(szBuffer.data());
-						if(GetTarget()->MeshRender()->GetMesh()->GetName() == pair.first)
+						if(nullptr != mesh && mesh->GetName() == pair.first)
 							listWidget->SetCurrentIndex(count);
 						szBuffer.fill(0);
 						++count;

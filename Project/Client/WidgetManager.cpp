@@ -5,6 +5,7 @@
 #include "imgui_impl_win32.h"
 #include "Widget.h"
 
+
 #include <Engine/CKeyManager.h>
 
 WidgetManager::WidgetManager()
@@ -127,6 +128,7 @@ Widget* WidgetManager::FindWidget(const string& key)
 #include "MenuWidget.h"
 #include "InspectorWidget.h"
 #include "ModalListWidget.h"
+#include "AnimationTool.h"
 void WidgetManager::CreateWidgets()
 {
 	Widget* widget = nullptr;
@@ -135,13 +137,18 @@ void WidgetManager::CreateWidgets()
 	AddWidget(widget->GetName(), widget);
 
 	widget = new InspectorWidget;
-	CGameObject* target = CSceneManager::GetInst()->FindObjectByName(L"post_effect");
+	CGameObject* target = CSceneManager::GetInst()->FindObjectByName(L"player");
 	dynamic_cast<InspectorWidget*>(widget)->SetGameObject(target);
 	AddWidget(widget->GetName(), widget);
 
 	widget = new ModalListWidget;
 	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
+
+	widget = new AnimationTool;
+	widget->Deactivate();
+	AddWidget(widget->GetName(), widget);
+
 
 	for (const auto& pair : widget_map_)
 	{

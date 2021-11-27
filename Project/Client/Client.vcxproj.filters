@@ -70,6 +70,15 @@
     <Filter Include="소스 파일\Tool\imguiUtil">
       <UniqueIdentifier>{6ce58251-4984-42a3-8f91-a0831aa80a0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\Widget">
+      <UniqueIdentifier>{6c1821ea-1068-4144-a142-7a9220667302}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool">
+      <UniqueIdentifier>{2284f809-db65-495b-86c3-617d0fa9308c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\Animation">
+      <UniqueIdentifier>{ad4692c1-7fc6-42af-8a18-caf2c4a05666}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -140,6 +149,12 @@
     </ClInclude>
     <ClInclude Include="AnimationWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="ContentBrowserComboWidget.h">
+      <Filter>소스 파일\Tool\Widget\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationTool.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -215,6 +230,12 @@
     </ClCompile>
     <ClCompile Include="AnimationWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentBrowserComboWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationTool.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

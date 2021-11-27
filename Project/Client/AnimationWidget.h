@@ -1,7 +1,17 @@
 #pragma once
-#include "Widget.h"
-class AnimationWidget :
-    public Widget
-{
-};
+#include "ComponentWidget.h"
 
+class AnimationWidget :
+    public ComponentWidget
+{
+public:
+    AnimationWidget();
+    ~AnimationWidget();
+public:
+    void Init() override;
+    void Update() override;
+
+private:
+    void ChangeAnimation(DWORD_PTR instance, DWORD_PTR animationName);
+
+};

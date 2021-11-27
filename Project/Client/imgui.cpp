@@ -9173,11 +9173,11 @@ bool ImGui::BeginPopupEx(ImGuiID id, ImGuiWindowFlags flags)
         ImFormatString(name, IM_ARRAYSIZE(name), "##Popup_%08x", id); // Not recycling, so we can close/open during the same frame
 
     flags |= ImGuiWindowFlags_Popup | ImGuiWindowFlags_NoDocking;
-    bool is_open = Begin(name, NULL, flags);
-    if (!is_open) // NB: Begin can return false when the popup is completely clipped (e.g. zero size display)
+    bool is_open_ = Begin(name, NULL, flags);
+    if (!is_open_) // NB: Begin can return false when the popup is completely clipped (e.g. zero size display)
         EndPopup();
 
-    return is_open;
+    return is_open_;
 }
 
 bool ImGui::BeginPopup(const char* str_id, ImGuiWindowFlags flags)
@@ -9215,15 +9215,15 @@ bool ImGui::BeginPopupModal(const char* name, bool* p_open, ImGuiWindowFlags fla
     }
 
     flags |= ImGuiWindowFlags_Popup | ImGuiWindowFlags_Modal | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoDocking;
-    const bool is_open = Begin(name, p_open, flags);
-    if (!is_open || (p_open && !*p_open)) // NB: is_open can be 'false' when the popup is completely clipped (e.g. zero size display)
+    const bool is_open_ = Begin(name, p_open, flags);
+    if (!is_open_ || (p_open && !*p_open)) // NB: is_open can be 'false' when the popup is completely clipped (e.g. zero size display)
     {
         EndPopup();
-        if (is_open)
+        if (is_open_)
             ClosePopupToLevel(g.BeginPopupStack.Size, true);
         return false;
     }
-    return is_open;
+    return is_open_;
 }
 
 void ImGui::EndPopup()

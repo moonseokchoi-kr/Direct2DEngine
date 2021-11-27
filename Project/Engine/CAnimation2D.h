@@ -34,8 +34,8 @@ public:
 	}
 
 	bool IsFinish() { return animation_finish_; }
-
-	int GetCurrentFrame() { return current_frame_; }
+	UINT GetCurrentFrame() { return current_frame_; }
+	UINT GetMaxFrameCount(){ return frame_vector_.size(); }
 	const AnimationFrame& GetAnimationFrameInfo() { return frame_vector_[current_frame_]; }
 private:
 	vector<AnimationFrame> frame_vector_;
