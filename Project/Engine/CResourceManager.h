@@ -6,10 +6,10 @@
 #include "CTexture.h"
 #include "CMaterial.h"
 #include "CGraphicsShader.h"
+#include "CPathManager.h"
 
 class CResource;
 class CGameObject;
-class CPathManager;
 
 
 class CResourceManager :

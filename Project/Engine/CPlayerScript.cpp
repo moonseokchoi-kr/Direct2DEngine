@@ -109,7 +109,7 @@ void CPlayerScript::UpdateAnimation()
 	
 		if (moveDir == -1)
 		{
-			if (GetAnimator2D()->GetCurrentAnimation()->GetCurrentFrame() < 4)
+			if (GetAnimator2D()->GetCurrentAnimation()->GetCurrentFrameIndex() < 4)
 			{
 				return;
 			}

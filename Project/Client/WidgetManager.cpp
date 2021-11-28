@@ -128,6 +128,7 @@ Widget* WidgetManager::FindWidget(const string& key)
 #include "MenuWidget.h"
 #include "InspectorWidget.h"
 #include "ModalListWidget.h"
+#include "AtlasTextureTool.h"
 #include "AnimationTool.h"
 void WidgetManager::CreateWidgets()
 {
@@ -146,6 +147,10 @@ void WidgetManager::CreateWidgets()
 	AddWidget(widget->GetName(), widget);
 
 	widget = new AnimationTool;
+	widget->Deactivate();
+	AddWidget(widget->GetName(), widget);
+
+	widget = new AtlasTextureTool;
 	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
 

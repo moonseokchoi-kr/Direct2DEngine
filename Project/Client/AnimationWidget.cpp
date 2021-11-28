@@ -54,7 +54,7 @@ void AnimationWidget::Update()
 					}
 				}
 
-				listWidget->SetCaption("Select Mesh");
+				listWidget->SetCaption("Select Animation");
 				listWidget->SetCallbackFunc(this, (MODAL_LIST_CALLBACK)&AnimationWidget::ChangeAnimation);
 				listWidget->Activate();
 			}
@@ -66,7 +66,7 @@ void AnimationWidget::Update()
 
 			ImGui::Text("Current Frame");
 			ImGui::TableNextColumn();
-			int frame = animation->GetCurrentFrame();
+			int frame = animation->GetCurrentFrameIndex();
 			if (ImGui::InputInt("##animation_frame", &frame,1,100,ImGuiInputTextFlags_ReadOnly))
 			{
 				if(frame<0)
@@ -88,7 +88,9 @@ void AnimationWidget::Update()
 		if (ImGui::Button("Create New", ImVec2(100, 0)))
 		{
 			AnimationTool* tool = dynamic_cast<AnimationTool*>(WidgetManager::GetInst()->FindWidget("animation_tool"));
+			tool->SetTargetAnimator(GetTarget()->Animator2D());
 			tool->Activate();
+			
 		}
 	}
 	End();

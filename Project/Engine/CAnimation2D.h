@@ -34,9 +34,12 @@ public:
 	}
 
 	bool IsFinish() { return animation_finish_; }
-	UINT GetCurrentFrame() { return current_frame_; }
+	UINT GetCurrentFrameIndex() { return current_frame_; }
 	UINT GetMaxFrameCount(){ return frame_vector_.size(); }
-	const AnimationFrame& GetAnimationFrameInfo() { return frame_vector_[current_frame_]; }
+	void SetCurrentFrameData(const AnimationFrame& data);
+	const AnimationFrame& GetCurrentFrameData() { return frame_vector_[current_frame_]; }
+	void Clear();
+	void ClearFrame(int index);
 private:
 	vector<AnimationFrame> frame_vector_;
 	CAnimator2D* owner_;

@@ -11,6 +11,7 @@
 class CResource;
 class CGameObject;
 
+
 class CResourceManager :
     public CSingleton<CResourceManager>
 {

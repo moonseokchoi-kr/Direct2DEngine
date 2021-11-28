@@ -77,6 +77,7 @@ void CAnimation2D::Create(const wstring& animationName, Ptr<CTexture> texture, U
 
 		frame.animation_data.size = Vec2((float)sizeX / width, (float)sizeY / height);
 		frame.animation_data.full_size = frame.animation_data.size * 2.f;
+
 		frame.animation_data.left_top = Vec2((float)ltX / width, (float)ltY / height);
 		frame.animation_data.left_top -= frame.animation_data.size / 2.f;
 
@@ -84,4 +85,34 @@ void CAnimation2D::Create(const wstring& animationName, Ptr<CTexture> texture, U
 
 		frame_vector_.push_back(frame);
 	}
+}
+
+void CAnimation2D::Clear()
+{
+	frame_vector_.clear();
+}
+
+void CAnimation2D::ClearFrame(int index)
+{
+	frame_vector_.erase(frame_vector_.begin() + index);
+	if (current_frame_)
+		current_frame_ -= 1;
+	else
+		current_frame_ = 0;
+}
+
+void CAnimation2D::SetCurrentFrameData(const AnimationFrame& data)
+{
+	AnimationFrame current_frame = GetCurrentFrameData();
+	
+	current_frame.animation_data.size = data.animation_data.size;
+	current_frame.animation_data.full_size = data.animation_data.size * 2.f;
+	
+	current_frame.animation_data.left_top = data.animation_data.left_top;
+	current_frame.animation_data.left_top -= data.animation_data.size / 2.f;
+
+	current_frame.animation_data.offset =data.animation_data.offset;
+	current_frame.duration = data.duration;
+	
+	frame_vector_[current_frame_] = current_frame;
 }

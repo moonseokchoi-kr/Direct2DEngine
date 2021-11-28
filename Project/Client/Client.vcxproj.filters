@@ -79,6 +79,9 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\Animation">
       <UniqueIdentifier>{ad4692c1-7fc6-42af-8a18-caf2c4a05666}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\Atlas">
+      <UniqueIdentifier>{19d32874-052b-43cc-8b1e-1c96e74e1940}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -155,6 +158,12 @@
     </ClInclude>
     <ClInclude Include="AnimationTool.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="AtlasTextureTool.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider2DWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Collider2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +245,12 @@
     </ClCompile>
     <ClCompile Include="AnimationTool.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="AtlasTextureTool.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider2DWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Collider2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

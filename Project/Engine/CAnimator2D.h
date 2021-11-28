@@ -21,15 +21,17 @@ public:
     void CreateAnimation(const wstring& animName, Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration);
     CAnimation2D* FindAnimation(const wstring& animationName);
     void Play(const wstring& animationName, UINT startFrame = 0, bool repeat = false);
+    void AddAnimation(CAnimation2D* animtion);
     //void Stop()
     //void Pause()
 
 public:
-    CAnimation2D* GetCurrentAnimation() { return current_animation_; }
+    CAnimation2D* GetCurrentAnimation() { return animation_; }
+    bool IsRepeat() { return animation_repeat_; }
     const unordered_map<wstring, CAnimation2D*>& GetAnimations() { return animation_map_; }
 private:
     unordered_map<wstring, CAnimation2D*> animation_map_;
-    CAnimation2D* current_animation_;
+    CAnimation2D* animation_;
     bool animation_repeat_;
 };
 
