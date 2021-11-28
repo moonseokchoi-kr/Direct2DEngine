@@ -129,6 +129,7 @@ Widget* WidgetManager::FindWidget(const string& key)
 #include "InspectorWidget.h"
 #include "ModalListWidget.h"
 #include "AtlasTextureTool.h"
+#include "HirarchyViewWidget.h"
 #include "AnimationTool.h"
 void WidgetManager::CreateWidgets()
 {
@@ -138,7 +139,7 @@ void WidgetManager::CreateWidgets()
 	AddWidget(widget->GetName(), widget);
 
 	widget = new InspectorWidget;
-	CGameObject* target = CSceneManager::GetInst()->FindObjectByName(L"player");
+	CGameObject* target = CSceneManager::GetInst()->FindObjectByName(L"camera");
 	dynamic_cast<InspectorWidget*>(widget)->SetGameObject(target);
 	AddWidget(widget->GetName(), widget);
 
@@ -152,6 +153,10 @@ void WidgetManager::CreateWidgets()
 
 	widget = new AtlasTextureTool;
 	widget->Deactivate();
+	AddWidget(widget->GetName(), widget);
+
+	widget = new HirarchyViewWidget;
+	widget->Activate();
 	AddWidget(widget->GetName(), widget);
 
 

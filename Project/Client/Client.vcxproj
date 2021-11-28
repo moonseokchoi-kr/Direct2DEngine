@@ -166,8 +166,10 @@
     <ClInclude Include="AnimationTool.h" />
     <ClInclude Include="AnimationWidget.h" />
     <ClInclude Include="AtlasTextureTool.h" />
+    <ClInclude Include="CameraWidget.h" />
     <ClInclude Include="Collider2DWidget.h" />
     <ClInclude Include="ContentBrowserComboWidget.h" />
+    <ClInclude Include="HirarchyViewWidget.h" />
     <ClInclude Include="ModalListWidget.h" />
     <ClInclude Include="ComponentWidget.h" />
     <ClInclude Include="imgui_util.h" />
@@ -202,8 +204,10 @@
     <ClCompile Include="AnimationTool.cpp" />
     <ClCompile Include="AnimationWidget.cpp" />
     <ClCompile Include="AtlasTextureTool.cpp" />
+    <ClCompile Include="CameraWidget.cpp" />
     <ClCompile Include="Collider2DWidget.cpp" />
     <ClCompile Include="ContentBrowserComboWidget.cpp" />
+    <ClCompile Include="HirarchyViewWidget.cpp" />
     <ClCompile Include="ModalListWidget.cpp" />
     <ClCompile Include="ComponentWidget.cpp" />
     <ClCompile Include="imgui_util.cpp" />

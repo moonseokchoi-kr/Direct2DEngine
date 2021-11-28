@@ -19,10 +19,12 @@
 
 CCamera::CCamera()
 	:CComponent(COMPONENT_TYPE::CAMERA)
-	, angle_of_view_y_(XM_PI/2.f)
+	, angle_of_view_y_(XM_PI / 2.f)
 	, far_z_(10000.f)
+	, scale_(1.f)
 	, projection_type_(PROJECTION_TYPE::PERSPECTIVE)
 	, camera_index_(-1)
+	
 {
 }
 
@@ -73,7 +75,7 @@ void CCamera::FinalUpdate()
 	}
 	else if(PROJECTION_TYPE::ORTHO == projection_type_)
 	{
-		projection_matrix_ = XMMatrixOrthographicLH(resolution.x, resolution.y, 1.f, far_z_);
+		projection_matrix_ = XMMatrixOrthographicLH(resolution.x * 1/scale_, resolution.y * 1/scale_, 1.f, far_z_);
 	}
 
 	camera_index_ = CRenderManager::GetInst()->RegisterCamera(this, camera_index_);

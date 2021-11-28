@@ -41,6 +41,7 @@ void CSceneManager::Init()
 	current_scene_ = new CScene;
 	//Ä«¸Þ¶ó
 	const auto camera = new CGameObject;
+	camera->SetName(L"camera");
 	camera->AddComponent(new CTransform);
 	camera->AddComponent(new CCamera);
 	camera->Camera()->CheckAllLayout();

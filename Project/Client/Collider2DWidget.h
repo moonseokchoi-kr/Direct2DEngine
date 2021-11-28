@@ -9,5 +9,8 @@ public:
 public:
 	void Init() override;
 	void Update() override;
+
+private:
+	Vec3 CreateControlPanel(const string& label, Vec3 value);
 };
 

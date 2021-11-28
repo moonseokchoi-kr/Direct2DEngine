@@ -27,7 +27,7 @@ void AtlasTextureTool::Update()
 {
 	// Child 2: rounded border
 	ImGui::SetNextWindowSize(ImVec2(0, 512));
-	if(ImGui::Begin("Atlas Editor", &is_open_, window_flags_))
+	if(ImGui::Begin("Atlas Editor", &is_active_, window_flags_))
 	{
 		ShowMenuBar();
 		if (ImGui::BeginTable("##rectSize", 2, ImGuiTableFlags_Resizable))

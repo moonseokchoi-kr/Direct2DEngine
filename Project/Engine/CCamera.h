@@ -26,6 +26,15 @@ public:
     void SetProjectionType(PROJECTION_TYPE type) { projection_type_ = type; }
     void CheckAllLayout() { layer_check_out_ = 0xffffffff; }
     void SetMainCamera() { camera_index_ = 0; }
+
+    PROJECTION_TYPE GetProjectionType() { return projection_type_; }
+    float GetFarZ() { return far_z_; }
+    float GetAovY() { return angle_of_view_y_; }
+    float GetScale() { return scale_; }
+    void SetScale(float scale) { scale_ = scale; }
+    void SetFarZ(float z) { far_z_ = z; }
+    void SetAovY(float aov) { angle_of_view_y_ = aov; }
+    
 public:
     CLONE(CCamera);
 
@@ -37,9 +46,9 @@ private:
     vector<CGameObject*> particle_object_vector_;
     vector<CGameObject*> post_effect_vector_;
 
-
     float far_z_;
     float angle_of_view_y_;
+    float scale_;
 
     UINT layer_check_out_;
 

@@ -42,7 +42,7 @@ void AnimationTool::Update()
 		animation_ = new CAnimation2D;
 		animation_->Create(L"animation", atlas_tool_->GetAtlas(), 0, 0, 0, 0, 1, 0.1f);
 	}
-	if(ImGui::Begin(label_.c_str(), &is_open_ , window_flags_))
+	if(ImGui::Begin(label_.c_str(), &is_active_ , window_flags_))
 	{
 		ShowMenuBar();
 		ShowAnimationEditWidget();
