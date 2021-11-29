@@ -11,6 +11,7 @@ CAnimation2D::CAnimation2D()
 	,animation_finish_(false)
 	,accumulated_time_(0.f)
 {
+	animation_back_board_ = Vec2(300.f, 300.f);
 }
 
 CAnimation2D::CAnimation2D(const CAnimation2D& origin)
@@ -77,7 +78,6 @@ void CAnimation2D::Create(const wstring& animationName, Ptr<CTexture> texture, U
 
 		frame.animation_data.size = Vec2((float)sizeX / width, (float)sizeY / height);
 		frame.animation_data.full_size = frame.animation_data.size * 2.f;
-
 		frame.animation_data.left_top = Vec2((float)ltX / width, (float)ltY / height);
 		frame.animation_data.left_top -= frame.animation_data.size / 2.f;
 
@@ -85,6 +85,28 @@ void CAnimation2D::Create(const wstring& animationName, Ptr<CTexture> texture, U
 
 		frame_vector_.push_back(frame);
 	}
+}
+
+void CAnimation2D::CreateFrame(Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration)
+{
+
+	atlas_texture_ = atlasTexture;
+
+	float width = (float)atlas_texture_->GetWidth();
+	float height = (float)atlas_texture_->GetHeight();
+
+	AnimationFrame frame = {};
+
+
+	UINT ltX = leftTopX;
+	UINT ltY = leftTopY;
+	//TODO: 최대사이즈에 맞게 렌더링하도록 변경
+	frame.animation_data.size = Vec2((float)sizeX / width, (float)sizeY / height);
+	frame.animation_data.full_size = Vec2(animation_back_board_.x / width, animation_back_board_.y / height);
+	frame.animation_data.left_top = Vec2((float)ltX / width, (float)ltY / height);
+	frame.duration = duration;
+
+	frame_vector_.push_back(frame);
 }
 
 void CAnimation2D::Clear()
@@ -104,15 +126,21 @@ void CAnimation2D::ClearFrame(int index)
 void CAnimation2D::SetCurrentFrameData(const AnimationFrame& data)
 {
 	AnimationFrame current_frame = GetCurrentFrameData();
-	
+	float width = (float)atlas_texture_->GetWidth();
+	float height = (float)atlas_texture_->GetHeight();
 	current_frame.animation_data.size = data.animation_data.size;
-	current_frame.animation_data.full_size = data.animation_data.size * 2.f;
+	current_frame.animation_data.full_size = Vec2(animation_back_board_.x/ width,animation_back_board_.y/height);
 	
 	current_frame.animation_data.left_top = data.animation_data.left_top;
-	current_frame.animation_data.left_top -= data.animation_data.size / 2.f;
-
 	current_frame.animation_data.offset =data.animation_data.offset;
 	current_frame.duration = data.duration;
 	
 	frame_vector_[current_frame_] = current_frame;
+}
+
+void CAnimation2D::SetBackBoard(Vec2 back_borad)
+{
+	animation_back_board_ = back_borad;
+	for (auto& frame : frame_vector_)
+		frame.animation_data.full_size = back_borad;
 }

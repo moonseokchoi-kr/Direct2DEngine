@@ -118,8 +118,8 @@ void CSceneManager::Init()
 	Ptr<CMaterial> material = player->MeshRender()->GetMaterial();
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"player").Get());
 	Ptr<CTexture> playerTex = CResourceManager::GetInst()->LoadRes<CTexture>(L"player_tex", L"texture\\anim_texture\\sakuya_player.png");
-	player->Animator2D()->CreateAnimation(L"FLY", playerTex, 0, 0, 32, 46, 4, 0.07f);
-	player->Animator2D()->CreateAnimation(L"FLY_LEFT", playerTex, 0, 46, 32, 46, 7, 0.07f);
+	player->Animator2D()->CreateAnimation(L"FLY", playerTex, 0, 0, 32, 48, 4, 0.07f);
+	player->Animator2D()->CreateAnimation(L"FLY_LEFT", playerTex, 0, 48, 32, 48, 7, 0.07f);
 	player->Animator2D()->Play(L"FLY", 0, true);
 
 	//플레이어 2번

@@ -20,7 +20,7 @@ public:
 
 public:
 	void Create(const wstring& animName, Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration);
-
+	void CreateFrame(Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration);
 public:
 	void SetCurrentFrame(UINT currentFrame)
 	{
@@ -36,7 +36,11 @@ public:
 	bool IsFinish() { return animation_finish_; }
 	UINT GetCurrentFrameIndex() { return current_frame_; }
 	UINT GetMaxFrameCount(){ return frame_vector_.size(); }
+	
 	void SetCurrentFrameData(const AnimationFrame& data);
+	Vec2 GetBackBoard() { return animation_back_board_; }
+	void SetBackBoard(Vec2 back_borad);
+
 	const AnimationFrame& GetCurrentFrameData() { return frame_vector_[current_frame_]; }
 	void Clear();
 	void ClearFrame(int index);
@@ -47,7 +51,7 @@ private:
 	int current_frame_;
 	bool animation_finish_;
 	float accumulated_time_;
-
+	Vec2 animation_back_board_;
 	friend class CAnimator2D;
 };
 
