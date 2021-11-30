@@ -19,5 +19,6 @@ public:
     void FindObjectByName(const wstring& name, vector<CGameObject*>& object_vector);
 private:
     CScene* current_scene_;
+    SCENE_MODE scene_mode_;
 };
 

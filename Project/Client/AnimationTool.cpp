@@ -3,6 +3,7 @@
 #include "imgui_internal.h"
 #include "WidgetManager.h"
 #include "AtlasTextureTool.h"
+#include "AnimationOffsetTool.h"
 
 #include <Engine/CResourceManager.h>
 #include <Engine/CKeyManager.h>
@@ -13,14 +14,16 @@
 //save를 누르면 애니메이터에 저장
 AnimationTool::AnimationTool()
 	:Widget("animation_tool")
-	,is_open_(false)
-	,menu_selected_(false)
-	,play_(false)
-	,label_("AnimationTool")
-	,zoom_(1.0f)
-	,target_animator_(nullptr)
-	,window_flags_(0)
-	,current_index_(0)
+	, is_open_(false)
+	, menu_selected_(false)
+	, play_(false)
+	, label_("AnimationTool")
+	, zoom_(1.0f)
+	, target_animator_(nullptr)
+	, offset_tool_(nullptr)
+	, atlas_tool_(nullptr)
+	, window_flags_(0)
+	, current_index_(0)
 {
 }
 
@@ -31,6 +34,7 @@ AnimationTool::~AnimationTool()
 void AnimationTool::Init()
 {
 	atlas_tool_ = dynamic_cast<AtlasTextureTool*>(WidgetManager::GetInst()->FindWidget("atlas_editor"));
+	offset_tool_ = dynamic_cast<AnimationOffsetTool*>(WidgetManager::GetInst()->FindWidget("animation_offset_tool"));
 	window_flags_ = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_MenuBar;
 }
 
@@ -43,13 +47,13 @@ void AnimationTool::Update()
 		animation_ = new CAnimation2D;
 		animation_->SetName(L"animation");
 		animation_->CreateFrame(atlas_tool_->GetAtlas(), 0, 0, 0, 0, 1, 0.1f);
-		current_frame = animation_->GetCurrentFrameData();
+		current_frame_ = animation_->GetCurrentFrameData();
 	}
-	if(ImGui::Begin(label_.c_str(), &is_active_ , window_flags_))
+	if (ImGui::Begin(label_.c_str(), &is_active_, window_flags_))
 	{
 		ShowMenuBar();
 		ShowAnimationEditWidget();
-		ImGui::SameLine(ImGui::GetContentRegionAvail().x * 0.6f+10);
+		ImGui::SameLine(ImGui::GetContentRegionAvail().x * 0.6f + 10);
 		ShowAnimationDetailSettingPanel();
 		ShowPlayButton();
 		ImGui::End();
@@ -59,19 +63,19 @@ void AnimationTool::Update()
 		Deactivate();
 		ImGui::End();
 	}
-	
-	if(nullptr != animation_ && target_animator_->GetCurrentAnimation() != animation_)
-		animation_->SetCurrentFrameData(current_frame);
+
+	if (nullptr != animation_ && target_animator_->GetCurrentAnimation() != animation_)
+		animation_->SetCurrentFrameData(current_frame_);
 	if (nullptr != animation_ && play_)
 	{
 		acc_time_ += fDT;
 
-		if (current_frame.duration < acc_time_)
+		if (current_frame_.duration < acc_time_)
 		{
 			++current_index_;
 			animation_->SetCurrentFrame(current_index_);
 
-			if (animation_->GetMaxFrameCount() <= current_index_)
+			if (animation_->GetMaxFrameCount() <= (UINT)current_index_)
 			{
 				current_index_ = 0;
 				play_ = false;
@@ -79,10 +83,9 @@ void AnimationTool::Update()
 				animation_->SetCurrentFrame(current_index_);
 				return;
 			}
-			current_frame = animation_->GetCurrentFrameData();
-			if(current_frame.animation_data.full_size == current_frame.animation_data.size*2.f)
-				current_frame.animation_data.left_top += current_frame.animation_data.size / 2.f;
-			acc_time_ -= current_frame.duration;
+			current_frame_ = animation_->GetCurrentFrameData();
+			current_frame_.animation_data.left_top += (current_frame_.animation_data.full_size - current_frame_.animation_data.size) / 2.f;
+			acc_time_ -= current_frame_.duration;
 		}
 	}
 }
@@ -132,7 +135,7 @@ void AnimationTool::ShowAnimationEditWidget()
 			ImVec2 canvas_p1 = ImVec2(canvas_p0.x + canvas_sz.x, canvas_p0.y + canvas_sz.y);
 			ImVec2 canvas_center = ImVec2(canvas_p0.x + canvas_sz.x / 2.f, canvas_p0.y + canvas_sz.y / 2.f);
 
-			
+
 			// Draw border and background color
 			ImGuiIO& io = ImGui::GetIO();
 			ImDrawList* draw_list = ImGui::GetWindowDrawList();
@@ -157,13 +160,16 @@ void AnimationTool::ShowAnimationEditWidget()
 // 				if (ImGui::MenuItem("Remove all", NULL, false, points.Size > 0)) { points.clear(); }
 // 				ImGui::EndPopup();
 // 			}
+			static ImVec2 frame_center = ImVec2();
 			if (atlas_tool_->IsRelease())
 			{
-				current_frame.animation_data.left_top = atlas_tool_->GetSelectedLeftTop();
-				current_frame.animation_data.left_top = Vec2(current_frame.animation_data.left_top.x / (float)atlas->GetWidth(), current_frame.animation_data.left_top.y / (float)atlas->GetHeight());
-				current_frame.animation_data.size = atlas_tool_->GetRegionSize();
-				current_frame.animation_data.size = Vec2(current_frame.animation_data.size.x / (float)atlas->GetWidth(), current_frame.animation_data.size.y / (float)atlas->GetHeight());
-				animation_->SetCurrentFrameData(current_frame);
+				current_frame_.animation_data.left_top = atlas_tool_->GetSelectedLeftTop();
+				current_frame_.animation_data.size = atlas_tool_->GetRegionSize();
+				frame_center = ImVec2(current_frame_.animation_data.size.x / 2.f, current_frame_.animation_data.size.y / 2.f);
+				current_frame_.animation_data.left_top = Vec2(current_frame_.animation_data.left_top.x / (float)atlas->GetWidth(), current_frame_.animation_data.left_top.y / (float)atlas->GetHeight());
+				current_frame_.animation_data.size = Vec2(current_frame_.animation_data.size.x / (float)atlas->GetWidth(), current_frame_.animation_data.size.y / (float)atlas->GetHeight());
+				
+				animation_->SetCurrentFrameData(current_frame_);
 			}
 			// Draw grid + all lines in the canvas
 			draw_list->PushClipRect(canvas_p0, canvas_p1, true);
@@ -178,24 +184,25 @@ void AnimationTool::ShowAnimationEditWidget()
 			}
 			draw_list->AddLine(ImVec2(canvas_p0.x, canvas_p0.y + canvas_sz.y / 2.f), ImVec2(canvas_p1.x, canvas_p0.y + canvas_sz.y / 2.f), IM_COL32(255, 0, 0, 255));
 			draw_list->AddLine(ImVec2(canvas_p1.x - canvas_sz.x / 2.f, canvas_p0.y), ImVec2(canvas_p1.x - canvas_sz.x / 2.f, canvas_p1.y), IM_COL32(0, 0, 255, 255));
+			
 			if (nullptr != atlas)
 			{
 				float atlas_width = (float)atlas->GetWidth();
 				float atlas_height = (float)atlas->GetHeight();
-				ImVec2 fullRectLT = ImVec2(canvas_center.x - (current_frame.animation_data.full_size.x * atlas_width) / 2.f,
-					canvas_center.y - (current_frame.animation_data.full_size.y * atlas_width) / 2.f);
+				ImVec2 fullRectLT = ImVec2(canvas_center.x - (current_frame_.animation_data.full_size.x * atlas_width) / 2.f,
+					canvas_center.y - (current_frame_.animation_data.full_size.y * atlas_width) / 2.f);
 				draw_list->AddRect(fullRectLT,
-					ImVec2(fullRectLT.x + (current_frame.animation_data.full_size.x * atlas_width),
-						fullRectLT.y + (current_frame.animation_data.full_size.y * atlas_height)),
+					ImVec2(fullRectLT.x + (current_frame_.animation_data.full_size.x * atlas_width),
+						fullRectLT.y + (current_frame_.animation_data.full_size.y * atlas_height)),
 					IM_COL32(32, 238, 52, 255));
-				ImVec2 uv0 = ImVec2(current_frame.animation_data.left_top.x , current_frame.animation_data.left_top.y);
-				ImVec2 uv1 = ImVec2(current_frame.animation_data.left_top.x + current_frame.animation_data.size.x, current_frame.animation_data.left_top.y + current_frame.animation_data.size.y);
-				ImVec2 rLt = ImVec2(fullRectLT.x + (current_frame.animation_data.left_top.x*atlas_width), fullRectLT.y + (current_frame.animation_data.left_top.y*atlas_height));
+				ImVec2 uv0 = ImVec2(current_frame_.animation_data.left_top.x, current_frame_.animation_data.left_top.y);
+				ImVec2 uv1 = ImVec2(current_frame_.animation_data.left_top.x + current_frame_.animation_data.size.x, current_frame_.animation_data.left_top.y + current_frame_.animation_data.size.y);
+				
 				draw_list->AddImage(atlas->GetShaderResourceView(),
-					ImVec2(rLt.x  + (current_frame.animation_data.offset.x * atlas_width),
-						rLt.y  + (current_frame.animation_data.offset.y * atlas_height)),
-					ImVec2(rLt.x + (current_frame.animation_data.size.x * atlas_width) + (current_frame.animation_data.offset.x * atlas_width),
-						rLt.y + (current_frame.animation_data.size.y * atlas_height)  + (current_frame.animation_data.offset.y * atlas_height)), uv0, uv1);
+					ImVec2(canvas_center.x - (current_frame_.animation_data.size.x * atlas_width) / 2.f + (current_frame_.animation_data.offset.x * atlas_width),
+						canvas_center.y - (current_frame_.animation_data.size.y * atlas_height) / 2.f + (current_frame_.animation_data.offset.y * atlas_height)),
+					ImVec2(canvas_center.x + (current_frame_.animation_data.size.x * atlas_width) / 2.f + (current_frame_.animation_data.offset.x * atlas_width),
+						canvas_center.y + (current_frame_.animation_data.size.y * atlas_height) / 2.f + (current_frame_.animation_data.offset.y * atlas_height)), uv0, uv1);
 				
 			}
 			//중점용 이전 프레임 하단 라인
@@ -209,13 +216,13 @@ void AnimationTool::ShowAnimationEditWidget()
 
 void AnimationTool::ShowAnimationDetailSettingPanel()
 {
-	ImGui::BeginChild("##animation_setting_panel", ImVec2(0, 260),true,0);
+	ImGui::BeginChild("##animation_setting_panel", ImVec2(0, 260), true, 0);
 	{
 		ImGui::AlignTextToFramePadding();
 		ImGui::Text("Animation");
 		ImGui::Spacing();
 
-		
+
 		if (ImGui::BeginTable("##inspector", 2, ImGuiTableFlags_Resizable | ImGuiTableFlags_RowBg))
 		{
 			ImGui::TableNextColumn();
@@ -236,7 +243,7 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 				return;
 			}
 			array<char, 256> szbuffer = { 0, };
-			WideCharToMultiByte(CP_ACP, 0, animation_->GetName().c_str(), animation_->GetName().size(), szbuffer.data(), szbuffer.size(),nullptr,nullptr);
+			WideCharToMultiByte(CP_ACP, 0, animation_->GetName().c_str(), (int)animation_->GetName().size(), szbuffer.data(), (int)szbuffer.size(), nullptr, nullptr);
 			ImGui::Text("Animation Name");
 			ImGui::TableNextColumn();
 			if (ImGui::InputTextWithHint("##animation name", "input animation name", szbuffer.data(), (int)szbuffer.size()))
@@ -246,10 +253,10 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 				animation_->SetName(animName.data());
 			}
 
-// 			if (ImGui::Button("Clear"))
-// 			{
-// 				animation_->Clear();
-// 			}
+			// 			if (ImGui::Button("Clear"))
+			// 			{
+			// 				animation_->Clear();
+			// 			}
 
 			if (nullptr == atlas_tool_->GetAtlas())
 			{
@@ -257,7 +264,7 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 				ImGui::EndChild();
 				return;
 			}
-			
+
 
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
@@ -268,28 +275,28 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			{
 				animation_->SetCurrentFrame(current_index_);
 				atlas_tool_->Clear();
-				current_frame = animation_->GetCurrentFrameData();
-				current_frame.animation_data.left_top += current_frame.animation_data.size / 2.f;
+				current_frame_ = animation_->GetCurrentFrameData();
+				current_frame_.animation_data.left_top += (current_frame_.animation_data.full_size - current_frame_.animation_data.size) / 2.f;
 			}
 
 			if (ImGui::Button("Add New Frame"))
 			{
-				animation_->SetCurrentFrameData(current_frame);
+				animation_->SetCurrentFrameData(current_frame_);
 				atlas_tool_->Clear();
 				animation_->CreateFrame(atlas_tool_->GetAtlas(), 0, 0, 0, 0, 1, 0.1f);
 				current_index_ = animation_->GetMaxFrameCount() - 1;
 				animation_->SetCurrentFrame(current_index_);
-				current_frame = animation_->GetCurrentFrameData();
+				current_frame_ = animation_->GetCurrentFrameData();
+				current_frame_.animation_data.left_top += (current_frame_.animation_data.full_size - current_frame_.animation_data.size) / 2.f;
+
 			}
 			if (ImGui::Button("Clear Frame"))
 			{
 				animation_->ClearFrame(current_index_);
 				current_index_ = animation_->GetCurrentFrameIndex();
 				animation_->SetCurrentFrame(current_index_);
-				current_frame = animation_->GetCurrentFrameData();
-				current_frame.animation_data.left_top += current_frame.animation_data.size / 2.f;
-				current_frame.animation_data.offset.x = current_frame.animation_data.offset.x * (float)atlas_tool_->GetAtlas()->GetWidth();
-				current_frame.animation_data.offset.y = current_frame.animation_data.offset.y * (float)atlas_tool_->GetAtlas()->GetHeight();
+				current_frame_ = animation_->GetCurrentFrameData();
+				current_frame_.animation_data.left_top += (current_frame_.animation_data.full_size - current_frame_.animation_data.size) / 2.f;
 			}
 
 			ImGui::TableNextRow();
@@ -300,26 +307,19 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 
 			ImGui::Text("X");
 			ImGui::SameLine();
-			if (ImGui::DragFloat("##offset_x", &current_frame.animation_data.offset.x, 0.001f, 0.f, 0.f, "%.3f"))
+			if (ImGui::Button("open editor"))
 			{
-				current_frame.animation_data.offset.x = current_frame.animation_data.offset.x/ (float)atlas_tool_->GetAtlas()->GetWidth();
-				animation_->SetCurrentFrameData(current_frame);
-			}
-			ImGui::Text("Y");
-			ImGui::SameLine();
-			if (ImGui::DragFloat("##offset_y", &current_frame.animation_data.offset.y, 0.001f, 0.f, 0.f, "%.3f"))
-			{
-				current_frame.animation_data.offset.y = current_frame.animation_data.offset.y / (float)atlas_tool_->GetAtlas()->GetHeight();
-				animation_->SetCurrentFrameData(current_frame);
+				offset_tool_->SetAnimation(animation_);
+				offset_tool_->Activate();
 			}
 
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
 			ImGui::Text("duration");
 			ImGui::TableNextColumn();
-			if (ImGui::InputFloat("##duration", &current_frame.duration))
+			if (ImGui::InputFloat("##duration", &current_frame_.duration))
 			{
-				animation_->SetCurrentFrameData(current_frame);
+				animation_->SetCurrentFrameData(current_frame_);
 			}
 
 			ImGui::EndTable();
@@ -335,10 +335,10 @@ void AnimationTool::ShowPlayButton()
 		play_ = true;
 		current_index_ = 0;
 		animation_->SetCurrentFrame(0);
-		current_frame = animation_->GetCurrentFrameData();
-		current_frame.animation_data.left_top += current_frame.animation_data.size / 2.f;
-		current_frame.animation_data.offset.x = current_frame.animation_data.offset.x * (float)atlas_tool_->GetAtlas()->GetWidth();
-		current_frame.animation_data.offset.y = current_frame.animation_data.offset.y * (float)atlas_tool_->GetAtlas()->GetHeight();
+		current_frame_ = animation_->GetCurrentFrameData();
+		current_frame_.animation_data.left_top += (current_frame_.animation_data.full_size - current_frame_.animation_data.size) / 2.f;
+		current_frame_.animation_data.offset.x = current_frame_.animation_data.offset.x * (float)atlas_tool_->GetAtlas()->GetWidth();
+		current_frame_.animation_data.offset.y = current_frame_.animation_data.offset.y * (float)atlas_tool_->GetAtlas()->GetHeight();
 	};
 	if (ImGui::Button("Stop"))
 	{

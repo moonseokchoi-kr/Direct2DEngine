@@ -131,6 +131,7 @@ Widget* WidgetManager::FindWidget(const string& key)
 #include "AtlasTextureTool.h"
 #include "HirarchyViewWidget.h"
 #include "AnimationTool.h"
+#include "AnimationOffsetTool.h"
 void WidgetManager::CreateWidgets()
 {
 	Widget* widget = nullptr;
@@ -149,6 +150,10 @@ void WidgetManager::CreateWidgets()
 
 	widget = new AnimationTool;
 	widget->Deactivate();
+	AddWidget(widget->GetName(), widget);
+
+	widget = new AnimationOffsetTool;
+	widget->Activate();
 	AddWidget(widget->GetName(), widget);
 
 	widget = new AtlasTextureTool;

@@ -197,3 +197,10 @@ enum class RENDER_TIMING
 	POST_EFFECT,
 	NONE,
 };
+
+enum class SCENE_MODE
+{
+	PLAY,
+	PAUSE,
+	STOP,
+};

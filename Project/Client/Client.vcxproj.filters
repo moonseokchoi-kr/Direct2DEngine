@@ -85,6 +85,9 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\Hirarchy">
       <UniqueIdentifier>{05c6f664-d525-4c3d-888b-e542b833a23b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\Animation\OffsetTool">
+      <UniqueIdentifier>{b686d097-ba22-4db9-a782-87ba209dbdd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -173,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="HirarchyViewWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Hirarchy</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationOffsetTool.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation\OffsetTool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +272,9 @@
     </ClCompile>
     <ClCompile Include="HirarchyViewWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Hirarchy</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationOffsetTool.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation\OffsetTool</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

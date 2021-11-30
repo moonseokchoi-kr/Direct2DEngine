@@ -12,9 +12,17 @@ CLayer::~CLayer()
 	Safe_Delete_Vec(parent_object_vector_);
 }
 
+void CLayer::Start()
+{
+	for (CGameObject* parent_object : parent_object_vector_)
+	{
+		parent_object->Start();
+	}
+}
+
 void CLayer::Update()
 {
-	layer_object_vector_.clear();
+	
 	for(CGameObject* parent_object : parent_object_vector_)
 	{
 		parent_object->Update();

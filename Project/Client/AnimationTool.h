@@ -2,17 +2,11 @@
 #include "Widget.h"
 #include <Engine/CTexture.h>
 
-struct AnimationCreateData
-{
-    Vec2 left_top;
-    Vec2 region_size;
-    Vec2 offset;
-    float duration;
-};
 
 class CAnimator2D;
 class CAnimation2D;
 
+class AnimationOffsetTool;
 class AtlasTextureTool;
 class AnimationTool :
     public Widget
@@ -55,7 +49,9 @@ private:
   
     CAnimator2D* target_animator_;
     CAnimation2D* animation_;
-    AnimationFrame current_frame;
+    AnimationFrame current_frame_;
+    
     AtlasTextureTool* atlas_tool_;
+    AnimationOffsetTool* offset_tool_;
 };
 

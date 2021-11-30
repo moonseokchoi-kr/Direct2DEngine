@@ -40,7 +40,7 @@ void HirarchyViewWidget::Update()
 				{
 					ImGui::SetItemDefaultFocus();
 					array<wchar_t, 256> szBuffer = { 0, };
-					MultiByteToWideChar(CP_ACP, 0, items[item_current_idx], strlen(items[item_current_idx]), szBuffer.data(), (int)szBuffer.size());
+					MultiByteToWideChar(CP_ACP, 0, items[item_current_idx], (int)strlen(items[item_current_idx]), szBuffer.data(), (int)szBuffer.size());
 					CGameObject* target = CSceneManager::GetInst()->FindObjectByName(szBuffer.data());
 					if(nullptr != target)
 						dynamic_cast<InspectorWidget*>(WidgetManager::GetInst()->FindWidget("inspector_view"))->SetGameObject(target);

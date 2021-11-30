@@ -126,7 +126,7 @@ void AtlasTextureTool::ShowAtlasVeiw()
 				window_flags_ |= ImGuiWindowFlags_NoMove;
 				if (KEY_HOLD(KEY::CTRL))
 				{
-					zoom_ += wheel * 0.1;
+					zoom_ += wheel * 0.1f;
 				}
 
 				if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))

@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationOffsetTool.h" />
     <ClInclude Include="AnimationTool.h" />
     <ClInclude Include="AnimationWidget.h" />
     <ClInclude Include="AtlasTextureTool.h" />
@@ -201,6 +202,7 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationOffsetTool.cpp" />
     <ClCompile Include="AnimationTool.cpp" />
     <ClCompile Include="AnimationWidget.cpp" />
     <ClCompile Include="AtlasTextureTool.cpp" />

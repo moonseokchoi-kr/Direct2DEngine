@@ -26,6 +26,7 @@
 void CreatePrefabs();
 CSceneManager::CSceneManager()
 	:current_scene_(nullptr)
+	,scene_mode_(SCENE_MODE::STOP)
 {
 	
 }
@@ -120,7 +121,7 @@ void CSceneManager::Init()
 	Ptr<CTexture> playerTex = CResourceManager::GetInst()->LoadRes<CTexture>(L"player_tex", L"texture\\anim_texture\\sakuya_player.png");
 	player->Animator2D()->CreateAnimation(L"FLY", playerTex, 0, 0, 32, 48, 4, 0.07f);
 	player->Animator2D()->CreateAnimation(L"FLY_LEFT", playerTex, 0, 48, 32, 48, 7, 0.07f);
-	player->Animator2D()->Play(L"FLY", 0, true);
+	player->Animator2D()->Play(L"FLY_LEFT", 0, true);
 
 	//플레이어 2번
 	current_scene_->AddGameObject(player, 2, true);
@@ -128,10 +129,17 @@ void CSceneManager::Init()
 
 void CSceneManager::Progress()
 {
-	current_scene_->Update();
-	current_scene_->LateUpdate();
+	if (SCENE_MODE::PLAY == scene_mode_)
+	{
+		current_scene_->Update();
+		current_scene_->LateUpdate();
+	}
 	current_scene_->FinalUpdate();
-	CCollisionManager::GetInst()->Update();
+
+	if (SCENE_MODE::PLAY == scene_mode_)
+	{
+		CCollisionManager::GetInst()->Update();
+	}
 }
 
 #include "CBulletScript.h"

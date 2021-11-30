@@ -10,6 +10,7 @@ public:
     CLayer();
     ~CLayer();
 public:
+    void Start();
     void Update();
     void LateUpdate();
     void FinalUpdate();

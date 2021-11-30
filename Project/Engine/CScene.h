@@ -10,6 +10,7 @@ public:
 	CScene();
 	~CScene();
 public:
+	void Start();
 	void Update();
 	void LateUpdate();
 	void FinalUpdate();

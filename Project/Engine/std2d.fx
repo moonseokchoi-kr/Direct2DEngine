@@ -35,30 +35,17 @@ float4 ps_main(VS_OUTPUT _in) : SV_Target
     
     if(int_3)
     {
-        if (animation_array[0].fullSize.x == animation_array[0].size.x * 2.f && animation_array[0].fullSize.y == animation_array[0].size.y * 2.f)
-        {
-            float2 animationUV = (_in.uv * animation_array[0].fullSize);
-            float2 rangeUV = (animation_array[0].fullSize - animation_array[0].size) / 2.f + animation_array[0].offset;
+
         
-            if (rangeUV.x < animationUV.x && animationUV.x < rangeUV.x + animation_array[0].size.x && rangeUV.y < animationUV.y && animationUV.y < rangeUV.y + animation_array[0].size.y)
-            {
-                animationUV += (animation_array[0].leftTop - animation_array[0].offset);
-                return atlas_tex.Sample(mip_sam, animationUV);
-            }
-        }
-        else
+        float2 animationUV = (_in.uv * animation_array[0].fullSize);
+        float2 sizeUV = (_in.uv * animation_array[0].size);
+        float2 rangeUV = (animation_array[0].fullSize - animation_array[0].size) / 2.f + animation_array[0].offset;
+        if (rangeUV.x < animationUV.x && animationUV.x < rangeUV.x + animation_array[0].size.x && rangeUV.y < animationUV.y && animationUV.y < rangeUV.y + animation_array[0].size.y)
         {
-            float2 animationUV = (_in.uv * animation_array[0].fullSize);
-            float2 sizeUV = (_in.uv * animation_array[0].size);
-            float2 regionUV = animation_array[0].leftTop + animation_array[0].offset;
-            if (regionUV.x < animationUV.x && animationUV.x < regionUV.x + animation_array[0].size.x
-            && regionUV.y < animationUV.y && animationUV.y < regionUV.y + animation_array[0].size.y)
-            {
-                animationUV += (animation_array[0].leftTop - animation_array[0].offset);
-                return atlas_tex.Sample(mip_sam, animationUV);
-            }
+            animationUV += (animation_array[0].leftTop - animation_array[0].offset);
+            return atlas_tex.Sample(mip_sam, animationUV);
         }
-  
+        
         clip(-1);
 
     }

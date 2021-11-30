@@ -29,6 +29,7 @@ public:
     virtual ~CGameObject();
 
 public:
+    void Start();
     void Update();
     void LateUpdate();
     void FinalUpdate();

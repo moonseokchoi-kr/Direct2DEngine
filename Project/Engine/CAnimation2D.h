@@ -42,6 +42,8 @@ public:
 	void SetBackBoard(Vec2 back_borad);
 
 	const AnimationFrame& GetCurrentFrameData() { return frame_vector_[current_frame_]; }
+	CTexture* GetAtlas() { return atlas_texture_.Get(); }
+
 	void Clear();
 	void ClearFrame(int index);
 private:

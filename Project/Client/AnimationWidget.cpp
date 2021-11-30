@@ -71,7 +71,7 @@ void AnimationWidget::Update()
 			{
 				if(frame<0)
 					animation->SetCurrentFrame(0);
-				else if (animation->GetMaxFrameCount() - 1 > frame)
+				else if (animation->GetMaxFrameCount() - 1 > (UINT)frame)
 					animation->SetCurrentFrame(animation->GetMaxFrameCount() - 1);
 				else
 					animation->SetCurrentFrame(frame);
@@ -102,6 +102,6 @@ void AnimationWidget::ChangeAnimation(DWORD_PTR instance, DWORD_PTR animationNam
 
 	string name = widget->GetSelectedName();
 	array<wchar_t, 256> wStr = { 0, };
-	MultiByteToWideChar(CP_ACP, 0, name.c_str(), name.size(), wStr.data(), (int)wStr.size());
+	MultiByteToWideChar(CP_ACP, 0, name.c_str(), (int)name.size(), wStr.data(), (int)wStr.size());
 	GetTarget()->Animator2D()->Play(wStr.data(), 0, true);
 }

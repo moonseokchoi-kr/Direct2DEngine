@@ -19,6 +19,7 @@ public:
     CScript();
     ~CScript();
 public:
+    virtual void Start() {};
     void FinalUpdate() final {};
 
 private:

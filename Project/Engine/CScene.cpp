@@ -19,6 +19,17 @@ CScene::~CScene()
 	Safe_Delete_Array(layer_array_);
 }
 
+void CScene::Start()
+{
+	for (const auto& layer : layer_array_)
+	{
+		if (nullptr != layer)
+		{
+			layer->Start();
+		}
+	}
+}
+
 void CScene::Update()
 {
 
@@ -32,33 +43,33 @@ void CScene::Update()
 				CDevice::GetInst()->OnReSize(Vec2(1600, 900));
 		}
 	}
-	for(size_t i=0; i<layer_array_.size(); ++i)
+	for(const auto& layer : layer_array_)
 	{
-		if(nullptr != layer_array_[i])
+		if(nullptr != layer)
 		{
-			layer_array_[i]->Update();
+			layer->Update();
 		}
 	}
 }
 
 void CScene::LateUpdate()
 {
-	for (size_t i = 0; i < layer_array_.size(); ++i)
+	for (const auto& layer : layer_array_)
 	{
-		if (nullptr != layer_array_[i])
+		if (nullptr != layer)
 		{
-			layer_array_[i]->LateUpdate();
+			layer->LateUpdate();
 		}
 	}
 }
 
 void CScene::FinalUpdate()
 {
-	for (size_t i = 0; i < layer_array_.size(); ++i)
+	for (const auto& layer : layer_array_)
 	{
-		if (nullptr != layer_array_[i])
+		if (nullptr != layer)
 		{
-			layer_array_[i]->FinalUpdate();
+			layer->FinalUpdate();
 		}
 	}
 }
@@ -66,11 +77,11 @@ void CScene::FinalUpdate()
 void CScene::Render()
 {
 
-	for (size_t i = 0; i < layer_array_.size(); ++i)
+	for (const auto& layer : layer_array_)
 	{
-		if (nullptr != layer_array_[i])
+		if (nullptr != layer)
 		{
-			layer_array_[i]->Render();
+			layer->Render();
 		}
 	}
 }
@@ -85,7 +96,7 @@ void CScene::AddGameObject(CGameObject* object, UINT layerType, bool bMove)
 CGameObject* CScene::GetObjectWithName(const wstring& objectName)
 {
 	CGameObject* object = nullptr;
-	for (CLayer* layer : layer_array_)
+	for (const auto& layer : layer_array_)
 	{
 		object = layer->FindObjectWithName(objectName);
 		if (nullptr != object)

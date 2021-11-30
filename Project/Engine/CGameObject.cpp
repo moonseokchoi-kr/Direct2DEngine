@@ -50,6 +50,20 @@ CGameObject::~CGameObject()
 	Safe_Delete_Vec(child_object_vector_);
 }
 
+void CGameObject::Start()
+{
+	for (CComponent* component : component_array_)
+	{
+		if (nullptr != component)
+			component->Start();
+	}
+
+	for (CGameObject* child : child_object_vector_)
+	{
+		child->Start();
+	}
+}
+
 void CGameObject::Update()
 {
 	if (CheckDead())
