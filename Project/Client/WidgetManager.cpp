@@ -160,7 +160,7 @@ void WidgetManager::CreateWidgets()
 	AddWidget(widget->GetName(), widget);
 
 	widget = new AnimationOffsetTool;
-	widget->Activate();
+	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
 
 	widget = new AtlasTextureTool;

@@ -9,6 +9,7 @@ AtlasTextureTool::AtlasTextureTool()
 	, is_open_(false)
 	, zoom_(1.0f)
 	, window_flags_(0)
+	, release_mouse_(false)
 {
 }
 
@@ -21,6 +22,7 @@ void AtlasTextureTool::Init()
 	atlas_ = nullptr;
 	window_flags_ = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_MenuBar;
 	region_size_ = Vec2(32, 46);
+	back_board_size_ = Vec2(100, 100);
 }
 
 void AtlasTextureTool::Update()
@@ -33,17 +35,35 @@ void AtlasTextureTool::Update()
 		if (ImGui::BeginTable("##rectSize", 2, ImGuiTableFlags_Resizable))
 		{
 			ImGui::TableNextColumn();
+			ImGui::Text("Back Board Size");
+			ImGui::TableNextColumn();
+			ImGui::Text("X");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(50);
+			ImGui::InputFloat("##back_board_x", &back_board_size_.x);
+			ImGui::SameLine();
+			ImGui::Text("Y");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(50);
+			ImGui::InputFloat("##back_board_y", &back_board_size_.y);
+
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+
 			ImGui::Text("Rect Size");
 			ImGui::TableNextColumn();
 			ImGui::Text("X");
 			ImGui::SameLine();
-			ImGui::SetNextItemWidth(100);
+			ImGui::SetNextItemWidth(50);
 			ImGui::InputFloat("##rect_x", &region_size_.x);
 			ImGui::SameLine();
 			ImGui::Text("Y");
 			ImGui::SameLine();
-			ImGui::SetNextItemWidth(100);
+			ImGui::SetNextItemWidth(50);
 			ImGui::InputFloat("##rect_y", &region_size_.y);
+
+
+			
 			ImGui::EndTable();
 		}
 		ShowAtlasVeiw();
@@ -117,7 +137,6 @@ void AtlasTextureTool::ShowAtlasVeiw()
 			ImVec4 border_col = ImVec4(1.0f, 1.0f, 1.0f, 0.5f); // 50% opaque white
 			float region_x = current_mouse_pos_.x - canvas_p0.x;
 			float region_y = current_mouse_pos_.y - canvas_p0.y;
-			float zoom = 4.0f;
 			ImGui::Image(atlas_->GetShaderResourceView(), ImVec2((float)atlas_->GetWidth() * zoom_, (float)atlas_->GetHeight() * zoom_), uv_min, uv_max);
 			ImGui::SetItemUsingMouseWheel();
 			if (ImGui::IsItemHovered())
@@ -141,7 +160,7 @@ void AtlasTextureTool::ShowAtlasVeiw()
 				}
 				if(ImGui::IsMouseReleased(ImGuiMouseButton_Left))
 				{
-					selected_left_top_ = Vec2(region_x, region_y);
+					selected_left_top_ = Vec2(region_x, region_y)/zoom_;
 					//current_mouse_pos_ = Vec2(-1, -1);
 					release_mouse_ = true;
 				}
@@ -162,7 +181,7 @@ void AtlasTextureTool::ShowAtlasVeiw()
 				window_flags_ ^= ImGuiWindowFlags_NoMove;
 			}
 			
-			draw_list->AddRect(current_mouse_pos_, ImVec2(current_mouse_pos_.x + region_size_.x, current_mouse_pos_.y + region_size_.y), IM_COL32(51, 218, 32, 255));
+			draw_list->AddRect(current_mouse_pos_, ImVec2(current_mouse_pos_.x + region_size_.x*zoom_, current_mouse_pos_.y + region_size_.y*zoom_), IM_COL32(51, 218, 32, 255));
 		}
 	}
 	else

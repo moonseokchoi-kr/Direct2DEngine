@@ -48,6 +48,7 @@ void AnimationTool::Update()
 		animation_->SetName(L"animation");
 		animation_->CreateFrame(atlas_tool_->GetAtlas(), 0, 0, 0, 0, 1, 0.1f);
 		current_frame_ = animation_->GetCurrentFrameData();
+		atlas_tool_->SetBackBoardSize(animation_->GetBackBoard());
 	}
 	if (ImGui::Begin(label_.c_str(), &is_active_, window_flags_))
 	{
@@ -64,7 +65,7 @@ void AnimationTool::Update()
 		ImGui::End();
 	}
 
-	if (nullptr != animation_ && target_animator_->GetCurrentAnimation() != animation_)
+	if (nullptr != animation_ && ImGui::IsWindowFocused())
 		animation_->SetCurrentFrameData(current_frame_);
 	if (nullptr != animation_ && play_)
 	{
@@ -303,10 +304,26 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			ImGui::TableNextColumn();
 
 			ImGui::Text("OffSet");
+			Vec2 offset = Vec2(current_frame_.animation_data.offset.x * atlas_tool_->GetAtlas()->GetWidth(), current_frame_.animation_data.offset.y * atlas_tool_->GetAtlas()->GetHeight());
 			ImGui::TableNextColumn();
-
+			ImGui::Text("X");
 			ImGui::SameLine();
-			if (ImGui::Button("open editor"))
+			ImGui::SetNextItemWidth(50);
+			if (ImGui::DragFloat("##offset_x", &offset.x, 0.01f))
+			{
+				current_frame_.animation_data.offset.x = offset.x / atlas_tool_->GetAtlas()->GetWidth();
+				animation_->SetCurrentFrameData(current_frame_);
+			}
+			ImGui::SameLine();
+			ImGui::Text("Y");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(50);
+			if (ImGui::DragFloat("##offset_y", &offset.y, 0.01f))
+			{
+				current_frame_.animation_data.offset.y = offset.y / atlas_tool_->GetAtlas()->GetHeight();
+				animation_->SetCurrentFrameData(current_frame_);
+			}
+			if (ImGui::Button("open offset editor"))
 			{
 				offset_tool_->SetAnimation(animation_);
 				offset_tool_->Activate();
@@ -326,7 +343,7 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 
 			ImGui::Text("Animation Setting");
 
-			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
 
 			bool check_repeat = animation_->IsRepeat();
 			if (ImGui::Checkbox("repeat", &check_repeat))

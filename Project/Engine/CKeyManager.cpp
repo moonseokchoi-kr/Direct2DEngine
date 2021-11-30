@@ -2,6 +2,7 @@
 #include "CKeyManager.h"
 
 #include "CCore.h"
+#include "CDevice.h"
 
 int g_arrVK[(int)KEY::LAST] =
 {
@@ -115,8 +116,8 @@ void CKeyManager::Update()
 		POINT ptPos = {};
 		GetCursorPos(&ptPos);
 		ScreenToClient(CCore::GetInst()->GetMainHwnd(), &ptPos);
-
-		cur_mouse_pos_ = Vec2((float)ptPos.x, (float)ptPos.y);
+		Vec2 resolution = CDevice::GetInst()->GetResolution();
+		cur_mouse_pos_ = Vec2((float)(ptPos.x - resolution.x / 2.f), (float)((resolution.y - ptPos.y) - resolution.y / 2.f));
 	}
 
 	// 윈도우 포커싱 해제상태

@@ -23,16 +23,23 @@ public:
 private:
     void ShowAnimationOffsetCanvasView();
     void ShowDetailView();
-    void CalOffset(AnimationFrame& data);
-    int SelectItemWithMouse(vector<AnimationFrame> anims);
+    void CalOffset(Vec2 frameBufferCenter, Vec2 canvasCenter, Vec2 canvas_lt);
+    void SetAnimationData();
+    bool SelectItemWithMouse(ImVec2 mouse_pos);
 private:
     CAnimation2D* animation_;
     ImGuiWindowFlags window_flags_;
 
+    AnimationFrame previous_frame_;
+    AnimationFrame current_frame_;
 
     Vec2 origin_image_pos_;
+    Vec2 offset_;
+    vector<Vec2> drag_pos_vector_;
 
     float zoom_;
+    int current_index_;
+    bool select_item_;
 };
 
 

@@ -83,7 +83,7 @@ void AnimationWidget::Update()
 
 			ImGui::Text("Setting");
 
-			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
 		
 			bool check_repeat = animation->IsRepeat();
 			if (ImGui::Checkbox("repeat", &check_repeat))
