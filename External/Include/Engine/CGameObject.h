@@ -69,6 +69,8 @@ private:
     array<CComponent*, static_cast<UINT>(COMPONENT_TYPE::END)> component_array_;
     CGameObject* parent_object_;
     vector<CGameObject*> child_object_vector_;
+    vector<CScript*> scripts_vector_;
+    
     OBJECT_STATE object_state_;
     float delay_accumulated_time;
     float dead_time;

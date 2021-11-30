@@ -67,6 +67,10 @@ void CScene::FinalUpdate()
 {
 	for (const auto& layer : layer_array_)
 	{
+		layer->layer_object_vector_.clear();
+	}
+	for (const auto& layer : layer_array_)
+	{
 		if (nullptr != layer)
 		{
 			layer->FinalUpdate();

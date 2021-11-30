@@ -8,6 +8,8 @@ public:
     ~MenuWidget();
 public:
     virtual void Update();
-
+private:
+    void ShowFileMenu();
+    void ShowSceneMenu();
 };
 

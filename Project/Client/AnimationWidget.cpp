@@ -77,10 +77,26 @@ void AnimationWidget::Update()
 					animation->SetCurrentFrame(frame);
 				
 			}
-			
 
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
+
+			ImGui::Text("Setting");
+
+			ImGui::TableNextRow();
+		
+			bool check_repeat = animation->IsRepeat();
+			if (ImGui::Checkbox("repeat", &check_repeat))
+			{
+				animation->SetRepeat(check_repeat);
+			}
+			ImGui::SameLine();
+
+			bool check_playOnStart = animation->IsPlayOnStart();
+			if (ImGui::Checkbox("play on start", &check_playOnStart))
+			{
+				animation->SetPlayOnStart(check_playOnStart);
+			}
 			ImGui::EndTable();
 		}
 		ImGui::Spacing();

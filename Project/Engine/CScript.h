@@ -22,6 +22,9 @@ public:
     virtual void Start() {};
     void FinalUpdate() final {};
 
+
+public:
+    virtual CScript* Clone() = 0;
 private:
     void UpdateData()  override {};
 

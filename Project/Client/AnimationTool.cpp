@@ -78,7 +78,7 @@ void AnimationTool::Update()
 			if (animation_->GetMaxFrameCount() <= (UINT)current_index_)
 			{
 				current_index_ = 0;
-				play_ = false;
+				play_ = animation_->IsRepeat();
 				acc_time_ = 0.f;
 				animation_->SetCurrentFrame(current_index_);
 				return;
@@ -305,7 +305,6 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			ImGui::Text("OffSet");
 			ImGui::TableNextColumn();
 
-			ImGui::Text("X");
 			ImGui::SameLine();
 			if (ImGui::Button("open editor"))
 			{
@@ -320,6 +319,26 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			if (ImGui::InputFloat("##duration", &current_frame_.duration))
 			{
 				animation_->SetCurrentFrameData(current_frame_);
+			}
+
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+
+			ImGui::Text("Animation Setting");
+
+			ImGui::TableNextRow();
+
+			bool check_repeat = animation_->IsRepeat();
+			if (ImGui::Checkbox("repeat", &check_repeat))
+			{
+				animation_->SetRepeat(check_repeat);
+			}
+			ImGui::SameLine();
+
+			bool check_playOnStart = animation_->IsPlayOnStart();
+			if (ImGui::Checkbox("play on start", &check_playOnStart))
+			{
+				animation_->SetPlayOnStart(check_playOnStart);
 			}
 
 			ImGui::EndTable();

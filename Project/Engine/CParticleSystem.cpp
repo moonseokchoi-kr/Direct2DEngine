@@ -26,6 +26,7 @@ CParticleSystem::CParticleSystem()
 	particle_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"particle_material");
 	particle_update_shader_ = static_cast<CParticleUpdateShader*>(CResourceManager::GetInst()->FindRes<CComputeShader>(L"particle_update_shader").Get());
 	particle_texture_ = CResourceManager::GetInst()->FindRes<CTexture>(L"particle_01");
+
 	particle_buffer_ = new CStructuredBuffer;
 	particle_shared_data_buffer_ = new CStructuredBuffer;
 
@@ -45,6 +46,13 @@ CParticleSystem::~CParticleSystem()
 {
 	SafeDelete(particle_buffer_);
 	SafeDelete(particle_shared_data_buffer_);
+}
+
+void CParticleSystem::Start()
+{
+	particle_buffer_->Create(particle_buffer_->GetElementSize(), particle_buffer_->GetElementCount(), particle_buffer_->GetBufferType(), nullptr,particle_buffer_->IsCpuAccess());
+	particle_shared_data_buffer_->Create(particle_shared_data_buffer_->GetElementSize(), particle_shared_data_buffer_->GetElementCount(), 
+		particle_shared_data_buffer_->GetBufferType(), nullptr, particle_shared_data_buffer_->IsCpuAccess());
 }
 
 void CParticleSystem::UpdateData()

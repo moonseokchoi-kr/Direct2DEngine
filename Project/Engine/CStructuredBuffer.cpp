@@ -5,10 +5,10 @@
 
 CStructuredBuffer::CStructuredBuffer()
 	:buffer_desc_{}
-	,buffer_type_(STRUCTURE_BUFFER_TYPE::READ_ONLY)
-	,pipeline_stage_(0)
-	,register_number_(0)
-	,register_number_rw_(0)
+	, buffer_type_(STRUCTURE_BUFFER_TYPE::READ_ONLY)
+	, pipeline_stage_(0)
+	, register_number_(0)
+	, register_number_rw_(0)
 {
 }
 
@@ -18,6 +18,19 @@ CStructuredBuffer::~CStructuredBuffer()
 
 HRESULT CStructuredBuffer::Create(UINT elementSize, UINT elementCount, STRUCTURE_BUFFER_TYPE type, void* initialData, bool cpuAccess)
 {
+	//버퍼 초기화
+	structured_buffer_ = nullptr;
+	shader_resource_view_ = nullptr;
+	unordered_access_view_ = nullptr;
+
+	structured_buffer_cpu_read_ = nullptr;
+	structured_buffer_cpu_write_ = nullptr;
+
+	buffer_desc_ = D3D11_BUFFER_DESC{};
+	buffer_desc_cpu_read_ = D3D11_BUFFER_DESC{};
+	buffer_desc_cpu_write_ = D3D11_BUFFER_DESC{};
+
+	//버퍼 생성
 	element_size_ = elementSize;
 	element_count_ = elementCount;
 	buffer_type_ = type;
@@ -32,7 +45,7 @@ HRESULT CStructuredBuffer::Create(UINT elementSize, UINT elementCount, STRUCTURE
 	}
 	else if (STRUCTURE_BUFFER_TYPE::READ_WRITE == buffer_type_)
 	{
-		buffer_desc_.BindFlags = D3D11_BIND_SHADER_RESOURCE|D3D11_BIND_UNORDERED_ACCESS;
+		buffer_desc_.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
 	}
 
 	buffer_desc_.Usage = D3D11_USAGE_DEFAULT;
@@ -74,7 +87,7 @@ HRESULT CStructuredBuffer::Create(UINT elementSize, UINT elementCount, STRUCTURE
 		buffer_desc_cpu_read_.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 		buffer_desc_cpu_read_.Usage = D3D11_USAGE_DEFAULT;
 		buffer_desc_cpu_read_.CPUAccessFlags = D3D11_CPU_ACCESS_READ;
-	
+
 		buffer_desc_cpu_read_.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
 		buffer_desc_cpu_read_.StructureByteStride = element_size_;
 
@@ -84,7 +97,7 @@ HRESULT CStructuredBuffer::Create(UINT elementSize, UINT elementCount, STRUCTURE
 		buffer_desc_cpu_write_.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 		buffer_desc_cpu_write_.Usage = D3D11_USAGE_DYNAMIC;
 		buffer_desc_cpu_write_.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-						
+
 		buffer_desc_cpu_write_.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
 		buffer_desc_cpu_write_.StructureByteStride = element_size_;
 
@@ -149,7 +162,7 @@ void CStructuredBuffer::UpdateDataRW_CS(UINT registerNumber)
 void CStructuredBuffer::Clear()
 {
 	ID3D11ShaderResourceView* sav = nullptr;
-	
+
 	CONTEXT->VSSetShaderResources(register_number_, 1, &sav);
 
 	CONTEXT->HSSetShaderResources(register_number_, 1, &sav);
@@ -172,7 +185,7 @@ void CStructuredBuffer::GetData(void* dest, UINT size)
 	CONTEXT->CopyResource(structured_buffer_cpu_read_.Get(), structured_buffer_.Get());
 
 	D3D11_MAPPED_SUBRESOURCE sub = {};
-	CONTEXT->Map(structured_buffer_cpu_read_.Get(),0, D3D11_MAP_READ, 0, &sub);
+	CONTEXT->Map(structured_buffer_cpu_read_.Get(), 0, D3D11_MAP_READ, 0, &sub);
 	memcpy(dest, sub.pData, size);
 	CONTEXT->Unmap(structured_buffer_cpu_read_.Get(), 0);
 }
@@ -180,7 +193,7 @@ void CStructuredBuffer::GetData(void* dest, UINT size)
 void CStructuredBuffer::SetData(void* src, UINT size)
 {
 	D3D11_MAPPED_SUBRESOURCE sub = {};
-	CONTEXT->Map(structured_buffer_cpu_write_.Get(),0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
+	CONTEXT->Map(structured_buffer_cpu_write_.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &sub);
 	memcpy(sub.pData, src, size);
 	CONTEXT->Unmap(structured_buffer_cpu_write_.Get(), 0);
 	CONTEXT->CopyResource(structured_buffer_.Get(), structured_buffer_cpu_write_.Get());

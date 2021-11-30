@@ -5,6 +5,7 @@
 #include "CMeshRender.h"
 #include "CCollider2D.h"
 #include "CParticleSystem.h"
+#include "CScript.h"
 
 
 #include "CSceneManager.h"
@@ -38,6 +39,11 @@ CGameObject::CGameObject(const CGameObject& origin)
 		
 	}
 
+	for (CScript* script : origin.scripts_vector_)
+	{
+		scripts_vector_.push_back(script->Clone());
+	}
+
 	for (CGameObject* child : origin.child_object_vector_)
 	{
 		AddChild(child->Clone());
@@ -48,6 +54,7 @@ CGameObject::~CGameObject()
 {
 	Safe_Delete_Array(component_array_);
 	Safe_Delete_Vec(child_object_vector_);
+	Safe_Delete_Vec(scripts_vector_);
 }
 
 void CGameObject::Start()
@@ -56,6 +63,11 @@ void CGameObject::Start()
 	{
 		if (nullptr != component)
 			component->Start();
+	}
+
+	for (const auto& script : scripts_vector_)
+	{
+		script->Start();
 	}
 
 	for (CGameObject* child : child_object_vector_)
@@ -73,6 +85,10 @@ void CGameObject::Update()
 		if(nullptr != component)
 			component->Update();
 	} 
+	for (const auto& script : scripts_vector_)
+	{
+		script->Update();
+	}
 
 	for (CGameObject* child : child_object_vector_)
 	{
@@ -90,6 +106,10 @@ void CGameObject::LateUpdate()
 		if (nullptr != component)
 			component->LateUpdate();
 	}
+	for (const auto& script : scripts_vector_)
+	{
+		script->LateUpdate();
+	}
 
 	for (CGameObject* child : child_object_vector_)
 	{
@@ -103,6 +123,10 @@ void CGameObject::FinalUpdate()
 	{
 		if (nullptr != component)
 			component->FinalUpdate();
+	}
+	for (const auto& script : scripts_vector_)
+	{
+		script->FinalUpdate();
 	}
 
 	for (CGameObject* child : child_object_vector_)

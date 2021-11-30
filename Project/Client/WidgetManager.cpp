@@ -7,6 +7,7 @@
 
 
 #include <Engine/CKeyManager.h>
+#include <Engine/CCore.h>
 
 WidgetManager::WidgetManager()
 	:is_active_demo_(true)
@@ -121,6 +122,12 @@ Widget* WidgetManager::FindWidget(const string& key)
 	}
 
 	return iter->second;
+}
+
+void WidgetManager::SetFocusMainWindow()
+{
+	ImGui::SetWindowFocus(nullptr);
+	SetFocus(CCore::GetInst()->GetMainHwnd());
 }
 
 #include <Engine/CSceneManager.h>

@@ -1,8 +1,5 @@
 #pragma once
 
-
-
-
 class Widget;
 
 class WidgetManager :
@@ -17,7 +14,7 @@ public:
 
 public:
     Widget* FindWidget(const string& key);
-
+    void SetFocusMainWindow();
 private:
     void CreateWidgets();
     void AddWidget(const string& key, Widget* widget);

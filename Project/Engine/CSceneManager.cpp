@@ -309,3 +309,10 @@ void CSceneManager::FindObjectByName(const wstring& name, vector<CGameObject*>& 
 		}
 	}
 }
+
+void CSceneManager::SetSceneMode(SCENE_MODE mode)
+{
+	if (SCENE_MODE::STOP == scene_mode_ && SCENE_MODE::PLAY == mode)
+		current_scene_->Start();
+	scene_mode_ = mode;
+}

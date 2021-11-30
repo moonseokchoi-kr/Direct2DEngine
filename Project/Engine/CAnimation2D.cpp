@@ -10,6 +10,7 @@ CAnimation2D::CAnimation2D()
 	,current_frame_(0)
 	,animation_finish_(false)
 	,accumulated_time_(0.f)
+	,animation_repeat_(false)
 {
 	animation_back_board_ = Vec2(100.f, 100.f);
 }
@@ -26,7 +27,11 @@ CAnimation2D::~CAnimation2D()
 {
 }
 
-void CAnimation2D::FinalUpdate()
+void CAnimation2D::Start()
+{
+}
+
+void CAnimation2D::LateUpdate()
 {
 	if (animation_finish_)
 		return;

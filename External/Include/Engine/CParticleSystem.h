@@ -15,6 +15,7 @@ public:
     CParticleSystem(const CParticleSystem& origin);
     ~CParticleSystem();
 public:
+    void Start() override;
     void UpdateData() override;
     void FinalUpdate() override;
 

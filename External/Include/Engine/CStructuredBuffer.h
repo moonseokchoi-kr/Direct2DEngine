@@ -26,6 +26,8 @@ public:
 public:
     UINT GetElementCount() { return element_count_; }
     UINT GetElementSize() { return element_size_; }
+    STRUCTURE_BUFFER_TYPE GetBufferType() { return buffer_type_; }
+    bool IsCpuAccess() { return cpu_accessable_; }
 
     void GetData(void* dest, UINT size);
     void SetData(void* src, UINT size);

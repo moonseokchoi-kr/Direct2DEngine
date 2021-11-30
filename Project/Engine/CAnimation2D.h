@@ -13,7 +13,8 @@ public:
 	~CAnimation2D();
 
 public:
-	void FinalUpdate();
+	void Start();
+	void LateUpdate();
 	void UpdateData() override;
 
 	CLONE(CAnimation2D);
@@ -44,6 +45,12 @@ public:
 	const AnimationFrame& GetCurrentFrameData() { return frame_vector_[current_frame_]; }
 	CTexture* GetAtlas() { return atlas_texture_.Get(); }
 
+	bool IsRepeat() { return animation_repeat_; }
+	void SetRepeat(bool repeat) { animation_repeat_ = repeat; }
+
+	bool IsPlayOnStart() { return play_on_start_; }
+	void SetPlayOnStart(bool play) { play_on_start_ = play; }
+
 	void Clear();
 	void ClearFrame(int index);
 private:
@@ -54,6 +61,8 @@ private:
 	bool animation_finish_;
 	float accumulated_time_;
 	Vec2 animation_back_board_;
+	bool animation_repeat_;
+	bool play_on_start_;
 	friend class CAnimator2D;
 };
 

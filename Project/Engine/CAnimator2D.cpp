@@ -3,15 +3,15 @@
 #include "CAnimation2D.h"
 CAnimator2D::CAnimator2D()
 	:CComponent(COMPONENT_TYPE::ANIMATOR2D)
-	,animation_(nullptr)
-	,animation_repeat_(false)
+	,current_animation_(nullptr)
+
+
 {
 }
 
 CAnimator2D::CAnimator2D(const CAnimator2D& origin)
 	:CComponent(origin)
-	,animation_(nullptr)
-	,animation_repeat_(origin.animation_repeat_)
+	,current_animation_(nullptr)
 {
 	unordered_map<wstring, CAnimation2D*>::const_iterator  iter = origin.animation_map_.begin();
 
@@ -21,12 +21,13 @@ CAnimator2D::CAnimator2D(const CAnimator2D& origin)
 		animation->owner_ = this;
 		animation_map_.insert(make_pair(iter->first, animation));
 	}
-// 	if (nullptr != origin.current_animation_)
-// 	{
-// 		current_animation_ = FindAnimation(origin.current_animation_->GetName());
-// 		current_animation_->SetCurrentFrame();
-// 		current_animation_->Play();
-// 	}
+	if (nullptr != origin.current_animation_)
+	{
+		current_animation_ = FindAnimation(origin.current_animation_->GetName());
+		current_animation_->SetCurrentFrame(origin.current_animation_->GetCurrentFrameIndex());
+		if(!origin.current_animation_->IsFinish())
+			current_animation_->Play();
+	}
 }
 
 CAnimator2D::~CAnimator2D()
@@ -34,23 +35,34 @@ CAnimator2D::~CAnimator2D()
 	Safe_Delete_Map(animation_map_);
 }
 
-void CAnimator2D::FinalUpdate()
+void CAnimator2D::Start()
 {
-	if (nullptr == animation_)
+	if (nullptr == current_animation_)
 		return;
-	animation_->FinalUpdate();
-	if (animation_->IsFinish() && animation_repeat_)
+	current_animation_->SetCurrentFrame(0);
+	if (current_animation_->play_on_start_)
+		current_animation_->Play();
+	else
+		current_animation_->animation_finish_ = true;
+}
+
+void CAnimator2D::LateUpdate()
+{
+	if (nullptr == current_animation_)
+		return;
+	current_animation_->LateUpdate();
+	if (current_animation_->IsFinish() && current_animation_->animation_repeat_)
 	{
-		animation_->SetCurrentFrame(0);
-		animation_->Play();
+		current_animation_->SetCurrentFrame(0);
+		current_animation_->Play();
 	}
 }
 
 void CAnimator2D::UpdateData()
 {
-	if (nullptr == animation_)
+	if (nullptr == current_animation_)
 		return;
-	animation_->UpdateData();
+	current_animation_->UpdateData();
 }
 
 
@@ -85,11 +97,15 @@ void CAnimator2D::Play(const wstring& animationName, UINT startFrame, bool repea
 	CAnimation2D* anim = FindAnimation(animationName);
 
 	if (nullptr == anim)
-		animation_ = nullptr;
-	animation_ = anim;
-	animation_->SetCurrentFrame(startFrame);
-	animation_->Play();
-	animation_repeat_ = repeat;
+	{
+		current_animation_ = nullptr;
+		return;
+	}
+		
+	current_animation_ = anim;
+	current_animation_->SetCurrentFrame(startFrame);
+	current_animation_->Play();
+	current_animation_->SetRepeat(repeat);
 }
 
 void CAnimator2D::AddAnimation(CAnimation2D* animtion)
