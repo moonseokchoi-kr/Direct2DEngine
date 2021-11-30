@@ -177,6 +177,9 @@
     <ClInclude Include="InspectorWidget.h" />
     <ClInclude Include="MenuWidget.h" />
     <ClInclude Include="MeshRenderWidget.h" />
+    <ClInclude Include="ToolCamera.h" />
+    <ClInclude Include="ToolGameObject.h" />
+    <ClInclude Include="ToolObjectManager.h" />
     <ClInclude Include="TransformWidget.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="WidgetManager.h" />
@@ -217,6 +220,9 @@
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="MeshRenderWidget.cpp" />
     <ClCompile Include="simple_math_extern.cpp" />
+    <ClCompile Include="ToolCamera.cpp" />
+    <ClCompile Include="ToolGameObject.cpp" />
+    <ClCompile Include="ToolObjectManager.cpp" />
     <ClCompile Include="TransformWidget.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="WidgetManager.cpp" />

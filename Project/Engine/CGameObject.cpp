@@ -159,10 +159,19 @@ void CGameObject::Render()
 
 void CGameObject::AddComponent(CComponent* comp)
 {
-	const UINT type = ENUM_TO_NUMBER(comp->GetType());
-	assert(!component_array_[type]);
+	COMPONENT_TYPE type = comp->GetType();
+	if (COMPONENT_TYPE::SCRIPT == type)
+	{
+		scripts_vector_.push_back(dynamic_cast<CScript*>(comp));
+		comp->owner_ = this;
+		return;
+	}
+	const UINT index = ENUM_TO_NUMBER(type);
+
+	assert(!component_array_[index]);
+
 	comp->owner_ = this;
-	component_array_[type] = comp;
+	component_array_[index] = comp;
 	
 }
 

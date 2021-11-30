@@ -88,6 +88,15 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\Animation\OffsetTool">
       <UniqueIdentifier>{b686d097-ba22-4db9-a782-87ba209dbdd9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\ToolObject">
+      <UniqueIdentifier>{e1439f3f-63ec-4db2-a334-191b7d2eff8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\ToolObject\CameraEx">
+      <UniqueIdentifier>{19ce65fd-b3d1-4e76-aa6d-86f6d2775b3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\ToolObject\GameObjectEx">
+      <UniqueIdentifier>{1018e4c9-5038-41b9-a65f-076152054e80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -179,6 +188,15 @@
     </ClInclude>
     <ClInclude Include="AnimationOffsetTool.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation\OffsetTool</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolObjectManager.h">
+      <Filter>소스 파일\Tool\ToolObject</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolGameObject.h">
+      <Filter>소스 파일\Tool\ToolObject\GameObjectEx</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolCamera.h">
+      <Filter>소스 파일\Tool\ToolObject\CameraEx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,6 +293,15 @@
     </ClCompile>
     <ClCompile Include="AnimationOffsetTool.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation\OffsetTool</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolObjectManager.cpp">
+      <Filter>소스 파일\Tool\ToolObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolGameObject.cpp">
+      <Filter>소스 파일\Tool\ToolObject\GameObjectEx</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolCamera.cpp">
+      <Filter>소스 파일\Tool\ToolObject\CameraEx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
