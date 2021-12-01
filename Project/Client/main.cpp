@@ -8,6 +8,7 @@
 #include "imgui_impl_win32.h"
 
 #include "WidgetManager.h"
+#include "ToolObjectManager.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "Engine/Engine_debug.lib")
@@ -50,6 +51,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     CCore::GetInst()->Progress();
 
+    ToolObjectManager::GetInst()->Init();
+    
     WidgetManager::GetInst()->Init(g_hwnd);
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
@@ -73,6 +76,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             CCore::GetInst()->Progress();
+
+            ToolObjectManager::GetInst()->Update();
 
             WidgetManager::GetInst()->Update();
             WidgetManager::GetInst()->Render();

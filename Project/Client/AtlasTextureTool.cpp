@@ -107,7 +107,7 @@ void AtlasTextureTool::ShowMenuBar()
 		{
 			if (ImGui::MenuItem("Load Texture"))
 			{
-				atlas_ = CResourceManager::GetInst()->LoadRes<CTexture>(L"atlas", L"texture\\anim_texture\\sakuya_player.png");
+				atlas_ = CResourceManager::GetInst()->LoadRes<CTexture>(L"atlas", L"texture\\anim_texture\\player.png");
 			}
 			ImGui::EndMenu();
 		}

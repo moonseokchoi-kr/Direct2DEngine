@@ -24,7 +24,7 @@ CCamera::CCamera()
 	, scale_(1.f)
 	, projection_type_(PROJECTION_TYPE::PERSPECTIVE)
 	, camera_index_(-1)
-	
+
 {
 }
 
@@ -35,48 +35,18 @@ CCamera::~CCamera()
 
 void CCamera::Update()
 {
-// 	Vec3 pos = GetTransform()->GetPosition();
-// 	if(KEY_HOLD(KEY::W))
-// 	{
-// 		pos.y -= 100.f * fDT;
-// 	}
-// 	if (KEY_HOLD(KEY::A))
-// 	{
-// 		pos.x -= 100.f * fDT;
-// 	}
-// 	if (KEY_HOLD(KEY::S))
-// 	{
-// 		pos.y += 100.f * fDT;
-// 	}
-// 	if (KEY_HOLD(KEY::D))
-// 	{
-// 		pos.x += 100.f * fDT;
-// 	}
-// 	GetTransform()->SetPosition(pos);
-
 }
 
 void CCamera::LateUpdate()
 {
-	
+
 }
 
 void CCamera::FinalUpdate()
 {
-	const Vec3 pos = GetTransform()->GetPosition();
-	const Vec2 resolution = CDevice::GetInst()->GetResolution();
-	view_matrix_ = XMMatrixTranslation(pos.x, pos.y, pos.z);
-	view_matrix_ = view_matrix_.Invert();
+	CalViewMatrix();
+	CalProjectionMatrix();
 
-
-	if(PROJECTION_TYPE::PERSPECTIVE == projection_type_)
-	{
-		projection_matrix_ = XMMatrixPerspectiveFovLH(angle_of_view_y_, CDevice::GetInst()->GetAspectRatio(), 1.f, far_z_);
-	}
-	else if(PROJECTION_TYPE::ORTHO == projection_type_)
-	{
-		projection_matrix_ = XMMatrixOrthographicLH(resolution.x * 1/scale_, resolution.y * 1/scale_, 1.f, far_z_);
-	}
 
 	camera_index_ = CRenderManager::GetInst()->RegisterCamera(this, camera_index_);
 }
@@ -98,6 +68,38 @@ void CCamera::Render()
 	}
 }
 
+void CCamera::CalViewMatrix()
+{
+	// View 행렬 이동파트
+	Vec3 vPos = GetTransform()->GetPosition();
+
+	// View 행렬 회전 파트
+	Vec3 right = GetTransform()->GetWorldDirection(DIRECTION_TYPE::RIGHT);
+	Vec3 up = GetTransform()->GetWorldDirection(DIRECTION_TYPE::UP);
+	Vec3 front = GetTransform()->GetWorldDirection(DIRECTION_TYPE::FRONT);
+
+	view_matrix_ = XMMatrixIdentity();
+
+	view_matrix_._11 = right.x;			view_matrix_._12 = up.x;				view_matrix_._13 = front.x;
+	view_matrix_._21 = right.y;			view_matrix_._22 = up.y;				view_matrix_._23 = front.y;
+	view_matrix_._31 = right.z;			view_matrix_._32 = up.z;				view_matrix_._33 = front.z;
+	view_matrix_._41 = -vPos.Dot(right);	view_matrix_._42 = -vPos.Dot(up);		view_matrix_._43 = -vPos.Dot(front);
+}
+
+void CCamera::CalProjectionMatrix()
+{
+	const Vec2 resolution = CDevice::GetInst()->GetResolution();
+	if (PROJECTION_TYPE::PERSPECTIVE == projection_type_)
+	{
+		projection_matrix_ = XMMatrixPerspectiveFovLH(angle_of_view_y_, CDevice::GetInst()->GetAspectRatio(), 1.f, far_z_);
+	}
+	else if (PROJECTION_TYPE::ORTHO == projection_type_)
+	{
+		projection_matrix_ = XMMatrixOrthographicLH(resolution.x *  scale_, resolution.y *  scale_, 1.f, far_z_);
+	}
+
+}
+
 void CCamera::SeperateRenderObject()
 {
 	forward_render_object_vector_.clear();
@@ -116,7 +118,7 @@ void CCamera::SeperateRenderObject()
 
 			RENDER_TIMING rt = RENDER_TIMING::NONE;
 
-			for(CGameObject* object : objectVector)
+			for (CGameObject* object : objectVector)
 			{
 				if (object->MeshRender())
 				{
@@ -137,7 +139,7 @@ void CCamera::SeperateRenderObject()
 					Ptr<CGraphicsShader> shader = object->ParticleSystem()->GetMaterial()->GetShader();
 					rt = shader->GetRenderTiming();
 				}
-			
+
 				switch (rt)
 				{
 				case RENDER_TIMING::FOWARD:
@@ -149,12 +151,12 @@ void CCamera::SeperateRenderObject()
 				{
 					particle_object_vector_.push_back(object);
 				}
-					break;
+				break;
 				case RENDER_TIMING::POST_EFFECT:
 				{
 					post_effect_vector_.push_back(object);
 				}
-					break;
+				break;
 				}
 			}
 		}
@@ -165,7 +167,7 @@ void CCamera::RenderFoward()
 {
 	g_transform.view_matrix = view_matrix_;
 	g_transform.projection_matrix = projection_matrix_;
-	
+
 	for (CGameObject* object : forward_render_object_vector_)
 	{
 		object->Render();

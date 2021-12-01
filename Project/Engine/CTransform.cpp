@@ -8,8 +8,11 @@
 
 CTransform::CTransform()
 	:CComponent(COMPONENT_TYPE::TRANSFORM)
+	,local_direction_{Vec3::Right,Vec3::Up,Vec3::Front}
+	,world_direction_{}
+	,local_scale_(Vec3(1.f, 1.f, 1.f))
 {
-	local_scale_ = Vec3(1.f, 1.f, 1.f);
+	 
 }
 
 CTransform::~CTransform()
@@ -29,9 +32,23 @@ void CTransform::FinalUpdate()
 
 	world_matrix_ = scaleMat * rotationMat * translateMat;
 
-	if (GetOwner()->GetParent())
+	for (UINT i = 0; i < (UINT)DIRECTION_TYPE::END; ++i)
 	{
-		world_matrix_ *= GetOwner()->GetParent()->Transform()->GetWorldMatrix();
+		local_direction_[i] = XMVector3TransformNormal(axis_array_[i], rotationMat);
+		world_direction_[i] = local_direction_[i].Normalize();
+	}
+
+	CGameObject* parentObj = GetOwner()->GetParent();
+	if (parentObj)
+	{
+		const Matrix& parentWorldMatrix = parentObj->Transform()->GetWorldMatrix();
+		world_matrix_ *= parentWorldMatrix;
+
+		for (UINT i = 0; i < (UINT)DIRECTION_TYPE::END; ++i)
+		{
+			world_direction_[i] = XMVector3TransformNormal(axis_array_[i], world_matrix_);
+			world_direction_[i].Normalize();
+		}
 
 	}
 

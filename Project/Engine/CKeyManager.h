@@ -68,9 +68,9 @@ class CKeyManager
 	SINGLE(CKeyManager);
 private:
 	vector<KeyInfo> vec_key_;
-	Vec2			 cur_mouse_pos_;
-
-
+	Vec2			cur_mouse_pos_;
+	Vec2			prev_mouse_pos_;
+	Vec2			cur_mouse_dir_;
 public:
 	void Init();
 	void Update();
@@ -78,5 +78,6 @@ public:
 public:
 	KEY_STATE GetKeyState(KEY key){return vec_key_[static_cast<int>(key)].state;}
 	Vec2 GetMousePos() { return cur_mouse_pos_; }
+	Vec2 GetMouseDir() { return cur_mouse_dir_; }
 };
 

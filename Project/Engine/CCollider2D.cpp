@@ -57,10 +57,10 @@ void CCollider2D::Render()
 void CCollider2D::OnCollisionEnter(CGameObject* otherObject)
 {
 	++collision_count_;
-	CScript* script = GetOwner()->GetScript();
+	
 	collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"collider2DMaterial_collision");
-
-	if (script)
+	const vector<CScript*>& scripts = GetOwner()->GetScripts();
+	for (const auto& script : scripts)
 	{
 		script->OnCollisionEnter(otherObject);
 	}
@@ -71,8 +71,8 @@ void CCollider2D::OnCollisionEnter(CGameObject* otherObject)
 
 void CCollider2D::OnCollision(CGameObject* otherObject)
 {
-	CScript* script = GetOwner()->GetScript();
-	if (script)
+	const vector<CScript*>& scripts = GetOwner()->GetScripts();
+	for (const auto& script : scripts)
 	{
 		script->OnCollision(otherObject);
 	}
@@ -81,12 +81,12 @@ void CCollider2D::OnCollision(CGameObject* otherObject)
 void CCollider2D::OnCollisionExit(CGameObject* otherObject)
 {
 	--collision_count_;
-	CScript* script = GetOwner()->GetScript();
 	if (0 == collision_count_)
 	{
 		collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"collider2DMaterial_none");
 	}
-	if (script)
+	const vector<CScript*>& scripts = GetOwner()->GetScripts();
+	for (const auto& script : scripts)
 	{
 		script->OnCollisionExit(otherObject);
 	}

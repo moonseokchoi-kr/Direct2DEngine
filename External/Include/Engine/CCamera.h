@@ -15,13 +15,18 @@ public:
 	void UpdateData() override{};
     void Render() override;
 
+	void CalViewMatrix();
+	void CalProjectionMatrix();
+
     void SeperateRenderObject();
+
+
 
     void RenderFoward();
     void RenderParticle();
     void RenderPostEffect();
     
-   
+
 public:
     void SetProjectionType(PROJECTION_TYPE type) { projection_type_ = type; }
     void CheckAllLayout() { layer_check_out_ = 0xffffffff; }

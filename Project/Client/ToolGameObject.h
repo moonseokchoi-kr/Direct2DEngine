@@ -7,6 +7,7 @@ public:
     ToolGameObject();
     ~ToolGameObject();
 public:
+    void Start();
 	void FinalUpdate();
 };
 

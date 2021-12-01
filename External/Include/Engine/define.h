@@ -205,3 +205,11 @@ enum class SCENE_MODE
 	PAUSE,
 	STOP,
 };
+
+enum class DIRECTION_TYPE
+{
+	RIGHT,
+	UP,
+	FRONT,
+	END,
+};

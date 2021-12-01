@@ -14,6 +14,7 @@
 //atlas가 없으면 에디터 버튼 제외 비활성화
 //atlas가 생기면 그때 새 애니메이션 구성
 //save를 누르면 애니메이터에 저장
+//backboard size 지정하도록 생성
 AnimationTool::AnimationTool()
 	:Widget("animation_tool")
 	, is_open_(false)
@@ -32,6 +33,7 @@ AnimationTool::AnimationTool()
 
 AnimationTool::~AnimationTool()
 {
+	SafeDelete(animation_);
 }
 
 void AnimationTool::Init()

@@ -7,6 +7,13 @@ public:
     ToolCamera();
     ~ToolCamera();
 public:
-    void FinalUpdate() override;
+    void FinalUpdate();
+
+private:
+    void Move();
+
+private:
+    float move_time_;
+    float accumulated_time_;
 };
 

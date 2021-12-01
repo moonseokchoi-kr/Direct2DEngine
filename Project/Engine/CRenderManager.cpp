@@ -2,6 +2,7 @@
 #include "CRenderManager.h"
 #include "CResourceManager.h"
 #include "CDevice.h"
+#include "CSceneManager.h"
 
 #include "CLight2D.h"
 #include "CCamera.h"
@@ -41,22 +42,17 @@ void CRenderManager::Render()
 
 	CDevice::GetInst()->ClearTarget();
 
-	if (nullptr != camera_vector_[0])
-	{
-		camera_vector_[0]->SeperateRenderObject();
+	SCENE_MODE sceneMode = CSceneManager::GetInst()->GetSceneMode();
 
-		camera_vector_[0]->RenderFoward();
-		camera_vector_[0]->RenderParticle();
-		camera_vector_[0]->RenderPostEffect();
+	if (sceneMode == SCENE_MODE::PLAY)
+	{
+		RenderPlay();
+	}
+	else
+	{
+		RenderTool();
 	}
 
-	for (size_t i = 1; i < camera_vector_.size(); ++i)
-	{
-		if(nullptr != camera_vector_[i])
-			continue;
-		camera_vector_[i]->SeperateRenderObject();
-		camera_vector_[i]->RenderFoward();
-	}
 
 	camera_vector_.clear();
 	camera_vector_.resize(1);
@@ -132,4 +128,35 @@ void CRenderManager::UpdataGlobalData()
 	cb->SetData(&g_global, sizeof(GlobalData));
 	cb->SetPipelineStage(PS_ALL);
 	cb->UpdateData();
+}
+
+void CRenderManager::RenderPlay()
+{
+	if (nullptr != camera_vector_[0])
+	{
+		camera_vector_[0]->SeperateRenderObject();
+
+		camera_vector_[0]->RenderFoward();
+		camera_vector_[0]->RenderParticle();
+		camera_vector_[0]->RenderPostEffect();
+	}
+
+	for (size_t i = 1; i < camera_vector_.size(); ++i)
+	{
+		if (nullptr != camera_vector_[i])
+			continue;
+		camera_vector_[i]->SeperateRenderObject();
+		camera_vector_[i]->RenderFoward();
+	}
+}
+
+void CRenderManager::RenderTool()
+{
+	if (nullptr != tool_camera_)
+	{
+		tool_camera_->SeperateRenderObject();
+		tool_camera_->RenderFoward();
+		tool_camera_->RenderParticle();
+		tool_camera_->RenderPostEffect();
+	}
 }

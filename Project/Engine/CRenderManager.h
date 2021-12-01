@@ -16,6 +16,7 @@ public:
     void Render();
 public:
     int RegisterCamera(CCamera* camera, int cameraIndex);
+    void RegisterToolCamera(CCamera* camera) { tool_camera_ = camera; }
     int RegisterLight2D(CLight2D* light)
     {
         light2D_vector_.push_back(light);
@@ -26,9 +27,12 @@ public:
 private:
     void UpdateLight2D();
     void UpdataGlobalData();
+    void RenderPlay();
+    void RenderTool();
 private:
     vector<CCamera*> camera_vector_;
     vector<CLight2D*> light2D_vector_;
     Ptr<CTexture> post_effect_target_;
+    CCamera* tool_camera_;
 };
 

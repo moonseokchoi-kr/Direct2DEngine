@@ -116,8 +116,12 @@ void CKeyManager::Update()
 		POINT ptPos = {};
 		GetCursorPos(&ptPos);
 		ScreenToClient(CCore::GetInst()->GetMainHwnd(), &ptPos);
+		prev_mouse_pos_ = cur_mouse_pos_;
 		Vec2 resolution = CDevice::GetInst()->GetResolution();
 		cur_mouse_pos_ = Vec2((float)(ptPos.x - resolution.x / 2.f), (float)((resolution.y - ptPos.y) - resolution.y / 2.f));
+
+		cur_mouse_dir_ = cur_mouse_pos_ - prev_mouse_pos_;
+		cur_mouse_dir_.y *= -1.f;
 	}
 
 	// 윈도우 포커싱 해제상태

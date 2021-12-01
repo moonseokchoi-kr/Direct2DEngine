@@ -48,7 +48,7 @@ public:
     GET_COMPONENT(Light2D, COMPONENT_TYPE::LIGHT2D);
     GET_COMPONENT(Animator2D, COMPONENT_TYPE::ANIMATOR2D);
     GET_COMPONENT(ParticleSystem, COMPONENT_TYPE::PARTICLESYSTEM);
-    CScript* GetScript() { return (CScript*)component_array_[static_cast<UINT>(COMPONENT_TYPE::SCRIPT)]; }
+    const vector<CScript*>& GetScripts() { return scripts_vector_; }
     CGameObject* GetParent() { return parent_object_; }
 
 
