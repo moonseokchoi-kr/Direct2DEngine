@@ -84,7 +84,7 @@ void CAnimation2D::Create(const wstring& animationName, Ptr<CTexture> texture, U
 		frame.animation_data.size = Vec2((float)sizeX / width, (float)sizeY / height);
 		frame.animation_data.full_size = Vec2(animation_back_board_.x / width, animation_back_board_.y/ height);
 		frame.animation_data.left_top = Vec2((float)ltX / width, (float)ltY / height);
-		frame.animation_data.left_top -= ((frame.animation_data.full_size - frame.animation_data.size) / 2.f);
+		frame.animation_data.left_top -= (frame.animation_data.full_size- frame.animation_data.size)/ 2.f;
 
 		frame.duration = duration;
 

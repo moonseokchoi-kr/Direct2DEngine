@@ -41,6 +41,7 @@ void AtlasTextureTool::Update()
 			ImGui::SameLine();
 			ImGui::SetNextItemWidth(50);
 			ImGui::InputFloat("##back_board_x", &back_board_size_.x);
+		
 			ImGui::SameLine();
 			ImGui::Text("Y");
 			ImGui::SameLine();

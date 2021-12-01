@@ -21,13 +21,14 @@
 #include <random>
 #include <unordered_map>
 #include <array>
+#include <limits>
 #include <cmath>
 #include <assert.h>
 #include <crtdbg.h>
 
 using std::wstring;
 using std::string;
-
+using std::numeric_limits;
 using std::vector;
 using std::list;
 using std::unordered_map;

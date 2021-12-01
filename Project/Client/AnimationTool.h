@@ -30,11 +30,18 @@ private:
     void ShowAnimationEditWidget();
     void ShowAnimationDetailSettingPanel();
     void ShowPlayButton();
+
+private:
+    float CalMaxSizeY();
+    void RenderAllFrame(ImDrawList* draw_list, Ptr<CTexture> atlas, ImVec2 canvas_center, float atlas_width, float atlas_height);
+    void RenderFrame(ImDrawList* draw_list, Ptr<CTexture> atlas, ImVec2 canvas_center, float atlas_width, float atlas_height,AnimationFrame& data);
+    AnimationFrame GetAnimationFrameData(UINT index);
 private:
     bool is_open_;
     bool play_;
-    bool menu_selected_;
+    bool render_all_;
     int current_index_;
+    int previous_index_;
     float zoom_;
     float acc_time_;
     

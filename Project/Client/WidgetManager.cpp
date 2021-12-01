@@ -8,7 +8,7 @@
 
 #include <Engine/CKeyManager.h>
 #include <Engine/CCore.h>
-
+#include <Engine/CSceneManager.h>
 WidgetManager::WidgetManager()
 	:is_active_demo_(true)
 {
@@ -87,6 +87,7 @@ void WidgetManager::Update()
 
 	// Demo GUI
 	ImGuiDemo();
+
 
 	// GUI Update
 	for (const auto& pair : widget_map_)
