@@ -2,6 +2,12 @@
 #include "Widget.h"
 #include <Engine/CTexture.h>
 
+enum class ToolType
+{
+    ANIMATOR,
+    TILEMAP,
+};
+
 class AnimationTool;
 class AtlasTextureTool :
     public Widget
@@ -41,7 +47,7 @@ private:
     Vec2 selected_left_top_;
     Vec2 region_size_;
     Vec2 back_board_size_;
-
+    Vec2 scrolling_;
     float zoom_;
 
 };

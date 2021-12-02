@@ -29,7 +29,7 @@ void AtlasTextureTool::Update()
 {
 	// Child 2: rounded border
 	ImGui::SetNextWindowSize(ImVec2(0, 512));
-	if(ImGui::Begin("Atlas Editor", &is_active_, window_flags_))
+	if (ImGui::Begin("Atlas Editor", &is_active_, window_flags_))
 	{
 		ShowMenuBar();
 		if (ImGui::BeginTable("##rectSize", 2, ImGuiTableFlags_Resizable))
@@ -41,7 +41,7 @@ void AtlasTextureTool::Update()
 			ImGui::SameLine();
 			ImGui::SetNextItemWidth(50);
 			ImGui::InputFloat("##back_board_x", &back_board_size_.x);
-		
+
 			ImGui::SameLine();
 			ImGui::Text("Y");
 			ImGui::SameLine();
@@ -64,7 +64,7 @@ void AtlasTextureTool::Update()
 			ImGui::InputFloat("##rect_y", &region_size_.y);
 
 
-			
+
 			ImGui::EndTable();
 		}
 		ShowAtlasVeiw();
@@ -76,7 +76,7 @@ void AtlasTextureTool::Update()
 		Deactivate();
 		ImGui::End();
 	}
-	
+
 }
 
 void AtlasTextureTool::Clear()
@@ -126,8 +126,9 @@ void AtlasTextureTool::ShowAtlasVeiw()
 	ImVec2 canvas_center = ImVec2(canvas_p0.x + canvas_sz.x / 2.f, canvas_p0.y + canvas_sz.y / 2.f);
 	// Draw border and background color
 	ImDrawList* draw_list = ImGui::GetWindowDrawList();
-	//draw_list->AddRectFilled(canvas_p0, canvas_p1, IM_COL32(50, 50, 50, 255));
+	draw_list->AddRectFilled(canvas_p0, canvas_p1, IM_COL32(50, 50, 50, 255));
 	draw_list->AddRect(canvas_p0, canvas_p1, IM_COL32(255, 255, 255, 255));
+	ImGui::InvisibleButton("canvas", canvas_sz, ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight);
 
 	if (nullptr != atlas_)
 	{
@@ -138,7 +139,9 @@ void AtlasTextureTool::ShowAtlasVeiw()
 			ImVec4 border_col = ImVec4(1.0f, 1.0f, 1.0f, 0.5f); // 50% opaque white
 			float region_x = current_mouse_pos_.x - canvas_p0.x;
 			float region_y = current_mouse_pos_.y - canvas_p0.y;
-			ImGui::Image(atlas_->GetShaderResourceView(), ImVec2((float)atlas_->GetWidth() * zoom_, (float)atlas_->GetHeight() * zoom_), uv_min, uv_max);
+			float width = (float)atlas_->GetWidth() * zoom_;
+			float height = (float)atlas_->GetHeight() * zoom_;
+
 			ImGui::SetItemUsingMouseWheel();
 			if (ImGui::IsItemHovered())
 			{
@@ -151,7 +154,7 @@ void AtlasTextureTool::ShowAtlasVeiw()
 
 				if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 				{
-					current_mouse_pos_ = Vec2(io.MousePos.x-region_size_.x/2.f, io.MousePos.y- region_size_.x / 2.f);
+					current_mouse_pos_ = Vec2(io.MousePos.x - region_size_.x / 2.f, io.MousePos.y - region_size_.x / 2.f);
 					release_mouse_ = false;
 
 				}
@@ -159,13 +162,18 @@ void AtlasTextureTool::ShowAtlasVeiw()
 				{
 					current_mouse_pos_ += Vec2(io.MouseDelta.x, io.MouseDelta.y);
 				}
-				if(ImGui::IsMouseReleased(ImGuiMouseButton_Left))
+				if (ImGui::IsMouseReleased(ImGuiMouseButton_Left))
 				{
-					selected_left_top_ = Vec2(region_x, region_y)/zoom_;
+					selected_left_top_ = Vec2(region_x, region_y) / zoom_;
 					//current_mouse_pos_ = Vec2(-1, -1);
 					release_mouse_ = true;
 				}
-			
+				if (ImGui::IsMouseDragging(ImGuiMouseButton_Right))
+				{
+					scrolling_ += Vec2(io.MouseDelta.x, io.MouseDelta.y);
+				}
+
+
 				ImGui::BeginTooltip();
 
 				if (region_x < 0.0f) { region_x = 0.0f; }
@@ -181,8 +189,18 @@ void AtlasTextureTool::ShowAtlasVeiw()
 				release_mouse_ = false;
 				window_flags_ ^= ImGuiWindowFlags_NoMove;
 			}
+		
+			draw_list->PushClipRect(canvas_p0, canvas_p1, true);
+			{
+				draw_list->AddImage(atlas_->GetShaderResourceView(), ImVec2(canvas_p0.x + scrolling_.x, canvas_p0.y + scrolling_.y),
+					ImVec2(canvas_p0.x + scrolling_.x + width, canvas_p0.y + scrolling_.y + height), uv_min, uv_max);
+				draw_list->AddRect(current_mouse_pos_, ImVec2(current_mouse_pos_.x + region_size_.x * zoom_, current_mouse_pos_.y + region_size_.y * zoom_), IM_COL32(51, 218, 32, 255));
+			}
+			draw_list->PopClipRect();
 			
-			draw_list->AddRect(current_mouse_pos_, ImVec2(current_mouse_pos_.x + region_size_.x*zoom_, current_mouse_pos_.y + region_size_.y*zoom_), IM_COL32(51, 218, 32, 255));
+
+
+
 		}
 	}
 	else
