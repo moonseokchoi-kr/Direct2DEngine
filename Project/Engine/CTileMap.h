@@ -4,7 +4,7 @@
 #include "CTexture.h"
 #include "CMaterial.h"
 
-
+class CStructuredBuffer;
 class CTileMap :
     public CComponent
 {
@@ -39,8 +39,14 @@ private:
     Ptr<CMaterial> material_;
     Ptr<CTexture> atlas_texture_;
 
+    CStructuredBuffer* buffer_;
+
+    vector<int> tile_altas_image_coord_vector_;
+
     int tile_map_column_size_;
     int tile_map_row_size_;
+
+    int current_tile_index_;
 
     Vec2 tile_size_;
 };

@@ -25,7 +25,7 @@ void ToolCamera::FinalUpdate()
 void ToolCamera::Move()
 {
 	Vec3 position = GetTransform()->GetPosition();
-	if (KEY_HOLD(KEY::W))
+	if (KEY_HOLD(KEY::Q))
 	{
 		Vec3 front = GetTransform()->GetWorldDirection(DIRECTION_TYPE::FRONT);
 		position += fDT * front * 500.f;
@@ -35,7 +35,7 @@ void ToolCamera::Move()
 		Vec3 right = GetTransform()->GetWorldDirection(DIRECTION_TYPE::RIGHT);
 		position += fDT * -right * 500.f;
 	}
-	if (KEY_HOLD(KEY::S))
+	if (KEY_HOLD(KEY::E))
 	{
 		Vec3 front = GetTransform()->GetWorldDirection(DIRECTION_TYPE::FRONT);
 		position += fDT * -front * 500.f;
@@ -44,6 +44,16 @@ void ToolCamera::Move()
 	{
 		Vec3 right = GetTransform()->GetWorldDirection(DIRECTION_TYPE::RIGHT);
 		position += fDT * right * 500.f;
+	}
+	if (KEY_HOLD(KEY::W))
+	{
+		Vec3 up = GetTransform()->GetWorldDirection(DIRECTION_TYPE::UP);
+		position += fDT * up * 500.f;
+	}
+	if (KEY_HOLD(KEY::S))
+	{
+		Vec3 up = GetTransform()->GetWorldDirection(DIRECTION_TYPE::UP);
+		position += fDT * -up * 500.f;
 	}
 	if (KEY_HOLD(KEY::RBTN))
 	{

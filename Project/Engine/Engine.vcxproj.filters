@@ -497,9 +497,6 @@
     <FxCompile Include="function.fx">
       <Filter>소스 파일\ShaderCode</Filter>
     </FxCompile>
-    <FxCompile Include="struct.fx">
-      <Filter>소스 파일\ShaderCode</Filter>
-    </FxCompile>
     <FxCompile Include="value.fx">
       <Filter>소스 파일\ShaderCode</Filter>
     </FxCompile>
@@ -529,6 +526,9 @@
     </FxCompile>
     <FxCompile Include="tile_map_shader.fx">
       <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
+    </FxCompile>
+    <FxCompile Include="struct.fx">
+      <Filter>소스 파일\ShaderCode</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
