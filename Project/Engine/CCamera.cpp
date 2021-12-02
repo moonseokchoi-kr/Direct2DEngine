@@ -13,6 +13,7 @@
 #include "CMeshRender.h"
 #include "CParticleSystem.h"
 #include "CMaterial.h"
+#include "CTileMap.h"
 
 #include "CLayer.h"
 #include "CScene.h"
@@ -122,7 +123,9 @@ void CCamera::SeperateRenderObject()
 			{
 				if (object->MeshRender())
 				{
-					if (nullptr == object->MeshRender()->GetMesh() || nullptr == object->MeshRender()->GetSharedMaterial() || nullptr == object->MeshRender()->GetSharedMaterial()->GetShader())
+					if (nullptr == object->MeshRender()->GetMesh() 
+						|| nullptr == object->MeshRender()->GetCurrentMaterial() 
+						|| nullptr == object->MeshRender()->GetCurrentMaterial()->GetShader())
 					{
 						continue;
 					}
@@ -132,11 +135,24 @@ void CCamera::SeperateRenderObject()
 				}
 				else if (object->ParticleSystem())
 				{
-					if (nullptr == object->ParticleSystem()->GetMesh() || nullptr == object->ParticleSystem()->GetMaterial() || nullptr == object->ParticleSystem()->GetMaterial()->GetShader())
+					if (nullptr == object->ParticleSystem()->GetMesh() 
+						|| nullptr == object->ParticleSystem()->GetMaterial() 
+						|| nullptr == object->ParticleSystem()->GetMaterial()->GetShader())
 					{
 						continue;
 					}
 					Ptr<CGraphicsShader> shader = object->ParticleSystem()->GetMaterial()->GetShader();
+					rt = shader->GetRenderTiming();
+				}
+				else if (object->TileMap())
+				{
+					if (nullptr == object->TileMap()->GetMesh()
+						|| nullptr == object->TileMap()->GetMaterial()->GetShader()
+						|| nullptr == object->TileMap()->GetMaterial()->GetShader())
+					{
+						continue;
+					}
+					Ptr<CGraphicsShader> shader = object->TileMap()->GetMaterial()->GetShader();
 					rt = shader->GetRenderTiming();
 				}
 

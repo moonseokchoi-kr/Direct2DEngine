@@ -19,7 +19,7 @@ void MeshRenderWidget::Update()
 {
 	CMeshRender* meshRender = GetTarget()->MeshRender();
 	Ptr<CMesh> mesh = meshRender->GetMesh();
-	Ptr<CMaterial> material = meshRender->GetMaterial();
+	Ptr<CMaterial> material = meshRender->GetCurrentMaterial();
 
 	Start();
 	{
@@ -81,7 +81,7 @@ void MeshRenderWidget::Update()
 					{
 						WideCharToMultiByte(CP_ACP, 0, pair.first.c_str(), -1, szBuffer.data(), (int)pair.first.size(), nullptr, nullptr);
 						listWidget->AddItem(szBuffer.data());
-						if (GetTarget()->MeshRender()->GetMaterial()->GetName() == pair.first)
+						if (GetTarget()->MeshRender()->GetCurrentMaterial()->GetName() == pair.first)
 							listWidget->SetCurrentIndex(count);
 						szBuffer.fill(0);
 						++count;

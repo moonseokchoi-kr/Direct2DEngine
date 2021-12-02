@@ -177,6 +177,9 @@
     <Filter Include="소스 파일\Component\UI">
       <UniqueIdentifier>{943d3782-b279-4da7-805b-a28edcc4d71c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Component\TileMap">
+      <UniqueIdentifier>{67008995-b3c2-4482-956d-3bb70b8f1154}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -335,6 +338,9 @@
     <ClInclude Include="CGameUIManager.h">
       <Filter>소스 파일\Manager\UI</Filter>
     </ClInclude>
+    <ClInclude Include="CTileMap.h">
+      <Filter>소스 파일\Component\TileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -478,6 +484,9 @@
     <ClCompile Include="CGameUIManager.cpp">
       <Filter>소스 파일\Manager\UI</Filter>
     </ClCompile>
+    <ClCompile Include="CTileMap.cpp">
+      <Filter>소스 파일\Component\TileMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -516,6 +525,9 @@
       <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
     </FxCompile>
     <FxCompile Include="post_effect.fx">
+      <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
+    </FxCompile>
+    <FxCompile Include="tile_map_shader.fx">
       <Filter>소스 파일\ShaderCode\GraphicShader</Filter>
     </FxCompile>
   </ItemGroup>

@@ -12,6 +12,7 @@
 #include "CScene.h"
 #include "CResourceManager.h"
 #include "CTimeManager.h"
+#include "CTileMap.h"
 
 #include "CLayer.h"
 
@@ -146,9 +147,13 @@ void CGameObject::Render()
 		MeshRender()->Render();
 	}
 
-	if (nullptr != ParticleSystem())
+	else if (nullptr != ParticleSystem())
 	{
 		ParticleSystem()->Render();
+	}
+	else if (nullptr != TileMap())
+	{
+		TileMap()->Render();
 	}
 	if (nullptr != Collider2D())
 	{

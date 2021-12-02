@@ -21,7 +21,7 @@ public:
 	
     CLONE(CMeshRender);
 public:
-	Ptr<CMaterial> GetMaterial() { return current_material_; }
+	Ptr<CMaterial> GetCurrentMaterial() { return current_material_; }
 	Ptr<CMesh> GetMesh() { return mesh_; }
 
     Ptr<CMaterial> GetSharedMaterial();

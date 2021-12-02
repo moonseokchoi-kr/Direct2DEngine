@@ -200,6 +200,16 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetRenderTiming(RENDER_TIMING::PARTICLE);
 	AddResource(L"particle_shader", stdShader);
 
+	stdShader = new CGraphicsShader;
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"shader\\tile_map_shader.fx";
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+	
+	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
+	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
+	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
+	AddResource(L"tile_map_shader", stdShader);
 
 	stdShader = new CGraphicsShader;
 	strPath = CPathManager::GetInst()->GetContentPath();
@@ -284,6 +294,11 @@ void CResourceManager::CreateDefaultMaterial()
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"particle_shader"));
 	AddResource(L"particle_material", material);
 	
+	//tilemap
+	material = new CMaterial;
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"tile_map_shader"));
+	AddResource(L"tile_map_material", material);
+
 
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"post_effect_shader"));

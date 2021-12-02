@@ -230,6 +230,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CStructuredBuffer.h" />
     <ClInclude Include="CTestComputeShader.h" />
     <ClInclude Include="CTexture.h" />
+    <ClInclude Include="CTileMap.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CTransform.h" />
     <ClInclude Include="CGameUIManager.h" />
@@ -284,6 +285,7 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CStructuredBuffer.cpp" />
     <ClCompile Include="CTestComputeShader.cpp" />
     <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="CTileMap.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CTransform.cpp" />
     <ClCompile Include="CGameUIManager.cpp" />
@@ -335,6 +337,9 @@ call .\EngineCopy.bat</Command>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
     </FxCompile>
     <FxCompile Include="test_compute_shader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+    </FxCompile>
+    <FxCompile Include="tile_map_shader.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
     </FxCompile>
     <FxCompile Include="value.fx">

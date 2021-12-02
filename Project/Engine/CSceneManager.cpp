@@ -13,6 +13,7 @@
 #include "CMonsterScript.h"
 #include "CMonsterHpBar.h"
 #include "CParticleSystem.h"
+#include "CTileMap.h"
 
 #include "CResourceManager.h"
 #include "CCollisionManager.h"
@@ -52,20 +53,31 @@ void CSceneManager::Init()
 	//카메라 1번
 	current_scene_->AddGameObject(camera, 1, true);
 
-	const auto background = new CGameObject;
-	background->AddComponent(new CTransform);
-	background->AddComponent(new CMeshRender);
-	background->Transform()->SetPosition(Vec3(0.f, 0.f, 2000.f));
-	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
-	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	CMaterial* backgroundMaterial = new CMaterial;
-	int a = 0;
-	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
-	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
-	CResourceManager::GetInst()->AddResource(L"backgoundMaterial", backgroundMaterial);
-	background->MeshRender()->SetMaterial(backgroundMaterial);
-	//boss hp ui
-	current_scene_->AddGameObject(background, 0, true);
+// 	const auto background = new CGameObject;
+// 	background->AddComponent(new CTransform);
+// 	background->AddComponent(new CMeshRender);
+// 	background->Transform()->SetPosition(Vec3(0.f, 0.f, 2000.f));
+// 	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
+// 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+// 	CMaterial* backgroundMaterial = new CMaterial;
+// 	int a = 0;
+// 	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+// 	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
+// 	CResourceManager::GetInst()->AddResource(L"backgoundMaterial", backgroundMaterial);
+// 	background->MeshRender()->SetMaterial(backgroundMaterial);
+// 	//boss hp ui
+// 	current_scene_->AddGameObject(background, 0, true);
+
+
+	const auto tileMap = new CGameObject;
+	tileMap->SetName(L"tile_map");
+	tileMap->AddComponent(new CTransform);
+	tileMap->AddComponent(new CTileMap);
+	tileMap->Transform()->SetPosition(Vec3(0.f, 0.f, 200.f));
+	tileMap->Transform()->SetScale(Vec3(64.f * 8.f, 64.f * 6, 1.f));
+	Ptr<CTexture> pTileAtlas = CResourceManager::GetInst()->LoadRes<CTexture>(L"tile_map_atlas_texture", L"texture\\tilemap\\TILE.bmp");
+	tileMap->TileMap()->SetAtlasTexture(pTileAtlas);
+	current_scene_->AddGameObject(tileMap, 3, true);
 
 	const auto light = new CGameObject;
 	light->AddComponent(new CTransform);
@@ -80,27 +92,27 @@ void CSceneManager::Init()
 	//CreatePrefabs();
 	//InitTestMap();
 	
-	CGameObject* particleObject = new CGameObject;
-
-	particleObject->SetName(L"particle");
-	particleObject->AddComponent(new CTransform);
-	particleObject->AddComponent(new CParticleSystem);
-	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
-	current_scene_->AddGameObject(particleObject, 2, true);
-
-	CGameObject* postEffectObject = new CGameObject;
-	postEffectObject->SetName(L"post_effect");
-	postEffectObject->AddComponent(new CTransform);
-	postEffectObject->AddComponent(new CMeshRender);
-	postEffectObject->AddComponent(new CMoveScript);
-	postEffectObject->Transform()->SetPosition(Vec3(0.f, 0.f, 400.f));
-	postEffectObject->Transform()->SetScale(Vec3(300.f, 300.f, 0.f));
-	postEffectObject->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	postEffectObject->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"post_effect_material"));
-	postEffectObject->MeshRender()->GetSharedMaterial()->SetData(SHADER_PARAM::TEX_1, CResourceManager::GetInst()->FindRes<CTexture>(L"heat_distortion_effet_noise").Get());
-	postEffectObject->MeshRender()->GetSharedMaterial()->SetData(SHADER_PARAM::TEX_2, CResourceManager::GetInst()->FindRes<CTexture>(L"radial").Get());
-
-	current_scene_->AddGameObject(postEffectObject, 0, true);
+// 	CGameObject* particleObject = new CGameObject;
+// 
+// 	particleObject->SetName(L"particle");
+// 	particleObject->AddComponent(new CTransform);
+// 	particleObject->AddComponent(new CParticleSystem);
+// 	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
+// 	current_scene_->AddGameObject(particleObject, 2, true);
+// 
+// 	CGameObject* postEffectObject = new CGameObject;
+// 	postEffectObject->SetName(L"post_effect");
+// 	postEffectObject->AddComponent(new CTransform);
+// 	postEffectObject->AddComponent(new CMeshRender);
+// 	postEffectObject->AddComponent(new CMoveScript);
+// 	postEffectObject->Transform()->SetPosition(Vec3(0.f, 0.f, 400.f));
+// 	postEffectObject->Transform()->SetScale(Vec3(300.f, 300.f, 0.f));
+// 	postEffectObject->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+// 	postEffectObject->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"post_effect_material"));
+// 	postEffectObject->MeshRender()->GetSharedMaterial()->SetData(SHADER_PARAM::TEX_1, CResourceManager::GetInst()->FindRes<CTexture>(L"heat_distortion_effet_noise").Get());
+// 	postEffectObject->MeshRender()->GetSharedMaterial()->SetData(SHADER_PARAM::TEX_2, CResourceManager::GetInst()->FindRes<CTexture>(L"radial").Get());
+// 
+// 	current_scene_->AddGameObject(postEffectObject, 0, true);
 
 	//플레이어 생성
 	const auto player = new CGameObject;
@@ -116,7 +128,7 @@ void CSceneManager::Init()
 	player->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	player->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 
-	Ptr<CMaterial> material = player->MeshRender()->GetMaterial();
+	Ptr<CMaterial> material = player->MeshRender()->GetCurrentMaterial();
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"player").Get());
 	Ptr<CTexture> playerTex = CResourceManager::GetInst()->LoadRes<CTexture>(L"player_tex", L"texture\\anim_texture\\sakuya_player.png");
 	player->Animator2D()->CreateAnimation(L"FLY", playerTex, 0, 0, 32, 48, 4, 0.07f);
@@ -228,7 +240,7 @@ void CSceneManager::InitTestMap()
 	player->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	player->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 
-	Ptr<CMaterial> material = player->MeshRender()->GetMaterial();
+	Ptr<CMaterial> material = player->MeshRender()->GetCurrentMaterial();
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"player").Get());
 	Ptr<CTexture> playerTex = CResourceManager::GetInst()->LoadRes<CTexture>(L"player_tex", L"texture\\anim_texture\\sakuya_player.png");
 	player->Animator2D()->CreateAnimation(L"FLY", playerTex, 0, 0, 32, 46, 4, 0.07f);
