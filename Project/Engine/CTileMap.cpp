@@ -62,7 +62,7 @@ void CTileMap::UpdateData()
 
 	material_->UpdateData();
 
-	buffer_->SetData(tile_altas_image_coord_vector_.data(), (UINT)(sizeof(int)*tile_altas_image_coord_vector_.size()));
+	buffer_->SetData(tile_altas_image_coord_vector_.data(), (UINT)(sizeof(int) * tile_altas_image_coord_vector_.size()));
 	buffer_->UpdateData(PIPELINE_STAGE::PS_PIXEL,20);
 }
 
