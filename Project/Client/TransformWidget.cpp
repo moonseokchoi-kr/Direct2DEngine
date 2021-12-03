@@ -33,7 +33,7 @@ void TransformWidget::Update()
 			//ImGui::SetCursorPosX(ImGui::GetContentRegionAvailWidth() - ImGui::GetItemRectSize().x*2.f);
 			//ImGui::PushItemWidth(-100);
 			pos = CreateControlPannel("##input_pos", pos);
-			
+
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
 			// Scale

@@ -6,6 +6,7 @@ class Ptr
 
 public:
 	T* Get() { return resource_; }
+	T** GetAddressOf() { return &resource_; }
 public:
 	Ptr& operator = (const Ptr<T>& ptr)
 	{

@@ -32,6 +32,7 @@ void AtlasTextureTool::Update()
 	if (ImGui::Begin("Atlas Editor", &is_active_, window_flags_))
 	{
 		ShowMenuBar();
+	
 		if (ImGui::BeginTable("##rectSize", 2, ImGuiTableFlags_Resizable))
 		{
 			ImGui::TableNextColumn();
