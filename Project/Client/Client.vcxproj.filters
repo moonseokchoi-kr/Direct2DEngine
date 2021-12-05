@@ -97,6 +97,12 @@
     <Filter Include="소스 파일\Tool\ToolObject\GameObjectEx">
       <UniqueIdentifier>{1018e4c9-5038-41b9-a65f-076152054e80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\TileMap">
+      <UniqueIdentifier>{4652a9ff-4fce-4aee-bc43-e93bfe9b5d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\TileMap">
+      <UniqueIdentifier>{e370db43-28c8-46ec-80df-20a3f4b37625}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -197,6 +203,12 @@
     </ClInclude>
     <ClInclude Include="ToolCamera.h">
       <Filter>소스 파일\Tool\ToolObject\CameraEx</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapTool.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\TileMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -302,6 +314,12 @@
     </ClCompile>
     <ClCompile Include="ToolCamera.cpp">
       <Filter>소스 파일\Tool\ToolObject\CameraEx</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapTool.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\TileMap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

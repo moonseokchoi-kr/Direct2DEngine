@@ -59,7 +59,7 @@ void CTimeManager::Update()
 #endif
 	Render();
 
-	g_global.delta_time = delta_time_;
+	g_global.delta_time = (float)delta_time_;
 	g_global.accumulated_time = GetTotalTime();
 }
 

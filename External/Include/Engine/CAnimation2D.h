@@ -36,7 +36,7 @@ public:
 
 	bool IsFinish() { return animation_finish_; }
 	UINT GetCurrentFrameIndex() { return current_frame_; }
-	UINT GetMaxFrameCount(){ return frame_vector_.size(); }
+	UINT GetMaxFrameCount(){ return (UINT)frame_vector_.size(); }
 	
 	void SetCurrentFrameData(const AnimationFrame& data);
 	Vec2 GetBackBoard() { return animation_back_board_; }

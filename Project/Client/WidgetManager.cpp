@@ -140,6 +140,7 @@ void WidgetManager::SetFocusMainWindow()
 #include "HirarchyViewWidget.h"
 #include "AnimationTool.h"
 #include "AnimationOffsetTool.h"
+#include "TileMapTool.h"
 void WidgetManager::CreateWidgets()
 {
 	Widget* widget = nullptr;
@@ -170,6 +171,10 @@ void WidgetManager::CreateWidgets()
 
 	widget = new HirarchyViewWidget;
 	widget->Activate();
+	AddWidget(widget->GetName(), widget);
+
+	widget = new TileMapTool;
+	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
 
 

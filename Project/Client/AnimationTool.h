@@ -30,7 +30,6 @@ private:
     void ShowAnimationEditWidget();
     void ShowAnimationDetailSettingPanel();
     void ShowPlayButton();
-
 private:
     float CalMaxSizeY();
     void RenderAllFrame(ImDrawList* draw_list, Ptr<CTexture> atlas, ImVec2 canvas_center, float atlas_width, float atlas_height);

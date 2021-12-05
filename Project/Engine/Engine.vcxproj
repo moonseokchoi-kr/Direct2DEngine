@@ -144,8 +144,7 @@
     </Link>
     <PostBuildEvent>
       <Command>cd $(SolutionDir)
-
-call .\EngineCopy.bat</Command>
+call.\EngineCopy.bat</Command>
     </PostBuildEvent>
     <FxCompile>
       <EntryPointName>vs_main</EntryPointName>

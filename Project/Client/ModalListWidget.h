@@ -21,7 +21,7 @@ public:
     void Activate() override 
     {
         Widget::Activate();
-        is_popup_open_ = false;
+        is_popup_open_ = true;
     }
 
     void AddItem(const char* name) 
@@ -38,7 +38,7 @@ public:
     bool isOpen() { return is_popup_open_; }
 
     void SetCurrentIndex(int index) { current_index_ = index; }
-
+    void SetShowEditMenu(bool b) { edit_menu_ = b; }
 private:
     void Clear();
     void ShowEditMenu();
@@ -53,6 +53,7 @@ private:
     Widget* instance_;
 
     int current_index_;
+    bool edit_menu_;
     bool is_popup_open_;
 };
 

@@ -235,6 +235,8 @@ void CResourceManager::CreateDefaultTexture()
 	LoadRes<CTexture>(L"particle_01", L"texture\\particle\\AlphaCircle.png");
 	LoadRes<CTexture>(L"heat_distortion_effet_noise", L"texture\\posteffect\\noise.png");
 	LoadRes<CTexture>(L"radial", L"texture\\posteffect\\radial.png");
+	LoadRes<CTexture>(L"village_tile_map", L"texture\\tilemap\\village.png");
+	LoadRes<CTexture>(L"tile_block", L"texture\\tilemap\\TILE.bmp");
 
 	wstring contentPath = CPathManager::GetInst()->GetContentPath();
 	CTexture* noise = new CTexture;

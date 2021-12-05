@@ -248,7 +248,7 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			ImGui::TableNextColumn();
 			ImGui::Text("Atlas");
 			ImGui::TableNextColumn();
-			if (ImGui::Button("open editor") && !atlas_tool_->IsOpen())
+			if (ImGui::Button("open editor") && !atlas_tool_->IsActive())
 			{
 				atlas_tool_->Activate();
 			}
@@ -256,12 +256,16 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
 
+
 			if (nullptr == animation_)
 			{
 				ImGui::EndTable();
 				ImGui::EndChild();
 				return;
 			}
+
+
+
 			array<char, 256> szbuffer = { 0, };
 			WideCharToMultiByte(CP_ACP, 0, animation_->GetName().c_str(), (int)animation_->GetName().size(), szbuffer.data(), (int)szbuffer.size(), nullptr, nullptr);
 			ImGui::Text("Animation Name");
@@ -273,10 +277,27 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 				animation_->SetName(animName.data());
 			}
 
-			// 			if (ImGui::Button("Clear"))
-			// 			{
-			// 				animation_->Clear();
-			// 			}
+
+			Vec2 backBoardSize = animation_->GetBackBoard();
+			ImGui::Text("Back Board Size");
+			ImGui::TableNextColumn();
+			ImGui::Text("X");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(50);
+			if (ImGui::InputFloat("##back_board_x", &backBoardSize.x))
+			{
+				animation_->SetBackBoard(backBoardSize);
+			}
+
+			ImGui::SameLine();
+			ImGui::Text("Y");
+			ImGui::SameLine();
+			ImGui::SetNextItemWidth(50);
+			if (ImGui::InputFloat("##back_board_y", &backBoardSize.y))
+			{
+				animation_->SetBackBoard(backBoardSize);
+			}
+
 
 			if (nullptr == atlas_tool_->GetAtlas())
 			{
@@ -403,6 +424,8 @@ void AnimationTool::ShowPlayButton()
 		animation_->SetCurrentFrame(0);
 	};
 }
+
+
 
 float AnimationTool::CalMaxSizeY()
 {

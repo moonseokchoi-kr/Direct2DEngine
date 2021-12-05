@@ -8,6 +8,7 @@ ModalListWidget::ModalListWidget()
 	, instance_(nullptr)
 	, current_index_(0)
 	, is_popup_open_(false)
+	, edit_menu_(false)
 {
 }
 
@@ -22,7 +23,7 @@ void ModalListWidget::Init()
 void ModalListWidget::Update()
 {
 	
-	if (!is_popup_open_)
+	if (is_popup_open_)
 	{
 		ImGui::OpenPopup(caption_.c_str(), ImGuiPopupFlags_MouseButtonLeft);
 		is_popup_open_ = true;
@@ -30,9 +31,12 @@ void ModalListWidget::Update()
 
 	if (ImGui::BeginPopup(caption_.c_str(), ImGuiWindowFlags_Popup))
 	{
-		ShowEditMenu();
-		ImGui::Spacing();
-		ImGui::Separator();
+		if (edit_menu_)
+		{
+			ShowEditMenu();
+			ImGui::Spacing();
+			ImGui::Separator();
+		}
 
 		ShowSelectedBox();
 		ImGui::EndPopup();

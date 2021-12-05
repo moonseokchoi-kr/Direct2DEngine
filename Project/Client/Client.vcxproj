@@ -140,6 +140,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -177,6 +181,8 @@
     <ClInclude Include="InspectorWidget.h" />
     <ClInclude Include="MenuWidget.h" />
     <ClInclude Include="MeshRenderWidget.h" />
+    <ClInclude Include="TileMapTool.h" />
+    <ClInclude Include="TileMapWidget.h" />
     <ClInclude Include="ToolCamera.h" />
     <ClInclude Include="ToolGameObject.h" />
     <ClInclude Include="ToolObjectManager.h" />
@@ -220,6 +226,8 @@
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="MeshRenderWidget.cpp" />
     <ClCompile Include="simple_math_extern.cpp" />
+    <ClCompile Include="TileMapTool.cpp" />
+    <ClCompile Include="TileMapWidget.cpp" />
     <ClCompile Include="ToolCamera.cpp" />
     <ClCompile Include="ToolGameObject.cpp" />
     <ClCompile Include="ToolObjectManager.cpp" />

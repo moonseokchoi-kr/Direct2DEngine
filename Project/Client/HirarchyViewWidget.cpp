@@ -25,7 +25,7 @@ void HirarchyViewWidget::Update()
 {
 	if (ImGui::Begin("Hirarchy view", &is_active_))
 	{
-		const char* items[] = {"camera","player"};
+		const char* items[] = {"camera","player","tile_map"};
 		static int item_current_idx = 0; // Here we store our selection data as an index.
 		if (ImGui::BeginListBox("##listbox 1"))
 		{

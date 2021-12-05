@@ -5,6 +5,8 @@
 #include "AnimationWidget.h"
 #include "Collider2DWidget.h"
 #include "CameraWidget.h"
+#include "TileMapWidget.h"
+
 #include <Engine/CGameObject.h>
 
 InspectorWidget::InspectorWidget()
@@ -17,6 +19,7 @@ InspectorWidget::InspectorWidget()
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::ANIMATOR2D)] = new AnimationWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::COLLIDER2D)] = new Collider2DWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::CAMERA)] = new CameraWidget;
+	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::TILEMAP)] = new TileMapWidget;
 }
 InspectorWidget::~InspectorWidget()
 {
