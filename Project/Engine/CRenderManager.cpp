@@ -27,6 +27,7 @@ void CRenderManager::Init()
 	Vec2 resolution = CDevice::GetInst()->GetResolution();
 
 	post_effect_target_ = CResourceManager::GetInst()->CreateTexture(L"post_effect_traget_texture", (UINT)resolution.x, (UINT)resolution.y, D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE, DXGI_FORMAT_R8G8B8A8_UNORM);
+	viewport_traget_ = CResourceManager::GetInst()->CreateTexture(L"view_port_target_texture", (UINT)resolution.x, (UINT)resolution.y, D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE, DXGI_FORMAT_R8G8B8A8_UNORM);
 
 	Ptr<CMaterial> post_effect_material = CResourceManager::GetInst()->FindRes<CMaterial>(L"post_effect_material");
 	post_effect_material->SetData(SHADER_PARAM::TEX_0, post_effect_target_.Get());
@@ -51,9 +52,11 @@ void CRenderManager::Render()
 	else
 	{
 		RenderTool();
+
 	}
 
-
+	Ptr<CTexture> rtTex = CResourceManager::GetInst()->FindRes<CTexture>(L"RenderTargetTexture");
+	CONTEXT->CopyResource(viewport_traget_->GetTex2D(), rtTex->GetTex2D());
 	camera_vector_.clear();
 	camera_vector_.resize(1);
 
@@ -98,6 +101,7 @@ void CRenderManager::CopyRenderTexture()
 {
 	Ptr<CTexture> rtTex = CResourceManager::GetInst()->FindRes<CTexture>(L"RenderTargetTexture");
 	CONTEXT->CopyResource(post_effect_target_->GetTex2D(), rtTex->GetTex2D());
+
 }
 
 void CRenderManager::UpdateLight2D()

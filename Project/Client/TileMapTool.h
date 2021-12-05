@@ -31,7 +31,7 @@ private:
     Vec2 current_mouse_pos_;
     Vec2 canvas_lt_;
     Vec2 canvas_size_;
-
+    Vec2 scrolling_;
     vector<Tile> tile_index_vector_;
     
     int current_tile_index_;

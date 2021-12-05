@@ -122,7 +122,7 @@ void CSceneManager::Init()
 	player->AddComponent(new CAnimator2D);
 	//player->AddComponent(new CPlayerScript);
 	player->AddComponent(new CCollider2D);
-	player->Transform()->SetPosition(Vec3(0.f, -300.f, 300.f));
+	player->Transform()->SetPosition(Vec3(0.f, -300.f, 100.f));
 	player->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
 	player->Collider2D()->SetOffsetScale(Vec2(0.10f, 0.15f));
 	player->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));

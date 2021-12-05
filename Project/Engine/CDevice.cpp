@@ -157,6 +157,8 @@ HRESULT CDevice::OnReSize(Vec2 _resolution)
 	return S_OK;
 }
 
+
+
 HRESULT CDevice::CreateSwapChain()
 {
 	DXGI_SWAP_CHAIN_DESC desc = {};
@@ -212,7 +214,6 @@ HRESULT CDevice::CreateView()
 	swap_chain_->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf()));
 	
 	render_target_texture_ = CResourceManager::GetInst()->CreateTexture(L"RenderTargetTexture", backBuffer).Get();
-
 	depth_stencil_texture_ = CResourceManager::GetInst()->CreateTexture(L"DepthStencilTexture", (UINT)resolution_.x, (UINT)resolution_.y, D3D11_BIND_DEPTH_STENCIL, DXGI_FORMAT_D24_UNORM_S8_UINT).Get();
 
 

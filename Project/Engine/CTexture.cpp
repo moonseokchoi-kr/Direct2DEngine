@@ -135,6 +135,7 @@ HRESULT CTexture::Create(ComPtr<ID3D11Texture2D> texture2D)
 		if (D3D11_BIND_SHADER_RESOURCE & texture_desc_.BindFlags)
 		{
 			HR(DEVICE->CreateShaderResourceView(texure_2D_.Get(), nullptr, shader_resource_view_.GetAddressOf()));
+	
 		}
 		if (D3D11_BIND_RENDER_TARGET & texture_desc_.BindFlags)
 		{

@@ -48,7 +48,6 @@ void TileMapTool::Update()
 void TileMapTool::ShowTileCanvas()
 {
 	static ImVector<ImVec2> points;
-	static ImVec2 scrolling(0.0f, 0.0f);
 	static bool opt_enable_grid = true;
 	static bool opt_enable_context_menu = true;
 	static bool adding_line = false;
@@ -87,7 +86,7 @@ void TileMapTool::ShowTileCanvas()
 	ImGui::InvisibleButton("canvas", canvas_size_, ImGuiButtonFlags_MouseButtonLeft | ImGuiButtonFlags_MouseButtonRight);
 	const bool is_hovered = ImGui::IsItemHovered(); // Hovered
 	const bool is_active = ImGui::IsItemActive();   // Held
-	const ImVec2 origin(canvas_lt_.x + scrolling.x, canvas_lt_.y + scrolling.y); // Lock scrolled origin
+	const ImVec2 origin(canvas_lt_.x + scrolling_.x, canvas_lt_.y + scrolling_.y); // Lock scrolled origin
 	const ImVec2 mouse_pos_in_canvas(io.MousePos.x - origin.x, io.MousePos.y - origin.y);
 
 	// Add first and second point
@@ -101,8 +100,8 @@ void TileMapTool::ShowTileCanvas()
 	const float mouse_threshold_for_pan = opt_enable_context_menu ? -1.0f : 0.0f;
 	if (is_active && ImGui::IsMouseDragging(ImGuiMouseButton_Right, mouse_threshold_for_pan))
 	{
-		scrolling.x += io.MouseDelta.x;
-		scrolling.y += io.MouseDelta.y;
+		scrolling_.x += io.MouseDelta.x;
+		scrolling_.y += io.MouseDelta.y;
 	}
 
 	// Context menu (under default mouse threshold)
@@ -133,12 +132,12 @@ void TileMapTool::ShowTileCanvas()
 			Vec2 atlas_lt_uv = Vec2(tileSize.x * col / width, tileSize.y * row / height);
 			col = i % (int)tile_map_size_.x;
 			row = i / (int)tile_map_size_.x;
-			draw_list->AddImage(atlas->GetShaderResourceView(), Vec2(canvas_lt_.x+scrolling.x + tileSize.x * col, canvas_lt_.y+ scrolling.y + tileSize.y * row),
-				Vec2(canvas_lt_.x+scrolling.x + tileSize.x * (col + 1), canvas_lt_.y+scrolling.y + tileSize.y * (row + 1)), atlas_lt_uv, atlas_lt_uv + size_uv);
+			draw_list->AddImage(atlas->GetShaderResourceView(), Vec2(canvas_lt_.x+scrolling_.x + tileSize.x * col, canvas_lt_.y+ scrolling_.y + tileSize.y * row),
+				Vec2(canvas_lt_.x+scrolling_.x + tileSize.x * (col + 1), canvas_lt_.y+scrolling_.y + tileSize.y * (row + 1)), atlas_lt_uv, atlas_lt_uv + size_uv);
 			if (!tile_index_vector_[i].moveable)
 			{
-				draw_list->AddRect(Vec2(canvas_lt_.x + scrolling.x + tileSize.x * col, canvas_lt_.y + scrolling.y + tileSize.y * row),
-					Vec2(canvas_lt_.x + scrolling.x + tileSize.x * (col + 1), canvas_lt_.y + scrolling.y + tileSize.y * (row + 1)), IM_COL32(255, 0, 0, 255));
+				draw_list->AddRect(Vec2(canvas_lt_.x + scrolling_.x + tileSize.x * col, canvas_lt_.y + scrolling_.y + tileSize.y * row),
+					Vec2(canvas_lt_.x + scrolling_.x + tileSize.x * (col + 1), canvas_lt_.y + scrolling_.y + tileSize.y * (row + 1)), IM_COL32(255, 0, 0, 255));
 			}
 		}
 	}
@@ -148,9 +147,9 @@ void TileMapTool::ShowTileCanvas()
 	if (opt_enable_grid)
 	{
 	
-		for (float x = fmodf(scrolling.x, tileSize.x); x <= tileSize.x*tile_map_size_.x; x += tileSize.x)
+		for (float x = fmodf(scrolling_.x, tileSize.x); x <= tileSize.x*tile_map_size_.x; x += tileSize.x)
 			draw_list->AddLine(ImVec2(canvas_lt_.x + x, canvas_lt_.y), ImVec2(canvas_lt_.x + x, canvas_lt_.y+tileSize.y * tile_map_size_.y), IM_COL32(52, 218, 30, 255));
-		for (float y = fmodf(scrolling.y, tileSize.y); y <= tileSize.y*tile_map_size_.y; y += tileSize.y)
+		for (float y = fmodf(scrolling_.y, tileSize.y); y <= tileSize.y*tile_map_size_.y; y += tileSize.y)
 			draw_list->AddLine(ImVec2(canvas_lt_.x, canvas_lt_.y+y), ImVec2(canvas_lt_.x+ tileSize.x * tile_map_size_.x, canvas_lt_.y+y), IM_COL32(52, 218, 30, 255));
 	}
 
@@ -263,14 +262,12 @@ void TileMapTool::CalTileIndex()
 void TileMapTool::MouseEvent()
 {
 	ImGuiIO& io = ImGui::GetIO();
-	current_mouse_pos_ = Vec2(io.MousePos.x - canvas_lt_.x, io.MousePos.y - canvas_lt_.y);
+	current_mouse_pos_ = Vec2(io.MousePos.x - canvas_lt_.x-scrolling_.x, io.MousePos.y - canvas_lt_.y- scrolling_.y);
 	CalTileIndex();
 	if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 	{
 		if (!move_setting_)
 			tile_index_vector_[current_tile_index_].index = atlas_texture_tool_->GetCurrentIndex();
-		else
-			tile_index_vector_[current_tile_index_].moveable = tile_index_vector_[current_tile_index_].moveable ? false : true;
 	}
 
 	if (ImGui::IsMouseDragging(ImGuiMouseButton_Left))

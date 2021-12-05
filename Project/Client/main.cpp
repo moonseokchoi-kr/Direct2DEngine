@@ -85,8 +85,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
             CDevice::GetInst()->Present();
 
-            WidgetManager::GetInst()->SetRenderTarget(CDevice::GetInst()->GetRenderTarget());
-
             
         }
 

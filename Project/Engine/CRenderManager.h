@@ -24,6 +24,8 @@ public:
         return static_cast<int>(light2D_vector_.size() - 1);
     }
     void CopyRenderTexture();
+
+    CTexture* GetViewPortTexture() { return viewport_traget_.Get(); }
 private:
     void UpdateLight2D();
     void UpdataGlobalData();
@@ -33,6 +35,7 @@ private:
     vector<CCamera*> camera_vector_;
     vector<CLight2D*> light2D_vector_;
     Ptr<CTexture> post_effect_target_;
+    Ptr<CTexture> viewport_traget_;
     CCamera* tool_camera_;
 };
 

@@ -3,6 +3,7 @@
 #include "WidgetManager.h"
 
 #include <Engine/CTexture.h>
+#include <Engine/CRenderManager.h>
 ViewPortWidget::ViewPortWidget()
 	:Widget("view_port")
 {
@@ -21,11 +22,9 @@ void ViewPortWidget::Update()
 	if (ImGui::Begin("View port"))
 	{
 		ImVec2 viewPortSize = ImGui::GetContentRegionAvail();
-		if (nullptr != WidgetManager::GetInst()->GetRenderTarget())
-		{
-			ImTextureID textureID = WidgetManager::GetInst()->GetRenderTarget()->GetShaderResourceView();
-			ImGui::Image(textureID, ImVec2(1280, 720));
-		}
+
+		ImTextureID textureID = CRenderManager::GetInst()->GetViewPortTexture()->GetShaderResourceView();
+		ImGui::Image(textureID, ImVec2(1600, 900));
 
 		ImGui::End();
 	}

@@ -85,7 +85,7 @@ void WidgetManager::Update()
 	// Frame √ ±‚»≠
 	ImGuiInitFrame();
 
-	//DockingSpace();
+	DockingSpace();
 
 	// Demo GUI
 	ImGuiDemo();
@@ -149,6 +149,8 @@ void WidgetManager::SetFocusMainWindow()
 #include "AnimationOffsetTool.h"
 #include "TileMapTool.h"
 #include "ViewPortWidget.h";
+
+
 void WidgetManager::CreateWidgets()
 {
 	Widget* widget = nullptr;
