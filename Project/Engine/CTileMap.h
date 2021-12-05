@@ -38,8 +38,8 @@ public:
     Ptr<CMesh> GetMesh() { return mesh_;}
     Ptr<CMaterial> GetMaterial() { return material_; }
     Ptr<CTexture>GetAtlas() { return atlas_texture_; }
-    const vector<int>& GetTileIndexVector() { return tile_altas_image_coord_vector_; }
-    void SetTileIndexVector(vector<int>& indexVector) { tile_altas_image_coord_vector_ = indexVector; }
+    const vector<Tile>& GetTileIndexVector() { return tile_altas_image_coord_vector_; }
+    void SetTileIndexVector(vector<Tile>& indexVector) { tile_altas_image_coord_vector_ = indexVector; }
 private:
     Ptr<CMesh> mesh_;
     Ptr<CMaterial> material_;
@@ -47,7 +47,7 @@ private:
 
     CStructuredBuffer* buffer_;
 
-    vector<int> tile_altas_image_coord_vector_;
+    vector<Tile> tile_altas_image_coord_vector_;
 
     int tile_map_column_count_;
     int tile_map_row_count_;

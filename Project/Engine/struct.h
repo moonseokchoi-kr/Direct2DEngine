@@ -90,3 +90,9 @@ struct GlobalData
 	float accumulated_time;
 	Vec2 padding;
 };
+
+struct Tile
+{
+	int index;
+	bool moveable = true;
+};

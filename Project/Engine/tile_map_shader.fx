@@ -13,7 +13,7 @@
 #define ATLAS_RESOLUTION vec2_0
 #define ATLAS_TILE_SIZE vec2_1
 
-StructuredBuffer<int> idx_buffer : register(t20);
+StructuredBuffer<TILE> idx_buffer : register(t20);
 
 struct VERTEX_INPUT
 {
@@ -48,7 +48,7 @@ float4 ps_main(VERTEX_OUTPUT input):SV_Target
     int2 bufferIdx = floor(uv);
     
     
-    int idx = idx_buffer[TILE_MAP_COLUMN * bufferIdx.y + bufferIdx.x];
+    int idx = idx_buffer[TILE_MAP_COLUMN * bufferIdx.y + bufferIdx.x].index;
     int width = 1 / ATLAS_TILE_SIZE.x;
     
     int row = idx / width;

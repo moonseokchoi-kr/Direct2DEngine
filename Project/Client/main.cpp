@@ -9,6 +9,7 @@
 
 #include "WidgetManager.h"
 #include "ToolObjectManager.h"
+#include "ViewPortWidget.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "Engine/Engine_debug.lib")
@@ -25,7 +26,7 @@ ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
-
+ViewPortWidget* widget = new ViewPortWidget;
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -83,6 +84,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             WidgetManager::GetInst()->Render();
 
             CDevice::GetInst()->Present();
+
+            WidgetManager::GetInst()->SetRenderTarget(CDevice::GetInst()->GetRenderTarget());
+
+            
         }
 
     }

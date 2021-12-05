@@ -103,6 +103,9 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\TileMap">
       <UniqueIdentifier>{e370db43-28c8-46ec-80df-20a3f4b37625}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ViewPort">
+      <UniqueIdentifier>{34122fab-ec33-4202-9ee9-18c2810c0d39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -209,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="TileMapWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewPortWidget.h">
+      <Filter>소스 파일\Tool\Widget\ViewPort</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -320,6 +326,9 @@
     </ClCompile>
     <ClCompile Include="TileMapWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewPortWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ViewPort</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

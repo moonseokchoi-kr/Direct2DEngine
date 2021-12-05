@@ -11,7 +11,7 @@
 
 TileMapTool::TileMapTool()
 	:Widget("tile_map_tool")
-	,value_change(false)
+	,value_change_(false)
 	,current_tile_index_(0)
 {
 }
@@ -29,10 +29,10 @@ void TileMapTool::Update()
 {
 	if (ImGui::Begin("Canvas", &is_active_))
 	{
-		if (nullptr != tile_map_ && !value_change)
+		if (nullptr != tile_map_ && !value_change_)
 		{
 			tile_index_vector_ = tile_map_->GetTileIndexVector();
-			value_change = true;
+			value_change_ = true;
 		}
 			
 		ShowDetail();
@@ -126,7 +126,7 @@ void TileMapTool::ShowTileCanvas()
 		Vec2 size_uv = Vec2(tileSize.x / width, tileSize.y / height);
 		for (UINT i = 0; i <(UINT)tile_index_vector_.size(); ++i)
 		{
-			int index = tile_index_vector_[i];
+			int index = tile_index_vector_[i].index;
 			int x = (int)(1 / size_uv.x);
 			int col = (int)(index % x);
 			int row = (int)(index / x);
@@ -135,6 +135,11 @@ void TileMapTool::ShowTileCanvas()
 			row = i / (int)tile_map_size_.x;
 			draw_list->AddImage(atlas->GetShaderResourceView(), Vec2(canvas_lt_.x+scrolling.x + tileSize.x * col, canvas_lt_.y+ scrolling.y + tileSize.y * row),
 				Vec2(canvas_lt_.x+scrolling.x + tileSize.x * (col + 1), canvas_lt_.y+scrolling.y + tileSize.y * (row + 1)), atlas_lt_uv, atlas_lt_uv + size_uv);
+			if (!tile_index_vector_[i].moveable)
+			{
+				draw_list->AddRect(Vec2(canvas_lt_.x + scrolling.x + tileSize.x * col, canvas_lt_.y + scrolling.y + tileSize.y * row),
+					Vec2(canvas_lt_.x + scrolling.x + tileSize.x * (col + 1), canvas_lt_.y + scrolling.y + tileSize.y * (row + 1)), IM_COL32(255, 0, 0, 255));
+			}
 		}
 	}
 	// Draw grid + all lines in the canvas
@@ -197,7 +202,7 @@ void TileMapTool::ShowDetail()
 		ImGui::SetNextItemWidth(50);
 		if (ImGui::InputFloat("##tilemapsize_x", &tile_map_size_.x, 0, 0, "%0.f"))
 		{
-			size_change = true;
+			size_change_ = true;
 		}
 		ImGui::SameLine();
 		ImGui::Text("Row");
@@ -205,22 +210,31 @@ void TileMapTool::ShowDetail()
 		ImGui::SetNextItemWidth(50);
 		if (ImGui::InputFloat("##tilemapsize_y", &tile_map_size_.y, 0, 0, "%0.f"))
 		{
-			size_change = true;
+			size_change_ = true;
 		}
 
-		if (size_change)
+		if (size_change_)
 		{
 			tile_map_->SetTileMapSize((int)tile_map_size_.x, (int)tile_map_size_.y);
 			tile_index_vector_.resize((size_t)(tile_map_size_.x * tile_map_size_.y));
-			size_change = false;
+			size_change_ = false;
 		}
 		
+		ImGui::TableNextRow();
+		ImGui::TableNextColumn();
+		
+		ImGui::Text("Move Setting Mode");
+
+		ImGui::TableNextColumn();
+
+		ImGui::Checkbox("##move_setting", &move_setting_);
 		
 		ImGui::EndTable();
 	}
 	if (ImGui::Button("Save"))
 	{
 		tile_map_->SetTileIndexVector(tile_index_vector_);
+		tile_map_->SetAtlasTexture(atlas_texture_tool_->GetAtlas());
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Clear"))
@@ -253,11 +267,17 @@ void TileMapTool::MouseEvent()
 	CalTileIndex();
 	if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 	{
-		tile_index_vector_[current_tile_index_] = atlas_texture_tool_->GetCurrentIndex();
+		if (!move_setting_)
+			tile_index_vector_[current_tile_index_].index = atlas_texture_tool_->GetCurrentIndex();
+		else
+			tile_index_vector_[current_tile_index_].moveable = tile_index_vector_[current_tile_index_].moveable ? false : true;
 	}
 
 	if (ImGui::IsMouseDragging(ImGuiMouseButton_Left))
 	{
-		tile_index_vector_[current_tile_index_] = atlas_texture_tool_->GetCurrentIndex();
+		if (!move_setting_)
+			tile_index_vector_[current_tile_index_].index = atlas_texture_tool_->GetCurrentIndex();
+		else
+			tile_index_vector_[current_tile_index_].moveable = tile_index_vector_[current_tile_index_].moveable ? false : true;
 	}
 }

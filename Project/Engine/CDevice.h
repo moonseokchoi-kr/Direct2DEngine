@@ -26,7 +26,7 @@ public:
 	ComPtr<ID3D11RasterizerState> GetRasterizerState(RASTERIZER_TYPE type) { return rasterizer_state_array_[static_cast<UINT>(type)]; }
 	ComPtr<ID3D11BlendState> GetBlendState(BLEND_TYPE type) { return blend_state_array_[static_cast<UINT>(type)]; }
 	ComPtr<ID3D11DepthStencilState> GetDepthStencilState(DEPTH_STENCIL_TYPE type) { return depth_stencil_state_array_[static_cast<UINT>(type)]; }
-
+	CTexture* GetRenderTarget() { return render_target_texture_; }
 	bool IsWindow() { return window_; }
 	void SetWindow(bool b) { window_ = b; }
 private:

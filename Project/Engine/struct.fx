@@ -49,4 +49,10 @@ struct ParticleShared
     float3 range;
 };
 
+struct TILE
+{
+    int index;
+    bool moveable;
+};
+
 #endif

@@ -32,10 +32,11 @@ private:
     Vec2 canvas_lt_;
     Vec2 canvas_size_;
 
-    vector<int> tile_index_vector_;
+    vector<Tile> tile_index_vector_;
     
     int current_tile_index_;
-    bool value_change;
-    bool size_change;
+    bool value_change_;
+    bool size_change_;
+    bool move_setting_;
 };
 
