@@ -85,7 +85,7 @@ void WidgetManager::Update()
 	// Frame √ ±‚»≠
 	ImGuiInitFrame();
 
-	DockingSpace();
+	//DockingSpace();
 
 	// Demo GUI
 	ImGuiDemo();

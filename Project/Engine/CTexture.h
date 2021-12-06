@@ -28,7 +28,7 @@ public:
     }
     UINT GetWidth() { return texture_desc_.Width; }
     UINT GetHeight() { return texture_desc_.Height; }
-    ID3D11Texture2D* GetTex2D() { return texure_2D_.Get(); }
+    ID3D11Texture2D* GetTex2D() { return texture_2D_.Get(); }
 
     ID3D11RenderTargetView* GetRenderTargetView() { return render_target_texture_.Get(); }
     ID3D11ShaderResourceView* GetShaderResourceView() { return shader_resource_view_.Get(); }
@@ -46,7 +46,7 @@ private:
 private:
     ScratchImage image_;
     
-    ComPtr<ID3D11Texture2D> texure_2D_;
+    ComPtr<ID3D11Texture2D> texture_2D_;
     
     ComPtr<ID3D11ShaderResourceView> shader_resource_view_;
     ComPtr<ID3D11DepthStencilView> depth_stencil_texture_;

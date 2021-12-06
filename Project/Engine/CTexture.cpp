@@ -37,8 +37,8 @@ HRESULT CTexture::Load(const wstring& strFilePath)
 
 	CreateShaderResourceView(DEVICE, image_.GetImages(), image_.GetImageCount(), image_.GetMetadata(), shader_resource_view_.GetAddressOf());
 
-	shader_resource_view_->GetResource((ID3D11Resource**)texure_2D_.GetAddressOf());
-	texure_2D_->GetDesc(&texture_desc_);
+	shader_resource_view_->GetResource((ID3D11Resource**)texture_2D_.GetAddressOf());
+	texture_2D_->GetDesc(&texture_desc_);
 
 	return S_OK;
 }
@@ -96,25 +96,25 @@ HRESULT CTexture::Create(UINT width, UINT height, UINT flags, DXGI_FORMAT format
 	texture_desc_.BindFlags = flags;
 	texture_desc_.Format = format;
 
-	HR(DEVICE->CreateTexture2D(&texture_desc_, nullptr, texure_2D_.GetAddressOf()));
+	HR(DEVICE->CreateTexture2D(&texture_desc_, nullptr, texture_2D_.GetAddressOf()));
 
 	if (D3D11_BIND_DEPTH_STENCIL & texture_desc_.BindFlags)
 	{
-		HR(DEVICE->CreateDepthStencilView(texure_2D_.Get(), nullptr, depth_stencil_texture_.GetAddressOf()));
+		HR(DEVICE->CreateDepthStencilView(texture_2D_.Get(), nullptr, depth_stencil_texture_.GetAddressOf()));
 	}
 	else
 	{
 		if (D3D11_BIND_SHADER_RESOURCE & texture_desc_.BindFlags)
 		{
-			HR(DEVICE->CreateShaderResourceView(texure_2D_.Get(), nullptr, shader_resource_view_.GetAddressOf()));
+			HR(DEVICE->CreateShaderResourceView(texture_2D_.Get(), nullptr, shader_resource_view_.GetAddressOf()));
 		}
 		if (D3D11_BIND_RENDER_TARGET & texture_desc_.BindFlags)
 		{
-			HR(DEVICE->CreateRenderTargetView(texure_2D_.Get(), nullptr, render_target_texture_.GetAddressOf()));
+			HR(DEVICE->CreateRenderTargetView(texture_2D_.Get(), nullptr, render_target_texture_.GetAddressOf()));
 		}
 		if (D3D11_BIND_UNORDERED_ACCESS & texture_desc_.BindFlags)
 		{
-			HR(DEVICE->CreateUnorderedAccessView(texure_2D_.Get(), nullptr, unordered_access_view_.GetAddressOf()));
+			HR(DEVICE->CreateUnorderedAccessView(texture_2D_.Get(), nullptr, unordered_access_view_.GetAddressOf()));
 		}
 	}
 
@@ -123,56 +123,57 @@ HRESULT CTexture::Create(UINT width, UINT height, UINT flags, DXGI_FORMAT format
 
 HRESULT CTexture::Create(ComPtr<ID3D11Texture2D> texture2D)
 {
-	texure_2D_ = texture2D;
-	texure_2D_->GetDesc(&texture_desc_);
+	texture_2D_ = texture2D;
+	texture_2D_->GetDesc(&texture_desc_);
 
 	if (D3D11_BIND_DEPTH_STENCIL & texture_desc_.BindFlags)
 	{
-		HR(DEVICE->CreateDepthStencilView(texure_2D_.Get(), nullptr, depth_stencil_texture_.GetAddressOf()));
+		HR(DEVICE->CreateDepthStencilView(texture_2D_.Get(), nullptr, depth_stencil_texture_.GetAddressOf()));
 	}
 	else
 	{
 		if (D3D11_BIND_SHADER_RESOURCE & texture_desc_.BindFlags)
 		{
-			HR(DEVICE->CreateShaderResourceView(texure_2D_.Get(), nullptr, shader_resource_view_.GetAddressOf()));
+			HR(DEVICE->CreateShaderResourceView(texture_2D_.Get(), nullptr, shader_resource_view_.GetAddressOf()));
 	
 		}
 		if (D3D11_BIND_RENDER_TARGET & texture_desc_.BindFlags)
 		{
-			HR(DEVICE->CreateRenderTargetView(texure_2D_.Get(), nullptr, render_target_texture_.GetAddressOf()));
+			HR(DEVICE->CreateRenderTargetView(texture_2D_.Get(), nullptr, render_target_texture_.GetAddressOf()));
 		}
 		if (D3D11_BIND_UNORDERED_ACCESS & texture_desc_.BindFlags)
 		{
-			HR(DEVICE->CreateUnorderedAccessView(texure_2D_.Get(), nullptr, unordered_access_view_.GetAddressOf()));
+			HR(DEVICE->CreateUnorderedAccessView(texture_2D_.Get(), nullptr, unordered_access_view_.GetAddressOf()));
 		}
 	}
 	return S_OK;
 }
+
 
 HRESULT CTexture::Resize(UINT width, UINT height)
 {
 	texture_desc_.Width = width;
 	texture_desc_.Height = height;
 
-	HR(DEVICE->CreateTexture2D(&texture_desc_, nullptr, texure_2D_.GetAddressOf()));
+	HR(DEVICE->CreateTexture2D(&texture_desc_, nullptr, texture_2D_.GetAddressOf()));
 
 	if (D3D11_BIND_DEPTH_STENCIL & texture_desc_.BindFlags)
 	{
-		HR(DEVICE->CreateDepthStencilView(texure_2D_.Get(), nullptr, depth_stencil_texture_.GetAddressOf()));
+		HR(DEVICE->CreateDepthStencilView(texture_2D_.Get(), nullptr, depth_stencil_texture_.GetAddressOf()));
 	}
 	else
 	{
 		if (D3D11_BIND_SHADER_RESOURCE & texture_desc_.BindFlags)
 		{
-			HR(DEVICE->CreateShaderResourceView(texure_2D_.Get(), nullptr, shader_resource_view_.GetAddressOf()));
+			HR(DEVICE->CreateShaderResourceView(texture_2D_.Get(), nullptr, shader_resource_view_.GetAddressOf()));
 		}
 		if (D3D11_BIND_RENDER_TARGET & texture_desc_.BindFlags)
 		{
-			HR(DEVICE->CreateRenderTargetView(texure_2D_.Get(), nullptr, render_target_texture_.GetAddressOf()));
+			HR(DEVICE->CreateRenderTargetView(texture_2D_.Get(), nullptr, render_target_texture_.GetAddressOf()));
 		}
 		if (D3D11_BIND_UNORDERED_ACCESS & texture_desc_.BindFlags)
 		{
-			HR(DEVICE->CreateUnorderedAccessView(texure_2D_.Get(), nullptr, unordered_access_view_.GetAddressOf()));
+			HR(DEVICE->CreateUnorderedAccessView(texture_2D_.Get(), nullptr, unordered_access_view_.GetAddressOf()));
 		}
 	}
 
