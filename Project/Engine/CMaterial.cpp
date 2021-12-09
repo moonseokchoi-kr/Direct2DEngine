@@ -9,7 +9,8 @@
 
 
 CMaterial::CMaterial()
-	:data_{}
+	:CResource(RESOURCE_TYPE::MATERIAL)
+	,data_{}
 	,texture_array_{}
 {
 }

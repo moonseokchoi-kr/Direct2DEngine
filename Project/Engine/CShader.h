@@ -5,7 +5,7 @@ class CShader :
     public CResource
 {
 public:
-    CShader();
+    CShader(RESOURCE_TYPE type);
     ~CShader();
 protected:
     

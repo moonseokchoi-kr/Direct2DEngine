@@ -2,7 +2,8 @@
 #include "CMesh.h"
 #include "CDevice.h"
 CMesh::CMesh()
-	:vertex_sys_mem_(nullptr)
+	:CResource(RESOURCE_TYPE::MESH)
+	,vertex_sys_mem_(nullptr)
 	,vertex_count_(0)
 	,index_sys_mem_(nullptr)
 	,index_count_(0)

@@ -38,7 +38,9 @@ using std::array;
 using std::to_wstring;
 using std::random_device;
 using std::mt19937;
+
 #include "singleton.h"
+#include "magic_enum.hpp"
 
 //DirectX 11 Header
 

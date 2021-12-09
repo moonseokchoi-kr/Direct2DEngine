@@ -248,7 +248,7 @@ void AtlasTextureTool::ShowAtlasVeiw()
 						draw_list->AddLine(ImVec2(canvas_lt_.x, canvas_lt_.y + y), ImVec2(canvas_lt_.x + atlas_->GetWidth(), canvas_lt_.y + y), IM_COL32(51, 218, 32, 255));
 
 				}
-				int x = atlas_->GetWidth() / region_size_.x;
+				int x = atlas_->GetWidth() / (UINT)region_size_.x;
 
 				int col = current_tile_index_ % x;
 				int row = current_tile_index_ / x;
@@ -271,8 +271,8 @@ void AtlasTextureTool::ShowAtlasVeiw()
 
 void AtlasTextureTool::CalculateIndex()
 {
-	UINT tileCountX = atlas_->GetWidth() / region_size_.x;
-	UINT tileCountY = atlas_->GetHeight() / region_size_.y;
+	UINT tileCountX = atlas_->GetWidth() / (UINT)region_size_.x;
+	UINT tileCountY = atlas_->GetHeight() / (UINT)region_size_.y;
 	Vec2 mousePos = current_mouse_pos_ - canvas_lt_ - scrolling_;
 	for (UINT i = 0; i < tileCountX; ++i)
 		for(UINT j=0; j< tileCountY; ++j)

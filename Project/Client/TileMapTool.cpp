@@ -254,7 +254,7 @@ void TileMapTool::CalTileIndex()
 			if (tileSize.x * i < current_mouse_pos_.x && current_mouse_pos_.x < tileSize.x * (i + 1) &&
 				+tileSize.y * j < current_mouse_pos_.y && current_mouse_pos_.y < tileSize.y * (j + 1))
 			{
-				current_tile_index_ = j * tile_map_size_.x + i;
+				current_tile_index_ = j * (int)tile_map_size_.x + i;
 			}
 		}
 }

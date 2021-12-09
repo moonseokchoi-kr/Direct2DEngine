@@ -1,7 +1,8 @@
 #include "pch.h"
 #include "CShader.h"
 
-CShader::CShader()
+CShader::CShader(RESOURCE_TYPE type)
+	:CResource(type)
 {
 }
 

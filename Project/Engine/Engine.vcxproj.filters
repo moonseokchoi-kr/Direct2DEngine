@@ -341,6 +341,9 @@
     <ClInclude Include="CTileMap.h">
       <Filter>소스 파일\Component\TileMap</Filter>
     </ClInclude>
+    <ClInclude Include="magic_enum.hpp">
+      <Filter>소스 파일\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

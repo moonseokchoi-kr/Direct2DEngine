@@ -18,7 +18,7 @@ class CResource :
 {
 
 public:
-    CResource();
+    CResource(RESOURCE_TYPE type);
     virtual ~CResource();
 public:
     void SetKey(const wstring& key) { key_ = key; }
@@ -39,6 +39,7 @@ private:
     wstring key_;
     wstring relative_path_;
     UINT reference_count_;
+    RESOURCE_TYPE resource_type_;
 
     template<typename T>
     friend class Ptr;

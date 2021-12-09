@@ -3,14 +3,16 @@
 
 #include "CDevice.h"
 CComputeShader::CComputeShader()
-    :group_thread_x_(-1)
+    :CShader(RESOURCE_TYPE::COMPUTE_SHADER)
+    ,group_thread_x_(-1)
     ,group_thread_y_(-1)
     ,group_thread_z_(-1)
 {
 }
 
 CComputeShader::CComputeShader(UINT groupX, UINT groupY, UINT groupZ)
-	:group_thread_x_(groupX)
+	:CShader(RESOURCE_TYPE::COMPUTE_SHADER)
+    ,group_thread_x_(groupX)
 	,group_thread_y_(groupY)
 	,group_thread_z_(groupZ)
 {

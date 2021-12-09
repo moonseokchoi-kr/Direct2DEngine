@@ -106,6 +106,27 @@
     <Filter Include="소스 파일\Tool\Widget\ViewPort">
       <UniqueIdentifier>{34122fab-ec33-4202-9ee9-18c2810c0d39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource">
+      <UniqueIdentifier>{dc2dacc3-6c48-40ea-815c-4095a6959137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Material">
+      <UniqueIdentifier>{c5442c77-c8a2-4eda-a00b-8a598b17a375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Texture">
+      <UniqueIdentifier>{0c0b1330-af42-4fe8-9f7d-db30b9a212c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Shader">
+      <UniqueIdentifier>{7591982e-5de7-47f5-99be-aa44a1ff0646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Sound">
+      <UniqueIdentifier>{490489dc-c147-4c72-a036-e6014541f3e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Prefab">
+      <UniqueIdentifier>{28612467-e0ff-440e-b18e-935ca65634df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Mesh">
+      <UniqueIdentifier>{732f7bab-9156-442d-94fe-352d23f1d181}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -215,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="ViewPortWidget.h">
       <Filter>소스 파일\Tool\Widget\ViewPort</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -329,6 +353,9 @@
     </ClCompile>
     <ClCompile Include="ViewPortWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ViewPort</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

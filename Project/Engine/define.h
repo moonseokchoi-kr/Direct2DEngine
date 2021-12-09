@@ -57,7 +57,7 @@ enum class CONSTANT_BUFFER_TYPE
 };
 
 
-enum class RES_TYPE
+enum class RESOURCE_TYPE
 {
 	MESH,
 	GRAPHIC_SHADER,

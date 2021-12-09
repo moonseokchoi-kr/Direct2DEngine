@@ -4,7 +4,9 @@
 #include "CDevice.h"
 
 CGraphicsShader::CGraphicsShader()
-	:topology_(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+	:
+	CShader(RESOURCE_TYPE::GRAPHIC_SHADER)
+	,topology_(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 	,rasterizer_type_(RASTERIZER_TYPE::CULL_BACK)
 	,blend_type_(BLEND_TYPE::DEFAULT)
 	,depth_stencil_type_(DEPTH_STENCIL_TYPE::LESS)

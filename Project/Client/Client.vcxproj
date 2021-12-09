@@ -135,6 +135,7 @@
       <MinFilesInUnityFile>1</MinFilesInUnityFile>
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Unity\</UnityFilesDirectory>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -181,6 +182,7 @@
     <ClInclude Include="InspectorWidget.h" />
     <ClInclude Include="MenuWidget.h" />
     <ClInclude Include="MeshRenderWidget.h" />
+    <ClInclude Include="ResourceWidget.h" />
     <ClInclude Include="TileMapTool.h" />
     <ClInclude Include="TileMapWidget.h" />
     <ClInclude Include="ToolCamera.h" />
@@ -226,6 +228,7 @@
     <ClCompile Include="InspectorWidget.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="MeshRenderWidget.cpp" />
+    <ClCompile Include="ResourceWidget.cpp" />
     <ClCompile Include="simple_math_extern.cpp" />
     <ClCompile Include="TileMapTool.cpp" />
     <ClCompile Include="TileMapWidget.cpp" />

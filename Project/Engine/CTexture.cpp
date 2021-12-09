@@ -2,7 +2,9 @@
 #include "CTexture.h"
 #include "CDevice.h"
 CTexture::CTexture()
-	:texture_desc_{}
+	:
+	CResource(RESOURCE_TYPE::TEXTURE)
+	,texture_desc_{}
 {
 }
 

@@ -50,7 +50,7 @@ private:
 	void CreateDefaultMaterial();
 	void CreateDefaultComputeShader();
 private:
-    array<unordered_map<wstring, CResource*>,static_cast<UINT>(RES_TYPE::END)> resource_array_;
+    array<unordered_map<wstring, CResource*>,static_cast<UINT>(RESOURCE_TYPE::END)> resource_array_;
 	unordered_map<wstring, CTexture*> default_tex_map_;
 
 };
@@ -59,35 +59,35 @@ private:
 
 
 template<typename  T> 
-inline RES_TYPE GetResourceType()
+inline RESOURCE_TYPE GetResourceType()
 {
 	const type_info& info = typeid(T);
 
-	RES_TYPE type = RES_TYPE::END;
+	RESOURCE_TYPE type = RESOURCE_TYPE::END;
 
 	if (info.hash_code() == typeid(CMesh).hash_code())
 	{
-		type = RES_TYPE::MESH;
+		type = RESOURCE_TYPE::MESH;
 	}
 	if (info.hash_code() == typeid(CGraphicsShader).hash_code())
 	{
-		type = RES_TYPE::GRAPHIC_SHADER;
+		type = RESOURCE_TYPE::GRAPHIC_SHADER;
 	}
 	if (info.hash_code() == typeid(CComputeShader).hash_code())
 	{
-		type = RES_TYPE::PREFAB;
+		type = RESOURCE_TYPE::PREFAB;
 	}
 	if (info.hash_code() == typeid(CTexture).hash_code())
 	{
-		type = RES_TYPE::TEXTURE;
+		type = RESOURCE_TYPE::TEXTURE;
 	}
 	if (info.hash_code() == typeid(CMaterial).hash_code())
 	{
-		type = RES_TYPE::MATERIAL;
+		type = RESOURCE_TYPE::MATERIAL;
 	}
 	if (info.hash_code() == typeid(CPrefab).hash_code())
 	{
-		type = RES_TYPE::PREFAB;
+		type = RESOURCE_TYPE::PREFAB;
 	}
 	
 	return type;
@@ -97,14 +97,14 @@ inline RES_TYPE GetResourceType()
 template<typename T>
 inline const unordered_map<wstring, CResource*> CResourceManager::GetResource()
 {
-	RES_TYPE type = GetResourceType<T>();
+	RESOURCE_TYPE type = GetResourceType<T>();
 	return resource_array_[(UINT)type];
 };
 
 template <typename T>
 inline void CResourceManager::AddResource(const wstring& key, T* res)
 {
-	RES_TYPE type = GetResourceType<T>();
+	RESOURCE_TYPE type = GetResourceType<T>();
 	res->SetName(key);
 	resource_array_[static_cast<UINT>(type)].insert(make_pair(key,res));
 }
@@ -112,7 +112,7 @@ inline void CResourceManager::AddResource(const wstring& key, T* res)
 template <typename T>
 inline Ptr<T> CResourceManager::FindRes(const wstring& key)
 {
-	RES_TYPE type = GetResourceType<T>();
+	RESOURCE_TYPE type = GetResourceType<T>();
 	unordered_map<wstring, CResource*>::iterator iterator = resource_array_[static_cast<UINT>(type)].find(key);
 
 	if(iterator == resource_array_[static_cast<UINT>(type)].end())
@@ -125,7 +125,7 @@ inline Ptr<T> CResourceManager::FindRes(const wstring& key)
 template<typename T>
 inline Ptr<T> CResourceManager::LoadRes(const wstring& key, const wstring& strRelativePath)
 {
-	RES_TYPE type = GetResourceType<T>();
+	RESOURCE_TYPE type = GetResourceType<T>();
 
 	unordered_map<wstring, CResource*>::iterator iter = resource_array_[static_cast<UINT>(type)].find(key);
 

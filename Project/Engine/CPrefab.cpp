@@ -3,12 +3,17 @@
 
 #include "CGameObject.h"
 CPrefab::CPrefab()
-    :prototype_object_(nullptr)
+    :
+    CResource(RESOURCE_TYPE::PREFAB)
+    ,prototype_object_(nullptr)
+
 {
 }
 
 CPrefab::CPrefab(CGameObject* gameObject)
-    :prototype_object_(gameObject)
+    :
+    CResource(RESOURCE_TYPE::PREFAB)
+    ,prototype_object_(gameObject)
 {
 }
 

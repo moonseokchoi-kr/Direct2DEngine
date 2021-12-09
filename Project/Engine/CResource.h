@@ -18,7 +18,7 @@ class CResource :
 {
 
 public:
-    CResource();
+    CResource(RESOURCE_TYPE type);
     virtual ~CResource();
 public:
     void SetKey(const wstring& key) { key_ = key; }
@@ -26,6 +26,7 @@ public:
 
     void SetRelativePath(const wstring& path) { relative_path_ = path; }
     const wstring& GetRelativePath() { return relative_path_; }
+    RESOURCE_TYPE GetResourceType() { return resource_type_; }
 protected:
     virtual HRESULT Load(const wstring& filePath) { assert(nullptr); return E_FAIL; }
     virtual HRESULT Save(const wstring& relativePath) { assert(nullptr); return E_FAIL; }
@@ -39,6 +40,7 @@ private:
     wstring key_;
     wstring relative_path_;
     UINT reference_count_;
+    RESOURCE_TYPE resource_type_;
 
     template<typename T>
     friend class Ptr;

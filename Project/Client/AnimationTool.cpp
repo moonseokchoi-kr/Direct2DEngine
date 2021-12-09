@@ -431,7 +431,7 @@ float AnimationTool::CalMaxSizeY()
 {
 	float minY = std::numeric_limits<float>::infinity();
 	AnimationFrame data = {};
-	for (int i = 0; i < animation_->GetMaxFrameCount(); ++i)
+	for (UINT i = 0; i < animation_->GetMaxFrameCount(); ++i)
 	{
 		animation_->SetCurrentFrame(i);
 		data = animation_->GetCurrentFrameData();

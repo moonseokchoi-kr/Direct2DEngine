@@ -150,7 +150,6 @@ void WidgetManager::SetFocusMainWindow()
 #include "TileMapTool.h"
 #include "ViewPortWidget.h";
 
-
 void WidgetManager::CreateWidgets()
 {
 	Widget* widget = nullptr;
