@@ -27,7 +27,7 @@ void ViewPortWidget::Update()
 		ImVec2 center = ImVec2(viewPortLt.x + viewPortSize.x / 2.f, viewPortLt.y + viewPortSize.y / 2.f);
 		Vec2 resolution = CDevice::GetInst()->GetResolution();
 		static ImDrawList* draw_list = ImGui::GetWindowDrawList();
-		ImTextureID textureID = CDevice::GetInst()->GetRenderTarget()->GetRenderTargetView();
+		ImTextureID textureID = CRenderManager::GetInst()->GetViewPortTexture()->GetShaderResourceView();
 		draw_list->AddImage(textureID, ImVec2(center.x - resolution.x/2.f, center.y - resolution.y/2.f), ImVec2(center.x + resolution.x/2.f, center.y + resolution.y/2.f));
 
 		ImGui::End();

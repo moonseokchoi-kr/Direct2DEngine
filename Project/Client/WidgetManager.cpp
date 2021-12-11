@@ -85,7 +85,7 @@ void WidgetManager::Update()
 	// Frame √ ±‚»≠
 	ImGuiInitFrame();
 
-	//DockingSpace();
+	DockingSpace();
 
 	// Demo GUI
 	ImGuiDemo();
@@ -140,6 +140,8 @@ void WidgetManager::SetFocusMainWindow()
 
 #include <Engine/CSceneManager.h>
 #include <Engine/CGameObject.h>
+#include <Engine/CResourceManager.h>
+#include <Engine/CTexture.h>
 #include "MenuWidget.h"
 #include "InspectorWidget.h"
 #include "ModalListWidget.h"
@@ -158,8 +160,9 @@ void WidgetManager::CreateWidgets()
 	AddWidget(widget->GetName(), widget);
 
 	widget = new InspectorWidget;
-	CGameObject* target = CSceneManager::GetInst()->FindObjectByName(L"camera");
-	dynamic_cast<InspectorWidget*>(widget)->SetGameObject(target);
+	widget->Activate();
+	Ptr<CTexture> target = CResourceManager::GetInst()->FindRes<CTexture>(L"village_tile_map");
+	((InspectorWidget*)widget)->SetTargetResource(target.Get());
 	AddWidget(widget->GetName(), widget);
 
 	widget = new ModalListWidget;
@@ -179,7 +182,7 @@ void WidgetManager::CreateWidgets()
 	AddWidget(widget->GetName(), widget);
 
 	widget = new HirarchyViewWidget;
-	widget->Activate();
+	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
 
 	widget = new TileMapTool;

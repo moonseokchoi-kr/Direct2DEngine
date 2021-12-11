@@ -173,9 +173,12 @@
     <ClInclude Include="AnimationWidget.h" />
     <ClInclude Include="AtlasTextureTool.h" />
     <ClInclude Include="CameraWidget.h" />
+    <ClInclude Include="client_func.h" />
     <ClInclude Include="Collider2DWidget.h" />
+    <ClInclude Include="ComboWidget.h" />
     <ClInclude Include="ContentBrowserComboWidget.h" />
     <ClInclude Include="HirarchyViewWidget.h" />
+    <ClInclude Include="MaterialWidget.h" />
     <ClInclude Include="ModalListWidget.h" />
     <ClInclude Include="ComponentWidget.h" />
     <ClInclude Include="imgui_util.h" />
@@ -183,6 +186,7 @@
     <ClInclude Include="MenuWidget.h" />
     <ClInclude Include="MeshRenderWidget.h" />
     <ClInclude Include="ResourceWidget.h" />
+    <ClInclude Include="TextureWidget.h" />
     <ClInclude Include="TileMapTool.h" />
     <ClInclude Include="TileMapWidget.h" />
     <ClInclude Include="ToolCamera.h" />
@@ -220,8 +224,10 @@
     <ClCompile Include="AtlasTextureTool.cpp" />
     <ClCompile Include="CameraWidget.cpp" />
     <ClCompile Include="Collider2DWidget.cpp" />
+    <ClCompile Include="ComboWidget.cpp" />
     <ClCompile Include="ContentBrowserComboWidget.cpp" />
     <ClCompile Include="HirarchyViewWidget.cpp" />
+    <ClCompile Include="MaterialWidget.cpp" />
     <ClCompile Include="ModalListWidget.cpp" />
     <ClCompile Include="ComponentWidget.cpp" />
     <ClCompile Include="imgui_util.cpp" />
@@ -229,7 +235,8 @@
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="MeshRenderWidget.cpp" />
     <ClCompile Include="ResourceWidget.cpp" />
-    <ClCompile Include="simple_math_extern.cpp" />
+    <ClCompile Include="client_func.cpp" />
+    <ClCompile Include="TextureWidget.cpp" />
     <ClCompile Include="TileMapTool.cpp" />
     <ClCompile Include="TileMapWidget.cpp" />
     <ClCompile Include="ToolCamera.cpp" />

@@ -7,6 +7,8 @@
 #include "CameraWidget.h"
 #include "TileMapWidget.h"
 
+#include "TextureWidget.h"
+
 #include <Engine/CGameObject.h>
 
 InspectorWidget::InspectorWidget()
@@ -20,6 +22,8 @@ InspectorWidget::InspectorWidget()
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::COLLIDER2D)] = new Collider2DWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::CAMERA)] = new CameraWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::TILEMAP)] = new TileMapWidget;
+
+	resource_widget_array_[static_cast<UINT>(RESOURCE_TYPE::TEXTURE)] = new TextureWidget;
 }
 InspectorWidget::~InspectorWidget()
 {
@@ -30,7 +34,14 @@ void InspectorWidget::Update()
 {
 	ImGui::Begin(GetName().c_str(), &is_active_);
 
-	ShowObjectInfo();
+	if (nullptr != target_object_ || nullptr != target_resource_)
+	{
+		if (nullptr != target_object_)
+			ShowObjectInfo();
+		else if (nullptr != target_resource_)
+			ShowResourceInfo();
+	}
+
 
 	UpdateChildren();
 
@@ -46,4 +57,12 @@ void InspectorWidget::ShowObjectInfo()
 		component_widget_array_[i]->SetTarget(target_object_);
 		component_widget_array_[i]->Update();
 	}
+}
+
+void InspectorWidget::ShowResourceInfo()
+{
+	RESOURCE_TYPE type = target_resource_->GetResourceType();
+
+	resource_widget_array_[(UINT)type]->SetResource(target_resource_.Get());
+	resource_widget_array_[(UINT)type]->Update();
 }

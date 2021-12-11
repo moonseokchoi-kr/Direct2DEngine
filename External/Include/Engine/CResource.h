@@ -26,6 +26,7 @@ public:
 
     void SetRelativePath(const wstring& path) { relative_path_ = path; }
     const wstring& GetRelativePath() { return relative_path_; }
+    RESOURCE_TYPE GetResourceType() { return resource_type_; }
 protected:
     virtual HRESULT Load(const wstring& filePath) { assert(nullptr); return E_FAIL; }
     virtual HRESULT Save(const wstring& relativePath) { assert(nullptr); return E_FAIL; }

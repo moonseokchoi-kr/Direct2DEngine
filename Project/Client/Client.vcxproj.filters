@@ -240,6 +240,18 @@
     <ClInclude Include="ResourceWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="TextureWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="client_func.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MaterialWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboWidget.h">
+      <Filter>소스 파일\Tool\Widget\PopUp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -294,7 +306,7 @@
     <ClCompile Include="InspectorWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector</Filter>
     </ClCompile>
-    <ClCompile Include="simple_math_extern.cpp">
+    <ClCompile Include="client_func.cpp">
       <Filter>헤더 파일</Filter>
     </ClCompile>
     <ClCompile Include="ComponentWidget.cpp">
@@ -356,6 +368,15 @@
     </ClCompile>
     <ClCompile Include="ResourceWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\PopUp</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
