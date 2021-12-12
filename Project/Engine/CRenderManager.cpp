@@ -26,7 +26,7 @@ void CRenderManager::Init()
 {
 	Vec2 resolution = CDevice::GetInst()->GetResolution();
 
-	post_effect_target_ = CResourceManager::GetInst()->CreateTexture(L"post_effect_traget_texture", (UINT)resolution.x, (UINT)resolution.y, D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE, DXGI_FORMAT_R8G8B8A8_UNORM);
+	post_effect_target_ = CResourceManager::GetInst()->CreateTexture(L"post_effect_traget_texture", (UINT)resolution.x, (UINT)resolution.y, D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET, DXGI_FORMAT_R8G8B8A8_UNORM);
 	viewport_traget_ = CResourceManager::GetInst()->CreateTexture(L"view_port_target_texture", (UINT)resolution.x, (UINT)resolution.y, D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE, DXGI_FORMAT_R8G8B8A8_UNORM);
 
 	Ptr<CMaterial> post_effect_material = CResourceManager::GetInst()->FindRes<CMaterial>(L"post_effect_material");

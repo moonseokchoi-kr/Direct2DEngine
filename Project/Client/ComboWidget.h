@@ -15,8 +15,10 @@ public:
     void Update() override;
 
 public:
-    void SetCallback(Widget* instance, COMBO_CALLBACK callback) { instance_ = instance_; callback_ = callback }
+    void SetCallback(Widget* instance, COMBO_CALLBACK callback) { instance_ = instance; callback_ = callback; }
+    void SetCurrentIndex(int index) { current_index_ = index; }
     void AddComboData(const string& data) { combo_data_.push_back(data); }
+    string GetSelectedItem() { return selected_item_; }
     void Clear();
 private:
     vector<string> combo_data_;

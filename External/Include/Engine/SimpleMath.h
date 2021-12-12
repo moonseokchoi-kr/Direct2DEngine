@@ -127,7 +127,9 @@ namespace DirectX
 
             operator XMVECTOR() const { return XMLoadFloat2(this); }
 
-            
+			typedef float(&f2)[2];
+			operator f2() const { return (f2)x; }
+
             // Conversion
             operator ImVec2() const;
 

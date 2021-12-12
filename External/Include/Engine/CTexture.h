@@ -41,7 +41,7 @@ public:
 private:
 
     HRESULT Create(UINT width, UINT height, UINT flags, DXGI_FORMAT format);
-    HRESULT Create(ComPtr<ID3D11Texture2D> texture2D);
+    HRESULT Create(ComPtr<ID3D11Texture2D> texture);
 	HRESULT Load(const wstring& strFilePath) override;
 private:
     ScratchImage image_;

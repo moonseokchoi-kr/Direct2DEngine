@@ -27,7 +27,7 @@ void TextureWidget::Update()
 		ImVec2 canvas_lt = ImGui::GetCursorScreenPos();
 		ImVec2 canvas_size = ImGui::GetContentRegionAvail();
 		ImDrawList* draw_list = ImGui::GetWindowDrawList();
-		draw_list->AddRectFilled(canvas_lt, ImVec2(canvas_lt.x + canvas_size.x*0.8,canvas_lt.y+canvas_size.y*0.4f), IM_COL32(50, 50, 50, 255));
+		draw_list->AddRectFilled(canvas_lt, ImVec2(canvas_lt.x + canvas_size.x*0.8f,canvas_lt.y+canvas_size.y*0.4f), IM_COL32(50, 50, 50, 255));
 		ImGui::Image(target_texture_->GetShaderResourceView(), ImVec2(canvas_size.x * 0.8f, canvas_size.y * 0.4f), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.4f,0.4f,0.4f,1.0f));
 	}
 	End();

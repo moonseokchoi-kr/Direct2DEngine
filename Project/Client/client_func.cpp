@@ -10,15 +10,15 @@ Vec2::operator ImVec2() const
 
 string WStringToString(const wstring& destBuffer)
 {
-	string str;
-	WideCharToMultiByte(CP_ACP, 0, destBuffer.c_str(), -1, str.data(), (int)destBuffer.size(), nullptr, nullptr);
+	array<char, 256> str = { 0, };
+	WideCharToMultiByte(CP_ACP, 0, destBuffer.c_str(), (int)destBuffer.size(), str.data(), (int)str.size(), nullptr, nullptr);
 
-	return str;
+	return string(str.data());
 }
 
 wstring StringToWString(const string& destBuffer)
 {
-	wstring w_str;
-	MultiByteToWideChar(CP_ACP, 0, destBuffer.c_str(), (int)destBuffer.size(), w_str.data(), (int)w_str.size());
-	return w_str;
+	array<wchar_t, 256> str = { 0, };
+	MultiByteToWideChar(CP_ACP, 0, destBuffer.c_str(), (int)destBuffer.size(), str.data(), (int)destBuffer.size());
+	return wstring(str.data());
 }

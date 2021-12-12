@@ -13,6 +13,7 @@ public:
 
 public:
     void SetData(SHADER_PARAM param, void* data);
+    void GetData(SHADER_PARAM param, void* data);
 	void UpdateData() override;
 
     CLONE(CMaterial);

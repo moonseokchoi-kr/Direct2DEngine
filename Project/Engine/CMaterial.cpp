@@ -68,6 +68,56 @@ void CMaterial::SetData(SHADER_PARAM param, void* data)
 	}
 }
 
+void CMaterial::GetData(SHADER_PARAM param, void* data)
+{
+	switch (param)
+	{
+	case SHADER_PARAM::INT_0:
+	case SHADER_PARAM::INT_1:
+	case SHADER_PARAM::INT_2:
+	case SHADER_PARAM::INT_3:
+		*((int*)data)=data_.int_arr[static_cast<UINT>(param) - static_cast<UINT>(SHADER_PARAM::INT_0)];
+		break;
+	case SHADER_PARAM::FLOAT_0:
+	case SHADER_PARAM::FLOAT_1:
+	case SHADER_PARAM::FLOAT_2:
+	case SHADER_PARAM::FLOAT_3:
+		*((float*)data) = data_.float_arr[static_cast<UINT>(param) - static_cast<UINT>(SHADER_PARAM::FLOAT_0)];
+		break;
+	case SHADER_PARAM::VEC2_0:
+	case SHADER_PARAM::VEC2_1:
+	case SHADER_PARAM::VEC2_2:
+	case SHADER_PARAM::VEC2_3:
+		*((Vec2*)data) = data_.vec2_arr[static_cast<UINT>(param) - static_cast<UINT>(SHADER_PARAM::VEC2_0)];
+		break;
+	case SHADER_PARAM::VEC4_0:
+	case SHADER_PARAM::VEC4_1:
+	case SHADER_PARAM::VEC4_2:
+	case SHADER_PARAM::VEC4_3:
+		*((Vec4*)data) = data_.vec4_arr[static_cast<UINT>(param) - static_cast<UINT>(SHADER_PARAM::VEC4_0)];
+		break;
+	case SHADER_PARAM::MAT_0:
+	case SHADER_PARAM::MAT_1:
+	case SHADER_PARAM::MAT_2:
+	case SHADER_PARAM::MAT_3:
+		*((Matrix*)data) = data_.matrix_arr[static_cast<UINT>(param) - static_cast<UINT>(SHADER_PARAM::MAT_0)];
+		break;
+	case SHADER_PARAM::TEX_0:
+	case SHADER_PARAM::TEX_1:
+	case SHADER_PARAM::TEX_2:
+	case SHADER_PARAM::TEX_3:
+		*((Ptr<CTexture>*)data) = texture_array_[static_cast<UINT>(param) - static_cast<UINT>(SHADER_PARAM::TEX_0)];
+		break;
+	case SHADER_PARAM::TEX_ARR_0:
+	case SHADER_PARAM::TEX_ARR_1:
+	case SHADER_PARAM::TEX_CUBE_0:
+	case SHADER_PARAM::TEX_CUBE_1:
+
+	default:
+		break;
+	}
+}
+
 void CMaterial::UpdateData()
 {
 	shader_->UpdateData();

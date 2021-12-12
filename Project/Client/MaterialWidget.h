@@ -21,6 +21,7 @@ public:
     
 private:
     void ShowMaterialDetail();
+    void ShowOutputShaderParam();
     void ChangeShader(DWORD_PTR, DWORD_PTR);
     
 private:

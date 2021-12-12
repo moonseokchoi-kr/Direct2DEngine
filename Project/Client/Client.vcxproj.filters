@@ -127,6 +127,12 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Mesh">
       <UniqueIdentifier>{732f7bab-9156-442d-94fe-352d23f1d181}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\Input">
+      <UniqueIdentifier>{662cf4fa-34ff-43a4-a1c1-f87e66a4e20f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\Input\DataInput">
+      <UniqueIdentifier>{2dc687f3-3031-4f44-a3b2-a597b7e6697b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -251,6 +257,9 @@
     </ClInclude>
     <ClInclude Include="ComboWidget.h">
       <Filter>소스 파일\Tool\Widget\PopUp</Filter>
+    </ClInclude>
+    <ClInclude Include="DataInputWidget.h">
+      <Filter>소스 파일\Tool\Widget\Input\DataInput</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -377,6 +386,9 @@
     </ClCompile>
     <ClCompile Include="ComboWidget.cpp">
       <Filter>소스 파일\Tool\Widget\PopUp</Filter>
+    </ClCompile>
+    <ClCompile Include="DataInputWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\Input\DataInput</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

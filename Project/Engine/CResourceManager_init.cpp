@@ -144,6 +144,13 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
+	//stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::TEX_0, L"output_texture" });
+	stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::INT_0, L"test_int" });
+	stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::FLOAT_0, L"test_float" });
+	stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::VEC2_0, L"test_vec2" });
+	stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::VEC4_0, L"test_vec4" });
+	
+	
 	AddResource(L"std2DShader", stdShader);
 
 	//Ptr<CGraphicsShader> ptr = LoadGraphicShader(L"std2DShader", L"shader\\std2d.fx", BLEND_TYPE::ALPHA_BLEND, DEPTH_STENCIL_TYPE::LESS, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -157,7 +164,8 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE);
 	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
-	
+
+
 	AddResource(L"collder2DShader", stdShader);
 
 	//HP bar
@@ -182,7 +190,7 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
-	
+	stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::TEX_0, L"output_texture" });
 
 	AddResource(L"light2D_shader", stdShader);
 
@@ -246,16 +254,15 @@ void CResourceManager::CreateDefaultTexture()
 
 	noise->SetPipelineStage(PIPELINE_STAGE::PS_ALL, 13);
 	noise->UpdateData();
-
-	CreateTexture(L"compute_shader_tex", 1024, 1024, D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS, DXGI_FORMAT_R8G8B8A8_UNORM);
 }
 
 void CResourceManager::CreateDefaultMaterial()
 {
 	CMaterial* material = nullptr;
-
+	int a = 1;
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	material->SetData(SHADER_PARAM::INT_0, &a);
 	AddResource(L"std2DMaterial", material);
 
 
@@ -264,7 +271,7 @@ void CResourceManager::CreateDefaultMaterial()
 	AddResource(L"std2DMaterial_lights", material);
 
 	//colliderMaterial
-	int a = 1;
+
 	material = new CMaterial;
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"collder2DShader"));
 	AddResource(L"collider2DMaterial_none", material);

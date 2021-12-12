@@ -53,31 +53,31 @@ void CSceneManager::Init()
 	//카메라 1번
 	current_scene_->AddGameObject(camera, 1, true);
 
-// 	const auto background = new CGameObject;
-// 	background->AddComponent(new CTransform);
-// 	background->AddComponent(new CMeshRender);
-// 	background->Transform()->SetPosition(Vec3(0.f, 0.f, 2000.f));
-// 	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
-// 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-// 	CMaterial* backgroundMaterial = new CMaterial;
-// 	int a = 0;
-// 	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
-// 	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
-// 	CResourceManager::GetInst()->AddResource(L"backgoundMaterial", backgroundMaterial);
-// 	background->MeshRender()->SetMaterial(backgroundMaterial);
-// 	//boss hp ui
-// 	current_scene_->AddGameObject(background, 0, true);
+	const auto background = new CGameObject;
+	background->AddComponent(new CTransform);
+	background->AddComponent(new CMeshRender);
+	background->Transform()->SetPosition(Vec3(0.f, 0.f, 2000.f));
+	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
+	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	CMaterial* backgroundMaterial = new CMaterial;
+	int a = 0;
+	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
+	CResourceManager::GetInst()->AddResource(L"backgound_material", backgroundMaterial);
+	background->MeshRender()->SetMaterial(backgroundMaterial);
+	//boss hp ui
+	current_scene_->AddGameObject(background, 0, true);
 
 
-	const auto tileMap = new CGameObject;
-	tileMap->SetName(L"tile_map");
-	tileMap->AddComponent(new CTransform);
-	tileMap->AddComponent(new CTileMap);
-	tileMap->Transform()->SetPosition(Vec3(0.f, 0.f, 200.f));
-	tileMap->Transform()->SetScale(Vec3(64.f * 8.f, 64.f * 6, 1.f));
-	Ptr<CTexture> pTileAtlas = CResourceManager::GetInst()->LoadRes<CTexture>(L"tile_map_atlas_texture", L"texture\\tilemap\\TILE.bmp");
-	tileMap->TileMap()->SetAtlasTexture(pTileAtlas);
-	current_scene_->AddGameObject(tileMap, 3, true);
+// 	const auto tileMap = new CGameObject;
+// 	tileMap->SetName(L"tile_map");
+// 	tileMap->AddComponent(new CTransform);
+// 	tileMap->AddComponent(new CTileMap);
+// 	tileMap->Transform()->SetPosition(Vec3(0.f, 0.f, 200.f));
+// 	tileMap->Transform()->SetScale(Vec3(64.f * 8.f, 64.f * 6, 1.f));
+// 	Ptr<CTexture> pTileAtlas = CResourceManager::GetInst()->LoadRes<CTexture>(L"tile_map_atlas_texture", L"texture\\tilemap\\TILE.bmp");
+// 	tileMap->TileMap()->SetAtlasTexture(pTileAtlas);
+// 	current_scene_->AddGameObject(tileMap, 3, true);
 
 	const auto light = new CGameObject;
 	light->AddComponent(new CTransform);

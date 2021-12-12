@@ -27,9 +27,11 @@ void ComboWidget::Update()
 			if (ImGui::Selectable(combo_data_[i].c_str(), is_selected))
 			{
 				current_index_ = i;
-				ImGui::SetItemDefaultFocus();
+				
 			}
-			if (is_selected && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+			if(is_selected)
+				ImGui::SetItemDefaultFocus();
+			if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 			{
 				selected_item_ = combo_data_[current_index_];
 				(instance_->*callback_)((DWORD_PTR)this, 0);
@@ -37,16 +39,11 @@ void ComboWidget::Update()
 			}
 		}
 		ImGui::EndCombo();
-	}
-	else
-	{
-		ImGui::EndCombo();
 		Clear();
 	}
 }
 
 void ComboWidget::Clear()
 {
-	Deactivate();
 	combo_data_.clear();
 }

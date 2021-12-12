@@ -1,6 +1,13 @@
 #pragma once
 #include "CShader.h"
 
+struct ShaderParameter
+{
+	SHADER_PARAM type;
+	wstring		usage;
+};
+
+
 class CGraphicsShader :
 	public CShader
 {
@@ -25,6 +32,8 @@ public:
 	void SetRasterizerType(RASTERIZER_TYPE type) { rasterizer_type_ = type; }
 	void SetBlendType(BLEND_TYPE type) { blend_type_ = type; }
 	void SetDepthStencilType(DEPTH_STENCIL_TYPE type) { depth_stencil_type_ = type; }
+	const vector<ShaderParameter>& GetShaderParam() { return shader_parameter_vector_; }
+	void AddShaderParamInfo(const ShaderParameter& _info) { shader_parameter_vector_.push_back(_info); }
 private:
 	ComPtr<ID3D10Blob> vertex_shader_blob_;
 	ComPtr<ID3D10Blob> hull_shader_blob_;
@@ -45,6 +54,7 @@ private:
 	DEPTH_STENCIL_TYPE depth_stencil_type_;
 	RENDER_TIMING render_timing_;
 
+	vector<ShaderParameter> shader_parameter_vector_;
 
 	D3D11_PRIMITIVE_TOPOLOGY topology_;
 };

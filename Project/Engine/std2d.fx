@@ -35,8 +35,6 @@ float4 ps_main(VS_OUTPUT _in) : SV_Target
     
     if(int_3)
     {
-
-        
         float2 animationUV = (_in.uv * animation_array[0].fullSize);
         float2 sizeUV = (_in.uv * animation_array[0].size);
         float2 rangeUV = (animation_array[0].fullSize - animation_array[0].size) / 2.f + animation_array[0].offset;
@@ -47,11 +45,21 @@ float4 ps_main(VS_OUTPUT _in) : SV_Target
         }
         
         clip(-1);
-
     }
     else
     {
-        outputColor = tex_0.Sample(mip_sam, _in.uv);
+        
+        if(int_0)
+            outputColor = tex_0.Sample(mip_sam, _in.uv)* float4(2.f, 1.f, 1.f, 1.f);
+        else if(float_0)
+            outputColor = tex_0.Sample(mip_sam, _in.uv)*float4(1.f, 2.f, 1.f, 1.f);
+        else if (vec2_0.x)
+            outputColor = tex_0.Sample(mip_sam, _in.uv)* float4(1.f, 1.f, 2.f, 1.f);
+        else if (vec4_0.x)
+            outputColor = tex_0.Sample(mip_sam, _in.uv)* float4(1.f, 1.f, 1.f, 0.5f);
+        else
+            outputColor = tex_0.Sample(mip_sam, _in.uv);
+        
     }
  
     

@@ -8,6 +8,7 @@
 #include "TileMapWidget.h"
 
 #include "TextureWidget.h"
+#include "MaterialWidget.h"
 
 #include <Engine/CGameObject.h>
 
@@ -24,6 +25,7 @@ InspectorWidget::InspectorWidget()
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::TILEMAP)] = new TileMapWidget;
 
 	resource_widget_array_[static_cast<UINT>(RESOURCE_TYPE::TEXTURE)] = new TextureWidget;
+	resource_widget_array_[static_cast<UINT>(RESOURCE_TYPE::MATERIAL)] = new MaterialWidget;
 }
 InspectorWidget::~InspectorWidget()
 {

@@ -85,7 +85,7 @@ void WidgetManager::Update()
 	// Frame ÃÊ±âÈ­
 	ImGuiInitFrame();
 
-	DockingSpace();
+	//DockingSpace();
 
 	// Demo GUI
 	ImGuiDemo();
@@ -150,7 +150,8 @@ void WidgetManager::SetFocusMainWindow()
 #include "AnimationTool.h"
 #include "AnimationOffsetTool.h"
 #include "TileMapTool.h"
-#include "ViewPortWidget.h";
+#include "ViewPortWidget.h"
+#include "ComboWidget.h"
 
 void WidgetManager::CreateWidgets()
 {
@@ -161,7 +162,7 @@ void WidgetManager::CreateWidgets()
 
 	widget = new InspectorWidget;
 	widget->Activate();
-	Ptr<CTexture> target = CResourceManager::GetInst()->FindRes<CTexture>(L"village_tile_map");
+	Ptr<CMaterial> target = CResourceManager::GetInst()->FindRes<CMaterial>(L"backgound_material");
 	((InspectorWidget*)widget)->SetTargetResource(target.Get());
 	AddWidget(widget->GetName(), widget);
 
@@ -191,6 +192,10 @@ void WidgetManager::CreateWidgets()
 
 	widget = new ViewPortWidget;
 	widget->Activate();
+	AddWidget(widget->GetName(), widget);
+
+	widget = new ComboWidget;
+	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
 
 	for (const auto& pair : widget_map_)
