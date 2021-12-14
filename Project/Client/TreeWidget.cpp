@@ -3,18 +3,23 @@
 
 void Node::Update()
 {
+    tree_flags_ = 0;
     if (use_frame_)
         tree_flags_ |= ImGuiTreeNodeFlags_Framed;
     if (child_vector_.empty() && !use_frame_)
     {
         tree_flags_ |= ImGuiTreeNodeFlags_Leaf;
     }
+    if (this == tree_->GetSelectedNode())
+    {
+        tree_flags_ |= ImGuiTreeNodeFlags_Selected;
+    }
 
     bool check_left = false;
 
     if (ImGui::TreeNodeEx(name_.c_str(), tree_flags_))
     {
-        if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+        if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
         {
             check_left = true;
         }
@@ -26,7 +31,7 @@ void Node::Update()
     }
     else
     {
-		if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+		if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
 		{
 			check_left = true;
 		}
@@ -105,9 +110,16 @@ void TreeWidget::Clear()
         }
         SafeDelete(node);
    }
+
+    root_node_ = nullptr;
+    selected_node_ = nullptr;
+	drag_drop_event_= nullptr;
+	click_event_ = nullptr;
+    instance_ = nullptr;
 }
 
 void TreeWidget::ExcuteClickedCallback(Node* clickNode)
 {
+    selected_node_ = clickNode;
     (instance_->*click_event_)((DWORD_PTR)clickNode, clickNode->data_);
 }

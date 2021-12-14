@@ -23,6 +23,7 @@ void CEventManager::Update()
 		if (nullptr!=dead_object_vector_[i]&&dead_object_vector_[i]->IsDead())
 		{
 			SafeDelete(dead_object_vector_[i]);
+			occured_object_event_ = true;
 		}
 			
 	}
@@ -46,6 +47,8 @@ void CEventManager::excute(const Event& _event)
 		CGameObject* object = (CGameObject*)_event.lParam;
 
 		CSceneManager::GetInst()->GetCurrentScene()->AddGameObject(object, static_cast<UINT>(_event.wParam),true);
+
+		occured_object_event_ = true;
 	}
 
 	break;
@@ -61,9 +64,8 @@ void CEventManager::excute(const Event& _event)
  			object->SetDead(static_cast<float>(_event.wParam));
 			dead_object_vector_.push_back(object);
 
-		}
 
-		
+		}
 	}
 	break;
 

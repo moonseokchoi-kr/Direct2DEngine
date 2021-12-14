@@ -5,8 +5,10 @@
 #include "InspectorWidget.h"
 
 #include <Engine/CSceneManager.h>
+#include <Engine/CEventManager.h>
 #include <Engine/CGameObject.h>
-
+#include <Engine/CLayer.h>
+#include <Engine/CScene.h>
 HirarchyViewWidget::HirarchyViewWidget()
 	:Widget("hirarchy_view")
 {
@@ -18,37 +20,19 @@ HirarchyViewWidget::~HirarchyViewWidget()
 
 void HirarchyViewWidget::Init()
 {
-
+	Renew();
 }
 
 void HirarchyViewWidget::Update()
 {
+	if (CEventManager::GetInst()->HasOccuredObjectEvent())
+		Renew();
+
 	if (ImGui::Begin("Hirarchy view", &is_active_))
 	{
-		const char* items[] = {"camera","player","tile_map"};
-		static int item_current_idx = 0; // Here we store our selection data as an index.
-		if (ImGui::BeginListBox("##listbox 1"))
-		{
-			for (int n = 0; n < IM_ARRAYSIZE(items); n++)
-			{
-				const bool is_selected = (item_current_idx == n);
-				if (ImGui::Selectable(items[n], is_selected))
-					item_current_idx = n;
-
-				// Set the initial focus when opening the combo (scrolling + keyboard navigation focus)
-				if (is_selected)
-				{
-					ImGui::SetItemDefaultFocus();
-					array<wchar_t, 256> szBuffer = { 0, };
-					MultiByteToWideChar(CP_ACP, 0, items[item_current_idx], (int)strlen(items[item_current_idx]), szBuffer.data(), (int)szBuffer.size());
-					CGameObject* target = CSceneManager::GetInst()->FindObjectByName(szBuffer.data());
-					if(nullptr != target)
-						dynamic_cast<InspectorWidget*>(WidgetManager::GetInst()->FindWidget("inspector_view"))->SetGameObject(target);
-				}
-					
-			}
-			ImGui::EndListBox();
-		}
+		
+		object_tree_.Update();
+		UpdateChildren();
 
 		ImGui::End();
 	}
@@ -56,4 +40,44 @@ void HirarchyViewWidget::Update()
 	{
 		ImGui::End();
 	}
+}
+
+void HirarchyViewWidget::Renew()
+{
+	object_tree_.Clear();
+	Node* root = object_tree_.AddItem(nullptr, "Scene", 0);
+	CScene* currentScene = CSceneManager::GetInst()->GetCurrentScene();
+	for (int i = 0; i < (UINT)MAX_LAYER; ++i)
+	{
+		CLayer* layer = currentScene->GetLayer(i);
+
+		const vector<CGameObject*>& parentObjects = layer->GetParentObjects();
+		for (const auto& object : parentObjects)
+		{
+			AddGameObject(root, object);
+		}
+	}
+
+	object_tree_.SetClickCallBack(TREE_CALLBACK(&HirarchyViewWidget::ClickGameObject), this);
+}
+
+void HirarchyViewWidget::AddGameObject(Node* destItem, CGameObject* object)
+{
+	string objectName = WStringToString(object->GetName());
+	Node* currentNode = object_tree_.AddItem(destItem, objectName, (DWORD_PTR)object, false);
+
+	const vector<CGameObject*>& child_vector = object->GetChildObjects();
+	for (const auto& child : child_vector)
+	{
+		AddGameObject(currentNode, child);
+	}
+}
+
+void HirarchyViewWidget::ClickGameObject(DWORD_PTR node, DWORD_PTR gameObject)
+{
+	Node* selectedNode = (Node*)node;
+	CGameObject* selectObject = (CGameObject*)gameObject;
+
+	InspectorWidget* inspector = dynamic_cast<InspectorWidget*>(WidgetManager::GetInst()->FindWidget("inspector_view"));
+	inspector->SetGameObject(selectObject);
 }

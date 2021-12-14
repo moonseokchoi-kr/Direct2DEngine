@@ -12,7 +12,7 @@ public:
 public:
     void Init() override;
     void Update() override;
-
+    void Renew();
 public:
     void ResourceItemClicked(DWORD_PTR item, DWORD_PTR data);
 

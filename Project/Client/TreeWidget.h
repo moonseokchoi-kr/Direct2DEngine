@@ -71,12 +71,14 @@ public:
         instance_ = instance;
     }
     void Clear();
+    Node* GetSelectedNode() { return selected_node_; }
 
 private:
     void ExcuteClickedCallback(Node* clickNode);
+    
 private:
     Node* root_node_;
-
+    Node* selected_node_;
     bool is_root_visible_;
 
     TREE_CALLBACK drag_drop_event_;

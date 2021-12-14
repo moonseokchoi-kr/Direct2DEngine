@@ -19,7 +19,9 @@ class CResourceManager :
 
 public:
     void Init();
+	void Update() { is_change_resource_ = false; };
 
+	bool IsResourceChanged() { return is_change_resource_; }
 public:
     template <typename T>
 	void AddResource(const wstring& key, T* res);
@@ -56,6 +58,7 @@ private:
 private:
     array<unordered_map<wstring, CResource*>,static_cast<UINT>(RESOURCE_TYPE::END)> resource_array_;
 	unordered_map<wstring, CTexture*> default_tex_map_;
+	bool is_change_resource_;
 
 };
 
@@ -111,6 +114,7 @@ inline void CResourceManager::AddResource(const wstring& key, T* res)
 	RESOURCE_TYPE type = GetResourceType<T>();
 	res->SetName(key);
 	resource_array_[static_cast<UINT>(type)].insert(make_pair(key,res));
+	is_change_resource_ = true;
 }
 
 template <typename T>

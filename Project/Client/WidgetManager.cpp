@@ -88,7 +88,8 @@ void WidgetManager::Update()
 	DockingSpace();
 
 	// Demo GUI
-	ImGuiDemo();
+	if(is_active_demo_)
+		ImGuiDemo();
 
 	// GUI Update
 	for (const auto& pair : widget_map_)
@@ -184,7 +185,7 @@ void WidgetManager::CreateWidgets()
 	AddWidget(widget->GetName(), widget);
 
 	widget = new HirarchyViewWidget;
-	widget->Deactivate();
+	widget->Activate();
 	AddWidget(widget->GetName(), widget);
 
 	widget = new ResourceViewWidget;
