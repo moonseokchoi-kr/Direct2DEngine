@@ -46,12 +46,15 @@ void MaterialWidget::ShowMaterialDetail()
 
 		const unordered_map<wstring, CResource*>& shader_map = CResourceManager::GetInst()->GetResource<CGraphicsShader>();
 		//combo widget√ﬂ∞°
-		ComboWidget* widget = dynamic_cast<ComboWidget*>(WidgetManager::GetInst()->FindWidget("##combo"));
+		ComboWidget* widget = dynamic_cast<ComboWidget*>(WidgetManager::GetInst()->FindWidget("combo"));
 		widget->SetCallback(this, (COMBO_CALLBACK)&MaterialWidget::ChangeShader);
+		widget->SetComboLabel("##shader_combo");
 		int count = 0;
 		for (const auto& pair : shader_map)
 		{
 			widget->AddComboData(WStringToString(pair.first));
+			if (nullptr != target_resource_ && pair.first == target_resource_->GetName())
+				widget->SetCurrentIndex(count);
 			++count;
 		}
 		widget->Update();
@@ -136,6 +139,12 @@ void MaterialWidget::ShowOutputShaderParam()
 		case SHADER_PARAM::TEX_1:
 		case SHADER_PARAM::TEX_2:
 		case SHADER_PARAM::TEX_3:
+		{
+			Ptr<CTexture> data;
+			target_resource_->GetData(param.type, &data);
+			DataInputWidget::DataInputTexture(param.usage, data, (DWORD_PTR)param.type, (COMBO_CALLBACK)&MaterialWidget::ChangeTexture, this);
+
+		}
 			break;
 		case SHADER_PARAM::TEX_ARR_0:
 		case SHADER_PARAM::TEX_ARR_1:
@@ -148,9 +157,17 @@ void MaterialWidget::ShowOutputShaderParam()
 	}
 }
 
-void MaterialWidget::ChangeShader(DWORD_PTR instance, DWORD_PTR shaderName)
+void MaterialWidget::ChangeShader(DWORD_PTR instance, DWORD_PTR paramType)
 {
 	ComboWidget* widget = reinterpret_cast<ComboWidget*>(instance);
 	string selectName = widget->GetSelectedItem();
 	target_resource_->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(StringToWString(selectName)));
+}
+
+void MaterialWidget::ChangeTexture(DWORD_PTR instance, DWORD_PTR paramType)
+{
+	ComboWidget* widget = reinterpret_cast<ComboWidget*>(instance);
+	wstring selectName = StringToWString(widget->GetSelectedItem());
+	Ptr<CTexture> tex = CResourceManager::GetInst()->FindRes<CTexture>(selectName);
+	target_resource_->SetData((SHADER_PARAM)paramType, tex.Get());
 }

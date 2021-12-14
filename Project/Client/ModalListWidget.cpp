@@ -3,7 +3,7 @@
 #include <Engine/CKeyManager.h>
 
 ModalListWidget::ModalListWidget()
-	:Widget("modal_list_widget")
+	:Widget("modal_list")
 	, callbakc_func_(nullptr)
 	, instance_(nullptr)
 	, current_index_(0)

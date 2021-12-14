@@ -106,7 +106,7 @@ void AtlasTextureTool::ShowMenuBar()
 		{
 			if (ImGui::MenuItem("Load Texture"))
 			{
-				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list_widget"));
+				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list"));
 
 				array<char, 255> szBuffer = { 0, };
 				const unordered_map<wstring, CResource*>& textureMap = CResourceManager::GetInst()->GetResource<CTexture>();

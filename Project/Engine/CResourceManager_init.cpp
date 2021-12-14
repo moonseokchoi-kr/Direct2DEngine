@@ -144,7 +144,7 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetBlendType(BLEND_TYPE::ALPHA_BLEND);
 	stdShader->SetRasterizerType(RASTERIZER_TYPE::CULL_NONE);
 	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
-	//stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::TEX_0, L"output_texture" });
+	stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::TEX_0, L"output_texture" });
 	stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::INT_0, L"test_int" });
 	stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::FLOAT_0, L"test_float" });
 	stdShader->AddShaderParamInfo(ShaderParameter{ SHADER_PARAM::VEC2_0, L"test_vec2" });

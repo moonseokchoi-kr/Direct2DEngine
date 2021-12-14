@@ -42,7 +42,7 @@ void Collider2DWidget::Update()
 			ImGui::PushID(0);
 			if (ImGui::Button(str.data(), ImVec2(200, 0)))
 			{
-				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list_widget"));
+				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list"));
 
 				array<char, 255> szBuffer = { 0, };
 				const unordered_map<wstring, CResource*>& meshMap = CResourceManager::GetInst()->GetResource<CMesh>();

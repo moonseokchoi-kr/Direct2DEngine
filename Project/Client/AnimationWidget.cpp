@@ -36,7 +36,7 @@ void AnimationWidget::Update()
 			WideCharToMultiByte(CP_ACP, 0, animation->GetName().c_str(), -1, str.data(), (int)animation->GetName().size(), nullptr, nullptr);
 			if (ImGui::Button(str.data(), ImVec2(200, 0)))
 			{
-				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list_widget"));
+				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list"));
 
 				array<char, 255> szBuffer = { 0, };
 				const unordered_map<wstring, CAnimation2D*>& animationMap = animator->GetAnimations();

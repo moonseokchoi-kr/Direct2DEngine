@@ -18,14 +18,16 @@ public:
     {
         target_resource_ = dynamic_cast<CMaterial*>(resource.Get());
     }
-    
+
 private:
     void ShowMaterialDetail();
     void ShowOutputShaderParam();
     void ChangeShader(DWORD_PTR, DWORD_PTR);
+    void ChangeTexture(DWORD_PTR, DWORD_PTR);
     
 private:
     Ptr<CMaterial> target_resource_;
     int current_shader_;
+
 };
 

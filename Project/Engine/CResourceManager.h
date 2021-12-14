@@ -31,6 +31,10 @@ public:
 
 	template<typename T>
 	const unordered_map<wstring, CResource*> GetResource();
+	const unordered_map<wstring, CResource*> GetResource(RESOURCE_TYPE type)
+	{
+		return resource_array_[(UINT)type];
+	}
 	
 	Ptr<CGraphicsShader> LoadGraphicShader(const wstring& key, const wstring& strPath, BLEND_TYPE blendType = BLEND_TYPE::DEFAULT, DEPTH_STENCIL_TYPE depthType = DEPTH_STENCIL_TYPE::LESS, D3D11_PRIMITIVE_TOPOLOGY topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	
@@ -75,7 +79,7 @@ inline RESOURCE_TYPE GetResourceType()
 	}
 	if (info.hash_code() == typeid(CComputeShader).hash_code())
 	{
-		type = RESOURCE_TYPE::PREFAB;
+		type = RESOURCE_TYPE::COMPUTE_SHADER;
 	}
 	if (info.hash_code() == typeid(CTexture).hash_code())
 	{

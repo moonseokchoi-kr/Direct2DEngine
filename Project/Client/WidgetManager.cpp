@@ -85,7 +85,7 @@ void WidgetManager::Update()
 	// Frame ÃÊ±âÈ­
 	ImGuiInitFrame();
 
-	//DockingSpace();
+	DockingSpace();
 
 	// Demo GUI
 	ImGuiDemo();
@@ -152,6 +152,7 @@ void WidgetManager::SetFocusMainWindow()
 #include "TileMapTool.h"
 #include "ViewPortWidget.h"
 #include "ComboWidget.h"
+#include "ResourceViewWidget.h"
 
 void WidgetManager::CreateWidgets()
 {
@@ -186,6 +187,10 @@ void WidgetManager::CreateWidgets()
 	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
 
+	widget = new ResourceViewWidget;
+	widget->Activate();
+	AddWidget(widget->GetName(), widget);
+
 	widget = new TileMapTool;
 	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
@@ -195,6 +200,11 @@ void WidgetManager::CreateWidgets()
 	AddWidget(widget->GetName(), widget);
 
 	widget = new ComboWidget;
+	widget->Deactivate();
+	AddWidget(widget->GetName(), widget);
+
+	widget = new ComboWidget;
+	widget->SetName("##sub_combo");
 	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
 

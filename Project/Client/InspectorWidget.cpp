@@ -64,6 +64,8 @@ void InspectorWidget::ShowObjectInfo()
 void InspectorWidget::ShowResourceInfo()
 {
 	RESOURCE_TYPE type = target_resource_->GetResourceType();
+	if (nullptr == resource_widget_array_[(UINT)type])
+		return;
 
 	resource_widget_array_[(UINT)type]->SetResource(target_resource_.Get());
 	resource_widget_array_[(UINT)type]->Update();

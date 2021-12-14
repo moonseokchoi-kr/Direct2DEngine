@@ -186,6 +186,7 @@
     <ClInclude Include="InspectorWidget.h" />
     <ClInclude Include="MenuWidget.h" />
     <ClInclude Include="MeshRenderWidget.h" />
+    <ClInclude Include="ResourceViewWidget.h" />
     <ClInclude Include="ResourceWidget.h" />
     <ClInclude Include="TextureWidget.h" />
     <ClInclude Include="TileMapTool.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="ToolGameObject.h" />
     <ClInclude Include="ToolObjectManager.h" />
     <ClInclude Include="TransformWidget.h" />
+    <ClInclude Include="TreeWidget.h" />
     <ClInclude Include="ViewPortWidget.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="WidgetManager.h" />
@@ -236,6 +238,7 @@
     <ClCompile Include="InspectorWidget.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="MeshRenderWidget.cpp" />
+    <ClCompile Include="ResourceViewWidget.cpp" />
     <ClCompile Include="ResourceWidget.cpp" />
     <ClCompile Include="client_func.cpp" />
     <ClCompile Include="TextureWidget.cpp" />
@@ -245,6 +248,7 @@
     <ClCompile Include="ToolGameObject.cpp" />
     <ClCompile Include="ToolObjectManager.cpp" />
     <ClCompile Include="TransformWidget.cpp" />
+    <ClCompile Include="TreeWidget.cpp" />
     <ClCompile Include="ViewPortWidget.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="WidgetManager.cpp" />

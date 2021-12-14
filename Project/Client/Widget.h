@@ -17,7 +17,7 @@ public:
 	bool IsActive() { return is_active_; }
 
 	const string& GetName() { return name_; }
-
+	void SetName(const string& name) { name_ = name; }
 protected:
 	bool is_active_;
 

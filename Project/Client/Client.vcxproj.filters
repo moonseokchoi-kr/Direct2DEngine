@@ -64,9 +64,6 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Light2D">
       <UniqueIdentifier>{9f1e989b-d46f-460b-99d4-67401709e4c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\PopUp">
-      <UniqueIdentifier>{f33740ed-8b73-4e52-bfed-b92c4f4598c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\Tool\imguiUtil">
       <UniqueIdentifier>{6ce58251-4984-42a3-8f91-a0831aa80a0a}</UniqueIdentifier>
     </Filter>
@@ -133,6 +130,21 @@
     <Filter Include="소스 파일\Tool\Widget\Input\DataInput">
       <UniqueIdentifier>{2dc687f3-3031-4f44-a3b2-a597b7e6697b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\Module">
+      <UniqueIdentifier>{f33740ed-8b73-4e52-bfed-b92c4f4598c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\Module\Tree">
+      <UniqueIdentifier>{13e3951c-c7dd-4d54-909e-bd557937f0be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\Module\Combo">
+      <UniqueIdentifier>{ddde0874-2a63-4106-a0b3-ab819c5429a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\Module\List">
+      <UniqueIdentifier>{51d55d34-a736-4421-b7ad-36667b0b3732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\ResourceView">
+      <UniqueIdentifier>{24030782-cb7a-48ab-8411-2d49538f0bcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -195,9 +207,6 @@
     <ClInclude Include="MeshRenderWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
     </ClInclude>
-    <ClInclude Include="ModalListWidget.h">
-      <Filter>소스 파일\Tool\Widget\PopUp</Filter>
-    </ClInclude>
     <ClInclude Include="imgui_util.h">
       <Filter>소스 파일\Tool\imguiUtil</Filter>
     </ClInclude>
@@ -255,11 +264,20 @@
     <ClInclude Include="MaterialWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Material</Filter>
     </ClInclude>
-    <ClInclude Include="ComboWidget.h">
-      <Filter>소스 파일\Tool\Widget\PopUp</Filter>
-    </ClInclude>
     <ClInclude Include="DataInputWidget.h">
       <Filter>소스 파일\Tool\Widget\Input\DataInput</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboWidget.h">
+      <Filter>소스 파일\Tool\Widget\Module\Combo</Filter>
+    </ClInclude>
+    <ClInclude Include="ModalListWidget.h">
+      <Filter>소스 파일\Tool\Widget\Module\List</Filter>
+    </ClInclude>
+    <ClInclude Include="TreeWidget.h">
+      <Filter>소스 파일\Tool\Widget\Module\Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceViewWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\ResourceView</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -327,9 +345,6 @@
     <ClCompile Include="MeshRenderWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
     </ClCompile>
-    <ClCompile Include="ModalListWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\PopUp</Filter>
-    </ClCompile>
     <ClCompile Include="imgui_util.cpp">
       <Filter>소스 파일\Tool\imguiUtil</Filter>
     </ClCompile>
@@ -384,11 +399,20 @@
     <ClCompile Include="MaterialWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Material</Filter>
     </ClCompile>
-    <ClCompile Include="ComboWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\PopUp</Filter>
-    </ClCompile>
     <ClCompile Include="DataInputWidget.cpp">
       <Filter>소스 파일\Tool\Widget\Input\DataInput</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\Module\Combo</Filter>
+    </ClCompile>
+    <ClCompile Include="ModalListWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\Module\List</Filter>
+    </ClCompile>
+    <ClCompile Include="TreeWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\Module\Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceViewWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\ResourceView</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
