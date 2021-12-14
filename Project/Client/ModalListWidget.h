@@ -31,7 +31,7 @@ public:
 
     void SetCallbackFunc(Widget* instance, MODAL_LIST_CALLBACK callBack)
     {
-        instance_ = instance;
+        click_instance_ = instance;
         callbakc_func_ = callBack;
     }
 
@@ -50,7 +50,7 @@ private:
 
     MODAL_LIST_CALLBACK  callbakc_func_;
     
-    Widget* instance_;
+    Widget* click_instance_;
 
     int current_index_;
     bool edit_menu_;

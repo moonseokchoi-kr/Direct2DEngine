@@ -39,6 +39,7 @@ public:
     virtual void UpdateData() {}
 
 public:
+    int GetLayerIndex() { return layer_index_; }
     void AddComponent(CComponent* comp);
     CComponent* GetComponent(COMPONENT_TYPE type) { return component_array_[static_cast<UINT>(type)]; }
 

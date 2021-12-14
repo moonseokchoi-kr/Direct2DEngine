@@ -71,27 +71,41 @@ public:
     
 public:
     Node* AddItem(Node* parent, const string& name, DWORD_PTR secondData, bool use_frame = false);
-    void SetClickCallBack(TREE_CALLBACK callback, Widget* instance)
+    void SetClickEvent(TREE_CALLBACK callback, Widget* instance)
     {
         click_event_ = callback;
-        instance_ = instance;
+        click_instance_ = instance;
     }
+	void SetDragDropEvent(TREE_CALLBACK callback, Widget* instance)
+	{
+		drag_drop_event_ = callback;
+		drag_drop_instance_ = instance;
+	}
     void Clear();
     Node* GetSelectedNode() { return selected_node_; }
     void ReleaseSelectNode() { selected_node_ = nullptr; }
+
+    Node* GetDragStartNode() { return drag_start_node_; }
+    void SetDragStartNode(Node* node) { drag_start_node_ = node; }
+
+    Node* GetDropNode() { return drop_node_; }
+    void SetDropNode(Node* node);
 private:
     void ExcuteClickedCallback(Node* clickNode);
     
 private:
     Node* root_node_;
     Node* selected_node_;
+    Node* drag_start_node_;
+    Node* drop_node_;
 
     bool is_root_visible_;
 
     TREE_CALLBACK drag_drop_event_;
+    Widget* drag_drop_instance_;
     TREE_CALLBACK click_event_;
-
-    Widget* instance_;
+    Widget* click_instance_;
+ 
 
     friend class Node;
 };

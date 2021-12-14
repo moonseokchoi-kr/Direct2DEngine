@@ -5,7 +5,7 @@
 ModalListWidget::ModalListWidget()
 	:Widget("modal_list")
 	, callbakc_func_(nullptr)
-	, instance_(nullptr)
+	, click_instance_(nullptr)
 	, current_index_(0)
 	, is_popup_open_(false)
 	, edit_menu_(false)
@@ -87,7 +87,7 @@ void ModalListWidget::ShowSelectedBox()
 			if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left) || ImGui::IsKeyDown(VK_RETURN))
 			{
 				selected_item_ = item_name_vector_[i];
-				(instance_->*callbakc_func_)((DWORD_PTR)this, 0);
+				(click_instance_->*callbakc_func_)((DWORD_PTR)this, 0);
 				Clear();
 			}
 		}

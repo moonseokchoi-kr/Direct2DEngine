@@ -15,7 +15,7 @@ public:
     void Update() override;
 
 public:
-    void SetCallback(Widget* instance, COMBO_CALLBACK callback) { instance_ = instance; callback_ = callback; }
+    void SetCallback(Widget* instance, COMBO_CALLBACK callback) { click_instance_ = instance; callback_ = callback; }
     void SetComboLabel(const string& label) { combo_label_ = label; }
     void SetSecondData(DWORD_PTR data) { second_data_ = data; }
     void SetCurrentIndex(int index) { current_index_ = index; }
@@ -29,7 +29,7 @@ private:
     string selected_item_;
     string combo_label_;
     COMBO_CALLBACK callback_;
-    Widget* instance_;
+    Widget* click_instance_;
     int current_index_;
     bool is_selected;
 };

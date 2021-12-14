@@ -2,6 +2,7 @@
 #include "CEventManager.h"
 #include "CSceneManager.h"
 #include "CScene.h"
+#include "CLayer.h"
 #include "CGameObject.h"
 
 CEventManager::CEventManager()
@@ -17,6 +18,7 @@ CEventManager::~CEventManager()
 
 void CEventManager::Update()
 {
+	occured_object_event_ = false;
 	//이전프레임의 삭제할 오브젝트 삭제
 	for (size_t i = 0; i < dead_object_vector_.size(); ++i)
 	{
@@ -54,7 +56,26 @@ void CEventManager::excute(const Event& _event)
 	break;
 	case EVENT_TYPE::ADD_CHILD:
 	{
+		//lParam : Parent Object
+		//wParam : Child Object
+		CGameObject* parent = reinterpret_cast<CGameObject*>(_event.lParam);
+		CGameObject* child = reinterpret_cast<CGameObject*>(_event.wParam);
 
+		if (child->GetParent())
+		{
+			child->SeparateFromParent();
+		}
+		else
+		{
+			if (-1 != child->GetLayerIndex())
+			{
+				CScene* currentScene = CSceneManager::GetInst()->GetCurrentScene();
+				CLayer* layer = currentScene->GetLayer(child->GetLayerIndex());
+				layer->DeregisterAsParentObject(child);
+			}
+		}
+		parent->AddChild(child);
+		occured_object_event_ = true;
 	}
 	break;
 	case EVENT_TYPE::DELETE_OBJECT:

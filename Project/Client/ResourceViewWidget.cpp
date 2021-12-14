@@ -40,6 +40,7 @@ void ResourceViewWidget::Update()
 void ResourceViewWidget::Renew()
 {
 	tree_.Clear();
+	tree_.SetName("resource_view_tree");
 	Node* root = tree_.AddItem(nullptr, "Resource", 0);
 	const auto& resource_names = magic_enum::enum_names<RESOURCE_TYPE>();
 	for (UINT i = 0; i < (UINT)resource_names.size() - 1; ++i)
@@ -56,7 +57,7 @@ void ResourceViewWidget::Renew()
 		}
 	}
 
-	tree_.SetClickCallBack(TREE_CALLBACK(&ResourceViewWidget::ResourceItemClicked), this);
+	tree_.SetClickEvent(TREE_CALLBACK(&ResourceViewWidget::ResourceItemClicked), this);
 }
 
 void ResourceViewWidget::ResourceItemClicked(DWORD_PTR item, DWORD_PTR data)

@@ -94,6 +94,20 @@ void CLayer::AddGameObject(CGameObject* object, bool bMove)
 	}
 }
 
+void CLayer::DeregisterAsParentObject(CGameObject* object)
+{
+	vector<CGameObject*>::iterator iter = parent_object_vector_.begin();
+	for (; iter != parent_object_vector_.end(); ++iter)
+	{
+		if (object == (*iter))
+		{
+			parent_object_vector_.erase(iter);
+			return;
+		}
+	}
+
+}
+
 CGameObject* CLayer::FindObjectWithName(const wstring& objectName)
 {
 	for (CGameObject* object : parent_object_vector_)

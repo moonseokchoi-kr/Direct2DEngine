@@ -43,7 +43,6 @@ void MaterialWidget::ShowMaterialDetail()
 		
 		ImGui::TableNextColumn();
 		//shader data
-
 		const unordered_map<wstring, CResource*>& shader_map = CResourceManager::GetInst()->GetResource<CGraphicsShader>();
 		//combo widget√ﬂ∞°
 		ComboWidget* widget = dynamic_cast<ComboWidget*>(WidgetManager::GetInst()->FindWidget("combo"));
@@ -53,11 +52,26 @@ void MaterialWidget::ShowMaterialDetail()
 		for (const auto& pair : shader_map)
 		{
 			widget->AddComboData(WStringToString(pair.first));
-			if (nullptr != target_resource_ && pair.first == target_resource_->GetName())
+			if (nullptr != target_resource_ && pair.first == target_resource_->GetShader()->GetName())
 				widget->SetCurrentIndex(count);
 			++count;
 		}
 		widget->Update();
+
+		//Drop item
+		if (ImGui::BeginDragDropTarget())
+		{
+			if (ImGui::AcceptDragDropPayload("resource_view_tree"))
+			{
+				DWORD_PTR data = *((DWORD_PTR*)ImGui::GetDragDropPayload()->Data);
+				CResource* resource = reinterpret_cast<CResource*>(data);
+				if (resource->GetResourceType() == RESOURCE_TYPE::GRAPHIC_SHADER)
+				{
+					target_resource_->SetShader(dynamic_cast<CGraphicsShader*>(resource));
+				}
+			}
+			ImGui::EndDragDropTarget();
+		}
 
 		ImGui::EndTable();
 	}

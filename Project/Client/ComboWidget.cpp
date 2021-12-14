@@ -34,7 +34,7 @@ void ComboWidget::Update()
 			if (ImGui::IsItemHovered() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 			{
 				selected_item_ = combo_data_[i];
-				(instance_->*callback_)((DWORD_PTR)this, second_data_);
+				(click_instance_->*callback_)((DWORD_PTR)this, second_data_);
 			}
 		}
 		ImGui::EndCombo();

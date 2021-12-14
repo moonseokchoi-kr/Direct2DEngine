@@ -11,6 +11,8 @@
 #include <Engine/CKeyManager.h>
 #include <Engine/CLayer.h>
 #include <Engine/CScene.h>
+
+
 HierarchyViewWidget::HierarchyViewWidget()
 	:Widget("hierarchy_view")
 {
@@ -61,7 +63,8 @@ void HierarchyViewWidget::Renew()
 		}
 	}
 
-	object_tree_.SetClickCallBack(TREE_CALLBACK(&HierarchyViewWidget::ClickGameObject), this);
+	object_tree_.SetClickEvent(TREE_CALLBACK(&HierarchyViewWidget::ClickGameObject), this);
+	object_tree_.SetDragDropEvent(TREE_CALLBACK(&HierarchyViewWidget::DropGameObject), this);
 }
 
 void HierarchyViewWidget::KeyCheck()
@@ -108,4 +111,20 @@ void HierarchyViewWidget::ClickGameObject(DWORD_PTR node, DWORD_PTR gameObject)
 
 	ResourceViewWidget* resourceView = dynamic_cast<ResourceViewWidget*>(WidgetManager::GetInst()->FindWidget("resource_view"));
 	resourceView->ReleaseSelectNode();
+}
+
+void HierarchyViewWidget::DropGameObject(DWORD_PTR dragStratNode, DWORD_PTR dropNode)
+{
+	Node* startNode = reinterpret_cast<Node*>(dragStratNode);
+	Node* droppedNode = reinterpret_cast<Node*>(dropNode);
+
+	CGameObject* parent = reinterpret_cast<CGameObject*>(startNode->GetData());
+	CGameObject* child = reinterpret_cast<CGameObject*>(droppedNode->GetData());
+
+	Event evn = {};
+	evn.event_type = EVENT_TYPE::ADD_CHILD;
+	evn.lParam = (DWORD_PTR)parent;
+	evn.wParam = (DWORD_PTR)child;
+
+	CEventManager::GetInst()->AddEvent(evn);
 }

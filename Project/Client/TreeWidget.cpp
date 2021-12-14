@@ -44,6 +44,11 @@ void Node::Update()
         tree_->ExcuteClickedCallback(this);
         has_mouse_l_button_clicked_ = false;
     }
+
+    if (ImGui::IsMouseReleased(ImGuiMouseButton_Left))
+    {
+        has_mouse_l_button_press_ = false;
+    }
         
 }
 
@@ -77,19 +82,20 @@ void Node::CheckDragDrop()
     if (ImGui::BeginDragDropSource())
     {
         //페이로드의 키가 같아야 드래그앤 드랍 가능
-        ImGui::SetDragDropPayload("TEST", nullptr, 0);
-
-
+        ImGui::SetDragDropPayload(tree_->GetName().c_str(), &data_, sizeof(DWORD_PTR));
+        ImGui::Text(name_.c_str());
         ImGui::EndDragDropSource();
+
+        tree_->SetDragStartNode(this);
     }
     //드랍대상 처리
     else if (ImGui::BeginDragDropTarget())
     {
-        if (ImGui::AcceptDragDropPayload("TEST"))
+        if (ImGui::AcceptDragDropPayload(tree_->GetName().c_str()))
         {
             accumulated_time_ += fDT;
-            if(accumulated_time_>1.f)
-                ImGui::SetNextItemOpen(true);
+                
+            tree_->SetDropNode(this);
         }
         else
         {
@@ -102,6 +108,13 @@ void Node::CheckDragDrop()
 TreeWidget::TreeWidget()
     :Widget("tree")
     ,root_node_(nullptr)
+    ,selected_node_(nullptr)
+    ,drag_start_node_(nullptr)
+    ,drop_node_(nullptr)
+    ,drag_drop_event_(nullptr)
+    ,click_event_(nullptr)
+    ,click_instance_(nullptr)
+    ,drag_drop_instance_(nullptr)
 {
 }
 
@@ -135,15 +148,15 @@ Node* TreeWidget::AddItem(Node* parent, const string& name, DWORD_PTR secondData
     assert(!(nullptr == parent && nullptr != root_node_));
 
     Node* newNode = new Node(name, secondData, parent, use_frame);
+    newNode->tree_ = this;
     if (nullptr == parent)
     {
         root_node_ = newNode;
-        newNode->tree_ = this;
+      
     }
     else
     {
         parent->child_vector_.push_back(newNode);
-        newNode->tree_ = this;
     }
 
     return newNode;
@@ -171,13 +184,33 @@ void TreeWidget::Clear()
 
     root_node_ = nullptr;
     selected_node_ = nullptr;
+
 	drag_drop_event_= nullptr;
 	click_event_ = nullptr;
-    instance_ = nullptr;
+    
+    drag_drop_instance_ = nullptr;
+    click_instance_ = nullptr;
+    
+    drag_start_node_ = nullptr;
+    drop_node_ = nullptr;
+}
+
+void TreeWidget::SetDropNode(Node* node)
+{
+    drop_node_ = node;
+    if (drag_start_node_ && drop_node_)
+    {
+        if (nullptr != drag_drop_instance_ && nullptr != drag_drop_event_)
+        {
+            (drag_drop_instance_->*drag_drop_event_)((DWORD_PTR)drag_start_node_, (DWORD_PTR)drop_node_);
+        }
+    }
+    drag_start_node_ = nullptr;
+    drop_node_ = nullptr;
 }
 
 void TreeWidget::ExcuteClickedCallback(Node* clickNode)
 {
     selected_node_ = clickNode;
-    (instance_->*click_event_)((DWORD_PTR)clickNode, clickNode->data_);
+    (click_instance_->*click_event_)((DWORD_PTR)clickNode, clickNode->data_);
 }

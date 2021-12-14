@@ -21,6 +21,7 @@ public:
 private:
     void AddGameObject(Node* destItem, CGameObject* object);
     void ClickGameObject(DWORD_PTR, DWORD_PTR);
+    void DropGameObject(DWORD_PTR, DWORD_PTR);
     
 private:
     TreeWidget object_tree_;
