@@ -50,8 +50,36 @@ enum class KEY
 	ENTER,
 	ESC,
 
+	INS,
+	DEL,
+	PGUP,
+	PGDOWN,
+	HOME,
+
 	LBTN,
 	RBTN,
+
+	N0,
+	N1,
+	N2,
+	N3,
+	N4,
+	N5,
+	N6,
+	N7,
+	N8,
+	N9,
+
+	NUMPAD0,
+	NUMPAD1,
+	NUMPAD2,
+	NUMPAD3,
+	NUMPAD4,
+	NUMPAD5,
+	NUMPAD6,
+	NUMPAD7,
+	NUMPAD8,
+	NUMPAD9,
 
 	LAST,
 };

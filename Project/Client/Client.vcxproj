@@ -178,7 +178,7 @@
     <ClInclude Include="ComboWidget.h" />
     <ClInclude Include="ContentBrowserComboWidget.h" />
     <ClInclude Include="DataInputWidget.h" />
-    <ClInclude Include="HirarchyViewWidget.h" />
+    <ClInclude Include="HierarchyViewWidget.h" />
     <ClInclude Include="MaterialWidget.h" />
     <ClInclude Include="ModalListWidget.h" />
     <ClInclude Include="ComponentWidget.h" />
@@ -230,7 +230,7 @@
     <ClCompile Include="ComboWidget.cpp" />
     <ClCompile Include="ContentBrowserComboWidget.cpp" />
     <ClCompile Include="DataInputWidget.cpp" />
-    <ClCompile Include="HirarchyViewWidget.cpp" />
+    <ClCompile Include="HierarchyViewWidget.cpp" />
     <ClCompile Include="MaterialWidget.cpp" />
     <ClCompile Include="ModalListWidget.cpp" />
     <ClCompile Include="ComponentWidget.cpp" />

@@ -79,8 +79,9 @@ void CGameObject::Start()
 
 void CGameObject::Update()
 {
-	if (CheckDead())
+	if (OBJECT_STATE::DEAD == object_state_)
 		return;
+
 	for (CComponent* component : component_array_)
 	{
 		if(nullptr != component)
@@ -120,6 +121,8 @@ void CGameObject::LateUpdate()
 
 void CGameObject::FinalUpdate()
 {
+	if (CheckDead())
+		return;
 	for (CComponent* component : component_array_)
 	{
 		if (nullptr != component)
@@ -186,7 +189,22 @@ void CGameObject::AddChild(CGameObject* child)
 	child->parent_object_ = this;
 }
 
-
+void CGameObject::SeparateFromParent()
+{
+	if (nullptr != parent_object_)
+	{
+		vector<CGameObject*>::iterator iter = parent_object_->child_object_vector_.begin();
+		for (; iter != parent_object_->child_object_vector_.end(); ++iter)
+		{
+			if (this == (*iter))
+			{
+				parent_object_->child_object_vector_.erase(iter);
+				return;
+			}
+		}
+		assert(nullptr);
+	}
+}
 
 bool CGameObject::CheckDead()
 {
@@ -214,3 +232,5 @@ void CGameObject::ReigsterAsPrefab(const wstring& prefabName)
 
 	CResourceManager::GetInst()->AddPrefab(prefabName, this);
 }
+
+

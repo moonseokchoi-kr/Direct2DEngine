@@ -32,6 +32,9 @@ private:
     Vec3 local_position_;
     Vec3 local_scale_;
     Vec3 local_rotation_;
+    Vec3 child_pos_data_;
+
+    bool cal_child_transform_;
     array<Vec3, ENUM_TO_NUMBER(DIRECTION_TYPE::END)> local_direction_;
     array<Vec3, ENUM_TO_NUMBER(DIRECTION_TYPE::END)> world_direction_;
     array < Vec3, ENUM_TO_NUMBER(DIRECTION_TYPE::END)> axis_array_ = { Vec3::Right,Vec3::Up,Vec3::Front };

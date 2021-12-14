@@ -54,6 +54,7 @@ void CSceneManager::Init()
 	current_scene_->AddGameObject(camera, 1, true);
 
 	const auto background = new CGameObject;
+	background->SetName(L"parent");
 	background->AddComponent(new CTransform);
 	background->AddComponent(new CMeshRender);
 	background->Transform()->SetPosition(Vec3(0.f, 0.f, 2000.f));
@@ -65,8 +66,21 @@ void CSceneManager::Init()
 	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
 	CResourceManager::GetInst()->AddResource(L"backgound_material", backgroundMaterial);
 	background->MeshRender()->SetMaterial(backgroundMaterial);
+
+	const auto backgroundChild = new CGameObject;
+	backgroundChild->SetName(L"child");
+	backgroundChild->AddComponent(new CTransform);
+	backgroundChild->AddComponent(new CMeshRender);
+	backgroundChild->Transform()->SetPosition(Vec3(1.2f, 0.f, 0.f));
+	backgroundChild->Transform()->SetScale(Vec3(0.5f, 0.5f, 1.f));
+	backgroundChild->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	backgroundChild->MeshRender()->SetMaterial(backgroundMaterial);
+
+	background->AddChild(backgroundChild);
 	//boss hp ui
 	current_scene_->AddGameObject(background, 0, true);
+
+
 
 
 // 	const auto tileMap = new CGameObject;

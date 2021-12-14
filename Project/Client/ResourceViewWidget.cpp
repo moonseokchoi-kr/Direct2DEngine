@@ -2,6 +2,7 @@
 #include "ResourceViewWidget.h"
 #include "WidgetManager.h"
 #include "InspectorWidget.h"
+#include "HierarchyViewWidget.h"
 
 #include <Engine/CResource.h>
 #include <Engine/CResourceManager.h>
@@ -64,6 +65,10 @@ void ResourceViewWidget::ResourceItemClicked(DWORD_PTR item, DWORD_PTR data)
 
 	if (nullptr == res)
 		return;
-	InspectorWidget* inspector = (InspectorWidget*)WidgetManager::GetInst()->FindWidget("inspector_view");
+	InspectorWidget* inspector = dynamic_cast<InspectorWidget*>(WidgetManager::GetInst()->FindWidget("inspector_view"));
 	inspector->SetTargetResource(res);
+
+
+	HierarchyViewWidget* hierarchy = dynamic_cast<HierarchyViewWidget*>(WidgetManager::GetInst()->FindWidget("hierarchy_view"));
+	hierarchy->ReleaseSelectNode();
 }

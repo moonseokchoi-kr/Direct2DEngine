@@ -12,7 +12,9 @@ public:
 public:
     void Init() override;
     void Update() override;
+public:
     void Renew();
+    void ReleaseSelectNode() { tree_.ReleaseSelectNode(); }
 public:
     void ResourceItemClicked(DWORD_PTR item, DWORD_PTR data);
 

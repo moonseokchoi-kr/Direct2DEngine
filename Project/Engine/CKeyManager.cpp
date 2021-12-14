@@ -39,9 +39,38 @@ int g_arrVK[(int)KEY::LAST] =
 	VK_SPACE,
 	VK_RETURN,
 	VK_ESCAPE,
+
+	VK_INSERT,
+	VK_DELETE,
+	VK_PRIOR,
+	VK_NEXT,
+	VK_HOME,
 	
 	VK_LBUTTON,
 	VK_RBUTTON,
+
+	'0',
+	'1',
+	'2',
+	'3',
+	'4',
+	'5',
+	'6',
+	'7',
+	'8',
+	'9',
+
+	VK_NUMPAD0,
+	VK_NUMPAD1,
+	VK_NUMPAD2,
+	VK_NUMPAD3,
+	VK_NUMPAD4,
+	VK_NUMPAD5,
+	VK_NUMPAD6,
+	VK_NUMPAD7,
+	VK_NUMPAD8,
+	VK_NUMPAD9,
+
 
 	//LAST,
 };

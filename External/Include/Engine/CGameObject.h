@@ -61,6 +61,8 @@ public:
 	OBJECT_STATE GetObjectState() {return object_state_;}
 
     void ReigsterAsPrefab(const wstring& prefabName);
+
+    void SeparateFromParent();
 public:
     CLONE(CGameObject);
 

@@ -3,7 +3,7 @@
 
 void Node::Update()
 {
-    tree_flags_ = 0;
+    tree_flags_ = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
     if (use_frame_)
         tree_flags_ |= ImGuiTreeNodeFlags_Framed;
     if (child_vector_.empty() && !use_frame_)

@@ -52,6 +52,11 @@ void CEventManager::excute(const Event& _event)
 	}
 
 	break;
+	case EVENT_TYPE::ADD_CHILD:
+	{
+
+	}
+	break;
 	case EVENT_TYPE::DELETE_OBJECT:
 	{
 		//lParam : Object
@@ -63,8 +68,6 @@ void CEventManager::excute(const Event& _event)
 		{
  			object->SetDead(static_cast<float>(_event.wParam));
 			dead_object_vector_.push_back(object);
-
-
 		}
 	}
 	break;

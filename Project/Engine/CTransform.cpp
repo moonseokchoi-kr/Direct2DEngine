@@ -8,9 +8,10 @@
 
 CTransform::CTransform()
 	:CComponent(COMPONENT_TYPE::TRANSFORM)
-	,local_direction_{Vec3::Right,Vec3::Up,Vec3::Front}
-	,world_direction_{}
-	,local_scale_(Vec3(1.f, 1.f, 1.f))
+	, local_direction_{ Vec3::Right,Vec3::Up,Vec3::Front }
+	, world_direction_{}
+	, local_scale_(Vec3(1.f, 1.f, 1.f))
+	, cal_child_transform_(false)
 {
 	 
 }
@@ -57,7 +58,6 @@ void CTransform::FinalUpdate()
 void CTransform::UpdateData()
 {
 	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::TRANSFORM);
-
 	g_transform.world_matrix = world_matrix_;
 	g_transform.world_view_matrix = g_transform.world_matrix * g_transform.view_matrix;
 	g_transform.world_view_projection_matrix = g_transform.world_view_matrix * g_transform.projection_matrix;

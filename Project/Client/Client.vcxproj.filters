@@ -228,7 +228,7 @@
     <ClInclude Include="CameraWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="HirarchyViewWidget.h">
+    <ClInclude Include="HierarchyViewWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\Hirarchy</Filter>
     </ClInclude>
     <ClInclude Include="AnimationOffsetTool.h">
@@ -366,7 +366,7 @@
     <ClCompile Include="CameraWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="HirarchyViewWidget.cpp">
+    <ClCompile Include="HierarchyViewWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\Hirarchy</Filter>
     </ClCompile>
     <ClCompile Include="AnimationOffsetTool.cpp">

@@ -10,7 +10,7 @@
 #include <Engine/CCore.h>
 #include <Engine/CSceneManager.h>
 WidgetManager::WidgetManager()
-	:is_active_demo_(true)
+	:is_active_demo_(false)
 {
 
 }
@@ -147,7 +147,7 @@ void WidgetManager::SetFocusMainWindow()
 #include "InspectorWidget.h"
 #include "ModalListWidget.h"
 #include "AtlasTextureTool.h"
-#include "HirarchyViewWidget.h"
+#include "HierarchyViewWidget.h"
 #include "AnimationTool.h"
 #include "AnimationOffsetTool.h"
 #include "TileMapTool.h"
@@ -184,7 +184,7 @@ void WidgetManager::CreateWidgets()
 	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
 
-	widget = new HirarchyViewWidget;
+	widget = new HierarchyViewWidget;
 	widget->Activate();
 	AddWidget(widget->GetName(), widget);
 

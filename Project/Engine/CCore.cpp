@@ -42,6 +42,7 @@ HRESULT CCore::Init(HWND hWnd, UINT x, UINT y)
 
 void CCore::Progress()
 {
+    CResourceManager::GetInst()->Update();
     CTimeManager::GetInst()->Update();
     CKeyManager::GetInst()->Update();
     CSceneManager::GetInst()->Progress();

@@ -72,7 +72,7 @@ public:
     }
     void Clear();
     Node* GetSelectedNode() { return selected_node_; }
-
+    void ReleaseSelectNode() { selected_node_ = nullptr; }
 private:
     void ExcuteClickedCallback(Node* clickNode);
     
