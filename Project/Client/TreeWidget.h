@@ -24,6 +24,10 @@ public:
 
 public:
     void Update();
+
+private:
+	void CheckMouseClick();
+	void CheckDragDrop();
 public:
 	void SetName(const string& str) { name_ = str; }
 	const string& GetName() { return name_; }
@@ -47,7 +51,9 @@ private:
     ImGuiTreeNodeFlags tree_flags_;
 
     bool use_frame_;
-
+    bool has_mouse_l_button_press_;
+    bool has_mouse_l_button_clicked_;
+    float accumulated_time_;
     friend class TreeWidget;
 };
 
@@ -79,6 +85,7 @@ private:
 private:
     Node* root_node_;
     Node* selected_node_;
+
     bool is_root_visible_;
 
     TREE_CALLBACK drag_drop_event_;

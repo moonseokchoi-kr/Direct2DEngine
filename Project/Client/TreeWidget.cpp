@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "TreeWidget.h"
 
+#include <Engine/CTimeManager.h>
+
 void Node::Update()
 {
     tree_flags_ = ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow;
@@ -14,15 +16,16 @@ void Node::Update()
     {
         tree_flags_ |= ImGuiTreeNodeFlags_Selected;
     }
+    char keyNumber[255] = { 0, };
+    sprintf_s(keyNumber,"%llu",(long long)this);
+    string key = string(name_ + "##" + keyNumber);
 
-    bool check_left = false;
-
-    if (ImGui::TreeNodeEx(name_.c_str(), tree_flags_))
+    if (ImGui::TreeNodeEx(key.c_str(), tree_flags_))
     {
-        if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
-        {
-            check_left = true;
-        }
+        CheckDragDrop();
+
+        CheckMouseClick();
+       
         for (Node* child : child_vector_)
         {
             child->Update();
@@ -31,14 +34,69 @@ void Node::Update()
     }
     else
     {
-		if (ImGui::IsItemClicked(ImGuiMouseButton_Left))
-		{
-			check_left = true;
-		}
+        CheckDragDrop();
+        CheckMouseClick();
+		
     }
-
-    if (check_left)
+	
+    if (has_mouse_l_button_clicked_)
+    {
         tree_->ExcuteClickedCallback(this);
+        has_mouse_l_button_clicked_ = false;
+    }
+        
+}
+
+void Node::CheckMouseClick()
+{
+    if (ImGui::IsItemHovered())
+    {
+		if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+		{
+			has_mouse_l_button_press_ = true;
+		}
+		if (ImGui::IsMouseDragging(ImGuiMouseButton_Left))
+		{
+            has_mouse_l_button_press_ = true;
+		}
+        if (has_mouse_l_button_press_&&ImGui::IsMouseReleased(ImGuiMouseButton_Left))
+        {
+            has_mouse_l_button_press_ = false;
+            has_mouse_l_button_clicked_ = true;
+        }
+    }
+    else
+    {
+        has_mouse_l_button_press_ = false;
+    }
+}
+
+void Node::CheckDragDrop()
+{
+    //드래그 시작
+    if (ImGui::BeginDragDropSource())
+    {
+        //페이로드의 키가 같아야 드래그앤 드랍 가능
+        ImGui::SetDragDropPayload("TEST", nullptr, 0);
+
+
+        ImGui::EndDragDropSource();
+    }
+    //드랍대상 처리
+    else if (ImGui::BeginDragDropTarget())
+    {
+        if (ImGui::AcceptDragDropPayload("TEST"))
+        {
+            accumulated_time_ += fDT;
+            if(accumulated_time_>1.f)
+                ImGui::SetNextItemOpen(true);
+        }
+        else
+        {
+            accumulated_time_ = 0.f;
+        }
+        ImGui::EndDragDropTarget();
+    }
 }
 
 TreeWidget::TreeWidget()
