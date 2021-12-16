@@ -145,6 +145,9 @@
     <Filter Include="소스 파일\Tool\Widget\ToolUI\ResourceView">
       <UniqueIdentifier>{24030782-cb7a-48ab-8411-2d49538f0bcf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Script">
+      <UniqueIdentifier>{11488444-ea11-46ad-a207-1f37dd04f448}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -278,6 +281,9 @@
     </ClInclude>
     <ClInclude Include="ResourceViewWidget.h">
       <Filter>소스 파일\Tool\Widget\ToolUI\ResourceView</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptWidget.h">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Script</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -413,6 +419,9 @@
     </ClCompile>
     <ClCompile Include="ResourceViewWidget.cpp">
       <Filter>소스 파일\Tool\Widget\ToolUI\ResourceView</Filter>
+    </ClCompile>
+    <ClCompile Include="ScriptWidget.cpp">
+      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Script</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

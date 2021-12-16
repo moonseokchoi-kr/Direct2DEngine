@@ -4,6 +4,7 @@
 
 #include <Engine/CTexture.h>
 #include <Engine/CRenderManager.h>
+#include <Engine/CSceneManager.h>
 #include <Engine/CDevice.h>
 ViewPortWidget::ViewPortWidget()
 	:Widget("view_port")
@@ -20,6 +21,8 @@ void ViewPortWidget::Init()
 
 void ViewPortWidget::Update()
 {
+	if (SCENE_MODE::PLAY == CSceneManager::GetInst()->GetSceneMode())
+		return;
 	if (ImGui::Begin("View port"))
 	{
 		ImVec2 viewPortLt = ImGui::GetCursorScreenPos();

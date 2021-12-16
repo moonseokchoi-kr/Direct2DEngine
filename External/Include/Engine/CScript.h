@@ -10,6 +10,28 @@
 #include "CPrefab.h"
 #include "CAnimator2D.h"
 
+enum class SCRIPT_PARAM
+{
+    INT,
+    FLOAT,
+    VEC2,
+    VEC4,
+    MATRIX,
+
+    TEXTURE,
+    PREFAB,
+
+    END,
+};
+
+struct ScriptParameter
+{
+    wstring name;
+    SCRIPT_PARAM param;
+    void* data;
+};
+
+
 class CCollider2D;
 
 class CScript :
@@ -25,6 +47,8 @@ public:
 
 public:
     virtual CScript* Clone() = 0;
+public:
+	const vector<ScriptParameter>& GetParameter() { return parameter_vector_; }
 private:
     void UpdateData()  override {};
 
@@ -34,6 +58,12 @@ protected:
 
     void Instantiate(Ptr<CPrefab> prefab, int layerIndex = 0);
     void Instantiate(Ptr<CPrefab> prefab, Vec3 position, int layerIndex = 0, Vec3 rotation = Vec3(0.f, 0.f, 0.f) );
+
+    void AddParam(const ScriptParameter& _param)
+    {
+        parameter_vector_.push_back(_param);
+    }
+
 protected:
 	virtual void OnCollisionEnter(CGameObject* otherObject);
 	virtual void OnCollision(CGameObject* otherObject);
@@ -42,7 +72,7 @@ protected:
 
 private:
     int script_type_;
-
+    vector<ScriptParameter> parameter_vector_;
     friend class CCollider2D;
 };
 

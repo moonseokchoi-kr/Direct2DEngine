@@ -188,6 +188,7 @@
     <ClInclude Include="MeshRenderWidget.h" />
     <ClInclude Include="ResourceViewWidget.h" />
     <ClInclude Include="ResourceWidget.h" />
+    <ClInclude Include="ScriptWidget.h" />
     <ClInclude Include="TextureWidget.h" />
     <ClInclude Include="TileMapTool.h" />
     <ClInclude Include="TileMapWidget.h" />
@@ -241,6 +242,7 @@
     <ClCompile Include="ResourceViewWidget.cpp" />
     <ClCompile Include="ResourceWidget.cpp" />
     <ClCompile Include="client_func.cpp" />
+    <ClCompile Include="ScriptWidget.cpp" />
     <ClCompile Include="TextureWidget.cpp" />
     <ClCompile Include="TileMapTool.cpp" />
     <ClCompile Include="TileMapWidget.cpp" />
