@@ -1,175 +1,180 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\Tool">
-      <UniqueIdentifier>{787c06ec-e5ed-436d-9fef-f548c84cb002}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\ImGuiManager">
-      <UniqueIdentifier>{374ca756-67c8-4f90-a6fe-dfb1afe0b39b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget">
-      <UniqueIdentifier>{fd50a978-8922-465c-8ee1-39b4c7e67b6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\MenuBar">
-      <UniqueIdentifier>{fc9a5861-7663-4223-bedb-881c233d9948}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ImGui">
       <UniqueIdentifier>{aa4f0f78-1b6f-4bce-81b8-e146cb40157e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI">
+    <Filter Include="default">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="Client Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>
+      </Extensions>
+    </Filter>
+    <Filter Include="Client Source\Tool">
+      <UniqueIdentifier>{787c06ec-e5ed-436d-9fef-f548c84cb002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\ImGuiManager">
+      <UniqueIdentifier>{374ca756-67c8-4f90-a6fe-dfb1afe0b39b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget">
+      <UniqueIdentifier>{fd50a978-8922-465c-8ee1-39b4c7e67b6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\MenuBar">
+      <UniqueIdentifier>{fc9a5861-7663-4223-bedb-881c233d9948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\ToolUI">
       <UniqueIdentifier>{42c71b4b-0742-459b-97c2-3aa4b9ff0f7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector">
       <UniqueIdentifier>{2e1c2fbb-192d-4068-ab40-3bcaf2ba67df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component">
       <UniqueIdentifier>{c67f000e-fe6e-43c5-bf0f-f77fda40fc94}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\MeshRender">
       <UniqueIdentifier>{f2247730-31c1-40ff-a64f-7026a1ffc361}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Resource">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Resource">
       <UniqueIdentifier>{a64c7a5a-36fb-4fed-9bb0-cc443730a87f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Transform">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Transform">
       <UniqueIdentifier>{7816eda7-3102-46ab-9598-307eb7845b4a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Collider2D">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Collider2D">
       <UniqueIdentifier>{9a3877e0-a6e4-4831-9cf0-5e1b92739099}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\RigidBody">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\RigidBody">
       <UniqueIdentifier>{c1455ce6-62aa-425e-82af-5e8833e13e04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Animation">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Animation">
       <UniqueIdentifier>{335f5b30-d8d7-43a5-8c25-5248726fd7f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Particle">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Particle">
       <UniqueIdentifier>{cb99acb1-6fed-46b5-8ffc-2a7b8e0b8d72}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Camera">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Camera">
       <UniqueIdentifier>{f2ba3f39-5847-4dae-98f3-6c6bd26de1ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Light2D">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Light2D">
       <UniqueIdentifier>{9f1e989b-d46f-460b-99d4-67401709e4c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\imguiUtil">
-      <UniqueIdentifier>{6ce58251-4984-42a3-8f91-a0831aa80a0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\Widget">
-      <UniqueIdentifier>{6c1821ea-1068-4144-a142-7a9220667302}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool">
-      <UniqueIdentifier>{2284f809-db65-495b-86c3-617d0fa9308c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\Animation">
-      <UniqueIdentifier>{ad4692c1-7fc6-42af-8a18-caf2c4a05666}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\Atlas">
-      <UniqueIdentifier>{19d32874-052b-43cc-8b1e-1c96e74e1940}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Hirarchy">
-      <UniqueIdentifier>{05c6f664-d525-4c3d-888b-e542b833a23b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\Animation\OffsetTool">
-      <UniqueIdentifier>{b686d097-ba22-4db9-a782-87ba209dbdd9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\ToolObject">
-      <UniqueIdentifier>{e1439f3f-63ec-4db2-a334-191b7d2eff8a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\ToolObject\CameraEx">
-      <UniqueIdentifier>{19ce65fd-b3d1-4e76-aa6d-86f6d2775b3f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\ToolObject\GameObjectEx">
-      <UniqueIdentifier>{1018e4c9-5038-41b9-a65f-076152054e80}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Tool\TileMap">
-      <UniqueIdentifier>{4652a9ff-4fce-4aee-bc43-e93bfe9b5d31}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\TileMap">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\TileMap">
       <UniqueIdentifier>{e370db43-28c8-46ec-80df-20a3f4b37625}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ViewPort">
-      <UniqueIdentifier>{34122fab-ec33-4202-9ee9-18c2810c0d39}</UniqueIdentifier>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Script">
+      <UniqueIdentifier>{11488444-ea11-46ad-a207-1f37dd04f448}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Resource">
       <UniqueIdentifier>{dc2dacc3-6c48-40ea-815c-4095a6959137}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Material">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Resource\Material">
       <UniqueIdentifier>{c5442c77-c8a2-4eda-a00b-8a598b17a375}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Texture">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Resource\Texture">
       <UniqueIdentifier>{0c0b1330-af42-4fe8-9f7d-db30b9a212c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Shader">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Resource\Shader">
       <UniqueIdentifier>{7591982e-5de7-47f5-99be-aa44a1ff0646}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Sound">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Resource\Sound">
       <UniqueIdentifier>{490489dc-c147-4c72-a036-e6014541f3e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Prefab">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Resource\Prefab">
       <UniqueIdentifier>{28612467-e0ff-440e-b18e-935ca65634df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Mesh">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Resource\Mesh">
       <UniqueIdentifier>{732f7bab-9156-442d-94fe-352d23f1d181}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\Input">
-      <UniqueIdentifier>{662cf4fa-34ff-43a4-a1c1-f87e66a4e20f}</UniqueIdentifier>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Tool">
+      <UniqueIdentifier>{2284f809-db65-495b-86c3-617d0fa9308c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\Input\DataInput">
-      <UniqueIdentifier>{2dc687f3-3031-4f44-a3b2-a597b7e6697b}</UniqueIdentifier>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Tool\Animation">
+      <UniqueIdentifier>{ad4692c1-7fc6-42af-8a18-caf2c4a05666}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\Module">
-      <UniqueIdentifier>{f33740ed-8b73-4e52-bfed-b92c4f4598c9}</UniqueIdentifier>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Tool\Animation\OffsetTool">
+      <UniqueIdentifier>{b686d097-ba22-4db9-a782-87ba209dbdd9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\Module\Tree">
-      <UniqueIdentifier>{13e3951c-c7dd-4d54-909e-bd557937f0be}</UniqueIdentifier>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Tool\Atlas">
+      <UniqueIdentifier>{19d32874-052b-43cc-8b1e-1c96e74e1940}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\Module\Combo">
-      <UniqueIdentifier>{ddde0874-2a63-4106-a0b3-ab819c5429a7}</UniqueIdentifier>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Tool\TileMap">
+      <UniqueIdentifier>{4652a9ff-4fce-4aee-bc43-e93bfe9b5d31}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\Module\List">
-      <UniqueIdentifier>{51d55d34-a736-4421-b7ad-36667b0b3732}</UniqueIdentifier>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Hirarchy">
+      <UniqueIdentifier>{05c6f664-d525-4c3d-888b-e542b833a23b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\ResourceView">
+    <Filter Include="Client Source\Tool\Widget\ToolUI\ResourceView">
       <UniqueIdentifier>{24030782-cb7a-48ab-8411-2d49538f0bcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\Tool\Widget\ToolUI\Inspector\Component\Script">
-      <UniqueIdentifier>{11488444-ea11-46ad-a207-1f37dd04f448}</UniqueIdentifier>
+    <Filter Include="Client Source\Tool\Widget\Widget">
+      <UniqueIdentifier>{6c1821ea-1068-4144-a142-7a9220667302}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\ViewPort">
+      <UniqueIdentifier>{34122fab-ec33-4202-9ee9-18c2810c0d39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\Input">
+      <UniqueIdentifier>{662cf4fa-34ff-43a4-a1c1-f87e66a4e20f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\Input\DataInput">
+      <UniqueIdentifier>{2dc687f3-3031-4f44-a3b2-a597b7e6697b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\Module">
+      <UniqueIdentifier>{f33740ed-8b73-4e52-bfed-b92c4f4598c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\Module\Tree">
+      <UniqueIdentifier>{13e3951c-c7dd-4d54-909e-bd557937f0be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\Module\Combo">
+      <UniqueIdentifier>{ddde0874-2a63-4106-a0b3-ab819c5429a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\Module\List">
+      <UniqueIdentifier>{51d55d34-a736-4421-b7ad-36667b0b3732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\imguiUtil">
+      <UniqueIdentifier>{6ce58251-4984-42a3-8f91-a0831aa80a0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\ToolObject">
+      <UniqueIdentifier>{e1439f3f-63ec-4db2-a334-191b7d2eff8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\ToolObject\CameraEx">
+      <UniqueIdentifier>{19ce65fd-b3d1-4e76-aa6d-86f6d2775b3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\ToolObject\GameObjectEx">
+      <UniqueIdentifier>{1018e4c9-5038-41b9-a65f-076152054e80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestScene">
+      <UniqueIdentifier>{7d304dac-7591-4d0c-9d80-e6d4fc108391}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>default</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>default</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>default</Filter>
     </ClInclude>
     <ClInclude Include="Client.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>default</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>default</Filter>
     </ClInclude>
     <ClInclude Include="WidgetManager.h">
-      <Filter>소스 파일\Tool\ImGuiManager</Filter>
+      <Filter>Client Source\Tool\ImGuiManager</Filter>
     </ClInclude>
     <ClInclude Include="Widget.h">
-      <Filter>소스 파일\Tool\Widget</Filter>
+      <Filter>Client Source\Tool\Widget</Filter>
     </ClInclude>
     <ClInclude Include="imconfig.h">
       <Filter>ImGui</Filter>
@@ -196,94 +201,112 @@
       <Filter>ImGui</Filter>
     </ClInclude>
     <ClInclude Include="MenuWidget.h">
-      <Filter>소스 파일\Tool\Widget\MenuBar</Filter>
+      <Filter>Client Source\Tool\Widget\MenuBar</Filter>
     </ClInclude>
     <ClInclude Include="InspectorWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector</Filter>
     </ClInclude>
     <ClInclude Include="ComponentWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component</Filter>
     </ClInclude>
     <ClInclude Include="TransformWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Transform</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Transform</Filter>
     </ClInclude>
     <ClInclude Include="MeshRenderWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
     </ClInclude>
     <ClInclude Include="imgui_util.h">
-      <Filter>소스 파일\Tool\imguiUtil</Filter>
+      <Filter>Client Source\Tool\imguiUtil</Filter>
     </ClInclude>
     <ClInclude Include="AnimationWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Animation</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Animation</Filter>
     </ClInclude>
     <ClInclude Include="ContentBrowserComboWidget.h">
-      <Filter>소스 파일\Tool\Widget\Widget</Filter>
+      <Filter>Client Source\Tool\Widget\Widget</Filter>
     </ClInclude>
     <ClInclude Include="AnimationTool.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Tool\Animation</Filter>
     </ClInclude>
     <ClInclude Include="AtlasTextureTool.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Atlas</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Tool\Atlas</Filter>
     </ClInclude>
     <ClInclude Include="Collider2DWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Collider2D</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Collider2D</Filter>
     </ClInclude>
     <ClInclude Include="CameraWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Camera</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Camera</Filter>
     </ClInclude>
     <ClInclude Include="HierarchyViewWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Hirarchy</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Hirarchy</Filter>
     </ClInclude>
     <ClInclude Include="AnimationOffsetTool.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation\OffsetTool</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Tool\Animation\OffsetTool</Filter>
     </ClInclude>
     <ClInclude Include="ToolObjectManager.h">
-      <Filter>소스 파일\Tool\ToolObject</Filter>
+      <Filter>Client Source\Tool\ToolObject</Filter>
     </ClInclude>
     <ClInclude Include="ToolGameObject.h">
-      <Filter>소스 파일\Tool\ToolObject\GameObjectEx</Filter>
+      <Filter>Client Source\Tool\ToolObject\GameObjectEx</Filter>
     </ClInclude>
     <ClInclude Include="ToolCamera.h">
-      <Filter>소스 파일\Tool\ToolObject\CameraEx</Filter>
+      <Filter>Client Source\Tool\ToolObject\CameraEx</Filter>
     </ClInclude>
     <ClInclude Include="TileMapTool.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\TileMap</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Tool\TileMap</Filter>
     </ClInclude>
     <ClInclude Include="TileMapWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\TileMap</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\TileMap</Filter>
     </ClInclude>
     <ClInclude Include="ViewPortWidget.h">
-      <Filter>소스 파일\Tool\Widget\ViewPort</Filter>
+      <Filter>Client Source\Tool\Widget\ViewPort</Filter>
     </ClInclude>
     <ClInclude Include="ResourceWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Resource</Filter>
     </ClInclude>
     <ClInclude Include="TextureWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Texture</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Resource\Texture</Filter>
     </ClInclude>
     <ClInclude Include="client_func.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>default</Filter>
     </ClInclude>
     <ClInclude Include="MaterialWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Material</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Resource\Material</Filter>
     </ClInclude>
     <ClInclude Include="DataInputWidget.h">
-      <Filter>소스 파일\Tool\Widget\Input\DataInput</Filter>
+      <Filter>Client Source\Tool\Widget\Input\DataInput</Filter>
     </ClInclude>
     <ClInclude Include="ComboWidget.h">
-      <Filter>소스 파일\Tool\Widget\Module\Combo</Filter>
+      <Filter>Client Source\Tool\Widget\Module\Combo</Filter>
     </ClInclude>
     <ClInclude Include="ModalListWidget.h">
-      <Filter>소스 파일\Tool\Widget\Module\List</Filter>
+      <Filter>Client Source\Tool\Widget\Module\List</Filter>
     </ClInclude>
     <ClInclude Include="TreeWidget.h">
-      <Filter>소스 파일\Tool\Widget\Module\Tree</Filter>
+      <Filter>Client Source\Tool\Widget\Module\Tree</Filter>
     </ClInclude>
     <ClInclude Include="ResourceViewWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\ResourceView</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\ResourceView</Filter>
     </ClInclude>
     <ClInclude Include="ScriptWidget.h">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Script</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="CTestScene.h">
+      <Filter>TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CBulletScript.h">
+      <Filter>TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterHpBar.h">
+      <Filter>TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterScript.h">
+      <Filter>TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CMoveScript.h">
+      <Filter>TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>TestScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -300,17 +323,11 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="WidgetManager.cpp">
-      <Filter>소스 파일\Tool\ImGuiManager</Filter>
+      <Filter>Client Source\Tool\ImGuiManager</Filter>
     </ClCompile>
     <ClCompile Include="Widget.cpp">
-      <Filter>소스 파일\Tool\Widget</Filter>
+      <Filter>Client Source\Tool\Widget</Filter>
     </ClCompile>
     <ClCompile Include="imgui.cpp">
       <Filter>ImGui</Filter>
@@ -334,94 +351,114 @@
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="MenuWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\MenuBar</Filter>
+      <Filter>Client Source\Tool\Widget\MenuBar</Filter>
     </ClCompile>
     <ClCompile Include="InspectorWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector</Filter>
     </ClCompile>
     <ClCompile Include="client_func.cpp">
-      <Filter>헤더 파일</Filter>
+      <Filter>default</Filter>
     </ClCompile>
     <ClCompile Include="ComponentWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component</Filter>
     </ClCompile>
     <ClCompile Include="TransformWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Transform</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Transform</Filter>
     </ClCompile>
     <ClCompile Include="MeshRenderWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\MeshRender</Filter>
     </ClCompile>
     <ClCompile Include="imgui_util.cpp">
-      <Filter>소스 파일\Tool\imguiUtil</Filter>
+      <Filter>Client Source\Tool\imguiUtil</Filter>
     </ClCompile>
     <ClCompile Include="AnimationWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Animation</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Animation</Filter>
     </ClCompile>
     <ClCompile Include="ContentBrowserComboWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\Widget</Filter>
+      <Filter>Client Source\Tool\Widget\Widget</Filter>
     </ClCompile>
     <ClCompile Include="AnimationTool.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Tool\Animation</Filter>
     </ClCompile>
     <ClCompile Include="AtlasTextureTool.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Atlas</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Tool\Atlas</Filter>
     </ClCompile>
     <ClCompile Include="Collider2DWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Collider2D</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Collider2D</Filter>
     </ClCompile>
     <ClCompile Include="CameraWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Camera</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Camera</Filter>
     </ClCompile>
     <ClCompile Include="HierarchyViewWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Hirarchy</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Hirarchy</Filter>
     </ClCompile>
     <ClCompile Include="AnimationOffsetTool.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\Animation\OffsetTool</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Tool\Animation\OffsetTool</Filter>
     </ClCompile>
     <ClCompile Include="ToolObjectManager.cpp">
-      <Filter>소스 파일\Tool\ToolObject</Filter>
+      <Filter>Client Source\Tool\ToolObject</Filter>
     </ClCompile>
     <ClCompile Include="ToolGameObject.cpp">
-      <Filter>소스 파일\Tool\ToolObject\GameObjectEx</Filter>
+      <Filter>Client Source\Tool\ToolObject\GameObjectEx</Filter>
     </ClCompile>
     <ClCompile Include="ToolCamera.cpp">
-      <Filter>소스 파일\Tool\ToolObject\CameraEx</Filter>
+      <Filter>Client Source\Tool\ToolObject\CameraEx</Filter>
     </ClCompile>
     <ClCompile Include="TileMapTool.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Tool\TileMap</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Tool\TileMap</Filter>
     </ClCompile>
     <ClCompile Include="TileMapWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\TileMap</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\TileMap</Filter>
     </ClCompile>
     <ClCompile Include="ViewPortWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ViewPort</Filter>
+      <Filter>Client Source\Tool\Widget\ViewPort</Filter>
     </ClCompile>
     <ClCompile Include="ResourceWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Resource</Filter>
     </ClCompile>
     <ClCompile Include="TextureWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Texture</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Resource\Texture</Filter>
     </ClCompile>
     <ClCompile Include="MaterialWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Resource\Material</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Resource\Material</Filter>
     </ClCompile>
     <ClCompile Include="DataInputWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\Input\DataInput</Filter>
+      <Filter>Client Source\Tool\Widget\Input\DataInput</Filter>
     </ClCompile>
     <ClCompile Include="ComboWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\Module\Combo</Filter>
+      <Filter>Client Source\Tool\Widget\Module\Combo</Filter>
     </ClCompile>
     <ClCompile Include="ModalListWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\Module\List</Filter>
+      <Filter>Client Source\Tool\Widget\Module\List</Filter>
     </ClCompile>
     <ClCompile Include="TreeWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\Module\Tree</Filter>
+      <Filter>Client Source\Tool\Widget\Module\Tree</Filter>
     </ClCompile>
     <ClCompile Include="ResourceViewWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\ResourceView</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\ResourceView</Filter>
     </ClCompile>
     <ClCompile Include="ScriptWidget.cpp">
-      <Filter>소스 파일\Tool\Widget\ToolUI\Inspector\Component\Script</Filter>
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="CTestScene.cpp">
+      <Filter>TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CBulletScript.cpp">
+      <Filter>TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterHpBar.cpp">
+      <Filter>TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterScript.cpp">
+      <Filter>TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CMoveScript.cpp">
+      <Filter>TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>TestScene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

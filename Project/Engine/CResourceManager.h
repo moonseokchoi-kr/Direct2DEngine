@@ -10,6 +10,7 @@
 
 class CResource;
 class CGameObject;
+class CComputeShader;
 
 
 class CResourceManager :

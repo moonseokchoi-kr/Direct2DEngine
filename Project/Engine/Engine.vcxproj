@@ -192,7 +192,6 @@ call .\EngineCopy.bat</Command>
   <ItemGroup>
     <ClInclude Include="CAnimation2D.h" />
     <ClInclude Include="CAnimator2D.h" />
-    <ClInclude Include="CBulletScript.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCollider2D.h" />
     <ClInclude Include="CCollisionManager.h" />
@@ -211,14 +210,10 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CMaterial.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CMeshRender.h" />
-    <ClInclude Include="CMonsterHpBar.h" />
-    <ClInclude Include="CMonsterScript.h" />
-    <ClInclude Include="CMoveScript.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="CParticleSystem.h" />
     <ClInclude Include="CParticleUpdateShader.h" />
     <ClInclude Include="CPathManager.h" />
-    <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CPrefab.h" />
     <ClInclude Include="CRenderManager.h" />
     <ClInclude Include="CResource.h" />
@@ -248,7 +243,6 @@ call .\EngineCopy.bat</Command>
   <ItemGroup>
     <ClCompile Include="CAnimation2D.cpp" />
     <ClCompile Include="CAnimator2D.cpp" />
-    <ClCompile Include="CBulletScript.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCollider2D.cpp" />
     <ClCompile Include="CCollisionManager.cpp" />
@@ -267,13 +261,9 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CMaterial.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CMeshRender.cpp" />
-    <ClCompile Include="CMonsterHpBar.cpp" />
-    <ClCompile Include="CMonsterScript.cpp" />
-    <ClCompile Include="CMoveScript.cpp" />
     <ClCompile Include="CParticleSystem.cpp" />
     <ClCompile Include="CParticleUpdateShader.cpp" />
     <ClCompile Include="CPathManager.cpp" />
-    <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CPrefab.cpp" />
     <ClCompile Include="CRenderManager.cpp" />
     <ClCompile Include="CResource.cpp" />

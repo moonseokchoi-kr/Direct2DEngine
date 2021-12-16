@@ -20,6 +20,8 @@ public:
     void FindObjectByName(const wstring& name, vector<CGameObject*>& object_vector);
 
     void SetSceneMode(SCENE_MODE mode);
+
+    void ChangeScene(CScene* nextScene);
 private:
     CScene* current_scene_;
     SCENE_MODE scene_mode_;
