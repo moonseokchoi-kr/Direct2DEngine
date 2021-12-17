@@ -165,6 +165,9 @@
     <Filter Include="Source\GameObject">
       <UniqueIdentifier>{be17b495-ceb8-4c87-abde-1085d3c0d258}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Component\RigidBody">
+      <UniqueIdentifier>{e39a681f-bb1c-45cc-944a-c5e66f66d4a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -314,6 +317,9 @@
     <ClInclude Include="magic_enum.hpp">
       <Filter>Source\Header</Filter>
     </ClInclude>
+    <ClInclude Include="CRigidBody.h">
+      <Filter>Source\Component\RigidBody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -444,6 +450,9 @@
     </ClCompile>
     <ClCompile Include="CTileMap.cpp">
       <Filter>Source\Component\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="CRigidBody.cpp">
+      <Filter>Source\Component\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
