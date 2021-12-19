@@ -38,7 +38,7 @@ class CScript :
     public CComponent
 {
 public:
-    CScript();
+    CScript(int script_type);
     ~CScript();
 public:
     virtual void Start() {};
@@ -49,6 +49,7 @@ public:
     virtual CScript* Clone() = 0;
 public:
 	const vector<ScriptParameter>& GetParameter() { return parameter_vector_; }
+    int GetScriptType() { return script_type_; }
 private:
     void UpdateData()  override {};
 
@@ -74,5 +75,6 @@ private:
     int script_type_;
     vector<ScriptParameter> parameter_vector_;
     friend class CCollider2D;
+    CScript();
 };
 

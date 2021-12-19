@@ -8,6 +8,12 @@ CScript::CScript()
 {
 }
 
+CScript::CScript(int scriptType)
+	:CComponent(COMPONENT_TYPE::SCRIPT)
+	,script_type_(scriptType)
+{
+}
+
 CScript::~CScript()
 {
 }

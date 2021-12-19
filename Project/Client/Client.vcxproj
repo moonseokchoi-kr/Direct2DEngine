@@ -159,6 +159,7 @@
       <MinFilesInUnityFile>1</MinFilesInUnityFile>
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Unity\</UnityFilesDirectory>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -173,15 +174,10 @@
     <ClInclude Include="AnimationWidget.h" />
     <ClInclude Include="AtlasTextureTool.h" />
     <ClInclude Include="CameraWidget.h" />
-    <ClInclude Include="CBulletScript.h" />
     <ClInclude Include="client_func.h" />
-    <ClInclude Include="CMonsterHpBar.h" />
-    <ClInclude Include="CMonsterScript.h" />
-    <ClInclude Include="CMoveScript.h" />
     <ClInclude Include="Collider2DWidget.h" />
     <ClInclude Include="ComboWidget.h" />
     <ClInclude Include="ContentBrowserComboWidget.h" />
-    <ClInclude Include="CPlayerScript.h" />
     <ClInclude Include="CTestScene.h" />
     <ClInclude Include="DataInputWidget.h" />
     <ClInclude Include="HierarchyViewWidget.h" />
@@ -233,14 +229,9 @@
     <ClCompile Include="AnimationWidget.cpp" />
     <ClCompile Include="AtlasTextureTool.cpp" />
     <ClCompile Include="CameraWidget.cpp" />
-    <ClCompile Include="CBulletScript.cpp" />
-    <ClCompile Include="CMonsterHpBar.cpp" />
-    <ClCompile Include="CMonsterScript.cpp" />
-    <ClCompile Include="CMoveScript.cpp" />
     <ClCompile Include="Collider2DWidget.cpp" />
     <ClCompile Include="ComboWidget.cpp" />
     <ClCompile Include="ContentBrowserComboWidget.cpp" />
-    <ClCompile Include="CPlayerScript.cpp" />
     <ClCompile Include="CTestScene.cpp" />
     <ClCompile Include="DataInputWidget.cpp" />
     <ClCompile Include="HierarchyViewWidget.cpp" />

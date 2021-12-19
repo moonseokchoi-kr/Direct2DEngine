@@ -23,11 +23,11 @@
 #include <Engine/CCollisionManager.h>
 #include <Engine/CSceneManager.h>
 
-#include "CMonsterHpBar.h"
-#include "CBulletScript.h"
-#include "CPlayerScript.h"
-#include "CMoveScript.h"
-#include "CMonsterScript.h"
+#include <Script/CMonsterHpBar.h>
+#include <Script/CBulletScript.h>
+#include <Script/CPlayerScript.h>
+#include <Script/CMoveScript.h>
+#include <Script/CMonsterScript.h>
 
 
 

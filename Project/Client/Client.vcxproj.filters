@@ -153,6 +153,9 @@
     <Filter Include="TestScene">
       <UniqueIdentifier>{7d304dac-7591-4d0c-9d80-e6d4fc108391}</UniqueIdentifier>
     </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{554f7150-0f9f-44bb-ba67-0f1da24edac6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -293,21 +296,6 @@
     <ClInclude Include="CTestScene.h">
       <Filter>TestScene</Filter>
     </ClInclude>
-    <ClInclude Include="CBulletScript.h">
-      <Filter>TestScene</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonsterHpBar.h">
-      <Filter>TestScene</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonsterScript.h">
-      <Filter>TestScene</Filter>
-    </ClInclude>
-    <ClInclude Include="CMoveScript.h">
-      <Filter>TestScene</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayerScript.h">
-      <Filter>TestScene</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -440,25 +428,12 @@
     <ClCompile Include="ScriptWidget.cpp">
       <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Script</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="CTestScene.cpp">
       <Filter>TestScene</Filter>
     </ClCompile>
-    <ClCompile Include="CBulletScript.cpp">
-      <Filter>TestScene</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonsterHpBar.cpp">
-      <Filter>TestScene</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonsterScript.cpp">
-      <Filter>TestScene</Filter>
-    </ClCompile>
-    <ClCompile Include="CMoveScript.cpp">
-      <Filter>TestScene</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayerScript.cpp">
-      <Filter>TestScene</Filter>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "CRigidBody.h"
 
 CRigidBody::CRigidBody()
+	:CComponent(COMPONENT_TYPE::RIGIDBODY2D)
 {
 }
 
