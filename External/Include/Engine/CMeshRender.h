@@ -29,6 +29,10 @@ public:
 
     void SetMaterial(Ptr<CMaterial> material);
     void SetMesh(Ptr<CMesh> mesh) { mesh_ = mesh; }
+
+public:
+    void SaveToScene(FILE* file) override;
+    void LoadFromScene(FILE* file) override;
 private:
     Ptr<CMaterial> current_material_;
     Ptr<CMaterial> shared_material_;

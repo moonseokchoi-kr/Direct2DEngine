@@ -52,7 +52,12 @@ public:
 	void SetPlayOnStart(bool play) { play_on_start_ = play; }
 
 	void Clear();
+	static void ClearAnim();
 	void ClearFrame(int index);
+
+public:
+	void SaveToScene(FILE* file) override;
+	void LoadFromScene(FILE* file) override;
 private:
 	vector<AnimationFrame> frame_vector_;
 	CAnimator2D* owner_;

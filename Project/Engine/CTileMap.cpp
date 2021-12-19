@@ -68,3 +68,43 @@ void CTileMap::Render()
 	UpdateData();
 	mesh_->Render();
 }
+
+void CTileMap::SaveToScene(FILE* file)
+{
+	CComponent::SaveToScene(file);
+
+	SaveResReference(atlas_texture_, file);
+	fwrite(&tile_map_column_count_, sizeof(int), 1, file);
+	fwrite(&tile_map_row_count_, sizeof(int), 1, file);
+
+	fwrite(&tile_size_, sizeof(Vec2), 1, file);
+
+	UINT iDataSize = buffer_->GetElementSize() * buffer_->GetElementCount();
+	fwrite(&iDataSize, sizeof(UINT), 1, file);
+
+	void* data = malloc(iDataSize);
+	buffer_->GetData(data, iDataSize);
+	fwrite(data, iDataSize, 1, file);
+
+	free(data);
+
+}
+
+void CTileMap::LoadFromScene(FILE* file)
+{
+	CComponent::LoadFromScene(file);
+
+	LoadResReference(atlas_texture_, file);
+	fread(&tile_map_column_count_, sizeof(int), 1, file);
+	fread(&tile_map_row_count_, sizeof(int), 1, file);
+
+	fread(&tile_size_, sizeof(Vec2), 1, file);
+
+	UINT dataSize = buffer_->GetElementSize() * buffer_->GetElementCount();
+	fread(&dataSize, sizeof(UINT), 1, file);
+
+	void* data = malloc(dataSize);
+	fread(data, dataSize, 1, file);
+
+	buffer_->Create(sizeof(int), tile_map_column_count_ * tile_map_row_count_, STRUCTURE_BUFFER_TYPE::READ_ONLY, data, true);
+}

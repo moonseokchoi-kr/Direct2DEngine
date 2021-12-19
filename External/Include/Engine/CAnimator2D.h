@@ -27,6 +27,10 @@ public:
     //void Pause()
 
 public:
+    void SaveToScene(FILE* file) override;
+    void LoadFromScene(FILE* file) override;
+
+public:
     CAnimation2D* GetCurrentAnimation() { return current_animation_; }
 
     const unordered_map<wstring, CAnimation2D*>& GetAnimations() { return animation_map_; }

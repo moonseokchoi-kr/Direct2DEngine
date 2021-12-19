@@ -59,7 +59,9 @@ cbuffer LIGHT2D : register(b3)
 
 cbuffer ANIMATE2D : register(b4)
 {
-    AnimationFrame animation_array[50];
+    AnimationFrame animation_array;
+    uint using_animation;
+    uint3 anim_padding;
 }
 
 Texture2D tex_0 : register(t0);

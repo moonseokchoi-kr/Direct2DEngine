@@ -113,7 +113,7 @@ template <typename T>
 inline void CResourceManager::AddResource(const wstring& key, T* res)
 {
 	RESOURCE_TYPE type = GetResourceType<T>();
-	res->SetName(key);
+	res->SetKey(key);
 	resource_array_[static_cast<UINT>(type)].insert(make_pair(key,res));
 	is_change_resource_ = true;
 }
@@ -145,7 +145,7 @@ inline Ptr<T> CResourceManager::LoadRes(const wstring& key, const wstring& strRe
 	strPath += strRelativePath;
 
 	CResource* res = new T;
-
+	res->SetRelativePath(strRelativePath);
 	if (FAILED(res->Load(strPath)))
 	{
 		MessageBox(nullptr, L"리소스 로딩 실패", L"리소스 로딩 에러", MB_OK);

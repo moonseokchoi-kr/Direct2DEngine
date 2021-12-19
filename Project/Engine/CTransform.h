@@ -26,6 +26,10 @@ public:
 
 public:
     CLONE(CTransform);
+
+public:
+    void SaveToScene(FILE* file) override;
+    void LoadFromScene(FILE* file) override;
 private:
     Matrix world_matrix_;
  

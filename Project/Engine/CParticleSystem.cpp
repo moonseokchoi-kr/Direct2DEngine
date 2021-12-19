@@ -105,3 +105,51 @@ void CParticleSystem::Clear()
 {
 	particle_buffer_->Clear();
 }
+
+void CParticleSystem::SaveToScene(FILE* file)
+{
+	CComponent::SaveToScene(file);
+
+	SaveResReference(particle_texture_, file);
+
+	fwrite(&max_particle_count_, sizeof(UINT), 1, file);
+	fwrite(&spawn_range_, sizeof(Vec3), 1, file);
+
+	fwrite(&min_scale_, sizeof(Vec3), 1, file);
+	fwrite(&max_scale_, sizeof(Vec3), 1, file);
+
+	fwrite(&start_color_, sizeof(Vec3), 1, file);
+	fwrite(&end_color_, sizeof(Vec3), 1, file);
+
+	fwrite(&min_speed_, sizeof(float), 1, file);
+	fwrite(&max_speed_, sizeof(float), 1, file);
+
+	fwrite(&particle_min_life_, sizeof(float), 1, file);
+	fwrite(&particle_max_life_, sizeof(float), 1, file);
+
+	fwrite(&particle_spawn_frequency_, sizeof(float), 1, file);
+}
+
+void CParticleSystem::LoadFromScene(FILE* file)
+{
+	CComponent::LoadFromScene(file);
+
+	LoadResReference(particle_texture_, file);
+
+	fread(&max_particle_count_, sizeof(UINT), 1, file);
+	fread(&spawn_range_, sizeof(Vec3), 1, file);
+
+	fread(&min_scale_, sizeof(Vec3), 1, file);
+	fread(&max_scale_, sizeof(Vec3), 1, file);
+
+	fread(&start_color_, sizeof(Vec3), 1, file);
+	fread(&end_color_, sizeof(Vec3), 1, file);
+
+	fread(&min_speed_, sizeof(float), 1, file);
+	fread(&max_speed_, sizeof(float), 1, file);
+
+	fread(&particle_min_life_, sizeof(float), 1, file);
+	fread(&particle_max_life_, sizeof(float), 1, file);
+
+	fread(&particle_spawn_frequency_, sizeof(float), 1, file);
+}

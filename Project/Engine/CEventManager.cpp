@@ -92,7 +92,13 @@ void CEventManager::excute(const Event& _event)
 		}
 	}
 	break;
-
+	case EVENT_TYPE::SCENE_CHANGE:
+	{
+		//lparam : º¯°æÇÒ Scene
+		CSceneManager::GetInst()->ChangeScene((CScene*)_event.lParam);
+		occured_object_event_ = true;
+	}
+		break;
 	default:
 		break;
 	}

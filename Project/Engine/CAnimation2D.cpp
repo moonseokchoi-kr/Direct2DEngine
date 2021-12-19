@@ -56,6 +56,7 @@ void CAnimation2D::UpdateData()
 {
 	AnimationData data;
 	data = frame_vector_[current_frame_].animation_data;
+	data.using_anim = 1;
 	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::ANIMATE2D);
 	cb->SetData(&data, sizeof(AnimationData));
 	cb->SetPipelineStage(PIPELINE_STAGE::PS_PIXEL);
@@ -120,6 +121,12 @@ void CAnimation2D::Clear()
 	frame_vector_.clear();
 }
 
+void CAnimation2D::ClearAnim()
+{
+	CConstBuffer* cb = CDevice::GetInst()->GetConstBuffer(CONSTANT_BUFFER_TYPE::ANIMATE2D);
+	cb->Clear();
+}
+
 void CAnimation2D::ClearFrame(int index)
 {
 	frame_vector_.erase(frame_vector_.begin() + index);
@@ -127,6 +134,50 @@ void CAnimation2D::ClearFrame(int index)
 		current_frame_ -= 1;
 	else
 		current_frame_ = 0;
+}
+
+void CAnimation2D::SaveToScene(FILE* file)
+{
+	CEntity::SaveToScene(file);
+
+	size_t frameCount = frame_vector_.size();
+	fwrite(&frameCount, sizeof(size_t), 1, file);
+
+	for (size_t i = 0; i < frame_vector_.size(); ++i)
+	{
+		fwrite(&frame_vector_[i], sizeof(AnimationFrame), 1, file);
+	}
+
+	SaveResReference(atlas_texture_, file);
+	
+	fwrite(&animation_back_board_, sizeof(Vec3), 1, file);
+	fwrite(&animation_repeat_, sizeof(bool), 1, file);
+	fwrite(&play_on_start_, sizeof(bool), 1, file);
+
+	fwrite(&current_frame_, sizeof(int), 1, file);
+}
+
+void CAnimation2D::LoadFromScene(FILE* file)
+{
+	CEntity::LoadFromScene(file);
+
+	size_t frameCount = 0;
+	fread(&frameCount, sizeof(size_t), 1, file);
+
+	for (size_t i = 0; i < frameCount; ++i)
+	{
+		AnimationFrame animFrm = {};
+		fread(&animFrm, sizeof(AnimationFrame), 1, file);
+		frame_vector_.push_back(animFrm);
+	}
+
+	LoadResReference(atlas_texture_, file);
+
+	fread(&animation_back_board_, sizeof(Vec3), 1, file);
+	fread(&animation_repeat_, sizeof(bool), 1, file);
+	fread(&play_on_start_, sizeof(bool), 1, file);
+
+	fread(&current_frame_, sizeof(int), 1, file);
 }
 
 void CAnimation2D::SetCurrentFrameData(const AnimationFrame& data)

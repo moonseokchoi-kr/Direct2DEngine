@@ -5,6 +5,11 @@
 #include "CMeshRender.h"
 #include "CCollider2D.h"
 #include "CParticleSystem.h"
+#include "CTileMap.h"
+#include "CRigidBody.h"
+#include "CCamera.h"
+#include "CLight2D.h"
+#include "CAnimator2D.h"
 #include "CScript.h"
 
 
@@ -181,6 +186,59 @@ void CGameObject::AddComponent(CComponent* comp)
 	comp->owner_ = this;
 	component_array_[index] = comp;
 	
+}
+
+void CGameObject::AddComponent(COMPONENT_TYPE type)
+{
+	switch (type)
+	{
+	case COMPONENT_TYPE::TRANSFORM:
+		AddComponent(new CTransform);
+		break;
+	case COMPONENT_TYPE::MESHRENDER:
+		AddComponent(new CMeshRender);
+		break;
+	case COMPONENT_TYPE::COLLIDER2D:
+		AddComponent(new CCollider2D);
+		break;
+	case COMPONENT_TYPE::COLLIDER3D:
+		break;
+	case COMPONENT_TYPE::CAMERA:
+		AddComponent(new CCamera);
+		break;
+	case COMPONENT_TYPE::LIGHT2D:
+		AddComponent(new CLight2D);
+		break;
+	case COMPONENT_TYPE::LIGHT3D:
+
+		break;
+	case COMPONENT_TYPE::PARTICLESYSTEM:
+		AddComponent(new CParticleSystem);
+		break;
+	case COMPONENT_TYPE::ANIMATOR2D:
+		AddComponent(new CAnimator2D);
+		break;
+	case COMPONENT_TYPE::ANIMATOR3D:
+		break;
+	case COMPONENT_TYPE::RIGIDBODY2D:
+		AddComponent(new CRigidBody);
+		break;
+	case COMPONENT_TYPE::RIGIDBODY3D:
+		break;
+	case COMPONENT_TYPE::TERRAIN:
+		break;
+	case COMPONENT_TYPE::TILEMAP:
+		AddComponent(new CTileMap);
+		break;
+	case COMPONENT_TYPE::SKYBOX:
+		break;
+	case COMPONENT_TYPE::SOUND:
+		//AddComponent(new CTransform);
+		break;
+	default:
+		assert(nullptr);
+		break;
+	}
 }
 
 void CGameObject::AddChild(CGameObject* child)

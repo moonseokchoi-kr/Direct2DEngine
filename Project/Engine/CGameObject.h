@@ -41,8 +41,18 @@ public:
 public:
     int GetLayerIndex() { return layer_index_; }
     void AddComponent(CComponent* comp);
+    void AddComponent(COMPONENT_TYPE type);
     CComponent* GetComponent(COMPONENT_TYPE type) { return component_array_[static_cast<UINT>(type)]; }
-
+    int GetComponentCount() 
+    {
+        int count = 0;
+        for (const auto& component : component_array_)
+        {
+            if (nullptr != component)
+                ++count;
+        }
+        return count;
+    }
     GET_COMPONENT(Transform, COMPONENT_TYPE::TRANSFORM);
     GET_COMPONENT(MeshRender, COMPONENT_TYPE::MESHRENDER);
     GET_COMPONENT(Camera, COMPONENT_TYPE::CAMERA);

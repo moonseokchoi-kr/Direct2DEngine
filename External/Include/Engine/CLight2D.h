@@ -23,6 +23,10 @@ public:
     void UpdateData() override;
 
     CLONE(CLight2D);
+
+public:
+    void SaveToScene(FILE* file) override;
+    void LoadFromScene(FILE* file) override;
 private:
     LightInfo light_info_;
 

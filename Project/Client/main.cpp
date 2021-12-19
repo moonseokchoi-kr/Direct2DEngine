@@ -52,7 +52,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     CTestScene::CreateTestScene();
-    CTestScene::CreatePrefab();
+    //CTestScene::CreatePrefab();
 
     CCore::GetInst()->Progress();
 

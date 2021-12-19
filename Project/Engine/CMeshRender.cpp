@@ -8,6 +8,7 @@
 #include "CGameObject.h"
 #include "CTransform.h"
 #include "CAnimator2D.h"
+#include "CAnimation2D.h"
 
 #include "CMaterial.h"
 #include "ptr.h"
@@ -37,14 +38,9 @@ void CMeshRender::Render()
 	if (GetAnimator2D())
 	{
 		GetAnimator2D()->UpdateData();
-		int a = 1;
-		current_material_->SetData(SHADER_PARAM::INT_3, &a);
 	}
 	else
-	{
-		int a = 0;
-		current_material_->SetData(SHADER_PARAM::INT_3, &a);
-	}
+		CAnimation2D::ClearAnim();
 	current_material_->UpdateData();
 	
 
@@ -88,4 +84,20 @@ void CMeshRender::SetMaterial(Ptr<CMaterial> material)
 		delete clone_material_.Get();
 		clone_material_ = nullptr;
 	}
+}
+
+void CMeshRender::SaveToScene(FILE* file)
+{
+	CComponent::SaveToScene(file);
+	SaveResReference(mesh_, file);
+	SaveResReference(shared_material_, file);
+}
+
+void CMeshRender::LoadFromScene(FILE* file)
+{
+	CComponent::LoadFromScene(file);
+	LoadResReference(mesh_, file);
+	LoadResReference(shared_material_, file);
+
+	SetMaterial(shared_material_);
 }

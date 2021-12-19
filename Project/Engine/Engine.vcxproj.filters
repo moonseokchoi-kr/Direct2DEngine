@@ -48,12 +48,6 @@
     <Filter Include="Source\Component\Light\Light2D">
       <UniqueIdentifier>{2bc2efb6-181b-4452-96fe-2d54c8dddd8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Component\Animate2D">
-      <UniqueIdentifier>{b9c8a60d-ffda-4f51-8065-7fd410cc2943}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source\Component\Animate2D\Animation">
-      <UniqueIdentifier>{2ea045a6-7ad4-473f-909f-1332b7107a3b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Component\ParticleSystem">
       <UniqueIdentifier>{e5c464ab-debb-49e2-8e87-00a3307a44f9}</UniqueIdentifier>
     </Filter>
@@ -167,6 +161,12 @@
     </Filter>
     <Filter Include="Source\Component\RigidBody">
       <UniqueIdentifier>{e39a681f-bb1c-45cc-944a-c5e66f66d4a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Component\Animation2D">
+      <UniqueIdentifier>{b9c8a60d-ffda-4f51-8065-7fd410cc2943}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Component\Animation2D\Animation">
+      <UniqueIdentifier>{2ea045a6-7ad4-473f-909f-1332b7107a3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -291,10 +291,10 @@
       <Filter>Source\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="CAnimator2D.h">
-      <Filter>Source\Component\Animate2D</Filter>
+      <Filter>Source\Component\Animation2D</Filter>
     </ClInclude>
     <ClInclude Include="CAnimation2D.h">
-      <Filter>Source\Component\Animate2D\Animation</Filter>
+      <Filter>Source\Component\Animation2D\Animation</Filter>
     </ClInclude>
     <ClInclude Include="CStructuredBuffer.h">
       <Filter>Source\Device\StructureBuffer</Filter>
@@ -425,10 +425,10 @@
       <Filter>Source\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="CAnimator2D.cpp">
-      <Filter>Source\Component\Animate2D</Filter>
+      <Filter>Source\Component\Animation2D</Filter>
     </ClCompile>
     <ClCompile Include="CAnimation2D.cpp">
-      <Filter>Source\Component\Animate2D\Animation</Filter>
+      <Filter>Source\Component\Animation2D\Animation</Filter>
     </ClCompile>
     <ClCompile Include="CStructuredBuffer.cpp">
       <Filter>Source\Device\StructureBuffer</Filter>

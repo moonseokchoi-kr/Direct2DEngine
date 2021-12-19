@@ -33,14 +33,14 @@ float4 ps_main(VS_OUTPUT _in) : SV_Target
 {
     float4 outputColor = (float4)0.f;
     
-    if(int_3)
+    if(using_animation)
     {
-        float2 animationUV = (_in.uv * animation_array[0].fullSize);
-        float2 sizeUV = (_in.uv * animation_array[0].size);
-        float2 rangeUV = (animation_array[0].fullSize - animation_array[0].size) / 2.f + animation_array[0].offset;
-        if (rangeUV.x < animationUV.x && animationUV.x < rangeUV.x + animation_array[0].size.x && rangeUV.y < animationUV.y && animationUV.y < rangeUV.y + animation_array[0].size.y)
+        float2 animationUV = (_in.uv * animation_array.fullSize);
+        float2 sizeUV = (_in.uv * animation_array.size);
+        float2 rangeUV = (animation_array.fullSize - animation_array.size) / 2.f + animation_array.offset;
+        if (rangeUV.x < animationUV.x && animationUV.x < rangeUV.x + animation_array.size.x && rangeUV.y < animationUV.y && animationUV.y < rangeUV.y + animation_array.size.y)
         {
-            animationUV += (animation_array[0].leftTop - animation_array[0].offset);
+            animationUV += (animation_array.leftTop - animation_array.offset);
             return atlas_tex.Sample(mip_sam, animationUV);
         }
         

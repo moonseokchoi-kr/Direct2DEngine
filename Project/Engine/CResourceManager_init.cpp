@@ -260,56 +260,56 @@ void CResourceManager::CreateDefaultMaterial()
 {
 	CMaterial* material = nullptr;
 	int a = 1;
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	material->SetData(SHADER_PARAM::INT_0, &a);
 	AddResource(L"std2DMaterial", material);
 
 
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"light2D_shader"));
 	AddResource(L"std2DMaterial_lights", material);
 
 	//colliderMaterial
 
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"collder2DShader"));
 	AddResource(L"collider2DMaterial_none", material);
 
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"collder2DShader"));
 	
 	material->SetData(SHADER_PARAM::INT_0, &a);
 	AddResource(L"collider2DMaterial_collision",material);
 
 	//hp material
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"monster_hp_shader"));
 	AddResource(L"monster_hp_material", material);
 
 
 	//bullet material
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"monster_bullet_red").Get());
 	AddResource(L"monster_bulluet_red_material", material);
 
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"monster_bullet_blue").Get());
 	AddResource(L"monster_bulluet_blue_material", material);
 
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"particle_shader"));
 	AddResource(L"particle_material", material);
 	
 	//tilemap
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"tile_map_shader"));
 	AddResource(L"tile_map_material", material);
 
 
-	material = new CMaterial;
+	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"post_effect_shader"));
 	AddResource(L"post_effect_material", material);
 }

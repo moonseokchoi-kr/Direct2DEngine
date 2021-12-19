@@ -156,6 +156,9 @@
     <Filter Include="main">
       <UniqueIdentifier>{554f7150-0f9f-44bb-ba67-0f1da24edac6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneSaveLoad">
+      <UniqueIdentifier>{3b2e8739-b21f-44ed-82fe-7ceea788753c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -296,6 +299,9 @@
     <ClInclude Include="CTestScene.h">
       <Filter>TestScene</Filter>
     </ClInclude>
+    <ClInclude Include="CSceneSaveLoad.h">
+      <Filter>SceneSaveLoad</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -434,6 +440,9 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneSaveLoad.cpp">
+      <Filter>SceneSaveLoad</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -26,6 +26,9 @@ public:
     void RenderParticle();
     void RenderPostEffect();
     
+public:
+    void SaveToScene(FILE* file) override;
+    void LoadFromScene(FILE* file) override;
 
 public:
     void SetProjectionType(PROJECTION_TYPE type) { projection_type_ = type; }

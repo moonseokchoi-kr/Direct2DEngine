@@ -9,6 +9,7 @@
 MeshRenderWidget::MeshRenderWidget()
 	:ComponentWidget("MeshRender", Vec2(0.f,100.f))
 {
+
 }
 
 MeshRenderWidget::~MeshRenderWidget()
@@ -20,6 +21,8 @@ void MeshRenderWidget::Update()
 	CMeshRender* meshRender = GetTarget()->MeshRender();
 	Ptr<CMesh> mesh = meshRender->GetMesh();
 	Ptr<CMaterial> material = meshRender->GetCurrentMaterial();
+	meshWidget.SetName("##mesh select");
+	materialWidget.SetName("##material select");
 
 	Start();
 	{
@@ -30,34 +33,18 @@ void MeshRenderWidget::Update()
 			ImGui::Text("Mesh");
 			ImGui::TableNextColumn();
 			
-			array<char, 255> str = { 0, };
-			WideCharToMultiByte(CP_ACP, 0, mesh->GetName().c_str(), -1, str.data(), (int)mesh->GetName().size(), nullptr, nullptr);
-			ImGui::PushID(0);
-			if (ImGui::Button(str.data(), ImVec2(200, 0)))
+			const unordered_map<wstring, CResource*>& meshMap = CResourceManager::GetInst()->GetResource<CMesh>();
+			int count = 0;
+			meshWidget.SetCallback(this, (COMBO_CALLBACK)&MeshRenderWidget::ChangeMesh);
+			for (const auto& pair : meshMap)
 			{
-				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list"));
-
-				array<char, 255> szBuffer = { 0, };
-				const unordered_map<wstring, CResource*>& meshMap = CResourceManager::GetInst()->GetResource<CMesh>();
-				int count = 0;
-				for (const auto& pair : meshMap)
-				{
-					if (!listWidget->isOpen())
-					{
-						WideCharToMultiByte(CP_ACP, 0, pair.first.c_str(), -1, szBuffer.data(), (int)pair.first.size(), nullptr, nullptr);
-						listWidget->AddItem(szBuffer.data());
-						if(nullptr != mesh && mesh->GetName() == pair.first)
-							listWidget->SetCurrentIndex(count);
-						szBuffer.fill(0);
-						++count;
-					}
-				}
-
-				listWidget->SetCaption("Select Mesh");
-				listWidget->SetCallbackFunc(this, (MODAL_LIST_CALLBACK)&MeshRenderWidget::ChangeMesh);
-				listWidget->Activate();
+				meshWidget.AddComboData(WStringToString(pair.first));
+				if (nullptr != mesh && pair.first == mesh->GetKey())
+					meshWidget.SetCurrentIndex(count);
+				++count;
 			}
-			ImGui::PopID();
+			meshWidget.Update();
+		
 
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
@@ -66,34 +53,19 @@ void MeshRenderWidget::Update()
 			ImGui::Text("Material");
 			ImGui::TableNextColumn();
 
-			WideCharToMultiByte(CP_ACP, 0, material->GetName().c_str(), -1, str.data(), (int)material->GetName().size(), nullptr, nullptr);
-			ImGui::PushID(1);
-			if (ImGui::Button(str.data(), ImVec2(200, 0)))
+			const unordered_map<wstring, CResource*>& materialMap = CResourceManager::GetInst()->GetResource<CMaterial>();
+			count = 0;
+			materialWidget.SetCallback(this, (COMBO_CALLBACK)&MeshRenderWidget::ChangeMaterial);
+			for (const auto& pair : materialMap)
 			{
-				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list_widget"));
-
-				array<char, 255> szBuffer = { 0, };
-				const unordered_map<wstring, CResource*>& meshMap = CResourceManager::GetInst()->GetResource<CMaterial>();
-				int count = 0;
-				for (const auto& pair : meshMap)
-				{
-					if (!listWidget->isOpen())
-					{
-						WideCharToMultiByte(CP_ACP, 0, pair.first.c_str(), -1, szBuffer.data(), (int)pair.first.size(), nullptr, nullptr);
-						listWidget->AddItem(szBuffer.data());
-						if (GetTarget()->MeshRender()->GetCurrentMaterial()->GetName() == pair.first)
-							listWidget->SetCurrentIndex(count);
-						szBuffer.fill(0);
-						++count;
-					}
-				}
-
-				listWidget->SetCaption("Select Material");
-				listWidget->SetCallbackFunc(this, (MODAL_LIST_CALLBACK)&MeshRenderWidget::ChangeMaterial);
-
-				listWidget->Activate();
+				materialWidget.AddComboData(WStringToString(pair.first));
+				if (nullptr != material && pair.first == material->GetKey())
+					materialWidget.SetCurrentIndex(count);
+				++count;
 			}
-			ImGui::PopID();
+
+			materialWidget.Update();
+
 
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();

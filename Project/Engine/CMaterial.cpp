@@ -12,6 +12,23 @@ CMaterial::CMaterial()
 	:CResource(RESOURCE_TYPE::MATERIAL)
 	,data_{}
 	,texture_array_{}
+	,is_default(true)
+{
+}
+
+CMaterial::CMaterial(bool _defualt)
+	:CResource(RESOURCE_TYPE::MATERIAL)
+	,data_{}
+	,texture_array_{}
+	,is_default(_defualt)
+{
+}
+
+CMaterial::CMaterial(const CMaterial& origin)
+	:CResource(origin)
+	,data_(origin.data_)
+	,texture_array_(origin.texture_array_)
+	,is_default(false)
 {
 }
 
@@ -65,6 +82,10 @@ void CMaterial::SetData(SHADER_PARAM param, void* data)
 		break;
 	default: 
 		break;
+	}
+	if (!is_default)
+	{
+		Save(GetRelativePath());
 	}
 }
 
@@ -136,4 +157,76 @@ void CMaterial::UpdateData()
 			texture_array_[i]->UpdateData();
 		}
 	}
+}
+
+HRESULT CMaterial::Save(const wstring& relativePath)
+{
+
+	wstring strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += relativePath;
+
+	SetRelativePath(relativePath);
+
+	FILE* pFile = nullptr;
+	_wfopen_s(&pFile, strPath.c_str(), L"wb");
+
+	if (nullptr == pFile)
+		return E_FAIL;
+
+	// Key, 경로
+	SaveWStringToFile(GetKey(), pFile);
+	SaveWStringToFile(GetRelativePath(), pFile);
+
+	// 상수 데이터
+	fwrite(&data_, sizeof(MaterialParameter), 1, pFile);
+
+	// 텍스쳐 데이터
+	for (int i = 0; i < texture_array_.size(); ++i)
+	{
+		SaveResReference(texture_array_[i], pFile);
+	}
+
+	// 참조 쉐이더
+	SaveResReference(shader_, pFile);
+
+	// Default
+	fwrite(&is_default, sizeof(bool), 1, pFile);
+
+	fclose(pFile);
+
+	return S_OK;
+}
+
+HRESULT CMaterial::Load(const wstring& filePath)
+{
+
+	FILE* file = nullptr;
+	_wfopen_s(&file, filePath.c_str(), L"rb");
+
+	if (nullptr == file)
+		return E_FAIL;
+
+	// Key, 경로
+	wstring key, relativePath;
+	LoadWStringFromFile(key, file);
+	LoadWStringFromFile(relativePath, file);
+
+	// 상수 데이터
+	fread(&data_, sizeof(MaterialParameter), 1, file);
+
+	// 텍스쳐 데이터
+	for (int i = 0; i < (UINT)SHADER_PARAM::TEX_END - (UINT)SHADER_PARAM::TEX_0; ++i)
+	{
+		LoadResReference(texture_array_[i], file);
+	}
+
+	// 참조 쉐이더
+	LoadResReference(shader_, file);
+
+	// Default
+	fread(&is_default, sizeof(bool), 1, file);
+
+	fclose(file);
+
+	return S_OK;
 }

@@ -92,3 +92,18 @@ void CCollider2D::OnCollisionExit(CGameObject* otherObject)
 	}
 	
 }
+
+void CCollider2D::SaveToScene(FILE* file)
+{
+	CComponent::SaveToScene(file);
+	fwrite(&offset_position_, sizeof(Vec3),1, file);
+	fwrite(&offset_scale_, sizeof(Vec3), 1,file);
+}
+
+void CCollider2D::LoadFromScene(FILE* file)
+{
+	CComponent::LoadFromScene(file);
+	fread(&offset_position_, sizeof(Vec3), 1, file);
+	fread(&offset_scale_, sizeof(Vec3), 1, file);
+}
+

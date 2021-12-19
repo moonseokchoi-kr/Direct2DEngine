@@ -2,14 +2,16 @@
 #include "Collider2DWidget.h"
 #include "ModalListWidget.h"
 #include "WidgetManager.h"
-
+#include "MeshRenderWidget.h"
 
 #include <Engine/CCollider2D.h>
 #include <Engine/CMesh.h>
 #include <Engine/CResourceManager.h>
+
 Collider2DWidget::Collider2DWidget()
 	:ComponentWidget("Collider2D",Vec2(0,120))
 {
+	meshWidget.SetName("##mesh");
 }
 
 Collider2DWidget::~Collider2DWidget()
@@ -37,34 +39,17 @@ void Collider2DWidget::Update()
 			ImGui::Text("Mesh");
 			ImGui::TableNextColumn();
 
-			array<char, 255> str = { 0, };
-			WideCharToMultiByte(CP_ACP, 0, mesh->GetName().c_str(), -1, str.data(), (int)mesh->GetName().size(), nullptr, nullptr);
-			ImGui::PushID(0);
-			if (ImGui::Button(str.data(), ImVec2(200, 0)))
+			const unordered_map<wstring, CResource*>& meshMap = CResourceManager::GetInst()->GetResource<CMesh>();
+			int count = 0;
+			meshWidget.SetCallback(this, (MODAL_LIST_CALLBACK)&Collider2DWidget::ChangeMesh);
+			for (const auto& pair : meshMap)
 			{
-				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list"));
-
-				array<char, 255> szBuffer = { 0, };
-				const unordered_map<wstring, CResource*>& meshMap = CResourceManager::GetInst()->GetResource<CMesh>();
-				int count = 0;
-				for (const auto& pair : meshMap)
-				{
-					if (!listWidget->isOpen())
-					{
-						WideCharToMultiByte(CP_ACP, 0, pair.first.c_str(), -1, szBuffer.data(), (int)pair.first.size(), nullptr, nullptr);
-						listWidget->AddItem(szBuffer.data());
-						if (nullptr != mesh && mesh->GetName() == pair.first)
-							listWidget->SetCurrentIndex(count);
-						szBuffer.fill(0);
-						++count;
-					}
-				}
-
-				listWidget->SetCaption("Select Mesh");
-				listWidget->SetCallbackFunc(this, nullptr);
-				listWidget->Activate();
+				meshWidget.AddComboData(WStringToString(pair.first));
+				if (nullptr != mesh && pair.first == mesh->GetKey())
+					meshWidget.SetCurrentIndex(count);
+				++count;
 			}
-			ImGui::PopID();
+			meshWidget.Update();
 
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
@@ -119,4 +104,15 @@ Vec3 Collider2DWidget::CreateControlPanel(const string& label, Vec3 value)
 
 	return value;
 
+}
+
+
+void Collider2DWidget::ChangeMesh(DWORD_PTR instance, DWORD_PTR meshName)
+{
+	ModalListWidget* widget = (ModalListWidget*)instance;
+	string strName = widget->GetSelectedName();
+	wchar_t szName[256] = {};
+	MultiByteToWideChar(CP_ACP, 0, strName.c_str(), (int)strName.size(), szName, 256);
+	CCollider2D* collider = GetTarget()->Collider2D();
+	collider->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(szName));
 }

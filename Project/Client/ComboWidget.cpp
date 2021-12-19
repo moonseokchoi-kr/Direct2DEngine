@@ -15,12 +15,11 @@ ComboWidget::~ComboWidget()
 
 void ComboWidget::Init()
 {
-	combo_label_ = "##test";
 }
 
 void ComboWidget::Update()
 {
-	if (ImGui::BeginCombo(combo_label_.c_str(), combo_data_[current_index_].c_str()))
+	if (ImGui::BeginCombo(GetName().c_str(), combo_data_[current_index_].c_str()))
 	{
 		for (UINT i = 0; i < (UINT)combo_data_.size(); ++i)
 		{

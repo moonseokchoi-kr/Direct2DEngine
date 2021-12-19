@@ -1,8 +1,13 @@
 #include "pch.h"
 #include "MenuWidget.h"
 #include "WidgetManager.h"
+#include "CSceneSaveLoad.h"
+
 #include <Engine/CSceneManager.h>
+#include <Engine/CPathManager.h>
+#include <Engine/CEventManager.h>
 #include <Engine/CScene.h>
+
 MenuWidget::MenuWidget()
 	:Widget("menu_bar")
 {
@@ -30,12 +35,17 @@ void MenuWidget::ShowFileMenu()
 	{
 		if (ImGui::MenuItem("Save", "CTRL+S"))
 		{
-			int a = 0;
+			wstring contentPath = CPathManager::GetInst()->GetContentPath();
+			contentPath += L"scene\\test.scene";
+			CSceneSaveLoad::SaveScene(contentPath);
 		}
 
 		if (ImGui::MenuItem("Load", "CTRL+A"))
 		{
-			int a = 0;
+			wstring contentPath = CPathManager::GetInst()->GetContentPath();
+			contentPath += L"scene\\test.scene";
+			CScene* newScene = CSceneSaveLoad::LoadScene(contentPath);
+			CEventManager::GetInst()->AddEvent(Event{ EVENT_TYPE::SCENE_CHANGE, (DWORD_PTR)newScene, 0 });
 		}
 
 		ImGui::EndMenu();

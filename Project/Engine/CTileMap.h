@@ -40,6 +40,10 @@ public:
     Ptr<CTexture>GetAtlas() { return atlas_texture_; }
     const vector<Tile>& GetTileIndexVector() { return tile_altas_image_coord_vector_; }
     void SetTileIndexVector(vector<Tile>& indexVector) { tile_altas_image_coord_vector_ = indexVector; }
+
+public:
+    void SaveToScene(FILE* file) override;
+    void LoadFromScene(FILE* file) override;
 private:
     Ptr<CMesh> mesh_;
     Ptr<CMaterial> material_;

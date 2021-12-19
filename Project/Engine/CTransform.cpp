@@ -82,3 +82,23 @@ Vec3 CTransform::GetWorldScale()
 
 	return worldScale;
 }
+
+void CTransform::SaveToScene(FILE* file)
+{
+	CComponent::SaveToScene(file);
+
+	fwrite(&local_position_, sizeof(Vec3), 1, file);
+	fwrite(&local_scale_, sizeof(Vec3), 1, file);
+	fwrite(&local_rotation_, sizeof(Vec3), 1, file);
+	fwrite(&local_direction_, sizeof(Vec3), 1, file);
+}
+
+void CTransform::LoadFromScene(FILE* file)
+{
+	CComponent::LoadFromScene(file);
+
+	fread(&local_position_, sizeof(Vec3), 1, file);
+	fread(&local_scale_, sizeof(Vec3), 1, file);
+	fread(&local_rotation_, sizeof(Vec3), 1, file);
+	fread(&local_direction_, sizeof(Vec3), 1, file);
+}

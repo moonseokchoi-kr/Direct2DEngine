@@ -19,6 +19,10 @@ public:
     virtual void UpdateData() {};
 
 public:
+    void SaveToScene(FILE* file);
+    void LoadFromScene(FILE* file);
+
+public:
     void AddGameObject(CGameObject* object, bool bMove);
     void RegisterObject(CGameObject* object) { layer_object_vector_.push_back(object); }
     void DeregisterAsParentObject(CGameObject* object);

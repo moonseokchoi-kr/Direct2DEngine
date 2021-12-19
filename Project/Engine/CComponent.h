@@ -29,6 +29,9 @@ public:
     CAnimator2D* GetAnimator2D() { return owner_->Animator2D(); }
 
 public:
+    virtual void SaveToScene(FILE* file);
+    virtual void LoadFromScene(FILE* file);
+public:
     virtual CComponent* Clone() = 0;
 
 private:

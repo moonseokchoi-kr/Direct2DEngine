@@ -25,6 +25,21 @@ public:
 
 public:
 	virtual void UpdateData() = 0;
+public:
+	virtual void SaveToScene(FILE* file)
+	{
+		SaveWStringToFile(name_, file);
+	}
+	virtual void LoadFromScene(FILE* file)
+	{
+		LoadWStringFromFile(name_, file);
+	}
+public:
+	CEntity& operator = (const CEntity& _other)
+	{
+		name_ = _other.name_;
+		id_ = next_id_++;
+	}
 private:
 	
 	static UINT next_id_;	//Entity에 부여될 ID, Enitity를 사용하는 객체가 늘어나면 자동으로 늘어남 생성자에서 관리

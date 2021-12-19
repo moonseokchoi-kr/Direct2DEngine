@@ -36,6 +36,13 @@
 void CTestScene::CreateTestScene()
 {
 	CScene* scene = new CScene;
+
+	CCollisionManager::GetInst()->CheckLayer(2, 3);
+
+	CSceneManager::GetInst()->ChangeScene(scene);
+
+	//return;
+
 	//Ä«¸Þ¶ó
 	const auto camera = new CGameObject;
 	camera->SetName(L"camera");
@@ -55,12 +62,17 @@ void CTestScene::CreateTestScene()
 	background->Transform()->SetPosition(Vec3(0.f, 0.f, 2000.f));
 	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	CMaterial* backgroundMaterial = new CMaterial;
+	
+	CMaterial* backgroundMaterial = new CMaterial(false);
 	int a = 0;
 	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
 	CResourceManager::GetInst()->AddResource(L"backgound_material", backgroundMaterial);
 	background->MeshRender()->SetMaterial(backgroundMaterial);
+	wstring strPath = L"material\\";
+	strPath += backgroundMaterial->GetKey();
+	strPath += L".mtrl";
+	backgroundMaterial->Save(strPath.c_str());
 
 	const auto backgroundChild = new CGameObject;
 	backgroundChild->SetName(L"child");
@@ -148,9 +160,6 @@ void CTestScene::CreateTestScene()
 	scene->AddGameObject(player, 2, true);
 
 
-	CCollisionManager::GetInst()->CheckLayer(2, 3);
-
-	CSceneManager::GetInst()->ChangeScene(scene);
 }
 
 

@@ -63,6 +63,14 @@ void CLayer::Render()
 	}
 }
 
+void CLayer::SaveToScene(FILE* file)
+{
+}
+
+void CLayer::LoadFromScene(FILE* file)
+{
+}
+
 void CLayer::AddGameObject(CGameObject* object, bool bMove)
 {
  	parent_object_vector_.push_back(object);

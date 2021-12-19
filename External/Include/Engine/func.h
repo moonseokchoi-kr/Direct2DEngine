@@ -40,3 +40,41 @@ void Safe_Delete_Vec(vector<T> vec)
 	}
 	vec.clear();
 }
+
+
+void SaveWStringToFile(const wstring& str, FILE* file);
+void LoadWStringFromFile(wstring& str, FILE* file);
+
+#include "CResource.h"
+template<typename T>
+void SaveResReference(Ptr<T> res, FILE* file)
+{
+	int i = !!res.Get();
+	fwrite(&i, sizeof(int), 1, file);
+
+	if (i)
+	{
+		SaveWStringToFile(res->GetKey(), file);
+		SaveWStringToFile(res->GetRelativePath(), file);
+	}
+}
+
+#include "CResourceManager.h"
+template<typename T>
+void LoadResReference(Ptr<T>& res, FILE* file)
+{
+	int i = 0;
+	fread(&i, sizeof(int), 1, file);
+
+	if (i)
+	{
+		wstring strkey, strRelativePath;
+
+		LoadWStringFromFile(strkey, file);
+		LoadWStringFromFile(strRelativePath, file);
+
+		res = CResourceManager::GetInst()->LoadRes<T>(strkey, strRelativePath);
+	}
+
+}
+

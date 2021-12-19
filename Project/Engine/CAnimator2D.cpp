@@ -114,3 +114,54 @@ void CAnimator2D::AddAnimation(CAnimation2D* animtion)
 	animation_map_.insert(make_pair(animtion->GetName(), animtion));
 	animtion->owner_ = this;
 }
+
+void CAnimator2D::SaveToScene(FILE* file)
+{
+	CComponent::SaveToScene(file);
+
+	size_t size = animation_map_.size();
+	fwrite(&size, sizeof(size_t), 1, file);
+
+	unordered_map<wstring, CAnimation2D*>::iterator iter = animation_map_.begin();
+	for (; iter != animation_map_.end(); ++iter)
+	{
+		iter->second->SaveToScene(file);
+	}
+
+
+	int i = !!current_animation_;
+	fwrite(&i, sizeof(int), 1, file);
+
+
+	if (i)
+	{
+		SaveWStringToFile(current_animation_->GetName(), file);
+	} 
+
+
+}
+
+void CAnimator2D::LoadFromScene(FILE* file)
+{
+	CComponent::LoadFromScene(file);
+
+	size_t size = 0;
+	fread(&size, sizeof(size_t), 1, file);
+
+	for (size_t i = 0; i < size; ++i)
+	{
+		CAnimation2D* anim = new CAnimation2D;
+		anim->LoadFromScene(file);
+		animation_map_.insert(make_pair(anim->GetName(), anim));
+	}
+
+	int i = 0;
+	fread(&i, sizeof(int), 1, file);
+
+	if (i)
+	{
+		wstring currnetAnimtionName;
+		LoadWStringFromFile(currnetAnimtionName, file);
+		current_animation_ = FindAnimation(currnetAnimtionName);
+	}
+}

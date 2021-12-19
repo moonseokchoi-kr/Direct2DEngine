@@ -11,6 +11,8 @@ public:
     void FinalUpdate() override;
 
 public:
+    CLONE(CRigidBody);
+public:
     void AddImpluse(const Vec3& force);
 
 };

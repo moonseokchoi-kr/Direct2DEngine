@@ -15,6 +15,8 @@ public:
 
 public:
     CConstBuffer* Clone() { return nullptr; }
+
+    void Clear();
 private:
     ComPtr<ID3D11Buffer> const_buffer_;
     D3D11_BUFFER_DESC desc_;

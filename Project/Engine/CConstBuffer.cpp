@@ -80,3 +80,14 @@ void CConstBuffer::SetData(void* _data, UINT _size)
 
 	CONTEXT->Unmap(const_buffer_.Get(), 0);
 }
+
+void CConstBuffer::Clear()
+{
+	ID3D11Buffer* buffer = nullptr;
+	CONTEXT->VSSetConstantBuffers(register_num_, 1, &buffer);
+	CONTEXT->HSSetConstantBuffers(register_num_, 1, &buffer);
+	CONTEXT->DSSetConstantBuffers(register_num_, 1, &buffer);
+	CONTEXT->GSSetConstantBuffers(register_num_, 1, &buffer);
+	CONTEXT->PSSetConstantBuffers(register_num_, 1, &buffer);
+	CONTEXT->CSSetConstantBuffers(register_num_, 1, &buffer);
+}

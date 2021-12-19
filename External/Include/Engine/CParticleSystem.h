@@ -28,6 +28,9 @@ public:
 public:
     CLONE(CParticleSystem);
 
+
+    void SaveToScene(FILE* file) override;
+    void LoadFromScene(FILE* file) override;
 private:
     Ptr<CMesh>  particle_mesh_;
     Ptr<CMaterial> particle_material_;

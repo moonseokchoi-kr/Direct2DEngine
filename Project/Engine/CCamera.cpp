@@ -206,3 +206,26 @@ void CCamera::RenderPostEffect()
 		object->Render();
 	}
 }
+
+void CCamera::SaveToScene(FILE* file)
+{
+	CComponent::SaveToScene(file);
+
+	fwrite(&angle_of_view_y_, sizeof(float), 1, file);
+	fwrite(&far_z_, sizeof(float), 1, file);
+	fwrite(&scale_, sizeof(float), 1, file);
+	fwrite(&projection_type_, sizeof(UINT), 1, file);
+	fwrite(&layer_check_out_, sizeof(UINT), 1, file);
+	fwrite(&camera_index_, sizeof(int), 1, file);
+}
+
+void CCamera::LoadFromScene(FILE* file)
+{
+	CComponent::LoadFromScene(file);
+	fread(&angle_of_view_y_, sizeof(float), 1, file);
+	fread(&far_z_, sizeof(float), 1, file);
+	fread(&scale_, sizeof(float), 1, file);
+	fread(&projection_type_, sizeof(UINT), 1, file);
+	fread(&layer_check_out_, sizeof(UINT), 1, file);
+	fread(&camera_index_, sizeof(int), 1, file);
+}

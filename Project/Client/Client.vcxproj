@@ -178,6 +178,7 @@
     <ClInclude Include="Collider2DWidget.h" />
     <ClInclude Include="ComboWidget.h" />
     <ClInclude Include="ContentBrowserComboWidget.h" />
+    <ClInclude Include="CSceneSaveLoad.h" />
     <ClInclude Include="CTestScene.h" />
     <ClInclude Include="DataInputWidget.h" />
     <ClInclude Include="HierarchyViewWidget.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="Collider2DWidget.cpp" />
     <ClCompile Include="ComboWidget.cpp" />
     <ClCompile Include="ContentBrowserComboWidget.cpp" />
+    <ClCompile Include="CSceneSaveLoad.cpp" />
     <ClCompile Include="CTestScene.cpp" />
     <ClCompile Include="DataInputWidget.cpp" />
     <ClCompile Include="HierarchyViewWidget.cpp" />

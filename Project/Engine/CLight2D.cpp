@@ -25,3 +25,18 @@ void CLight2D::FinalUpdate()
 void CLight2D::UpdateData()
 {
 }
+
+void CLight2D::SaveToScene(FILE* file)
+{
+	CComponent::SaveToScene(file);
+
+	fwrite(&light_info_, sizeof(LightInfo), 1, file);
+}
+
+void CLight2D::LoadFromScene(FILE* file)
+{
+	CComponent::LoadFromScene(file);
+
+	fread(&light_info_, sizeof(LightInfo), 1, file);
+}
+

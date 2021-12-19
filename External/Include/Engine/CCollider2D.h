@@ -22,6 +22,8 @@ public:
     CMesh* GetColliderMesh() { return collider_mesh_.Get(); }
     const Matrix& GetColliderWorldMatrix() { return collider_world_matrix_; }
     int GetCollisionCount() { return collision_count_; }
+
+    void SetMesh(Ptr<CMesh> mesh) { collider_mesh_ = mesh; }
 public:
     virtual void UpdateData();
     virtual void FinalUpdate();
@@ -32,6 +34,10 @@ public:
     void OnCollisionEnter(CGameObject* otherObject);
     void OnCollision(CGameObject* otherObject);
     void OnCollisionExit(CGameObject* otherObject);
+
+public:
+    void SaveToScene(FILE* file);
+    void LoadFromScene(FILE* file);
 private:
     Vec3 offset_position_;
     Vec3 final_position_;
