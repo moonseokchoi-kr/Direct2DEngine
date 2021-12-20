@@ -18,6 +18,16 @@ CScript::~CScript()
 {
 }
 
+void CScript::SaveToScene(FILE* file)
+{
+	CEntity::SaveToScene(file);
+}
+
+void CScript::LoadFromScene(FILE* file)
+{
+	CEntity::LoadFromScene(file);
+}
+
 void CScript::CreateObject(CGameObject* object, int layerIndex)
 {
 	Event evn = {};

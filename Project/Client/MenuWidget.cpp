@@ -19,6 +19,7 @@ MenuWidget::~MenuWidget()
 
 void MenuWidget::Update()
 {
+	is_play_ = SCENE_MODE::STOP == CSceneManager::GetInst()->GetSceneMode();
 	// Menu Bar
 	if (ImGui::BeginMainMenuBar())
 	{
@@ -33,14 +34,14 @@ void MenuWidget::ShowFileMenu()
 {
 	if (ImGui::BeginMenu("File"))
 	{
-		if (ImGui::MenuItem("Save", "CTRL+S"))
+		if (ImGui::MenuItem("Save", "CTRL+S",false,is_play_))
 		{
 			wstring contentPath = CPathManager::GetInst()->GetContentPath();
 			contentPath += L"scene\\test.scene";
 			CSceneSaveLoad::SaveScene(contentPath);
 		}
 
-		if (ImGui::MenuItem("Load", "CTRL+A"))
+		if (ImGui::MenuItem("Load", "CTRL+A",false,is_play_))
 		{
 			wstring contentPath = CPathManager::GetInst()->GetContentPath();
 			contentPath += L"scene\\test.scene";
@@ -101,7 +102,10 @@ void MenuWidget::ShowSceneMenu()
 			CSceneManager::GetInst()->SetSceneMode(SCENE_MODE::STOP);
 
 			// 플레이 시작 할 때 저장해둔 임시 Scene 으로 복구한다.
-
+			wstring contentPath = CPathManager::GetInst()->GetContentPath();
+			contentPath += L"scene\\test.scene";
+			CScene* newScene = CSceneSaveLoad::LoadScene(contentPath);
+			CEventManager::GetInst()->AddEvent(Event{ EVENT_TYPE::SCENE_CHANGE, (DWORD_PTR)newScene, 0 });
 			bPush = true;
 		}
 

@@ -27,6 +27,9 @@ public:
     template <typename T>
 	void AddResource(const wstring& key, T* res);
 
+	template<typename T>
+	const wstring CreateRelativePath(const wstring& key, Ptr<T> res);
+
 	template <typename T>
 	Ptr<T> FindRes(const wstring& key);
 	template<typename T>
@@ -50,6 +53,7 @@ public:
 
 	Ptr<CTexture> CreateTexture(const wstring& key, UINT width, UINT height, UINT flags, DXGI_FORMAT format);
 	Ptr<CTexture> CreateTexture(const wstring& key, ComPtr<ID3D11Texture2D> texture2D);
+	Ptr<CMaterial> CreateMaterial(const wstring& key, Ptr<CGraphicsShader> shader);
 private:
 	void CreateDefaultMesh();
 	void CreateDefaultShader();
@@ -116,6 +120,58 @@ inline void CResourceManager::AddResource(const wstring& key, T* res)
 	res->SetKey(key);
 	resource_array_[static_cast<UINT>(type)].insert(make_pair(key,res));
 	is_change_resource_ = true;
+}
+
+template<typename T>
+inline const wstring CResourceManager::CreateRelativePath(const wstring& key, Ptr<T> res)
+{
+	RESOURCE_TYPE type = GetResourceType<T>();
+	wstring relativePath;
+
+	switch (type)
+	{
+	case RESOURCE_TYPE::MESH:
+		break;
+	case RESOURCE_TYPE::GRAPHIC_SHADER:
+	case RESOURCE_TYPE::COMPUTE_SHADER:
+	{
+		relativePath = L"shader\\";
+		relativePath = relativePath + key + L".fx";
+		res->SetRelativePath(relativePath);
+	}
+		break;
+	case RESOURCE_TYPE::TEXTURE:
+	{
+		relativePath = L"texture\\";
+		relativePath = relativePath + key + L".png";
+		res->SetRelativePath(relativePath);
+	}
+		break;
+	case RESOURCE_TYPE::MATERIAL:
+	{
+		relativePath = L"material\\";
+		relativePath = relativePath + key + L".mtrl";
+		res->SetRelativePath(relativePath);
+	}
+		break;
+	case RESOURCE_TYPE::METADATA:
+		break;
+	case RESOURCE_TYPE::PREFAB:
+	{
+		relativePath = L"prefab\\";
+		relativePath = relativePath + key + L".pfrb";
+		res->SetRelativePath(relativePath);
+	}
+		break;
+	case RESOURCE_TYPE::SOUND:
+		break;
+	case RESOURCE_TYPE::END:
+		break;
+	default:
+		break;
+	}
+
+	return relativePath;
 }
 
 template <typename T>

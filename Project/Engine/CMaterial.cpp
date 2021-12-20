@@ -1,18 +1,18 @@
 #include "pch.h"
 
-
 #include "CMaterial.h"
 
 #include "CConstBuffer.h"
 #include "CDevice.h"
 
+#include "CSceneManager.h"
 
 
 CMaterial::CMaterial()
 	:CResource(RESOURCE_TYPE::MATERIAL)
 	,data_{}
 	,texture_array_{}
-	,is_default(true)
+	,is_default(false)
 {
 }
 
@@ -28,7 +28,7 @@ CMaterial::CMaterial(const CMaterial& origin)
 	:CResource(origin)
 	,data_(origin.data_)
 	,texture_array_(origin.texture_array_)
-	,is_default(false)
+	,is_default(true)
 {
 }
 
@@ -83,7 +83,7 @@ void CMaterial::SetData(SHADER_PARAM param, void* data)
 	default: 
 		break;
 	}
-	if (!is_default)
+	if (!is_default && SCENE_MODE::STOP == CSceneManager::GetInst()->GetSceneMode())
 	{
 		Save(GetRelativePath());
 	}
@@ -162,37 +162,37 @@ void CMaterial::UpdateData()
 HRESULT CMaterial::Save(const wstring& relativePath)
 {
 
-	wstring strPath = CPathManager::GetInst()->GetContentPath();
-	strPath += relativePath;
+	wstring contentPath = CPathManager::GetInst()->GetContentPath();
+	contentPath += relativePath;
 
 	SetRelativePath(relativePath);
 
-	FILE* pFile = nullptr;
-	_wfopen_s(&pFile, strPath.c_str(), L"wb");
+	FILE* file = nullptr;
+	_wfopen_s(&file, contentPath.c_str(), L"wb");
 
-	if (nullptr == pFile)
+	if (nullptr == file)
 		return E_FAIL;
 
 	// Key, 경로
-	SaveWStringToFile(GetKey(), pFile);
-	SaveWStringToFile(GetRelativePath(), pFile);
+	SaveWStringToFile(GetKey(), file);
+	SaveWStringToFile(GetRelativePath(), file);
 
 	// 상수 데이터
-	fwrite(&data_, sizeof(MaterialParameter), 1, pFile);
+	fwrite(&data_, sizeof(MaterialParameter), 1, file);
 
 	// 텍스쳐 데이터
 	for (int i = 0; i < texture_array_.size(); ++i)
 	{
-		SaveResReference(texture_array_[i], pFile);
+		SaveResReference(texture_array_[i], file);
 	}
 
 	// 참조 쉐이더
-	SaveResReference(shader_, pFile);
+	SaveResReference(shader_, file);
 
 	// Default
-	fwrite(&is_default, sizeof(bool), 1, pFile);
+	fwrite(&is_default, sizeof(bool), 1, file);
 
-	fclose(pFile);
+	fclose(file);
 
 	return S_OK;
 }

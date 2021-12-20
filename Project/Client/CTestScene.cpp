@@ -41,7 +41,9 @@ void CTestScene::CreateTestScene()
 
 	CSceneManager::GetInst()->ChangeScene(scene);
 
-	//return;
+	return;
+
+	CreatePrefab();
 
 	//카메라
 	const auto camera = new CGameObject;
@@ -63,16 +65,10 @@ void CTestScene::CreateTestScene()
 	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	
-	CMaterial* backgroundMaterial = new CMaterial(false);
+	Ptr<CMaterial> backgroundMaterial = CResourceManager::GetInst()->CreateMaterial(L"backgound_material", CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	int a = 0;
-	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
-	CResourceManager::GetInst()->AddResource(L"backgound_material", backgroundMaterial);
 	background->MeshRender()->SetMaterial(backgroundMaterial);
-	wstring strPath = L"material\\";
-	strPath += backgroundMaterial->GetKey();
-	strPath += L".mtrl";
-	backgroundMaterial->Save(strPath.c_str());
 
 	const auto backgroundChild = new CGameObject;
 	backgroundChild->SetName(L"child");
@@ -182,11 +178,9 @@ void CTestScene::CreatePrefab()
 
 	Ptr<CTexture> bulletTex = CResourceManager::GetInst()->LoadRes<CTexture>(L"player_bullet", L"texture\\player_bullet.png");
 
-	CMaterial* bulletMaterial = new CMaterial;
-	bulletMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	Ptr<CMaterial> bulletMaterial = CResourceManager::GetInst()->CreateMaterial(L"bulletMaterial", CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	bulletMaterial->SetData(SHADER_PARAM::TEX_0, bulletTex.Get());
 
-	CResourceManager::GetInst()->AddResource(L"bulletMaterial", bulletMaterial);
 	playerBullet->MeshRender()->SetMaterial(bulletMaterial);
 
 	playerBullet->ReigsterAsPrefab(L"player_bullet_prefab");
@@ -201,10 +195,9 @@ void CTestScene::InitTestMap(CScene* scene)
 	background->Transform()->SetPosition(Vec3(0.f, 0.f, 500.f));
 	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	CMaterial* backgroundMaterial = new CMaterial;
-	backgroundMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DMaterial_lights"));
+	Ptr<CMaterial> backgroundMaterial = CResourceManager::GetInst()->CreateMaterial(L"backgound_material", CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	int a = 0;
 	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
-	CResourceManager::GetInst()->AddResource(L"backgoundMaterial", backgroundMaterial);
 	background->MeshRender()->SetMaterial(backgroundMaterial);
 	//boss hp ui
 	scene->AddGameObject(background, 0, true);
@@ -218,11 +211,9 @@ void CTestScene::InitTestMap(CScene* scene)
 	hpBar->Transform()->SetPosition(Vec3(0.f, 400.f, 300.f));
 	hpBar->Transform()->SetScale(Vec3(1000.f, 10.f, 1.f));
 	hpBar->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	CMaterial* hpBarMaterial = new CMaterial;
-	hpBarMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"monster_hp_shader"));
-	CResourceManager::GetInst()->AddResource(L"monster_hp_material", hpBarMaterial);
-	hpBar->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"monster_hp_material"));
-	delete hpBarMaterial;
+	Ptr<CMaterial> hpBarMaterial = CResourceManager::GetInst()->CreateMaterial(L"monster_hp_material", CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"monster_hp_shader"));
+	hpBar->MeshRender()->SetMaterial(hpBarMaterial);
+
 	//4번 UI
 	scene->AddGameObject(hpBar, 4, true);
 
@@ -263,11 +254,8 @@ void CTestScene::InitTestMap(CScene* scene)
 	monster->Transform()->SetScale(Vec3(100.f, 150.f, 1.f));
 
 	monster->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	CMaterial* monsterMaterial = new CMaterial;
-	monsterMaterial->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+	Ptr<CMaterial> monsterMaterial = CResourceManager::GetInst()->CreateMaterial(L"monster_material", CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
 	monsterMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"monster").Get());
-
-	CResourceManager::GetInst()->AddResource(L"monster_material", monsterMaterial);
 	monster->MeshRender()->SetMaterial(monsterMaterial);
 
 	const auto monsterLeftShooter = monster->Clone();
@@ -284,7 +272,5 @@ void CTestScene::InitTestMap(CScene* scene)
 	monster->AddComponent(new CMonsterScript);
 	//몬스터 3번
 	scene->AddGameObject(monster, 3, true);
-
-
 
 }

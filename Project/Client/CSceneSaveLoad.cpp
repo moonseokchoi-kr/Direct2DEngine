@@ -6,7 +6,15 @@
 #include <Engine/CLayer.h>
 #include <Engine/CComponent.h>
 #include <Engine/CGameObject.h>
+#include <Engine/CScript.h>
 
+#include <Script/CScriptManager.h>
+
+void CSceneSaveLoad::Init()
+{
+    CPrefab::g_save_fucntion_ = &CSceneSaveLoad::SaveGameObject;
+    CPrefab::g_load_function_ = &CSceneSaveLoad::LoadGameObject;
+}
 
 void CSceneSaveLoad::SaveScene(const wstring& filePath)
 {
@@ -83,7 +91,7 @@ void CSceneSaveLoad::SaveGameObject(CGameObject* obj, FILE* file)
     }
 
     //script
-
+    SaveScript(obj, file);
     //child object 
     const vector<CGameObject*>& child_vector = obj->GetChildObjects();
     size_t childCount = child_vector.size();
@@ -118,7 +126,7 @@ CGameObject* CSceneSaveLoad::LoadGameObject(FILE* file)
 	}
 
     //Script
-
+    LoadScript(obj, file);
     //child object
 
 	size_t childCount = 0;
@@ -131,4 +139,37 @@ CGameObject* CSceneSaveLoad::LoadGameObject(FILE* file)
 	}
 
     return obj;
+}
+
+void CSceneSaveLoad::SaveScript(CGameObject* obj, FILE* file)
+{
+    const vector<CScript*>& script_vector = obj->GetScripts();
+    
+    size_t scriptCount = script_vector.size();
+    fwrite(&scriptCount, sizeof(size_t), 1, file);
+
+    for (const auto& script : script_vector)
+    {
+        wstring scriptName = CScriptManager::GetScriptName(script);
+        SaveWStringToFile(scriptName, file);
+
+        script->SaveToScene(file);
+    }
+}
+
+void CSceneSaveLoad::LoadScript(CGameObject* obj, FILE* file)
+{
+\
+
+	size_t scriptCount = 0;
+	fread(&scriptCount, sizeof(size_t), 1, file);
+    wstring name;
+	for (size_t i=0; i<scriptCount; ++i)
+	{
+        LoadWStringFromFile(name, file);
+		CScript* script = CScriptManager::GetScript(name);
+        script->LoadFromScene(file);
+
+        obj->AddComponent(script);
+	}
 }

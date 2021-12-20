@@ -10,6 +10,7 @@
 #include "WidgetManager.h"
 #include "ToolObjectManager.h"
 #include "CTestScene.h"
+#include "CSceneSaveLoad.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "Engine/Engine_debug.lib")
@@ -50,6 +51,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         MessageBox(nullptr, L"Core초기화 실패", L"DirectX 초기화 오류", MB_OK);
         return E_FAIL;
     }
+    
+    CSceneSaveLoad::Init();
 
     CTestScene::CreateTestScene();
     //CTestScene::CreatePrefab();

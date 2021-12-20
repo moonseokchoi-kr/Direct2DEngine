@@ -11,5 +11,9 @@ public:
 private:
     void ShowFileMenu();
     void ShowSceneMenu();
+
+private:
+    bool is_select_;
+    bool is_play_;
 };
 

@@ -331,7 +331,8 @@ void CResourceManager::CreateDefaultComputeShader()
 void CResourceManager::AddPrefab(const wstring& stringKey, CGameObject* prototype)
 {
 	Ptr<CPrefab> prefab = new CPrefab(prototype);
-
+	const wstring relativePath = CreateRelativePath(stringKey, prefab);
+	prefab->Save(relativePath);
 	AddResource<CPrefab>(stringKey, prefab.Get());
 }
 

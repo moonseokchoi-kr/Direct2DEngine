@@ -58,3 +58,22 @@ Ptr<CTexture> CResourceManager::CreateTexture(const wstring& key, ComPtr<ID3D11T
 
 	return texture;
 }
+
+Ptr<CMaterial> CResourceManager::CreateMaterial(const wstring& key, Ptr<CGraphicsShader> shader)
+{
+	Ptr<CMaterial> material = FindRes<CMaterial>(key);
+
+	if (nullptr != material)
+	{
+		MessageBox(nullptr, L"마테리얼 이름 중복,", L"마테리얼 생성 실패", MB_OK);
+		return material;
+	}
+	material = new CMaterial;
+	wstring relativePath = CreateRelativePath(key, material);
+	material->SetShader(shader);
+	material->Save(relativePath);
+
+	AddResource(key, material.Get());
+
+	return material;
+}

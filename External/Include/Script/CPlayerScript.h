@@ -14,6 +14,10 @@ public:
 public:
     void CreateBullet();
     void UpdateAnimation();
+
+public:
+    void SaveToScene(FILE* file) override;
+    void LoadFromScene(FILE* file) override;
 public:
     CLONE(CPlayerScript);
 private:

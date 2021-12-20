@@ -50,6 +50,10 @@ public:
 public:
 	const vector<ScriptParameter>& GetParameter() { return parameter_vector_; }
     int GetScriptType() { return script_type_; }
+
+public:
+    void SaveToScene(FILE* file);
+    void LoadFromScene(FILE* file);
 private:
     void UpdateData()  override {};
 

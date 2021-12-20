@@ -132,3 +132,15 @@ void CPlayerScript::UpdateAnimation()
 			GetAnimator2D()->Play(L"FLY_LEFT", 0, true);
 	}
 }
+
+void CPlayerScript::SaveToScene(FILE* file)
+{
+	__super::SaveToScene(file);
+	SaveResReference(player_bullet_prefab_,file);
+}
+
+void CPlayerScript::LoadFromScene(FILE* file)
+{
+	__super::LoadFromScene(file);
+	LoadResReference(player_bullet_prefab_, file);
+}

@@ -288,6 +288,8 @@ void CGameObject::ReigsterAsPrefab(const wstring& prefabName)
 		assert(nullptr);
 	}
 
+	
+
 	CResourceManager::GetInst()->AddPrefab(prefabName, this);
 }
 
