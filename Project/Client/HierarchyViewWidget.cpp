@@ -9,6 +9,7 @@
 #include <Engine/CEventManager.h>
 #include <Engine/CGameObject.h>
 #include <Engine/CKeyManager.h>
+#include <Engine/CTransform.h>
 #include <Engine/CLayer.h>
 #include <Engine/CScene.h>
 
@@ -25,6 +26,7 @@ HierarchyViewWidget::~HierarchyViewWidget()
 void HierarchyViewWidget::Init()
 {
 	Renew();
+
 }
 
 void HierarchyViewWidget::Update()
@@ -39,6 +41,9 @@ void HierarchyViewWidget::Update()
 		UpdateChildren();
 		if (ImGui::IsWindowFocused())
 			KeyCheck();
+
+		ShowRightPopUp();
+
 		ImGui::End();
 	}
 	else
@@ -87,6 +92,15 @@ void HierarchyViewWidget::KeyCheck()
 			inspector->SetGameObject(nullptr);
 		}
 	}
+	if (ImGui::IsMouseReleased(ImGuiMouseButton_Right))
+	{
+		if (!is_popup_open_)
+		{
+			ImGui::OpenPopup("Object Menu");
+		}
+	}
+
+
 }
 
 void HierarchyViewWidget::AddGameObject(Node* destItem, CGameObject* object)
@@ -127,4 +141,30 @@ void HierarchyViewWidget::DropGameObject(DWORD_PTR dragStratNode, DWORD_PTR drop
 	evn.wParam = (DWORD_PTR)child;
 
 	CEventManager::GetInst()->AddEvent(evn);
+}
+
+void HierarchyViewWidget::ShowRightPopUp()
+{
+	bool is_play = SCENE_MODE::STOP == CSceneManager::GetInst()->GetSceneMode();
+	if(ImGui::BeginPopup("Object Menu", ImGuiWindowFlags_Popup))
+	{
+		is_popup_open_ = true;
+		if (ImGui::MenuItem("Create New Object", NULL, false, is_play)) 
+		{
+			CGameObject* object = new CGameObject;
+			object->AddComponent(new CTransform);
+			wstring name = L"Object" + to_wstring(object->GetID());
+			object->SetName(name);
+
+			CEventManager::GetInst()->AddEvent(Event{EVENT_TYPE::CREATE_OBJECT,(DWORD_PTR)object,(DWORD_PTR)0 });
+		}
+		if (ImGui::MenuItem("Remove all", NULL, false, is_play)) {}
+		ImGui::EndPopup();
+	}
+	else
+	{
+		is_popup_open_ = false;
+		ImGui::CloseCurrentPopup();
+	}
+
 }

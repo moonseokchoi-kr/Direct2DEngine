@@ -22,8 +22,10 @@ private:
     void AddGameObject(Node* destItem, CGameObject* object);
     void ClickGameObject(DWORD_PTR, DWORD_PTR);
     void DropGameObject(DWORD_PTR, DWORD_PTR);
-    
+    void ShowRightPopUp();
 private:
     TreeWidget object_tree_;
+    
+    bool is_popup_open_;
 };
 
