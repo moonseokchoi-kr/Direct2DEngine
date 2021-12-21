@@ -12,6 +12,9 @@
 #include "ScriptWidget.h"
 
 #include <Engine/CGameObject.h>
+#include <Engine/CKeyManager.h>
+#include <Script/CScriptManager.h>
+
 
 InspectorWidget::InspectorWidget()
 	:Widget("inspector_view")
@@ -42,8 +45,13 @@ void InspectorWidget::Update()
 
 	if (nullptr != target_object_ || nullptr != target_resource_)
 	{
+
 		if (nullptr != target_object_)
+		{
 			ShowObjectInfo();
+			ShowAddComponentButton();
+		}
+			
 		else if (nullptr != target_resource_)
 			ShowResourceInfo();
 	}
@@ -54,8 +62,17 @@ void InspectorWidget::Update()
 	ImGui::End();
 }
 
+
+
 void InspectorWidget::ShowObjectInfo()
 {
+	string name = WStringToString(target_object_->GetName());
+	if (ImGui::InputText("##targetName", name.data(), (int)name.size()))
+	{
+		if (KEY_TAP(KEY::ENTER))
+			target_object_->SetName(StringToWString(name));
+	}
+
 	for (size_t i=0; i<component_widget_array_.size(); ++i)
 	{
 		if(nullptr == component_widget_array_[i] || nullptr == target_object_->GetComponent(static_cast<COMPONENT_TYPE>(i)))
@@ -66,8 +83,34 @@ void InspectorWidget::ShowObjectInfo()
 	ShowSciprtInfo();
 }
 
+void InspectorWidget::ShowAddComponentButton()
+{
+	ImGui::Indent(80);
+	ImGui::Unindent();
+
+	ImGui::PushID(0);
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, IM_COL32(180,248,201,255));
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, IM_COL32(161,231,229,255));
+	if (ImGui::Button("Add Component", ImVec2(200, 0)))
+	{
+		ImGui::OpenPopup(component_filter_widget_.GetName().c_str());
+		component_filter_widget_.SetInstance(target_object_);
+	}
+	component_filter_widget_.Update();
+	ImGui::PopStyleColor();
+	ImGui::PopStyleColor();
+	ImGui::PopID();
+	ImGui::Indent(80);
+	ImGui::Unindent();
+}
+
 void InspectorWidget::ShowResourceInfo()
 {
+	string name = WStringToString(target_resource_->GetKey());
+	ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(50, 255, 210, 255));
+	ImGui::Text(name.c_str());
+	ImGui::PopStyleColor();
+
 	RESOURCE_TYPE type = target_resource_->GetResourceType();
 	if (nullptr == resource_widget_array_[(UINT)type])
 		return;

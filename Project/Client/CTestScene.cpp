@@ -23,7 +23,7 @@
 #include <Engine/CCollisionManager.h>
 #include <Engine/CSceneManager.h>
 
-#include <Script/CMonsterHpBar.h>
+#include <Script/CMonsterHpBarScript.h>
 #include <Script/CBulletScript.h>
 #include <Script/CPlayerScript.h>
 #include <Script/CMoveScript.h>
@@ -206,7 +206,7 @@ void CTestScene::InitTestMap(CScene* scene)
 	const auto hpBar = new CGameObject;
 	hpBar->AddComponent(new CTransform);
 	hpBar->AddComponent(new CMeshRender);
-	hpBar->AddComponent(new CMonsterHpBar);
+	hpBar->AddComponent(new CMonsterHpBarScript);
 	hpBar->SetName(L"hp_ui");
 	hpBar->Transform()->SetPosition(Vec3(0.f, 400.f, 300.f));
 	hpBar->Transform()->SetScale(Vec3(1000.f, 10.f, 1.f));

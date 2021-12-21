@@ -25,6 +25,9 @@
 #include <cmath>
 #include <assert.h>
 #include <crtdbg.h>
+#include <functional>
+
+
 
 using std::wstring;
 using std::string;
@@ -38,6 +41,8 @@ using std::array;
 using std::to_wstring;
 using std::random_device;
 using std::mt19937;
+
+using std::function;
 
 #include "singleton.h"
 #include "magic_enum.hpp"

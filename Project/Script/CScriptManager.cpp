@@ -2,7 +2,7 @@
 #include "CScriptManager.h"
 
 #include "CBulletScript.h"
-#include "CMonsterHpBar.h"
+#include "CMonsterHpBarScript.h"
 #include "CMonsterScript.h"
 #include "CMoveScript.h"
 #include "CPlayerScript.h"
@@ -10,36 +10,36 @@
 void CScriptManager::GetScriptInfo(vector<wstring>& vec)
 {
 	vec.push_back(L"CBulletScript");
-	vec.push_back(L"CMonsterHpBar");
+	vec.push_back(L"CMonsterHpBarScript");
 	vec.push_back(L"CMonsterScript");
 	vec.push_back(L"CMoveScript");
 	vec.push_back(L"CPlayerScript");
 }
 
-CScript * CScriptManager::GetScript(const wstring& _strScriptName)
+CScript * CScriptManager::GetScript(const wstring& strScriptName)
 {
-	if (L"CBulletScript" == _strScriptName)
+	if (L"CBulletScript" == strScriptName)
 		return new CBulletScript;
-	if (L"CMonsterHpBar" == _strScriptName)
-		return new CMonsterHpBar;
-	if (L"CMonsterScript" == _strScriptName)
+	if (L"CMonsterHpBarScript" == strScriptName)
+		return new CMonsterHpBarScript;
+	if (L"CMonsterScript" == strScriptName)
 		return new CMonsterScript;
-	if (L"CMoveScript" == _strScriptName)
+	if (L"CMoveScript" == strScriptName)
 		return new CMoveScript;
-	if (L"CPlayerScript" == _strScriptName)
+	if (L"CPlayerScript" == strScriptName)
 		return new CPlayerScript;
 	return nullptr;
 }
 
-CScript * CScriptManager::GetScript(UINT _iScriptType)
+CScript * CScriptManager::GetScript(UINT iScriptType)
 {
-	switch (_iScriptType)
+	switch (iScriptType)
 	{
 	case (UINT)SCRIPT_TYPE::BULLETSCRIPT:
 		return new CBulletScript;
 		break;
-	case (UINT)SCRIPT_TYPE::MONSTERHPBAR:
-		return new CMonsterHpBar;
+	case (UINT)SCRIPT_TYPE::MONSTERHPBARSCRIPT:
+		return new CMonsterHpBarScript;
 		break;
 	case (UINT)SCRIPT_TYPE::MONSTERSCRIPT:
 		return new CMonsterScript;
@@ -54,16 +54,16 @@ CScript * CScriptManager::GetScript(UINT _iScriptType)
 	return nullptr;
 }
 
-const wchar_t * CScriptManager::GetScriptName(CScript * _pScript)
+const wchar_t * CScriptManager::GetScriptName(CScript *pScript)
 {
-	switch ((SCRIPT_TYPE)_pScript->GetScriptType())
+	switch ((SCRIPT_TYPE)pScript->GetScriptType())
 	{
 	case SCRIPT_TYPE::BULLETSCRIPT:
 		return L"CBulletScript";
 		break;
 
-	case SCRIPT_TYPE::MONSTERHPBAR:
-		return L"CMonsterHpBar";
+	case SCRIPT_TYPE::MONSTERHPBARSCRIPT:
+		return L"CMonsterHpBarScript";
 		break;
 
 	case SCRIPT_TYPE::MONSTERSCRIPT:

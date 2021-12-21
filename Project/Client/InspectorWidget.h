@@ -1,5 +1,6 @@
 #pragma once
 #include "Widget.h"
+#include "CompoenetFilterPopupWidget.h"
 
 #include <Engine/CResource.h>
 
@@ -23,6 +24,7 @@ public:
     void SetTargetResource(Ptr<CResource> target) { target_object_ = nullptr; target_resource_ = target; }
 private:
     void ShowObjectInfo();
+    void ShowAddComponentButton();
     void ShowResourceInfo();
     void ShowSciprtInfo();
 private:
@@ -31,5 +33,6 @@ private:
     array<ComponentWidget*, static_cast<UINT>(COMPONENT_TYPE::END)> component_widget_array_;
     array<ResourceWidget*, (UINT)(RESOURCE_TYPE::END)> resource_widget_array_;
     vector<ScriptWidget*> script_widget_vector_;
+    CompoenetFilterPopupWidget component_filter_widget_;
 };
 

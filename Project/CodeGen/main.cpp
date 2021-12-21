@@ -166,7 +166,7 @@ int main()
 
 	for (UINT i = 0; i < g_vecName.size(); ++i)
 	{
-		fwprintf_s(pFile, L"\vec.push_back(L\"");
+		fwprintf_s(pFile, L"\tvec.push_back(L\"");
 		fwprintf_s(pFile, g_vecName[i].c_str());
 		fwprintf_s(pFile, L"\");\n");
 	}

@@ -26,7 +26,7 @@
     <ClInclude Include="CBulletScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
-    <ClInclude Include="CMonsterHpBar.h">
+    <ClInclude Include="CMonsterHpBarScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
     <ClInclude Include="CMonsterScript.h">
@@ -49,7 +49,7 @@
     <ClCompile Include="CBulletScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
-    <ClCompile Include="CMonsterHpBar.cpp">
+    <ClCompile Include="CMonsterHpBarScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
     <ClCompile Include="CMonsterScript.cpp">

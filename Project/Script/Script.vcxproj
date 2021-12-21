@@ -182,7 +182,7 @@ call CodeGen.exe</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CBulletScript.h" />
-    <ClInclude Include="CMonsterHpBar.h" />
+    <ClInclude Include="CMonsterHpBarScript.h" />
     <ClInclude Include="CMonsterScript.h" />
     <ClInclude Include="CMoveScript.h" />
     <ClInclude Include="CPlayerScript.h" />
@@ -192,7 +192,7 @@ call CodeGen.exe</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBulletScript.cpp" />
-    <ClCompile Include="CMonsterHpBar.cpp" />
+    <ClCompile Include="CMonsterHpBarScript.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />
     <ClCompile Include="CMoveScript.cpp" />
     <ClCompile Include="CPlayerScript.cpp" />

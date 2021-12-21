@@ -181,6 +181,8 @@
     <ClInclude Include="CSceneSaveLoad.h" />
     <ClInclude Include="CTestScene.h" />
     <ClInclude Include="DataInputWidget.h" />
+    <ClInclude Include="CompoenetFilterPopupWidget.h" />
+    <ClInclude Include="FilterWidget.h" />
     <ClInclude Include="HierarchyViewWidget.h" />
     <ClInclude Include="MaterialWidget.h" />
     <ClInclude Include="ModalListWidget.h" />
@@ -236,6 +238,8 @@
     <ClCompile Include="CSceneSaveLoad.cpp" />
     <ClCompile Include="CTestScene.cpp" />
     <ClCompile Include="DataInputWidget.cpp" />
+    <ClCompile Include="CompoenetFilterPopupWidget.cpp" />
+    <ClCompile Include="FilterWidget.cpp" />
     <ClCompile Include="HierarchyViewWidget.cpp" />
     <ClCompile Include="MaterialWidget.cpp" />
     <ClCompile Include="ModalListWidget.cpp" />
