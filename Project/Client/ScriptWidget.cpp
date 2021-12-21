@@ -60,6 +60,8 @@ void ScriptWidget::Start()
 {
 	string strScriptName = WStringToString(target_script_->GetName());
 
+	if (widget_height_ <80.f)
+		widget_height_ = 80.f;
 
 	ImGui::BeginChild(strScriptName.c_str(), ImVec2(0, widget_height_));
 

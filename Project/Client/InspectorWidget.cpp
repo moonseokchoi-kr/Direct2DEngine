@@ -49,7 +49,7 @@ void InspectorWidget::Update()
 		if (nullptr != target_object_)
 		{
 			ShowObjectInfo();
-			ShowAddComponentButton();
+
 		}
 			
 		else if (nullptr != target_resource_)
@@ -80,11 +80,18 @@ void InspectorWidget::ShowObjectInfo()
 		component_widget_array_[i]->SetTarget(target_object_);
 		component_widget_array_[i]->Update();
 	}
+
+
 	ShowSciprtInfo();
+
+	ShowAddComponentButton();
+
 }
 
 void InspectorWidget::ShowAddComponentButton()
 {
+	ImGui::Spacing();
+
 	ImGui::Indent(80);
 	ImGui::Unindent();
 
