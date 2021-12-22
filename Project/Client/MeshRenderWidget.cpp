@@ -77,8 +77,8 @@ void MeshRenderWidget::Update()
 
 void MeshRenderWidget::ChangeMesh(DWORD_PTR instance, DWORD_PTR meshName)
 {
-	ModalListWidget* widget = (ModalListWidget*)instance;
-	string strName = widget->GetSelectedName();
+	ComboWidget* widget = (ComboWidget*)instance;
+	string strName = widget->GetSelectedItem();
 	wchar_t szName[256] = {};
 	MultiByteToWideChar(CP_ACP, 0, strName.c_str(), (int)strName.size(), szName, 256);
 	CMeshRender* meshRender = GetTarget()->MeshRender();
@@ -87,8 +87,8 @@ void MeshRenderWidget::ChangeMesh(DWORD_PTR instance, DWORD_PTR meshName)
 
 void MeshRenderWidget::ChangeMaterial(DWORD_PTR instance, DWORD_PTR materialName)
 {
-	ModalListWidget* widget = (ModalListWidget*)instance;
-	string strName = widget->GetSelectedName();
+	ComboWidget* widget = (ComboWidget*)instance;
+	string strName = widget->GetSelectedItem();
 	wchar_t szName[256] = {};
 	MultiByteToWideChar(CP_ACP, 0, strName.c_str(), (int)strName.size(), szName, 256);
 	CMeshRender* meshRender = GetTarget()->MeshRender();

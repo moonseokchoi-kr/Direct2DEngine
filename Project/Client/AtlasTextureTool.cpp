@@ -212,7 +212,6 @@ void AtlasTextureTool::ShowAtlasVeiw()
 				else
 					TileMapMouseMode();
 
-
 				ImGui::BeginTooltip();
 
 				if (region_x < 0.0f) { region_x = 0.0f; }
@@ -236,7 +235,7 @@ void AtlasTextureTool::ShowAtlasVeiw()
 				draw_list->AddImage(atlas_->GetShaderResourceView(), ImVec2(canvas_lt_.x + scrolling_.x, canvas_lt_.y + scrolling_.y),
 					ImVec2(canvas_lt_.x + scrolling_.x + width, canvas_lt_.y + scrolling_.y + height), uv_min, uv_max);
 				if (mode_ == TOOL_TYPE::ANIMATOR)
-					draw_list->AddRect(ImVec2(current_mouse_pos_.x - region_size_.x / 2.f * zoom_, current_mouse_pos_.y - region_size_.y / 2.f * zoom_), ImVec2(current_mouse_pos_.x + region_size_.x / 2.f * zoom_, current_mouse_pos_.y + region_size_.y / 2.f * zoom_), IM_COL32(51, 218, 32, 255));
+					draw_list->AddRect(ImVec2(current_mouse_pos_.x , current_mouse_pos_.y), ImVec2(current_mouse_pos_.x + region_size_.x  * zoom_, current_mouse_pos_.y + region_size_.y), IM_COL32(51, 218, 32, 255));
 			}
 			if (mode_ == TOOL_TYPE::TILEMAP)
 			{

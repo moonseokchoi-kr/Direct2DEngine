@@ -2,11 +2,15 @@
 #include "MenuWidget.h"
 #include "WidgetManager.h"
 #include "CSceneSaveLoad.h"
+#include "InspectorWidget.h"
+
+
 
 #include <Engine/CSceneManager.h>
 #include <Engine/CPathManager.h>
 #include <Engine/CEventManager.h>
 #include <Engine/CScene.h>
+
 
 MenuWidget::MenuWidget()
 	:Widget("menu_bar")
@@ -46,7 +50,9 @@ void MenuWidget::ShowFileMenu()
 			wstring contentPath = CPathManager::GetInst()->GetContentPath();
 			contentPath += L"scene\\test.scene";
 			CScene* newScene = CSceneSaveLoad::LoadScene(contentPath);
+			InspectorWidget* widget =(InspectorWidget*)WidgetManager::GetInst()->FindWidget("inspector_view");
 			CEventManager::GetInst()->AddEvent(Event{ EVENT_TYPE::SCENE_CHANGE, (DWORD_PTR)newScene, 0 });
+			widget->SetGameObject(nullptr);
 		}
 
 		ImGui::EndMenu();
@@ -89,7 +95,7 @@ void MenuWidget::ShowSceneMenu()
 				//pCurScene->Save();
 			}
 			bPush = true;
-		}
+		} 
 
 		if (ImGui::MenuItem("Pause", nullptr, nullptr, enable_pause))
 		{
@@ -105,7 +111,9 @@ void MenuWidget::ShowSceneMenu()
 			wstring contentPath = CPathManager::GetInst()->GetContentPath();
 			contentPath += L"scene\\test.scene";
 			CScene* newScene = CSceneSaveLoad::LoadScene(contentPath);
+			InspectorWidget* widget = (InspectorWidget*)WidgetManager::GetInst()->FindWidget("inspector_view");
 			CEventManager::GetInst()->AddEvent(Event{ EVENT_TYPE::SCENE_CHANGE, (DWORD_PTR)newScene, 0 });
+			widget->SetGameObject(nullptr);
 			bPush = true;
 		}
 

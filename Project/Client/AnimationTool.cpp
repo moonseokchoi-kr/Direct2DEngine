@@ -250,6 +250,7 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			ImGui::TableNextColumn();
 			if (ImGui::Button("open editor") && !atlas_tool_->IsActive())
 			{
+				atlas_tool_->SetMode(TOOL_TYPE::ANIMATOR);
 				atlas_tool_->Activate();
 			}
 

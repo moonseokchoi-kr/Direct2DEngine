@@ -32,32 +32,18 @@ void AnimationWidget::Update()
 
 			ImGui::Text("Current Animation");
 			ImGui::TableNextColumn();
-			array<char, 256> str = { 0, };
-			WideCharToMultiByte(CP_ACP, 0, animation->GetName().c_str(), -1, str.data(), (int)animation->GetName().size(), nullptr, nullptr);
-			if (ImGui::Button(str.data(), ImVec2(200, 0)))
+			
+			const unordered_map<wstring, CAnimation2D*>& animMap= animator->GetAnimations();
+			int count = 0;
+			combo_.SetCallback(this, (COMBO_CALLBACK)&AnimationWidget::ChangeAnimation);
+			for (const auto& pair : animMap)
 			{
-				ModalListWidget* listWidget = dynamic_cast<ModalListWidget*>(WidgetManager::GetInst()->FindWidget("modal_list"));
-
-				array<char, 255> szBuffer = { 0, };
-				const unordered_map<wstring, CAnimation2D*>& animationMap = animator->GetAnimations();
-				int count = 0;
-				for (const auto& pair : animationMap)
-				{
-					if (!listWidget->isOpen())
-					{
-						WideCharToMultiByte(CP_ACP, 0, pair.first.c_str(), -1, szBuffer.data(), (int)pair.first.size(), nullptr, nullptr);
-						listWidget->AddItem(szBuffer.data());
-						if (animation != nullptr && animation->GetName() == pair.first)
-							listWidget->SetCurrentIndex(count);
-						szBuffer.fill(0);
-						++count;
-					}
-				}
-
-				listWidget->SetCaption("Select Animation");
-				listWidget->SetCallbackFunc(this, (MODAL_LIST_CALLBACK)&AnimationWidget::ChangeAnimation);
-				listWidget->Activate();
+				combo_.AddComboData(WStringToString(pair.first));
+				if (nullptr != animation && pair.first == animation->GetName())
+					combo_.SetCurrentIndex(count);
+				++count;
 			}
+			combo_.Update();
 	
 
 			ImGui::TableNextRow();
@@ -114,9 +100,9 @@ void AnimationWidget::Update()
 
 void AnimationWidget::ChangeAnimation(DWORD_PTR instance, DWORD_PTR animationName)
 {
-	ModalListWidget* widget = reinterpret_cast<ModalListWidget*>(instance);
+	ComboWidget* widget = reinterpret_cast<ComboWidget*>(instance);
 
-	string name = widget->GetSelectedName();
+	string name = widget->GetSelectedItem();
 	array<wchar_t, 256> wStr = { 0, };
 	MultiByteToWideChar(CP_ACP, 0, name.c_str(), (int)name.size(), wStr.data(), (int)wStr.size());
 	GetTarget()->Animator2D()->Play(wStr.data(), 0, true);

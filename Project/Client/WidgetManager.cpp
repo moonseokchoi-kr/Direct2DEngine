@@ -166,8 +166,6 @@ void WidgetManager::CreateWidgets()
 
 	widget = new InspectorWidget;
 	widget->Activate();
-	Ptr<CMaterial> target = CResourceManager::GetInst()->FindRes<CMaterial>(L"backgound_material");
-	((InspectorWidget*)widget)->SetTargetResource(target.Get());
 	AddWidget(widget->GetName(), widget);
 
 	widget = new ModalListWidget;
