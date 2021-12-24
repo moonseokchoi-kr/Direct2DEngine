@@ -232,10 +232,10 @@ void AtlasTextureTool::ShowAtlasVeiw()
 
 			draw_list->PushClipRect(canvas_lt_, canvas_p1, true);
 			{
-				draw_list->AddImage(atlas_->GetShaderResourceView(), ImVec2(canvas_lt_.x + scrolling_.x, canvas_lt_.y + scrolling_.y),
-					ImVec2(canvas_lt_.x + scrolling_.x + width, canvas_lt_.y + scrolling_.y + height), uv_min, uv_max);
+				draw_list->AddImage(atlas_->GetShaderResourceView(), ImVec2(canvas_lt_.x , canvas_lt_.y ),
+					ImVec2(canvas_lt_.x  + width, canvas_lt_.y  + height), uv_min, uv_max);
 				if (mode_ == TOOL_TYPE::ANIMATOR)
-					draw_list->AddRect(ImVec2(current_mouse_pos_.x , current_mouse_pos_.y), ImVec2(current_mouse_pos_.x + region_size_.x  * zoom_, current_mouse_pos_.y + region_size_.y), IM_COL32(51, 218, 32, 255));
+					draw_list->AddRect(ImVec2(current_mouse_pos_.x-region_size_.x/2.f*zoom_ , current_mouse_pos_.y - region_size_.x / 2.f*zoom_), ImVec2(current_mouse_pos_.x + region_size_.x/2.f  * zoom_, current_mouse_pos_.y + region_size_.y/2.f*zoom_), IM_COL32(51, 218, 32, 255));
 			}
 			if (mode_ == TOOL_TYPE::TILEMAP)
 			{
@@ -256,10 +256,6 @@ void AtlasTextureTool::ShowAtlasVeiw()
 			}
 
 			draw_list->PopClipRect();
-			
-
-
-
 		}
 	}
 	else
@@ -297,7 +293,7 @@ void AtlasTextureTool::AnimationMouseMode(float region_x, float region_y)
 
 	if (ImGui::IsMouseClicked(ImGuiMouseButton_Left))
 	{
-		current_mouse_pos_ = Vec2(io.MousePos.x - region_size_.x / 2.f, io.MousePos.y - region_size_.x / 2.f);
+		current_mouse_pos_ = Vec2(io.MousePos.x, io.MousePos.y);
 		release_mouse_ = false;
 
 	}
@@ -307,13 +303,13 @@ void AtlasTextureTool::AnimationMouseMode(float region_x, float region_y)
 	}
 	if (ImGui::IsMouseReleased(ImGuiMouseButton_Left))
 	{
+		if (region_x < 0)
+			region_x = 0.f;
+		if (region_y < 0)
+			region_y = 0.f;
 		selected_left_top_ = Vec2(region_x, region_y) / zoom_;
 		//current_mouse_pos_ = Vec2(-1, -1);
 		release_mouse_ = true;
-	}
-	if (ImGui::IsMouseDragging(ImGuiMouseButton_Right))
-	{
-		scrolling_ += Vec2(io.MouseDelta.x, io.MouseDelta.y);
 	}
 }
 

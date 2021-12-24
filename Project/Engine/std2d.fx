@@ -48,18 +48,7 @@ float4 ps_main(VS_OUTPUT _in) : SV_Target
     }
     else
     {
-        
-        if(int_0)
-            outputColor = tex_0.Sample(mip_sam, _in.uv)* float4(2.f, 1.f, 1.f, 1.f);
-        else if(float_0)
-            outputColor = tex_0.Sample(mip_sam, _in.uv)*float4(1.f, 2.f, 1.f, 1.f);
-        else if (vec2_0.x)
-            outputColor = tex_0.Sample(mip_sam, _in.uv)* float4(1.f, 1.f, 2.f, 1.f);
-        else if (vec4_0.x)
-            outputColor = tex_0.Sample(mip_sam, _in.uv)* float4(1.f, 1.f, 1.f, 0.5f);
-        else
-            outputColor = tex_0.Sample(mip_sam, _in.uv);
-        
+        outputColor = tex_0.Sample(mip_sam, _in.uv);
     }
  
     

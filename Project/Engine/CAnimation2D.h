@@ -55,6 +55,8 @@ public:
 	static void ClearAnim();
 	void ClearFrame(int index);
 
+	void SetCollisionOffset();
+
 public:
 	void SaveToScene(FILE* file) override;
 	void LoadFromScene(FILE* file) override;
@@ -62,10 +64,12 @@ private:
 	vector<AnimationFrame> frame_vector_;
 	CAnimator2D* owner_;
 	Ptr<CTexture> atlas_texture_;
+	Vec2 animation_back_board_;
+
 	int current_frame_;
 	bool animation_finish_;
 	float accumulated_time_;
-	Vec2 animation_back_board_;
+
 	bool animation_repeat_;
 	bool play_on_start_;
 	friend class CAnimator2D;

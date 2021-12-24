@@ -94,6 +94,15 @@ void AnimationWidget::Update()
 			tool->Activate();
 			
 		}
+		ImGui::SameLine();
+		if (ImGui::Button("Edit Animation", ImVec2(100, 0)))
+		{
+			AnimationTool* tool = dynamic_cast<AnimationTool*>(WidgetManager::GetInst()->FindWidget("animation_tool"));
+			tool->SetTargetAnimator(GetTarget()->Animator2D());
+			tool->SetCurrentAnimation(GetTarget()->Animator2D()->GetCurrentAnimation());
+			tool->SetToolType(ANIMATION_TOOL_TYPE::EDIT);
+			tool->Activate();
+		}
 	}
 	End();
 }

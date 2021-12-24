@@ -1,9 +1,14 @@
 #include "pch.h"
 #include "CAnimation2D.h"
+
 #include "CConstBuffer.h"
 
 #include "CTimeManager.h"
 #include "CDevice.h"
+
+#include "CGameObject.h"
+#include "CCollider2D.h"
+#include "CAnimator2D.h"
 
 CAnimation2D::CAnimation2D()
 	:owner_(nullptr)
@@ -36,7 +41,8 @@ void CAnimation2D::LateUpdate()
 	if (animation_finish_)
 		return;
 	accumulated_time_ += fDT;
-
+	//현재 애니메이션의 오프셋에 맞게 콜라이더 오프셋 설정
+	SetCollisionOffset();
 	if (frame_vector_[current_frame_].duration < accumulated_time_)
 	{
 		++current_frame_;
@@ -64,6 +70,7 @@ void CAnimation2D::UpdateData()
 
 	atlas_texture_->SetPipelineStage(PIPELINE_STAGE::PS_PIXEL, 12);
 	atlas_texture_->UpdateData();
+
 }
 
 void CAnimation2D::Create(const wstring& animationName, Ptr<CTexture> texture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration)
@@ -134,6 +141,16 @@ void CAnimation2D::ClearFrame(int index)
 		current_frame_ -= 1;
 	else
 		current_frame_ = 0;
+}
+
+void CAnimation2D::SetCollisionOffset()
+{
+	CCollider2D* collision = nullptr;
+	if(nullptr != owner_)
+		collision = owner_->GetOwner()->Collider2D();
+	if (nullptr == collision)
+		return;
+	collision->SetOffsetPosition(frame_vector_[current_frame_].animation_data.offset);
 }
 
 void CAnimation2D::SaveToScene(FILE* file)

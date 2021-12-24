@@ -34,7 +34,9 @@ public:
     Ptr<CTexture> GetAtlas() { return atlas_; }
     void SetAtlas(Ptr<CTexture> atlas) { atlas_ = atlas; }
     Vec2 GetSelectedLeftTop() { return selected_left_top_; }
+    void SetSelectedLeftTop(Vec2 leftTop) { selected_left_top_ = leftTop; }
     Vec2 GetRegionSize() { return region_size_; }
+    void SetRegionSize(Vec2 size) { region_size_ = size; }
 
     Vec2 GetBackBoardSize() { return back_board_size_; }
     void SetBackBoardSize(Vec2 backBorad) { back_board_size_ = backBorad; }

@@ -25,9 +25,11 @@ AnimationTool::AnimationTool()
 	, target_animator_(nullptr)
 	, offset_tool_(nullptr)
 	, atlas_tool_(nullptr)
+	, is_update_(false)
 	, window_flags_(0)
 	, current_index_(0)
 	, duration_(0.1f)
+	,type_(ANIMATION_TOOL_TYPE::CREATE)
 {
 }
 
@@ -47,14 +49,25 @@ void AnimationTool::Update()
 {
 	ImGui::SetNextWindowSize(ImVec2(1400, 600), ImGuiCond_FirstUseEver);
 	if (CSceneManager::GetInst()->GetSceneMode() == SCENE_MODE::PLAY)
-		return;
+		return; 
+	if (nullptr != animation_&&ANIMATION_TOOL_TYPE::EDIT==type_&&!is_update_)
+	{
+		atlas_tool_->SetAtlas(animation_->GetAtlas());
+		current_frame_ = animation_->GetCurrentFrameData();
+		current_index_ = animation_->GetCurrentFrameIndex();
+		duration_ = current_frame_.duration;
+		atlas_tool_->SetMode(TOOL_TYPE::ANIMATOR);
+		atlas_tool_->SetSelectedLeftTop(current_frame_.animation_data.left_top* Vec2(atlas_tool_->GetAtlas()->GetWidth(),atlas_tool_->GetAtlas()->GetHeight()));
+		atlas_tool_->SetRegionSize(current_frame_.animation_data.size * Vec2(atlas_tool_->GetAtlas()->GetWidth(), atlas_tool_->GetAtlas()->GetHeight()));
+		atlas_tool_->Activate();
+		is_update_ = true;
+	}
 	if (nullptr != atlas_tool_->GetAtlas() && nullptr == animation_)
 	{
 		animation_ = new CAnimation2D;
 		animation_->SetName(L"animation");
 		animation_->CreateFrame(atlas_tool_->GetAtlas(), 0, 0, 0, 0, 1, 0.1f);
 		current_frame_ = animation_->GetCurrentFrameData();
-		atlas_tool_->SetBackBoardSize(animation_->GetBackBoard());
 	}
 	if (ImGui::Begin(label_.c_str(), &is_active_, window_flags_))
 	{
@@ -68,6 +81,7 @@ void AnimationTool::Update()
 	else
 	{
 		Deactivate();
+		atlas_tool_->Deactivate();
 		ImGui::End();
 	}
 
@@ -133,7 +147,7 @@ void AnimationTool::ShowAnimationEditWidget()
 		// 		static ImVector<ImVec2> points;
 		// 		static ImVec2 scrolling(0.0f, 0.0f);
 		static bool opt_enable_grid = true;
-		static bool opt_enable_context_menu = true;
+		static bool opt_enable_show_collider = false;
 		static bool adding_line = false;
 		Ptr<CTexture> atlas = atlas_tool_->GetAtlas();
 		float y = nullptr != animation_ && animation_->GetBackBoard().y>200 ? animation_->GetBackBoard().y + 100.f : 360;
@@ -165,25 +179,10 @@ void AnimationTool::ShowAnimationEditWidget()
 					zoom_ += wheel * 0.1f;
 				}
 			}
-			// Context menu (under default mouse threshold)
-// 			ImVec2 drag_delta = ImGui::GetMouseDragDelta(ImGuiMouseButton_Right);
-// 			if (opt_enable_context_menu && ImGui::IsMouseReleased(ImGuiMouseButton_Right) && drag_delta.x == 0.0f && drag_delta.y == 0.0f)
-// 				ImGui::OpenPopupOnItemClick("context");
-// 			if (ImGui::BeginPopup("context"))
-// 			{
-// 				if (adding_line)
-// 					points.resize(points.size() - 2);
-// 				adding_line = false;
-// 				if (ImGui::MenuItem("Remove one", NULL, false, points.Size > 0)) { points.resize(points.size() - 2); }
-// 				if (ImGui::MenuItem("Remove all", NULL, false, points.Size > 0)) { points.clear(); }
-// 				ImGui::EndPopup();
-// 			}
-			static ImVec2 frame_center = ImVec2();
 			if (atlas_tool_->IsRelease())
 			{
 				current_frame_.animation_data.left_top = atlas_tool_->GetSelectedLeftTop();
 				current_frame_.animation_data.size = atlas_tool_->GetRegionSize();
-				frame_center = ImVec2(current_frame_.animation_data.size.x / 2.f, current_frame_.animation_data.size.y / 2.f);
 				current_frame_.animation_data.left_top = Vec2(current_frame_.animation_data.left_top.x / (float)atlas->GetWidth(), current_frame_.animation_data.left_top.y / (float)atlas->GetHeight());
 				current_frame_.animation_data.size = Vec2(current_frame_.animation_data.size.x / (float)atlas->GetWidth(), current_frame_.animation_data.size.y / (float)atlas->GetHeight());
 				
@@ -198,13 +197,11 @@ void AnimationTool::ShowAnimationEditWidget()
 					draw_list->AddLine(ImVec2(canvas_p0.x + x, canvas_p0.y), ImVec2(canvas_p0.x + x, canvas_p1.y), IM_COL32(200, 200, 200, 40));
 				for (float y = fmodf(0, GRID_STEP); y < canvas_sz.y; y += GRID_STEP)
 					draw_list->AddLine(ImVec2(canvas_p0.x, canvas_p0.y + y), ImVec2(canvas_p1.x, canvas_p0.y + y), IM_COL32(200, 200, 200, 40));
-
 			}
 			
 		
 			if (nullptr != atlas)
 			{
-				
 				float atlas_width = (float)atlas->GetWidth() * zoom_;
 				float atlas_height = (float)atlas->GetHeight() * zoom_;
 				float y = canvas_center.y + CalMaxSizeY() / 2.f * atlas_height;
@@ -278,7 +275,9 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 				animation_->SetName(animName.data());
 			}
 
-
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+			
 			Vec2 backBoardSize = animation_->GetBackBoard();
 			ImGui::Text("Back Board Size");
 			ImGui::TableNextColumn();
@@ -342,6 +341,8 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			ImGui::TableNextRow();
 			ImGui::TableNextColumn();
 
+
+			//Animation Offset
 			ImGui::Text("OffSet");
 			Vec2 offset = Vec2(current_frame_.animation_data.offset.x* atlas_tool_->GetAtlas()->GetWidth() * zoom_, current_frame_.animation_data.offset.y* atlas_tool_->GetAtlas()->GetWidth() * zoom_);
 			ImGui::TableNextColumn();
@@ -363,6 +364,9 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 				animation_->SetCurrentFrameData(current_frame_);
 			}
 	
+			//Collision Offset
+			ImGui::Text("Offset");
+			
 			
 
 			ImGui::TableNextRow();
