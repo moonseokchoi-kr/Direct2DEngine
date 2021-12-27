@@ -6,7 +6,7 @@
 #include "CCollider2D.h"
 #include "CParticleSystem.h"
 #include "CTileMap.h"
-#include "CRigidBody.h"
+#include "CRigidBody2D.h"
 #include "CCamera.h"
 #include "CLight2D.h"
 #include "CAnimator2D.h"
@@ -221,7 +221,7 @@ void CGameObject::AddComponent(COMPONENT_TYPE type)
 	case COMPONENT_TYPE::ANIMATOR3D:
 		break;
 	case COMPONENT_TYPE::RIGIDBODY2D:
-		AddComponent(new CRigidBody);
+		AddComponent(new CRigidBody2D);
 		break;
 	case COMPONENT_TYPE::RIGIDBODY3D:
 		break;

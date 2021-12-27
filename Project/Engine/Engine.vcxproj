@@ -219,7 +219,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CRenderManager.h" />
     <ClInclude Include="CResource.h" />
     <ClInclude Include="CResourceManager.h" />
-    <ClInclude Include="CRigidBody.h" />
+    <ClInclude Include="CRigidBody2D.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneManager.h" />
     <ClInclude Include="CScript.h" />
@@ -271,7 +271,7 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CResource.cpp" />
     <ClCompile Include="CResourceManager.cpp" />
     <ClCompile Include="CResourceManager_init.cpp" />
-    <ClCompile Include="CRigidBody.cpp" />
+    <ClCompile Include="CRigidBody2D.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneManager.cpp" />
     <ClCompile Include="CScript.cpp" />

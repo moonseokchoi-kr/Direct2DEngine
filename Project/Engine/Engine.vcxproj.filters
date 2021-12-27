@@ -317,7 +317,7 @@
     <ClInclude Include="magic_enum.hpp">
       <Filter>Source\Header</Filter>
     </ClInclude>
-    <ClInclude Include="CRigidBody.h">
+    <ClInclude Include="CRigidBody2D.h">
       <Filter>Source\Component\RigidBody</Filter>
     </ClInclude>
   </ItemGroup>
@@ -451,7 +451,7 @@
     <ClCompile Include="CTileMap.cpp">
       <Filter>Source\Component\TileMap</Filter>
     </ClCompile>
-    <ClCompile Include="CRigidBody.cpp">
+    <ClCompile Include="CRigidBody2D.cpp">
       <Filter>Source\Component\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>

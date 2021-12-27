@@ -1,5 +1,6 @@
 #pragma once
 #include "CEntity.h"
+
 class CGameObject;
 class CLayer;
 
@@ -25,5 +26,6 @@ public:
 	CScene* Clone() { return nullptr; }
 private:
 	array<CLayer*,MAX_LAYER> layer_array_;
+	
 };
 

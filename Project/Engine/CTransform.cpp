@@ -52,6 +52,7 @@ void CTransform::FinalUpdate()
 		}
 
 	}
+	prev_local_position = local_position_;
 
 }
 
@@ -66,6 +67,8 @@ void CTransform::UpdateData()
 	cb->SetData(&g_transform, sizeof(Transform));
 	cb->SetPipelineStage(PS_NONPIXEL);
 	cb->UpdateData();
+
+
 }
 
 Vec3 CTransform::GetWorldScale()
@@ -101,4 +104,12 @@ void CTransform::LoadFromScene(FILE* file)
 	fread(&local_scale_, sizeof(Vec3), 1, file);
 	fread(&local_rotation_, sizeof(Vec3), 1, file);
 	fread(&local_direction_, sizeof(Vec3), 1, file);
+}
+
+Vec3 CTransform::GetMoveDir()
+{
+	if (local_position_ == prev_local_position)
+		return Vec3();
+	Vec3 moveDir = local_position_ - prev_local_position;
+	return moveDir.Normalize();
 }

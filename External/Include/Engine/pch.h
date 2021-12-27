@@ -75,6 +75,9 @@ using namespace DirectX::PackedVector;
 #pragma comment(lib, "dxerr/DxErr")
 #pragma comment(lib, "dxgi")
 #pragma comment(lib, "legacy_stdio_definitions.lib")
+
+
+
 //custom header
 
 #include "SimpleMath.h"

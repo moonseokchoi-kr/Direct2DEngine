@@ -39,6 +39,8 @@ public:
     void SaveToScene(FILE* file);
     void LoadFromScene(FILE* file);
 private:
+    void ResolveCollide(CGameObject* otherObject);
+private:
     Vec3 offset_position_;
     Vec3 final_position_;
     Vec3 offset_scale_;

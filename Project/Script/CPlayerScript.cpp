@@ -2,6 +2,7 @@
 #include "CPlayerScript.h"
 #include "CBulletScript.h"
 #include <Engine/CAnimation2D.h>
+#include <Engine/CRigidBody2D.h>
 
 
 CPlayerScript::CPlayerScript()
@@ -9,8 +10,7 @@ CPlayerScript::CPlayerScript()
 	,player_move_speed_(400)
 	,accumulated_time_(0)
 	,player_bullet_attack_speed_(0.1f)
-	,preMoveDir(0)
-	,moveDir(0)
+
 {
 	player_bullet_prefab_ = CResourceManager::GetInst()->FindRes<CPrefab>(L"player_bullet_prefab");
 	SetName(L"PlayerScript");
@@ -24,44 +24,40 @@ CPlayerScript::~CPlayerScript()
 
 void CPlayerScript::Update()
 {
-	preMoveDir = moveDir;
 	accumulated_time_ += fDT;
-	Vec3 pos = GetTransform()->GetPosition();
-	Vec3 view_scale = GetTransform()->GetScale();
-	Vec3 rot = GetTransform()->GetRotation();
+	CRigidBody2D* rigidBody = GetRigidBody2D();
+	Vec3 rotation = GetTransform()->GetRotation();
 	if (KEY_HOLD(KEY::UP))
 	{
-		pos += Vec3(0.f, fDT * player_move_speed_ * 0.5f, 0.f);
-		moveDir = 0;
+		rigidBody->SetVelocity(Vec2(0.f, player_move_speed_));
 	}
 	if (KEY_HOLD(KEY::DOWN))
 	{
-		pos -= Vec3(0.f, fDT * player_move_speed_ * 0.5f, 0.f);
-		moveDir = 0;
+		rigidBody->SetVelocity(Vec2(0.f, -player_move_speed_));
+		
 	}
 	if (KEY_HOLD(KEY::LEFT))
 	{
-		pos -= Vec3(fDT * player_move_speed_ * 0.5f, 0.f, 0.f);
-		moveDir = -1;
+		rigidBody->SetVelocity(Vec2(-player_move_speed_,0.f));
+
 	}
 	if (KEY_HOLD(KEY::RIGHT))
 	{
-		pos += Vec3(fDT * player_move_speed_
-			* 0.5f, 0.f, 0.f);
-		moveDir = 1;
-	}
-	if (KEY_AWAY(KEY::RIGHT) || KEY_AWAY(KEY::LEFT))
-	{
-		moveDir = 0;
-	}
+		rigidBody->SetVelocity(Vec2(player_move_speed_, 0.f));
 
+	}
+	move_dir_ = GetTransform()->GetMoveDir();
+	if (KEY_AWAY(KEY::UP) || KEY_AWAY(KEY::DOWN) || KEY_AWAY(KEY::RIGHT) || KEY_AWAY(KEY::LEFT))
+	{
+		rigidBody->SetVelocity(move_dir_ *50.f);
+	}
 	if (KEY_HOLD(KEY::Q))
 	{
-		rot.z += 100.f*fDT;
+		rotation.z += 100.f * fDT;
 	}
 	if (KEY_HOLD(KEY::E))
 	{
-		rot.z -= 100.f*fDT;
+		rotation.z -= 100.f * fDT;
 	}
 	if (KEY_HOLD(KEY::SPACE))
 	{
@@ -72,10 +68,10 @@ void CPlayerScript::Update()
 		}
 		
 	}
-	GetTransform()->SetPosition(pos);
-	GetTransform()->SetScale(view_scale);
-	GetTransform()->SetRotation(rot);
+
+	GetTransform()->SetRotation(rotation);
 	UpdateAnimation();
+	prev_move_dir_ = move_dir_;
 }
 
 void CPlayerScript::OnCollisionEnter(CGameObject* otherObject)
@@ -108,10 +104,10 @@ void CPlayerScript::CreateBullet()
 
 void CPlayerScript::UpdateAnimation()
 {
-	if (moveDir == preMoveDir)
+	if (move_dir_ == prev_move_dir_)
 	{
 	
-		if (moveDir == -1)
+		if (move_dir_ < Vec2(0,0))
 		{
 			if (GetAnimator2D()->GetCurrentAnimation()->GetCurrentFrameIndex() < 4)
 			{
@@ -126,9 +122,9 @@ void CPlayerScript::UpdateAnimation()
 	}
 	else
 	{
-		if (moveDir == 0)
+		if (move_dir_ == Vec2(0, 0))
 			GetAnimator2D()->Play(L"FLY", 0, true);
-		if (moveDir == -1)
+		if (move_dir_ < Vec2(0, 0))
 			GetAnimator2D()->Play(L"FLY_LEFT", 0, true);
 	}
 }

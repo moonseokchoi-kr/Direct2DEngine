@@ -5,6 +5,7 @@
 #include "CDevice.h"
 #include "CConstBuffer.h"
 
+#include "CRigidBody2D.h"
 #include "CResourceManager.h"
 #include "CScript.h"
 CCollider2D::CCollider2D()
@@ -57,7 +58,6 @@ void CCollider2D::Render()
 void CCollider2D::OnCollisionEnter(CGameObject* otherObject)
 {
 	++collision_count_;
-	
 	collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"collider2DMaterial_collision");
 	const vector<CScript*>& scripts = GetOwner()->GetScripts();
 	for (const auto& script : scripts)
@@ -105,5 +105,10 @@ void CCollider2D::LoadFromScene(FILE* file)
 	CComponent::LoadFromScene(file);
 	fread(&offset_position_, sizeof(Vec3), 1, file);
 	fread(&offset_scale_, sizeof(Vec3), 1, file);
+}
+
+void CCollider2D::ResolveCollide(CGameObject* otherObject)
+{
+	GetOwner()->RigidBody2D()->ResolveCollide(otherObject);
 }
 

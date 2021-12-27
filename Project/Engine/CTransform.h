@@ -26,14 +26,17 @@ public:
 
 public:
     CLONE(CTransform);
-
+   
 public:
     void SaveToScene(FILE* file) override;
     void LoadFromScene(FILE* file) override;
+    
+    Vec3 GetMoveDir();
 private:
     Matrix world_matrix_;
  
     Vec3 local_position_;
+    Vec3 prev_local_position;
     Vec3 local_scale_;
     Vec3 local_rotation_;
     Vec3 child_pos_data_;
