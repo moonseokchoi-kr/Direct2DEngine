@@ -22,38 +22,45 @@ void ToolCamera::FinalUpdate()
 	CalProjectionMatrix();
 }
 
+
 void ToolCamera::Move()
 {
+	float cameraMoveSpeed = 1000.f;
 	Vec3 position = GetTransform()->GetPosition();
+	Vec3 delta;
 	if (KEY_HOLD(KEY::Q))
 	{
 		Vec3 front = GetTransform()->GetWorldDirection(DIRECTION_TYPE::FRONT);
-		position += fDT * front * 500.f;
+		position += fDT * front * cameraMoveSpeed;
 	}
 	if (KEY_HOLD(KEY::A))
 	{
 		Vec3 right = GetTransform()->GetWorldDirection(DIRECTION_TYPE::RIGHT);
-		position += fDT * -right * 500.f;
+		delta = fDT * -right * cameraMoveSpeed;
+		position += delta;
 	}
 	if (KEY_HOLD(KEY::E))
 	{
 		Vec3 front = GetTransform()->GetWorldDirection(DIRECTION_TYPE::FRONT);
-		position += fDT * -front * 500.f;
+		position += fDT * -front * cameraMoveSpeed;
 	}
 	if (KEY_HOLD(KEY::D))
 	{
 		Vec3 right = GetTransform()->GetWorldDirection(DIRECTION_TYPE::RIGHT);
-		position += fDT * right * 500.f;
+		delta = fDT * right * cameraMoveSpeed;
+		position += delta;
 	}
 	if (KEY_HOLD(KEY::W))
 	{
 		Vec3 up = GetTransform()->GetWorldDirection(DIRECTION_TYPE::UP);
-		position += fDT * up * 500.f;
+		delta = fDT * up * cameraMoveSpeed;
+		position += delta;
 	}
 	if (KEY_HOLD(KEY::S))
 	{
 		Vec3 up = GetTransform()->GetWorldDirection(DIRECTION_TYPE::UP);
-		position += fDT * -up * 500.f;
+		delta = fDT * -up * cameraMoveSpeed;
+		position += delta;
 	}
 	if (KEY_HOLD(KEY::RBTN))
 	{
@@ -64,9 +71,9 @@ void ToolCamera::Move()
 			GetTransform()->SetPosition(position);
 			Vec3 rot = GetTransform()->GetRotation();
 			Vec2 dir = CKeyManager::GetInst()->GetMouseDir();
-
-			rot.x += dir.y * fDT * 5.f;
-			rot.y += dir.x * fDT * 5.f;
+			camera_move_delta_ += delta;
+			rot.x += dir.y * fDT * 50.f;
+			rot.y += dir.x * fDT * 50.f;
 
 			GetTransform()->SetRotation(rot);
 		}

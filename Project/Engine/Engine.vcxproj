@@ -193,6 +193,7 @@ call .\EngineCopy.bat</Command>
   <ItemGroup>
     <ClInclude Include="CAnimation2D.h" />
     <ClInclude Include="CAnimator2D.h" />
+    <ClInclude Include="CanvasPanelWidget.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCollider2D.h" />
     <ClInclude Include="CCollisionManager.h" />
@@ -230,7 +231,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CTileMap.h" />
     <ClInclude Include="CTimeManager.h" />
     <ClInclude Include="CTransform.h" />
-    <ClInclude Include="CGameUIManager.h" />
+    <ClInclude Include="CUIComponent.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="extern.h" />
     <ClInclude Include="framework.h" />
@@ -241,10 +242,12 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />
+    <ClInclude Include="GameWidget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAnimation2D.cpp" />
     <ClCompile Include="CAnimator2D.cpp" />
+    <ClCompile Include="CanvasPanelWidget.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCollider2D.cpp" />
     <ClCompile Include="CCollisionManager.cpp" />
@@ -282,7 +285,7 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CTileMap.cpp" />
     <ClCompile Include="CTimeManager.cpp" />
     <ClCompile Include="CTransform.cpp" />
-    <ClCompile Include="CGameUIManager.cpp" />
+    <ClCompile Include="CUIComponent.cpp" />
     <ClCompile Include="extern.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="pch.cpp">
@@ -291,6 +294,7 @@ call .\EngineCopy.bat</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="GameWidget.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -335,6 +339,10 @@ call .\EngineCopy.bat</Command>
     </FxCompile>
     <FxCompile Include="tile_map_shader.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+    </FxCompile>
+    <FxCompile Include="ui_shader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
     </FxCompile>
     <FxCompile Include="value.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>

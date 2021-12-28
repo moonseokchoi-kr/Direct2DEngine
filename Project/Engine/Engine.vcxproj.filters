@@ -168,6 +168,15 @@
     <Filter Include="Source\Component\Animation2D\Animation">
       <UniqueIdentifier>{2ea045a6-7ad4-473f-909f-1332b7107a3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Manager\UI\Compnent">
+      <UniqueIdentifier>{8cf8ceb7-d623-4d14-8326-33212630eb86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\UI\Widget">
+      <UniqueIdentifier>{2eaeef15-6d6b-48b1-8e2e-ffffe384deb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Manager\UI\Widget\CnavasPanel">
+      <UniqueIdentifier>{ed9e71b4-351d-48e3-8e81-542666cef756}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -308,9 +317,6 @@
     <ClInclude Include="CParticleUpdateShader.h">
       <Filter>Source\ShaderCode\ComputeShader\ParticleUpdateShader</Filter>
     </ClInclude>
-    <ClInclude Include="CGameUIManager.h">
-      <Filter>Source\Manager\UI</Filter>
-    </ClInclude>
     <ClInclude Include="CTileMap.h">
       <Filter>Source\Component\TileMap</Filter>
     </ClInclude>
@@ -319,6 +325,15 @@
     </ClInclude>
     <ClInclude Include="CRigidBody2D.h">
       <Filter>Source\Component\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="CUIComponent.h">
+      <Filter>Source\Manager\UI\Compnent</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWidget.h">
+      <Filter>Source\Manager\UI\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="CanvasPanelWidget.h">
+      <Filter>Source\Manager\UI\Widget\CnavasPanel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -445,14 +460,20 @@
     <ClCompile Include="CSceneManager.cpp">
       <Filter>Source\Manager\SceneManager</Filter>
     </ClCompile>
-    <ClCompile Include="CGameUIManager.cpp">
-      <Filter>Source\Manager\UI</Filter>
-    </ClCompile>
     <ClCompile Include="CTileMap.cpp">
       <Filter>Source\Component\TileMap</Filter>
     </ClCompile>
     <ClCompile Include="CRigidBody2D.cpp">
       <Filter>Source\Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="CUIComponent.cpp">
+      <Filter>Source\Manager\UI\Compnent</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWidget.cpp">
+      <Filter>Source\Manager\UI\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="CanvasPanelWidget.cpp">
+      <Filter>Source\Manager\UI\Widget\CnavasPanel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -496,6 +517,9 @@
     </FxCompile>
     <FxCompile Include="struct.fx">
       <Filter>Source\ShaderCode</Filter>
+    </FxCompile>
+    <FxCompile Include="ui_shader.fx">
+      <Filter>Source\ShaderCode\GraphicShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

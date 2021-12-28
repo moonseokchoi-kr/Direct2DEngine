@@ -231,6 +231,21 @@ void CResourceManager::CreateDefaultShader()
 	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE);
 	stdShader->SetRenderTiming(RENDER_TIMING::POST_EFFECT);
 	AddResource(L"post_effect_shader", stdShader);
+
+	//UI Shader
+
+	stdShader = new CGraphicsShader;
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"shader\\ui_shader.fx";
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+
+	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE);
+	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
+
+
+	AddResource(L"ui_shader",stdShader);
 }
 
 void CResourceManager::CreateDefaultTexture()
@@ -287,6 +302,10 @@ void CResourceManager::CreateDefaultMaterial()
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"monster_hp_shader"));
 	AddResource(L"monster_hp_material", material);
 
+	//ui material
+	material = new CMaterial(true);
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"ui_shader"));
+	AddResource(L"ui_material", material);
 
 	//bullet material
 	material = new CMaterial(true);

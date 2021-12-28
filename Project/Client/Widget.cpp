@@ -13,6 +13,10 @@ Widget::~Widget()
 	Safe_Delete_Vec(children_);
 }
 
+void Widget::Update()
+{
+}
+
 void Widget::UpdateChildren()
 {
 	for (const auto child : children_)

@@ -21,7 +21,7 @@ class CAnimator2D;
 class CParticleSystem;
 class CTileMap;
 class CRigidBody2D;
-
+class CUIComponent;
 
 class CGameObject :
     public CEntity
@@ -64,7 +64,7 @@ public:
     GET_COMPONENT(ParticleSystem, COMPONENT_TYPE::PARTICLESYSTEM);
     GET_COMPONENT(TileMap, COMPONENT_TYPE::TILEMAP);
     GET_COMPONENT(RigidBody2D, COMPONENT_TYPE::RIGIDBODY2D);
-
+    GET_COMPONENT(UIComponent, COMPONENT_TYPE::UI);
 
     const vector<CScript*>& GetScripts() { return scripts_vector_; }
     CGameObject* GetParent() { return parent_object_; }

@@ -28,6 +28,7 @@ void CRenderManager::Init()
 
 	post_effect_target_ = CResourceManager::GetInst()->CreateTexture(L"post_effect_traget_texture", (UINT)resolution.x, (UINT)resolution.y, D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET, DXGI_FORMAT_R8G8B8A8_UNORM);
 	viewport_traget_ = CResourceManager::GetInst()->CreateTexture(L"view_port_target_texture", (UINT)resolution.x, (UINT)resolution.y, D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE, DXGI_FORMAT_R8G8B8A8_UNORM);
+	game_view_target_ = CResourceManager::GetInst()->CreateTexture(L"game_view_target_texture", (UINT)resolution.x, (UINT)resolution.y, D3D11_BIND_FLAG::D3D11_BIND_SHADER_RESOURCE, DXGI_FORMAT_R8G8B8A8_UNORM);
 
 	Ptr<CMaterial> post_effect_material = CResourceManager::GetInst()->FindRes<CMaterial>(L"post_effect_material");
 	post_effect_material->SetData(SHADER_PARAM::TEX_0, post_effect_target_.Get());
@@ -48,15 +49,17 @@ void CRenderManager::Render()
 	if (sceneMode == SCENE_MODE::PLAY)
 	{
 		RenderPlay();
+		Ptr<CTexture> rtTex = CResourceManager::GetInst()->FindRes<CTexture>(L"RenderTargetTexture");
+		CONTEXT->CopyResource(game_view_target_->GetTex2D(), rtTex->GetTex2D());
 	}
 	else
 	{
 		RenderTool();
-
+		Ptr<CTexture> rtTex = CResourceManager::GetInst()->FindRes<CTexture>(L"RenderTargetTexture");
+		CONTEXT->CopyResource(viewport_traget_->GetTex2D(), rtTex->GetTex2D());
 	}
 
-	Ptr<CTexture> rtTex = CResourceManager::GetInst()->FindRes<CTexture>(L"RenderTargetTexture");
-	CONTEXT->CopyResource(viewport_traget_->GetTex2D(), rtTex->GetTex2D());
+
 	camera_vector_.clear();
 	camera_vector_.resize(1);
 
@@ -144,7 +147,6 @@ void CRenderManager::RenderPlay()
 		camera_vector_[0]->RenderParticle();
 		camera_vector_[0]->RenderPostEffect();
 	}
-
 	for (size_t i = 1; i < camera_vector_.size(); ++i)
 	{
 		if (nullptr != camera_vector_[i])

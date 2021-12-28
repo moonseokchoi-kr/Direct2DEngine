@@ -88,6 +88,7 @@ enum class COMPONENT_TYPE
 	TILEMAP,
 	SKYBOX,
 	SOUND,
+	UI,
 	END,
 
 	SCRIPT,

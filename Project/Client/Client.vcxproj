@@ -202,6 +202,7 @@
     <ClInclude Include="ToolObjectManager.h" />
     <ClInclude Include="TransformWidget.h" />
     <ClInclude Include="TreeWidget.h" />
+    <ClInclude Include="UIComponentWidget.h" />
     <ClInclude Include="ViewPortWidget.h" />
     <ClInclude Include="Widget.h" />
     <ClInclude Include="WidgetManager.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="ToolObjectManager.cpp" />
     <ClCompile Include="TransformWidget.cpp" />
     <ClCompile Include="TreeWidget.cpp" />
+    <ClCompile Include="UIComponentWidget.cpp" />
     <ClCompile Include="ViewPortWidget.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="WidgetManager.cpp" />

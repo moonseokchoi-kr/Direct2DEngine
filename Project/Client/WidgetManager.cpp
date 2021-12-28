@@ -86,8 +86,7 @@ void WidgetManager::Update()
 	ImGuiInitFrame();
 
 
-	if(CSceneManager::GetInst()->GetSceneMode() != SCENE_MODE::PLAY)
-		DockingSpace();
+	DockingSpace();
 
 	// Demo GUI
 	if(is_active_demo_)

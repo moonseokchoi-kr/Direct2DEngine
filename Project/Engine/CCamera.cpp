@@ -14,6 +14,8 @@
 #include "CParticleSystem.h"
 #include "CMaterial.h"
 #include "CTileMap.h"
+#include "CUIComponent.h"
+#include "CanvasPanelWidget.h"
 
 #include "CLayer.h"
 #include "CScene.h"
@@ -147,7 +149,7 @@ void CCamera::SeperateRenderObject()
 				else if (object->TileMap())
 				{
 					if (nullptr == object->TileMap()->GetMesh()
-						|| nullptr == object->TileMap()->GetMaterial()->GetShader()
+						|| nullptr == object->TileMap()->GetMaterial()
 						|| nullptr == object->TileMap()->GetMaterial()->GetShader())
 					{
 						continue;
@@ -155,7 +157,17 @@ void CCamera::SeperateRenderObject()
 					Ptr<CGraphicsShader> shader = object->TileMap()->GetMaterial()->GetShader();
 					rt = shader->GetRenderTiming();
 				}
-
+				else if (object->UIComponent())
+				{
+					if (nullptr == object->UIComponent()->GetWidget()->GetMesh()
+						|| nullptr == object->UIComponent()->GetWidget()->GetMaterial()
+						|| nullptr == object->UIComponent()->GetWidget()->GetMaterial()->GetShader())
+					{
+						continue;
+					}
+					Ptr<CGraphicsShader> shader = object->UIComponent()->GetWidget()->GetMaterial()->GetShader();
+					rt = shader->GetRenderTiming();
+				}
 				switch (rt)
 				{
 				case RENDER_TIMING::FOWARD:

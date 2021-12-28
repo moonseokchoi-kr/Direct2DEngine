@@ -42,9 +42,6 @@
     <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\MeshRender">
       <UniqueIdentifier>{f2247730-31c1-40ff-a64f-7026a1ffc361}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Resource">
-      <UniqueIdentifier>{a64c7a5a-36fb-4fed-9bb0-cc443730a87f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Transform">
       <UniqueIdentifier>{7816eda7-3102-46ab-9598-307eb7845b4a}</UniqueIdentifier>
     </Filter>
@@ -164,6 +161,9 @@
     </Filter>
     <Filter Include="Client Source\Tool\Widget\Module\PopupWidget">
       <UniqueIdentifier>{0ec7da64-4f30-46b6-931e-f6706d72581e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\UI">
+      <UniqueIdentifier>{25a602c9-533b-4e2b-9e16-b1463fa4cb2e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -314,6 +314,9 @@
     <ClInclude Include="CompoenetFilterPopupWidget.h">
       <Filter>Client Source\Tool\Widget\Module\PopupWidget</Filter>
     </ClInclude>
+    <ClInclude Include="UIComponentWidget.h">
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -461,6 +464,9 @@
     </ClCompile>
     <ClCompile Include="CompoenetFilterPopupWidget.cpp">
       <Filter>Client Source\Tool\Widget\Module\PopupWidget</Filter>
+    </ClCompile>
+    <ClCompile Include="UIComponentWidget.cpp">
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -4,6 +4,17 @@
 #include "CMesh.h"
 #include "CMaterial.h"
 
+enum class COLLIDER_TYPE
+{
+    RECT,
+    CIRCLE,
+};
+
+///
+/// 원형 콜라이더 추가하고 매니저에 충돌 판정 함수 분리하기
+///
+
+
 class CCollider2D :
     public CComponent
 {

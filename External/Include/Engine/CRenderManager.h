@@ -26,6 +26,8 @@ public:
     void CopyRenderTexture();
 
     CTexture* GetViewPortTexture() { return viewport_traget_.Get(); }
+    CTexture* GetGameViewTexture() { return game_view_target_.Get(); }
+    CCamera* GetToolCamera() { return tool_camera_; }
 private:
     void UpdateLight2D();
     void UpdataGlobalData();
@@ -36,6 +38,7 @@ private:
     vector<CLight2D*> light2D_vector_;
     Ptr<CTexture> post_effect_target_;
     Ptr<CTexture> viewport_traget_;
+    Ptr<CTexture> game_view_target_;
     CCamera* tool_camera_;
 };
 

@@ -12,6 +12,7 @@
 #include <Engine/CLight2D.h>
 #include <Engine/CAnimator2D.h>
 #include <Engine/CRigidBody2D.h>
+#include <Engine/CUIComponent.h>
 
 #include <Engine/CParticleSystem.h>
 #include <Engine/CTileMap.h>
@@ -28,6 +29,7 @@
 #include <Script/CPlayerScript.h>
 #include <Script/CMoveScript.h>
 #include <Script/CMonsterScript.h>
+
 
 
 
@@ -57,31 +59,44 @@ void CTestScene::CreateTestScene()
 	//카메라 1번
 	scene->AddGameObject(camera, 1, true);
 
-	const auto background = new CGameObject;
-	background->SetName(L"parent");
-	background->AddComponent(new CTransform);
-	background->AddComponent(new CMeshRender);
-	background->Transform()->SetPosition(Vec3(0.f, 0.f, 2000.f));
-	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
-	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	
-	Ptr<CMaterial> backgroundMaterial = CResourceManager::GetInst()->CreateMaterial(L"backgound_material", CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
-	int a = 0;
-	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
-	background->MeshRender()->SetMaterial(backgroundMaterial);
+// 	const auto background = new CGameObject;
+// 	background->SetName(L"parent");
+// 	background->AddComponent(new CTransform);
+// 	background->AddComponent(new CMeshRender);
+// 	background->Transform()->SetPosition(Vec3(0.f, 0.f, 2000.f));
+// 	background->Transform()->SetScale(Vec3(1600.f, 900.f, 1.f));
+// 	background->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+// 	
+// 	Ptr<CMaterial> backgroundMaterial = CResourceManager::GetInst()->CreateMaterial(L"backgound_material", CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"std2DShader"));
+// 	int a = 0;
+// 	backgroundMaterial->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"background").Get());
+// 	background->MeshRender()->SetMaterial(backgroundMaterial);
+// 
+// 	const auto backgroundChild = new CGameObject;
+// 	backgroundChild->SetName(L"child");
+// 	backgroundChild->AddComponent(new CTransform);
+// 	backgroundChild->AddComponent(new CMeshRender);
+// 	backgroundChild->Transform()->SetPosition(Vec3(1.2f, 0.f, 0.f));
+// 	backgroundChild->Transform()->SetScale(Vec3(0.5f, 0.5f, 1.f));
+// 	backgroundChild->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+// 	backgroundChild->MeshRender()->SetMaterial(backgroundMaterial);
+// 
+// 	background->AddChild(backgroundChild);
+// 	//boss hp ui
+// 	scene->AddGameObject(background, 0, true);
 
-	const auto backgroundChild = new CGameObject;
-	backgroundChild->SetName(L"child");
-	backgroundChild->AddComponent(new CTransform);
-	backgroundChild->AddComponent(new CMeshRender);
-	backgroundChild->Transform()->SetPosition(Vec3(1.2f, 0.f, 0.f));
-	backgroundChild->Transform()->SetScale(Vec3(0.5f, 0.5f, 1.f));
-	backgroundChild->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
-	backgroundChild->MeshRender()->SetMaterial(backgroundMaterial);
 
-	background->AddChild(backgroundChild);
-	//boss hp ui
-	scene->AddGameObject(background, 0, true);
+
+	//ui
+	const auto testUI = new CGameObject;
+	testUI->SetName(L"test panel");
+	testUI->AddComponent(new CTransform);
+	testUI->AddComponent(new CUIComponent);
+	testUI->Transform()->SetPosition(Vec3(0.0f, 0.f, 2000.f));
+	testUI->Transform()->SetScale(Vec3(300.f, 300.f, 1.f));
+
+	//ui layer number 4
+	scene->AddGameObject(testUI, 4, true);
 
 
 

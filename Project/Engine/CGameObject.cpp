@@ -11,6 +11,7 @@
 #include "CLight2D.h"
 #include "CAnimator2D.h"
 #include "CScript.h"
+#include "CUIComponent.h"
 
 
 #include "CSceneManager.h"
@@ -154,7 +155,6 @@ void CGameObject::Render()
 	{
 		MeshRender()->Render();
 	}
-
 	else if (nullptr != ParticleSystem())
 	{
 		ParticleSystem()->Render();
@@ -162,6 +162,10 @@ void CGameObject::Render()
 	else if (nullptr != TileMap())
 	{
 		TileMap()->Render();
+	}
+	else if (nullptr != UIComponent())
+	{
+		UIComponent()->Render();
 	}
 	if (nullptr != Collider2D())
 	{
