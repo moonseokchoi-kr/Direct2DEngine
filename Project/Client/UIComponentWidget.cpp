@@ -12,4 +12,10 @@ UIComponentWidget::~UIComponentWidget()
 
 void UIComponentWidget::Update()
 {
+	Start();
+	if (ImGui::CollapsingHeader(GetName().c_str(), ImGuiTreeNodeFlags_DefaultOpen))
+	{
+
+	}
+	End();
 }

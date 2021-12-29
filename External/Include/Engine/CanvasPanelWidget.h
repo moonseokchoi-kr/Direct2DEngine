@@ -12,5 +12,9 @@ public:
 
 public:
     CLONE(CanvasPanelWidget);
+
+public:
+    void SaveToScene(FILE* file);
+    void LoadFromScene(FILE* file);
 };
 

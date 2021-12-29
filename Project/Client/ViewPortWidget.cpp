@@ -2,6 +2,8 @@
 #include "ViewPortWidget.h"
 #include "WidgetManager.h"
 #include "ToolCamera.h"
+#include "InspectorWidget.h"
+#include "ResourceViewWidget.h"
 
 #include <Engine/CTexture.h>
 #include <Engine/CRenderManager.h>
@@ -60,6 +62,12 @@ void ViewPortWidget::Update()
 						ComputeTagetObject(screenRatio);
 					MouseEvent();
 				}
+				else
+				{
+					camera->SetProjectionType(PROJECTION_TYPE::PERSPECTIVE);
+					target_object_ = nullptr;
+				}
+
 
 			}
 			ImGui::EndChild();
@@ -138,7 +146,11 @@ void ViewPortWidget::MouseEvent()
 	{
 		if (ImGui::IsMouseDown(ImGuiMouseButton_Left))
 		{
+			InspectorWidget* inspector = dynamic_cast<InspectorWidget*>(WidgetManager::GetInst()->FindWidget("inspector_view"));
+			inspector->SetGameObject(target_object_);
 
+			ResourceViewWidget* resourceView = dynamic_cast<ResourceViewWidget*>(WidgetManager::GetInst()->FindWidget("resource_view"));
+			resourceView->ReleaseSelectNode();
 		}
 		if (ImGui::IsMouseDragging(ImGuiMouseButton_Left))
 		{

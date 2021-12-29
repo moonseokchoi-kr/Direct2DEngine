@@ -219,3 +219,12 @@ enum class DIRECTION_TYPE
 	FRONT,
 	END,
 };
+
+enum class UI_TYPE
+{
+	CANVAS,
+	LIST,
+	GRID,
+	//새 클래스를 생성할때마다 추가 
+	END,
+};

@@ -21,15 +21,10 @@ MaterialWidget::~MaterialWidget()
 void MaterialWidget::Update()
 {
 	Start();
+	if(ImGui::CollapsingHeader(GetName().c_str(),ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(50,50,50,255));
-		ImGui::Text("Material");
-		ImGui::PopStyleColor();
-		ImGui::SameLine();
 		ImGui::Text(WStringToString(target_resource_->GetName()).c_str());
 		ShowMaterialDetail();
-
-
 	}
 	End();
 }
@@ -77,8 +72,11 @@ void MaterialWidget::ShowMaterialDetail()
 	}
 	ImGui::Spacing();
 	ImGui::Separator();
-
-	ShowOutputShaderParam();
+	if (ImGui::CollapsingHeader("Shader Parameter", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		ShowOutputShaderParam();
+	}
+	
 }
 
 void MaterialWidget::ShowOutputShaderParam()
@@ -87,88 +85,112 @@ void MaterialWidget::ShowOutputShaderParam()
 	if (nullptr == shader)
 		return;
 	const vector<ShaderParameter>& param_vector = shader->GetShaderParam();
-
-	for (const auto& param : param_vector)
+	if (ImGui::BeginTable("##shader_table", 2, ImGuiTableFlags_Resizable))
 	{
-		switch (param.type)
+		for (const auto& param : param_vector)
 		{
-		case SHADER_PARAM::INT_0:
-		case SHADER_PARAM::INT_1:
-		case SHADER_PARAM::INT_2:
-		case SHADER_PARAM::INT_3:
-		{
-			int data = 0;
-			target_resource_->GetData(param.type, &data);
-			if (DataInputWidget::DataInputInt(param.usage, &data))
+			switch (param.type)
 			{
-				target_resource_->SetData(param.type, &data);
-			}
-		}
-			break;
-		case SHADER_PARAM::FLOAT_0:
-		case SHADER_PARAM::FLOAT_1:
-		case SHADER_PARAM::FLOAT_2:
-		case SHADER_PARAM::FLOAT_3:
-		{
-			float data = 0;
-			target_resource_->GetData(param.type, &data);
-			if (DataInputWidget::DataInputFloat(param.usage, &data))
+			case SHADER_PARAM::INT_0:
+			case SHADER_PARAM::INT_1:
+			case SHADER_PARAM::INT_2:
+			case SHADER_PARAM::INT_3:
 			{
-				target_resource_->SetData(param.type, &data);
+				int data = 0;
+				target_resource_->GetData(param.type, &data);
+				ImGui::TableNextColumn();
+				ImGui::Text(WStringToString(param.usage).c_str());
+				ImGui::TableNextColumn();
+				if (DataInputWidget::DataInputInt(param.usage, &data))
+				{
+					target_resource_->SetData(param.type, &data);
+				}
+				ImGui::TableNextRow();
 			}
-		}
 			break;
-		case SHADER_PARAM::VEC2_0:
-		case SHADER_PARAM::VEC2_1:
-		case SHADER_PARAM::VEC2_2:
-		case SHADER_PARAM::VEC2_3:
-		{
-			Vec2 data;
-			target_resource_->GetData(param.type, &data);
-			if (DataInputWidget::DataInputVec2(param.usage, data))
+			case SHADER_PARAM::FLOAT_0:
+			case SHADER_PARAM::FLOAT_1:
+			case SHADER_PARAM::FLOAT_2:
+			case SHADER_PARAM::FLOAT_3:
 			{
-				target_resource_->SetData(param.type, &data);
+				float data = 0;
+				target_resource_->GetData(param.type, &data);
+				ImGui::TableNextColumn();
+				ImGui::Text(WStringToString(param.usage).c_str());
+				ImGui::TableNextColumn();
+				if (DataInputWidget::DataInputFloat(param.usage, &data))
+				{
+					target_resource_->SetData(param.type, &data);
+				}
+				ImGui::TableNextRow();
 			}
-		}
 			break;
-		case SHADER_PARAM::VEC4_0:
-		case SHADER_PARAM::VEC4_1:
-		case SHADER_PARAM::VEC4_2:
-		case SHADER_PARAM::VEC4_3:
-		{
-			Vec4 data;
-			target_resource_->GetData(param.type, &data);
-			if (DataInputWidget::DataInputVec4(param.usage, data))
+			case SHADER_PARAM::VEC2_0:
+			case SHADER_PARAM::VEC2_1:
+			case SHADER_PARAM::VEC2_2:
+			case SHADER_PARAM::VEC2_3:
 			{
-				target_resource_->SetData(param.type, &data);
+				Vec2 data;
+				target_resource_->GetData(param.type, &data);
+				ImGui::TableNextColumn();
+				ImGui::Text(WStringToString(param.usage).c_str());
+				ImGui::TableNextColumn();
+				if (DataInputWidget::DataInputVec2(param.usage, data))
+				{
+					target_resource_->SetData(param.type, &data);
+				}
+				ImGui::TableNextRow();
 			}
-		}
 			break;
-		case SHADER_PARAM::MAT_0:
-		case SHADER_PARAM::MAT_1:
-		case SHADER_PARAM::MAT_2:
-		case SHADER_PARAM::MAT_3:
+			case SHADER_PARAM::VEC4_0:
+			case SHADER_PARAM::VEC4_1:
+			case SHADER_PARAM::VEC4_2:
+			case SHADER_PARAM::VEC4_3:
+			{
+				Vec4 data;
+				target_resource_->GetData(param.type, &data);
+				ImGui::TableNextColumn();
+				ImGui::Text(WStringToString(param.usage).c_str());
+				ImGui::TableNextColumn();
+				if (DataInputWidget::DataInputVec4(param.usage, data))
+				{
+					target_resource_->SetData(param.type, &data);
+				}
+				ImGui::TableNextRow();
+			}
 			break;
-		case SHADER_PARAM::TEX_0:
-		case SHADER_PARAM::TEX_1:
-		case SHADER_PARAM::TEX_2:
-		case SHADER_PARAM::TEX_3:
-		{
-			Ptr<CTexture> data;
-			target_resource_->GetData(param.type, &data);
-			DataInputWidget::DataInputTexture(param.usage, data, (DWORD_PTR)param.type, (COMBO_CALLBACK)&MaterialWidget::ChangeTexture, this);
+			case SHADER_PARAM::MAT_0:
+			case SHADER_PARAM::MAT_1:
+			case SHADER_PARAM::MAT_2:
+			case SHADER_PARAM::MAT_3:
+				break;
+			case SHADER_PARAM::TEX_0:
+			case SHADER_PARAM::TEX_1:
+			case SHADER_PARAM::TEX_2:
+			case SHADER_PARAM::TEX_3:
+			{
+				Ptr<CTexture> data;
+				target_resource_->GetData(param.type, &data);
+				ImGui::TableNextColumn();
+				ImGui::Text(WStringToString(param.usage).c_str());
+				ImGui::TableNextColumn();
+				DataInputWidget::DataInputTexture(param.usage, data, (DWORD_PTR)param.type, (COMBO_CALLBACK)&MaterialWidget::ChangeTexture, this);
+				ImGui::TableNextRow();
+			}
+			break;
+			case SHADER_PARAM::TEX_ARR_0:
+			case SHADER_PARAM::TEX_ARR_1:
+			case SHADER_PARAM::TEX_CUBE_0:
+			case SHADER_PARAM::TEX_CUBE_1:
 
+			default:
+				break;
+			}
+			
 		}
-			break;
-		case SHADER_PARAM::TEX_ARR_0:
-		case SHADER_PARAM::TEX_ARR_1:
-		case SHADER_PARAM::TEX_CUBE_0:
-		case SHADER_PARAM::TEX_CUBE_1:
-
-		default:
-			break;
-		}
+		ImGui::EndTable();
 	}
+	
 }
 
 void MaterialWidget::ChangeShader(DWORD_PTR instance, DWORD_PTR paramType)

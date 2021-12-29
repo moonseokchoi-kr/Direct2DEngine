@@ -17,10 +17,12 @@ public:
     void FinalUpdate() override;
     void UpdateData() override;
     void Render();
+public:
     virtual void OnMouseHovered();
     virtual void OnMouseLeftButtonDown();
     virtual void OnMouseLeftButtonUp();
-
+public:
+    GameWidget* AddWidget(UI_TYPE type);
 public:
     CanvasPanelWidget* GetWidget() { return canvas_widget_; }
 private:
@@ -29,6 +31,9 @@ private:
 public:
     CLONE(CUIComponent);
 
+public:
+    void SaveToScene(FILE* file);
+    void LoadFromScene(FILE* file);
 private:
     bool check_use_mouse_;
     bool is_hovered;

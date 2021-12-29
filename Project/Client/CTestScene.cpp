@@ -43,7 +43,7 @@ void CTestScene::CreateTestScene()
 
 	CSceneManager::GetInst()->ChangeScene(scene);
 
-	//return;
+	return;
 
 	CreatePrefab();
 
@@ -124,14 +124,14 @@ void CTestScene::CreateTestScene()
 	//CreatePrefabs();
 	//InitTestMap();
 
-// 	CGameObject* particleObject = new CGameObject;
-// 
-// 	particleObject->SetName(L"particle");
-// 	particleObject->AddComponent(new CTransform);
-// 	particleObject->AddComponent(new CParticleSystem);
-// 	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
-// 	scene->AddGameObject(particleObject, 2, true);
-// 
+	CGameObject* particleObject = new CGameObject;
+
+	particleObject->SetName(L"particle");
+	particleObject->AddComponent(new CTransform);
+	particleObject->AddComponent(new CParticleSystem);
+	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
+	scene->AddGameObject(particleObject, 2, true);
+
 // 	CGameObject* postEffectObject = new CGameObject;
 // 	postEffectObject->SetName(L"post_effect");
 // 	postEffectObject->AddComponent(new CTransform);

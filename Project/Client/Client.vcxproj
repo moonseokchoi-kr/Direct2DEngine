@@ -191,8 +191,10 @@
     <ClInclude Include="InspectorWidget.h" />
     <ClInclude Include="MenuWidget.h" />
     <ClInclude Include="MeshRenderWidget.h" />
+    <ClInclude Include="ParticleWidget.h" />
     <ClInclude Include="ResourceViewWidget.h" />
     <ClInclude Include="ResourceWidget.h" />
+    <ClInclude Include="RigidBody2DWidget.h" />
     <ClInclude Include="ScriptWidget.h" />
     <ClInclude Include="TextureWidget.h" />
     <ClInclude Include="TileMapTool.h" />
@@ -249,9 +251,11 @@
     <ClCompile Include="InspectorWidget.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="MeshRenderWidget.cpp" />
+    <ClCompile Include="ParticleWidget.cpp" />
     <ClCompile Include="ResourceViewWidget.cpp" />
     <ClCompile Include="ResourceWidget.cpp" />
     <ClCompile Include="client_func.cpp" />
+    <ClCompile Include="RigidBody2DWidget.cpp" />
     <ClCompile Include="ScriptWidget.cpp" />
     <ClCompile Include="TextureWidget.cpp" />
     <ClCompile Include="TileMapTool.cpp" />

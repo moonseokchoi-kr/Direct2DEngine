@@ -17,7 +17,7 @@ public:
     }
 
     CGameObject* GetTarget() { return target_object_; }
-
+    void SetSize(Vec2 size) { widget_size_ = size; }
 protected:
     void Start();
     void End();

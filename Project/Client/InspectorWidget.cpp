@@ -10,6 +10,9 @@
 #include "TextureWidget.h"
 #include "MaterialWidget.h"
 #include "ScriptWidget.h"
+#include "ParticleWidget.h"
+#include "RigidBody2DWidget.h"
+#include "UIComponentWidget.h"
 
 #include <Engine/CGameObject.h>
 #include <Engine/CKeyManager.h>
@@ -28,9 +31,13 @@ InspectorWidget::InspectorWidget()
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::COLLIDER2D)] = new Collider2DWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::CAMERA)] = new CameraWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::TILEMAP)] = new TileMapWidget;
+	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::PARTICLESYSTEM)] = new ParticleWidget;
+	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::RIGIDBODY2D)] = new RigidBody2DWidget;
+	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::UI)] = new UIComponentWidget;
 
 	resource_widget_array_[static_cast<UINT>(RESOURCE_TYPE::TEXTURE)] = new TextureWidget;
 	resource_widget_array_[static_cast<UINT>(RESOURCE_TYPE::MATERIAL)] = new MaterialWidget;
+	
 
 }
 InspectorWidget::~InspectorWidget()

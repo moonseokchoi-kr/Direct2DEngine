@@ -9,18 +9,8 @@
 CParticleSystem::CParticleSystem()
 	:CComponent(COMPONENT_TYPE::PARTICLESYSTEM)
 	, particle_buffer_(nullptr)
-	, max_particle_count_(10000)
-	, spawn_range_(Vec3(2000.f,2000.f,500.f))
-	, min_scale_(Vec3(5.f,5.f,0.f))
-	, max_scale_(Vec3(15.f,15.f,0.f))
-	, max_speed_(80.f)
-	, min_speed_(30.f)
-	, start_color_(Vec4(0.72f, 0.72f, 0.72f,1.f))
-	, end_color_(Vec4(1.f, 1.f, 1.f,1.f))
-	, particle_min_life_(5.f)
-	, particle_max_life_(10.f)
-	, particle_spawn_frequency_(0.15f)
 	, accumulate_time_(0.f)
+	, activable_count_(8)
 {
 	particle_mesh_ = CResourceManager::GetInst()->FindRes<CMesh>(L"PointMesh");
 	particle_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"particle_material");
@@ -29,17 +19,41 @@ CParticleSystem::CParticleSystem()
 
 	particle_buffer_ = new CStructuredBuffer;
 	particle_shared_data_buffer_ = new CStructuredBuffer;
+	
+	data_.max_particle_count = 10000;
+	data_.min_scale = Vec3(5.f, 5.f, 0.f);
+	data_.max_scale = Vec3(15.f, 15.f, 0.f);
+	data_.max_speed= 80.f;
+	data_.min_speed = 30.f;
+	data_.start_color = Vec4(0.72f, 0.72f, 0.72f, 1.f);
+	data_.end_color = Vec4(1.f, 1.f, 1.f, 1.f);
+	data_.particle_max_life = 10.f;
+	data_.particle_min_life = 5.f;
+	data_.particle_spawn_frequency = 0.15f;
+	data_.spawn_range=Vec3(3000, 3000, 0);
 
+	
 
-	particle_buffer_->Create(sizeof(Particle), max_particle_count_, STRUCTURE_BUFFER_TYPE::READ_WRITE,nullptr,false);
-	particle_shared_data_buffer_->Create(sizeof(ParticleShadredData), 1, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr, true);
+	particle_buffer_->Create(sizeof(Particle), data_.max_particle_count, STRUCTURE_BUFFER_TYPE::READ_WRITE,nullptr,false);
+	particle_shared_data_buffer_->Create(sizeof(ParticleSharedData), 1, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr, true);
+
 
 
 }
 
 CParticleSystem::CParticleSystem(const CParticleSystem& origin)
 	:CComponent(origin)
+	,particle_buffer_(nullptr)
+	,particle_shared_data_buffer_(nullptr)
+	,particle_material_(origin.particle_material_)
+	,particle_texture_(origin.particle_texture_)
+	,particle_update_shader_(origin.particle_update_shader_)
+	, accumulate_time_(0.f)
+	, activable_count_(origin.activable_count_)
+	,data_(origin.data_)
 {
+	particle_buffer_->Create(sizeof(Particle), data_.max_particle_count, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr, false);
+	particle_shared_data_buffer_->Create(sizeof(ParticleSharedData), 1, STRUCTURE_BUFFER_TYPE::READ_WRITE, nullptr, true);
 }
 
 CParticleSystem::~CParticleSystem()
@@ -65,30 +79,30 @@ void CParticleSystem::UpdateData()
 void CParticleSystem::FinalUpdate()
 {
 	accumulate_time_ += fDT;
-	if (particle_spawn_frequency_ < accumulate_time_)
+	if (data_.particle_spawn_frequency < accumulate_time_)
 	{
 		accumulate_time_ = 0.f;
-		ParticleShadredData shared = {};
-		shared.activable_count = 8;
-		particle_shared_data_buffer_->SetData(&shared, sizeof(ParticleShadredData));
+		ParticleSharedData sharedData = {};
+		sharedData.activable_count = activable_count_;
+		particle_shared_data_buffer_->SetData(&sharedData, sizeof(ParticleSharedData));
 	}
 	particle_update_shader_->SetParticleBuffer(particle_buffer_);
 	particle_update_shader_->SetParticleSharedDataBuffer(particle_shared_data_buffer_);
 
 	particle_update_shader_->SetObjectPosition(GetTransform()->GetWorldPos());
-	particle_update_shader_->SetSpawnRange(spawn_range_);
+	particle_update_shader_->SetSpawnRange(data_.spawn_range);
 
-	particle_update_shader_->SetMinScale(min_scale_);
-	particle_update_shader_->SetMaxScale(max_scale_);
+	particle_update_shader_->SetMinScale(data_.min_scale);
+	particle_update_shader_->SetMaxScale(data_.max_scale);
 
-	particle_update_shader_->SetStartColor(start_color_);
-	particle_update_shader_->SetEndColor(end_color_);
+	particle_update_shader_->SetStartColor(data_.start_color);
+	particle_update_shader_->SetEndColor(data_.end_color);
 
-	particle_update_shader_->SetMinSpeed(min_speed_);
-	particle_update_shader_->SetMaxSpeed(max_speed_);
+	particle_update_shader_->SetMinSpeed(data_.min_speed);
+	particle_update_shader_->SetMaxSpeed(data_.max_speed);
 
-	particle_update_shader_->SetMinLife(particle_min_life_);
-	particle_update_shader_->SetMaxLife(particle_max_life_);
+	particle_update_shader_->SetMinLife(data_.particle_min_life);
+	particle_update_shader_->SetMaxLife(data_.particle_max_life);
 
 	particle_update_shader_->Excute();
 }
@@ -97,7 +111,7 @@ void CParticleSystem::Render()
 {
 	UpdateData();
 	particle_material_->UpdateData();
-	particle_mesh_->RenderParticle(max_particle_count_);
+	particle_mesh_->RenderParticle(data_.max_particle_count);
 	Clear();
 }
 
@@ -111,23 +125,8 @@ void CParticleSystem::SaveToScene(FILE* file)
 	CComponent::SaveToScene(file);
 
 	SaveResReference(particle_texture_, file);
-
-	fwrite(&max_particle_count_, sizeof(UINT), 1, file);
-	fwrite(&spawn_range_, sizeof(Vec3), 1, file);
-
-	fwrite(&min_scale_, sizeof(Vec3), 1, file);
-	fwrite(&max_scale_, sizeof(Vec3), 1, file);
-
-	fwrite(&start_color_, sizeof(Vec3), 1, file);
-	fwrite(&end_color_, sizeof(Vec3), 1, file);
-
-	fwrite(&min_speed_, sizeof(float), 1, file);
-	fwrite(&max_speed_, sizeof(float), 1, file);
-
-	fwrite(&particle_min_life_, sizeof(float), 1, file);
-	fwrite(&particle_max_life_, sizeof(float), 1, file);
-
-	fwrite(&particle_spawn_frequency_, sizeof(float), 1, file);
+	fwrite(&data_, sizeof(ParticleData), 1, file);
+	fwrite(&activable_count_, sizeof(float), 1, file);
 }
 
 void CParticleSystem::LoadFromScene(FILE* file)
@@ -136,20 +135,6 @@ void CParticleSystem::LoadFromScene(FILE* file)
 
 	LoadResReference(particle_texture_, file);
 
-	fread(&max_particle_count_, sizeof(UINT), 1, file);
-	fread(&spawn_range_, sizeof(Vec3), 1, file);
-
-	fread(&min_scale_, sizeof(Vec3), 1, file);
-	fread(&max_scale_, sizeof(Vec3), 1, file);
-
-	fread(&start_color_, sizeof(Vec3), 1, file);
-	fread(&end_color_, sizeof(Vec3), 1, file);
-
-	fread(&min_speed_, sizeof(float), 1, file);
-	fread(&max_speed_, sizeof(float), 1, file);
-
-	fread(&particle_min_life_, sizeof(float), 1, file);
-	fread(&particle_max_life_, sizeof(float), 1, file);
-
-	fread(&particle_spawn_frequency_, sizeof(float), 1, file);
+	fread(&data_, sizeof(ParticleData), 1, file);
+	fread(&activable_count_, sizeof(float), 1, file);
 }

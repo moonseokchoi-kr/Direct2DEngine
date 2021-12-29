@@ -77,7 +77,7 @@ struct Particle
 };
 
 
-struct ParticleShadredData
+struct ParticleSharedData
 {
 	int activable_count;
 	int current_active_count;

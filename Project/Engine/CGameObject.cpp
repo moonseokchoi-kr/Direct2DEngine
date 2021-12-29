@@ -239,6 +239,9 @@ void CGameObject::AddComponent(COMPONENT_TYPE type)
 	case COMPONENT_TYPE::SOUND:
 		//AddComponent(new CTransform);
 		break;
+	case COMPONENT_TYPE::UI:
+		AddComponent(new CUIComponent);
+		break;
 	default:
 		assert(nullptr);
 		break;

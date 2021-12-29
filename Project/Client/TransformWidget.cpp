@@ -16,6 +16,7 @@ TransformWidget::~TransformWidget()
 void TransformWidget::Update()
 {
 	Start();
+	if(ImGui::CollapsingHeader(GetName().c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		CTransform* tf = GetTarget()->Transform();
 		Vec3 pos = tf->GetPosition();

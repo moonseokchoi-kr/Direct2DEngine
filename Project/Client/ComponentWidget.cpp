@@ -16,12 +16,7 @@ ComponentWidget::~ComponentWidget()
 
 void ComponentWidget::Start()
 {
-	ImGui::BeginChild(GetName().c_str(), widget_size_);
-
-	ImGui::PushStyleColor(ImGuiCol_Text, (ImVec4)ImColor(0.f, 1.f, 0.f));
-	ImGui::Text(GetName().c_str());
-	ImGui::PopStyleColor();
-	ImGui::Spacing();
+	ImGui::BeginChild(("##"+GetName()).c_str(), widget_size_);
 }
 
 void ComponentWidget::End()

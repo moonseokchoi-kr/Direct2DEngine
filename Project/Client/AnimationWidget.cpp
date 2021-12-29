@@ -8,7 +8,7 @@
 #include <Engine/CAnimation2D.h>
 #include <Engine/CGameObject.h>
 AnimationWidget::AnimationWidget()
-	:ComponentWidget("Animation",Vec2(0,120))
+	:ComponentWidget("Animation",Vec2(0,140))
 {
 }
 
@@ -25,6 +25,7 @@ void AnimationWidget::Update()
 	CAnimator2D* animator = GetTarget()->Animator2D();
 	CAnimation2D* animation = animator->GetCurrentAnimation();
 	Start();
+	if(ImGui::CollapsingHeader("Animation", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		if (ImGui::BeginTable("animation_spilt", 2, ImGuiTableFlags_Resizable | ImGuiTableFlags_RowBg, ImVec2(0, 0), 0.f))
 		{

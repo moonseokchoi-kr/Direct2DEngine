@@ -16,6 +16,7 @@ TileMapWidget::~TileMapWidget()
 void TileMapWidget::Update()
 {
 	Start();
+	if (ImGui::CollapsingHeader(GetName().c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		if (ImGui::BeginTable("##detail", 2))
 		{

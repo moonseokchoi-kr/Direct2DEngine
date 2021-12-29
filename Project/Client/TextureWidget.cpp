@@ -12,9 +12,8 @@ TextureWidget::~TextureWidget()
 
 void TextureWidget::Update()
 {
-
-
 	Start();
+	if(ImGui::CollapsingHeader(GetName().c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		ImGui::PushStyleColor(ImGuiCol_Text,ImVec4(0.4f,0.4f,0.4f,1.0f));
 		ImGui::Text("File Name");

@@ -25,6 +25,7 @@ void MeshRenderWidget::Update()
 	materialWidget.SetName("##material select");
 
 	Start();
+	if (ImGui::CollapsingHeader(GetName().c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		if (ImGui::BeginTable("material_spilt", 2, ImGuiTableFlags_Resizable | ImGuiTableFlags_RowBg, ImVec2(0, 0), 0.f))
 		{

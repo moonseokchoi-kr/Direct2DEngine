@@ -67,6 +67,29 @@ void CUIComponent::OnMouseLeftButtonUp()
 
 }
 
+GameWidget* CUIComponent::AddWidget(UI_TYPE type)
+{
+	GameWidget* widget = nullptr;
+	switch (type)
+	{
+	case UI_TYPE::LIST:
+	{
+
+	}
+		break;
+	case UI_TYPE::GRID:
+	{
+
+	}
+		break;
+	case UI_TYPE::END:
+	default:
+		break;
+	}
+	canvas_widget_->AddChild(widget);
+	return widget;
+}
+
 void CUIComponent::CheckMouseHovered()
 {
 	Vec2 mousePos = MOUSE_POS;
@@ -131,4 +154,16 @@ void CUIComponent::ComputeTargetWidget()
 	}
 
 	target_widget_ = targetWidget;
+}
+
+void CUIComponent::SaveToScene(FILE* file)
+{
+	__super::SaveToScene(file);
+	canvas_widget_->SaveToScene(file);
+}
+
+void CUIComponent::LoadFromScene(FILE* file)
+{
+	canvas_widget_ = new CanvasPanelWidget;
+	canvas_widget_->LoadFromScene(file);
 }

@@ -38,10 +38,15 @@ public:
 	}
     float GetRestitution() { return restitution_; }
     float GetMass() { return mass_; }
+    float GetMaxVelocity() { return max_velocity_; }
+    float GetFriction() { return static_friction_; }
+
     void SetMass(float mass) { mass_ = mass; }
 	void SetAdditionalAccel(const Vec2& ac) { additional_accel_ = ac; }
     void ResolveCollide(CGameObject* other);
 
+    bool IsActive() { return is_active_; }
+    void SetActive(bool active) { is_active_ = active; }
 public:
     Vec2 GetForce() { return force_; }
     Vec2 GetVelocity() { return velocity_; }

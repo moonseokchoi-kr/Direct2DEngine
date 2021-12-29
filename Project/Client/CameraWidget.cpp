@@ -32,110 +32,113 @@ void CameraWidget::Update()
 	ImGui::AlignTextToFramePadding();
 	//ImVec2 widgetSize = ImGui::GetItemRectSize();
 	Start();
-	if (ImGui::BeginTable("transform_spilt", 2, ImGuiTableFlags_Resizable | ImGuiTableFlags_RowBg))
+	if(ImGui::CollapsingHeader("Camera", ImGuiTreeNodeFlags_DefaultOpen))
 	{
-		ImGui::TableNextColumn();
-		ImGui::Text("Mesh");
-		ImGui::TableNextColumn();
-		
-		if (ImGui::BeginCombo("##perspective_combo",preview_value))
+		if (ImGui::BeginTable("transform_spilt", 2, ImGuiTableFlags_Resizable | ImGuiTableFlags_RowBg))
 		{
-			for (int i = 0; i < proj_array.size(); ++i)
+			ImGui::TableNextColumn();
+			ImGui::Text("Mesh");
+			ImGui::TableNextColumn();
+
+			if (ImGui::BeginCombo("##perspective_combo", preview_value))
 			{
-				const bool is_selected = (current_index_ == i);
-				if (ImGui::Selectable(proj_array[i], is_selected))
+				for (int i = 0; i < proj_array.size(); ++i)
 				{
-					current_index_ = i;
-					camera->SetProjectionType((PROJECTION_TYPE)current_index_);
+					const bool is_selected = (current_index_ == i);
+					if (ImGui::Selectable(proj_array[i], is_selected))
+					{
+						current_index_ = i;
+						camera->SetProjectionType((PROJECTION_TYPE)current_index_);
+					}
+					if (is_selected)
+					{
+						ImGui::SetItemDefaultFocus();
+					}
 				}
-				if (is_selected)
-				{
-					ImGui::SetItemDefaultFocus();
-				}
+				ImGui::EndCombo();
 			}
-			ImGui::EndCombo();
-		}
 
-		ImGui::TableNextRow();
-		ImGui::TableNextColumn();
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
 
-		//FarZ
+			//FarZ
 
-		ImGui::Text("Far Z");
-		ImGui::TableNextColumn();
-		
-		if (!disabled)
-		{
-			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-		}
-			
-		if (ImGui::InputFloat("##input_far_z", &farZ))
-		{
-			if(farZ>0.f)
-				camera->SetFarZ(farZ);
-		}
-		
-		if (!disabled)
-		{
-			ImGui::PopItemFlag();
-			ImGui::PopStyleVar();
-		}
-			
+			ImGui::Text("Far Z");
+			ImGui::TableNextColumn();
 
-		ImGui::TableNextRow();
-		ImGui::TableNextColumn();
-		// AOV
+			if (!disabled)
+			{
+				ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+				ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+			}
 
-		ImGui::Text("Angle of View");
-		ImGui::TableNextColumn();
-		
-	
-		if (!disabled)
-		{
-			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-		}
-		if (ImGui::InputFloat("##input_aov", &aov))
-		{
-			if (aov > 0.f)
-				camera->SetAovY(aov);
-		}
-		
-		if (!disabled)
-		{
-			ImGui::PopItemFlag();
-			ImGui::PopStyleVar();
-		}
-			
+			if (ImGui::InputFloat("##input_far_z", &farZ))
+			{
+				if (farZ > 0.f)
+					camera->SetFarZ(farZ);
+			}
+
+			if (!disabled)
+			{
+				ImGui::PopItemFlag();
+				ImGui::PopStyleVar();
+			}
 
 
-		ImGui::TableNextRow();
-		ImGui::TableNextColumn();
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+			// AOV
 
-		ImGui::Text("Scale");
-		ImGui::TableNextColumn();
-		
-		if (disabled)
-		{
-			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-		}
-			
-		if (ImGui::InputFloat("##input_scale", &scale))
-		{
-			if(scale>0.f)
-				camera->SetScale(scale);
-		}
-		
-		if (disabled)
-		{
-			ImGui::PopItemFlag();
-			ImGui::PopStyleVar();
-		}
-			
+			ImGui::Text("Angle of View");
+			ImGui::TableNextColumn();
 
-		ImGui::EndTable();
+
+			if (!disabled)
+			{
+				ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+				ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+			}
+			if (ImGui::InputFloat("##input_aov", &aov))
+			{
+				if (aov > 0.f)
+					camera->SetAovY(aov);
+			}
+
+			if (!disabled)
+			{
+				ImGui::PopItemFlag();
+				ImGui::PopStyleVar();
+			}
+
+
+
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+
+			ImGui::Text("Scale");
+			ImGui::TableNextColumn();
+
+			if (disabled)
+			{
+				ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+				ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+			}
+
+			if (ImGui::InputFloat("##input_scale", &scale))
+			{
+				if (scale > 0.f)
+					camera->SetScale(scale);
+			}
+
+			if (disabled)
+			{
+				ImGui::PopItemFlag();
+				ImGui::PopStyleVar();
+			}
+
+
+			ImGui::EndTable();
+		}
 	}
 	End();
 

@@ -12,6 +12,7 @@ public:
     virtual void UpdateData();
 public:
     Vec3 GetPosition() { return local_position_; }
+    Vec3 GetLeftTop() { return local_lt_; }
     Vec3 GetScale() { return local_scale_; }
     Vec3 GetRotation() { return local_rotation_; }
     Vec3 GetWorldDirection(DIRECTION_TYPE type) { return world_direction_[ENUM_TO_NUMBER(type)]; }
@@ -39,6 +40,7 @@ private:
     Vec3 prev_local_position;
     Vec3 local_scale_;
     Vec3 local_rotation_;
+    Vec3 local_lt_;
     Vec3 child_pos_data_;
 
     bool cal_child_transform_;

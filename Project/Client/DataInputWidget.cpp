@@ -7,9 +7,7 @@
 
 bool DataInputWidget::DataInputInt(wstring name, int* data)
 {
-    string usage = WStringToString(name);
-    ImGui::Text(usage.c_str());
-    ImGui::SameLine();
+	string usage = WStringToString(name);
 
     usage = "##" + usage;
 
@@ -23,8 +21,6 @@ bool DataInputWidget::DataInputInt(wstring name, int* data)
 bool DataInputWidget::DataInputFloat(wstring name, float* data)
 {
 	string usage = WStringToString(name);
-	ImGui::Text(usage.c_str());
-	ImGui::SameLine();
 
 	usage = "##" + usage;
 
@@ -38,8 +34,6 @@ bool DataInputWidget::DataInputFloat(wstring name, float* data)
 bool DataInputWidget::DataInputVec2(wstring name, Vec2& data)
 {
 	string usage = WStringToString(name);
-	ImGui::Text(usage.c_str());
-	ImGui::SameLine();
 
 	usage = "##" + usage;
 
@@ -50,11 +44,22 @@ bool DataInputWidget::DataInputVec2(wstring name, Vec2& data)
     return false;
 }
 
+bool DataInputWidget::DataInputVec3(wstring name, Vec3& data)
+{
+	string usage = WStringToString(name);
+
+	usage = "##" + usage;
+
+	if (ImGui::InputFloat2(usage.c_str(), data))
+	{
+		return true;
+	}
+	return false;
+}
+
 bool DataInputWidget::DataInputVec4(wstring name, Vec4& data)
 {
 	string usage = WStringToString(name);
-	ImGui::Text(usage.c_str());
-	ImGui::SameLine();
 
 	usage = "##" + usage;
 
@@ -71,7 +76,6 @@ void DataInputWidget::DataInputTexture(wstring name, Ptr<CTexture> texture, DWOR
 {
 	string usage = WStringToString(name);
 	ImGui::Text(usage.c_str());
-
 	usage = "##" + usage;
 
 	//Combo

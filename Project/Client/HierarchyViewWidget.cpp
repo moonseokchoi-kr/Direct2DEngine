@@ -63,7 +63,7 @@ void HierarchyViewWidget::Renew()
 
 		const vector<CGameObject*>& parentObjects = layer->GetParentObjects();
 		for (const auto& object : parentObjects)
-		{
+		{ 
 			AddGameObject(root, object);
 		}
 	}

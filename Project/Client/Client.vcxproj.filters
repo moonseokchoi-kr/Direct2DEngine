@@ -317,6 +317,12 @@
     <ClInclude Include="UIComponentWidget.h">
       <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\UI</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleWidget.h">
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody2DWidget.h">
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\RigidBody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -467,6 +473,12 @@
     </ClCompile>
     <ClCompile Include="UIComponentWidget.cpp">
       <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleWidget.cpp">
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody2DWidget.cpp">
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

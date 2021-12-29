@@ -25,6 +25,7 @@ void Collider2DWidget::Init()
 void Collider2DWidget::Update()
 {
 	Start();
+	if (ImGui::CollapsingHeader(GetName().c_str(), ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		CCollider2D* col = GetTarget()->Collider2D();
 		Vec3 offsetPos = col->GetOffsetPosition();

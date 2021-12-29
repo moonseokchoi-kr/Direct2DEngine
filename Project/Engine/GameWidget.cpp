@@ -5,15 +5,16 @@
 #include "CTransform.h"
 #include "CKeyManager.h"
 
-GameWidget::GameWidget()
+GameWidget::GameWidget(UI_TYPE type)
 	:parent_widget_(nullptr)
-	,owner_(nullptr)
-	,is_hovered_(false)
-	,is_mouse_l_down_(false)
-	,is_mouse_l_release_(false)
-	,is_selected_(false)
-	,offset_(Vec3())
-	,offset_scale_(Vec3(1.f,1.f,1.f))
+	, owner_(nullptr)
+	, is_hovered_(false)
+	, is_mouse_l_down_(false)
+	, is_mouse_l_release_(false)
+	, is_selected_(false)
+	, offset_(Vec3())
+	, offset_scale_(Vec3(1.f, 1.f, 1.f))
+	, ui_type_(type)
 {
 }
 
@@ -24,6 +25,9 @@ GameWidget::GameWidget(const GameWidget& origin)
 	, is_mouse_l_down_(false)
 	, is_mouse_l_release_(false)
 	, is_selected_(false)
+	,ui_type_(origin.ui_type_)
+	,offset_(origin.offset_)
+	,offset_scale_(origin.offset_scale_)
 {
 	mesh_ = CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh");
 	material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"ui_mateiral");
@@ -101,6 +105,24 @@ void GameWidget::UpdateData()
 	{
 		child->UpdateData();
 	}
+}
+
+void GameWidget::SaveToScene(FILE* file)
+{
+	CEntity::SaveToScene(file);
+	fwrite(&offset_, sizeof(Vec3), 1, file);
+	fwrite(&offset_scale_, sizeof(Vec3), 1, file);
+	SaveResReference(material_, file);
+	SaveResReference(mesh_, file);
+}
+
+void GameWidget::LoadFromScene(FILE* file)
+{
+	CEntity::LoadFromScene(file);
+	fread(&offset_, sizeof(Vec3), 1, file);
+	fread(&offset_scale_, sizeof(Vec3), 1, file);
+	LoadResReference(material_, file);
+	LoadResReference(mesh_, file);
 }
 
 void GameWidget::CheckMouseHovered()
