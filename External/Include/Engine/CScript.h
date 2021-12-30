@@ -10,13 +10,15 @@
 #include "CPrefab.h"
 #include "CAnimator2D.h"
 
+
+
 enum class SCRIPT_PARAM
 {
     INT,
     FLOAT,
     VEC2,
+    VEC3,
     VEC4,
-    MATRIX,
 
     TEXTURE,
     PREFAB,
@@ -31,6 +33,7 @@ struct ScriptParameter
     void* data;
 };
 
+#define ADD_PARAMETER(var) AddParam({ ToWString(PRINT_VAL_NAME(var)),GetType(var),&var });
 
 class CCollider2D;
 
@@ -63,16 +66,18 @@ protected:
 
     void Instantiate(Ptr<CPrefab> prefab, int layerIndex = 0);
     void Instantiate(Ptr<CPrefab> prefab, Vec3 position, int layerIndex = 0, Vec3 rotation = Vec3(0.f, 0.f, 0.f) );
-
-    void AddParam(const ScriptParameter& _param)
-    {
-        parameter_vector_.push_back(_param);
-    }
+    
 
 protected:
 	virtual void OnCollisionEnter(CGameObject* otherObject);
 	virtual void OnCollision(CGameObject* otherObject);
 	virtual void OnCollisionExit(CGameObject* otherObject);
+
+protected:
+    void AddParam(const ScriptParameter& param) { parameter_vector_.push_back(param); };
+	template<typename T>
+	SCRIPT_PARAM GetType(T variable);
+private:
 
 
 private:
@@ -82,3 +87,34 @@ private:
     CScript();
 };
 
+template<typename T>
+inline SCRIPT_PARAM CScript::GetType(T variable)
+{
+    const type_info& info = typeid(T);
+    SCRIPT_PARAM param = SCRIPT_PARAM::END;
+	if (info.hash_code() == typeid(int).hash_code())
+    {
+        param = SCRIPT_PARAM::INT;
+    }
+    else if (info.hash_code() == typeid(float).hash_code())
+    {
+        param = SCRIPT_PARAM::FLOAT;
+    }
+	else if (info.hash_code() == typeid(Vec2).hash_code())
+	{
+		param = SCRIPT_PARAM::VEC2;
+	}
+	else if (info.hash_code() == typeid(Vec3).hash_code())
+	{
+        param = SCRIPT_PARAM::VEC3;
+	}
+	else if (info.hash_code() == typeid(Vec4).hash_code())
+	{
+		param = SCRIPT_PARAM::VEC4;
+	}
+	else if (info.hash_code() == typeid(Ptr<CPrefab>).hash_code())
+	{
+        param = SCRIPT_PARAM::PREFAB;
+	}
+    return param;
+}

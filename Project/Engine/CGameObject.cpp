@@ -1,9 +1,11 @@
 #include "pch.h"
+
 #include "CGameObject.h"
 #include "CTransform.h"
 #include "CComponent.h"
 #include "CMeshRender.h"
 #include "CCollider2D.h"
+#include "CBox2DCollider.h"
 #include "CParticleSystem.h"
 #include "CTileMap.h"
 #include "CRigidBody2D.h"
@@ -171,6 +173,10 @@ void CGameObject::Render()
 	{
 		Collider2D()->Render();
 	}
+	if (nullptr != Box2DCollider())
+	{
+		Box2DCollider()->Render();
+	}
 
 }
 
@@ -201,6 +207,9 @@ void CGameObject::AddComponent(COMPONENT_TYPE type)
 		break;
 	case COMPONENT_TYPE::MESHRENDER:
 		AddComponent(new CMeshRender);
+		break;
+	case COMPONENT_TYPE::BOX2D_COLLIDER:
+		AddComponent(new CBox2DCollider);
 		break;
 	case COMPONENT_TYPE::COLLIDER2D:
 		AddComponent(new CCollider2D);

@@ -73,8 +73,6 @@ void ScriptWidget::Update()
 					ImGui::TableNextRow();
 				}
 					break;
-				case SCRIPT_PARAM::MATRIX:
-					break;
 				case SCRIPT_PARAM::TEXTURE:
 					break;
 				case SCRIPT_PARAM::PREFAB:

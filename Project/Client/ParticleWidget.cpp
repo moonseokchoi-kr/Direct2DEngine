@@ -125,7 +125,7 @@ void ParticleWidget::Update()
 
 					ImGui::Text("End Color");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputVec4(L"End Color", particleData.end_color);
+					DataInputWidget::DataDragInputVec4(L"End Color", particleData.end_color);
 
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
@@ -135,7 +135,7 @@ void ParticleWidget::Update()
 
 					ImGui::Text("Spawn Range");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputVec3(L"Spawn Range", particleData.spawn_range);
+					DataInputWidget::DataDragInputVec3(L"Spawn Range", particleData.spawn_range);
 
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
@@ -145,7 +145,7 @@ void ParticleWidget::Update()
 
 					ImGui::Text("Min Scale");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputVec3(L"Min Scale", particleData.min_scale);
+					DataInputWidget::DataDragInputVec3(L"Min Scale", particleData.min_scale);
 
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
@@ -154,7 +154,7 @@ void ParticleWidget::Update()
 
 					ImGui::Text("Max Scale");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputVec3(L"Max Scale", particleData.max_scale);
+					DataInputWidget::DataDragInputVec3(L"Max Scale", particleData.max_scale);
 
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
@@ -163,7 +163,7 @@ void ParticleWidget::Update()
 
 					ImGui::Text("Max Count");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputInt(L"Max Count", &(particleData.max_particle_count));
+					DataInputWidget::DataDragInputInt(L"Max Count", &(particleData.max_particle_count));
 
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
@@ -172,7 +172,7 @@ void ParticleWidget::Update()
 
 					ImGui::Text("Min Life Time");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputFloat(L"Min Life Time", &(particleData.particle_min_life));
+					DataInputWidget::DataDragInputFloat(L"Min Life Time", &(particleData.particle_min_life));
 
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
@@ -181,7 +181,7 @@ void ParticleWidget::Update()
 
 					ImGui::Text("Max Life Time");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputFloat(L"Max Life Time", &(particleData.particle_max_life));
+					DataInputWidget::DataDragInputFloat(L"Max Life Time", &(particleData.particle_max_life));
 
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
@@ -190,7 +190,7 @@ void ParticleWidget::Update()
 
 					ImGui::Text("Min Speed");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputFloat(L"Min Speed", &(particleData.min_speed));
+					DataInputWidget::DataDragInputFloat(L"Min Speed", &(particleData.min_speed));
 
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
@@ -199,7 +199,7 @@ void ParticleWidget::Update()
 
 					ImGui::Text("Start Color");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputFloat(L"Max Speed", &(particleData.max_speed));
+					DataInputWidget::DataDragInputFloat(L"Max Speed", &(particleData.max_speed));
 
 					ImGui::TableNextRow();
 					ImGui::TableNextColumn();
@@ -207,7 +207,7 @@ void ParticleWidget::Update()
 					//float   particle_spawn_frequency;;
 					ImGui::Text("Spawn Frequency");
 					ImGui::TableNextColumn();
-					DataInputWidget::DataInputFloat(L"Spawn Frequency", &(particleData.particle_spawn_frequency));
+					DataInputWidget::DataDragInputFloat(L"Spawn Frequency", &(particleData.particle_spawn_frequency));
 
 					particle->SetParticleData(particleData);
 					ImGui::EndTable();

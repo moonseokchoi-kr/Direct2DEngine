@@ -77,4 +77,4 @@ void LoadResReference(Ptr<T>& res, FILE* file)
 	}
 
 }
-
+wstring ToWString(string var);

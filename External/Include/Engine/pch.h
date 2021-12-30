@@ -76,7 +76,16 @@ using namespace DirectX::PackedVector;
 #pragma comment(lib, "dxgi")
 #pragma comment(lib, "legacy_stdio_definitions.lib")
 
-
+//Box2d
+#ifdef _DEBUG
+#pragma comment(lib,"Box2d/box2d_debug")
+#else
+#pragma comment(lib, "Box2d/box2d")
+#endif
+#include <Box2d/b2_world.h>
+#include <Box2d/b2_polygon_shape.h>
+#include <Box2d/b2_body.h>
+#include <Box2d/b2_fixture.h>
 
 //custom header
 

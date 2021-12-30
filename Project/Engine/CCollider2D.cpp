@@ -66,9 +66,6 @@ void CCollider2D::OnCollisionEnter(CGameObject* otherObject)
 	}
 }
 	
-	
-	
-
 void CCollider2D::OnCollision(CGameObject* otherObject)
 {
 	const vector<CScript*>& scripts = GetOwner()->GetScripts();
@@ -107,8 +104,4 @@ void CCollider2D::LoadFromScene(FILE* file)
 	fread(&offset_scale_, sizeof(Vec3), 1, file);
 }
 
-void CCollider2D::ResolveCollide(CGameObject* otherObject)
-{
-	GetOwner()->RigidBody2D()->ResolveCollide(otherObject);
-}
 

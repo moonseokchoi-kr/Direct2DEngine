@@ -14,8 +14,8 @@ CPlayerScript::CPlayerScript()
 {
 	player_bullet_prefab_ = CResourceManager::GetInst()->FindRes<CPrefab>(L"player_bullet_prefab");
 	SetName(L"PlayerScript");
-	AddParam({ L"player_move_speed_",SCRIPT_PARAM::FLOAT,&player_move_speed_ });
-	AddParam({ L"player_bullet_attack_speed_",SCRIPT_PARAM::FLOAT,&player_bullet_attack_speed_ });
+	ADD_PARAMETER(player_move_speed_);
+	ADD_PARAMETER(player_bullet_attack_speed_);
 }
 
 CPlayerScript::~CPlayerScript()

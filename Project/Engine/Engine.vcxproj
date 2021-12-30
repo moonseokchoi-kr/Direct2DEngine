@@ -191,9 +191,11 @@ call .\EngineCopy.bat</Command>
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Box2DColliderDebugDraw.h" />
     <ClInclude Include="CAnimation2D.h" />
     <ClInclude Include="CAnimator2D.h" />
     <ClInclude Include="CanvasPanelWidget.h" />
+    <ClInclude Include="CBox2DCollider.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CCollider2D.h" />
     <ClInclude Include="CCollisionManager.h" />
@@ -245,9 +247,11 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="GameWidget.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Box2DColliderDebugDraw.cpp" />
     <ClCompile Include="CAnimation2D.cpp" />
     <ClCompile Include="CAnimator2D.cpp" />
     <ClCompile Include="CanvasPanelWidget.cpp" />
+    <ClCompile Include="CBox2DCollider.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CCollider2D.cpp" />
     <ClCompile Include="CCollisionManager.cpp" />
@@ -301,6 +305,7 @@ call .\EngineCopy.bat</Command>
     <None Include="SimpleMath.inl" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="box2d_collider_shader.fx" />
     <FxCompile Include="collider2dshader.fx">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>

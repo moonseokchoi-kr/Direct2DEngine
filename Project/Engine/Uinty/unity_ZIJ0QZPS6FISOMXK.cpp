@@ -1,5 +1,11 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\DirectXEngine\Project\Engine\CScene.cpp"
+
+
+#include "D:\Project\cpp\DirectXEngine\Project\Engine\CSceneManager.cpp"
+
+
 #include "D:\Project\cpp\DirectXEngine\Project\Engine\CScript.cpp"
 
 
@@ -16,10 +22,4 @@
 
 
 #include "D:\Project\cpp\DirectXEngine\Project\Engine\CTileMap.cpp"
-
-
-#include "D:\Project\cpp\DirectXEngine\Project\Engine\CTimeManager.cpp"
-
-
-#include "D:\Project\cpp\DirectXEngine\Project\Engine\CTransform.cpp"
 

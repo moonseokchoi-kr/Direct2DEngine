@@ -246,6 +246,20 @@ void CResourceManager::CreateDefaultShader()
 
 
 	AddResource(L"ui_shader",stdShader);
+
+
+	stdShader = new CGraphicsShader;
+	strPath = CPathManager::GetInst()->GetContentPath();
+	strPath += L"shader\\box2d_collider_shader.fx";
+	stdShader->CreateVertexShader(strPath, "vs_main");
+	stdShader->CreatePixelShader(strPath, "ps_main");
+
+	stdShader->SetTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+	stdShader->SetDepthStencilType(DEPTH_STENCIL_TYPE::NO_TEST_NO_WRITE);
+	stdShader->SetRenderTiming(RENDER_TIMING::FOWARD);
+
+
+	AddResource(L"box2d_collider_debug", stdShader);
 }
 
 void CResourceManager::CreateDefaultTexture()
@@ -331,6 +345,10 @@ void CResourceManager::CreateDefaultMaterial()
 	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"post_effect_shader"));
 	AddResource(L"post_effect_material", material);
+
+	material = new CMaterial(true);
+	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"box2d_collider_debug"));
+	AddResource(L"box2d_collider_debug_material", material);
 }
 
 void CResourceManager::CreateDefaultComputeShader()

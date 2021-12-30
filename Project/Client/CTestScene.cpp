@@ -8,6 +8,7 @@
 #include <Engine/CGameObject.h>
 #include <Engine/CMaterial.h>
 #include <Engine/CCollider2D.h>
+#include <Engine/CBox2DCollider.h>
 #include <Engine/CMeshRender.h>
 #include <Engine/CLight2D.h>
 #include <Engine/CAnimator2D.h>
@@ -43,7 +44,7 @@ void CTestScene::CreateTestScene()
 
 	CSceneManager::GetInst()->ChangeScene(scene);
 
-	return;
+	//return;
 
 	CreatePrefab();
 
@@ -87,16 +88,16 @@ void CTestScene::CreateTestScene()
 
 
 
-	//ui
-	const auto testUI = new CGameObject;
-	testUI->SetName(L"test panel");
-	testUI->AddComponent(new CTransform);
-	testUI->AddComponent(new CUIComponent);
-	testUI->Transform()->SetPosition(Vec3(0.0f, 0.f, 2000.f));
-	testUI->Transform()->SetScale(Vec3(300.f, 300.f, 1.f));
-
-	//ui layer number 4
-	scene->AddGameObject(testUI, 4, true);
+// 	//ui
+// 	const auto testUI = new CGameObject;
+// 	testUI->SetName(L"test panel");
+// 	testUI->AddComponent(new CTransform);
+// 	testUI->AddComponent(new CUIComponent);
+// 	testUI->Transform()->SetPosition(Vec3(0.0f, 0.f, 2000.f));
+// 	testUI->Transform()->SetScale(Vec3(300.f, 300.f, 1.f));
+// 
+// 	//ui layer number 4
+// 	scene->AddGameObject(testUI, 4, true);
 
 
 
@@ -124,13 +125,13 @@ void CTestScene::CreateTestScene()
 	//CreatePrefabs();
 	//InitTestMap();
 
-	CGameObject* particleObject = new CGameObject;
-
-	particleObject->SetName(L"particle");
-	particleObject->AddComponent(new CTransform);
-	particleObject->AddComponent(new CParticleSystem);
-	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
-	scene->AddGameObject(particleObject, 2, true);
+// 	CGameObject* particleObject = new CGameObject;
+// 
+// 	particleObject->SetName(L"particle");
+// 	particleObject->AddComponent(new CTransform);
+// 	particleObject->AddComponent(new CParticleSystem);
+// 	particleObject->Transform()->SetPosition(Vec3(0.f, 0.f, 1000.f));
+// 	scene->AddGameObject(particleObject, 2, true);
 
 // 	CGameObject* postEffectObject = new CGameObject;
 // 	postEffectObject->SetName(L"post_effect");
@@ -153,14 +154,13 @@ void CTestScene::CreateTestScene()
 	player->AddComponent(new CMeshRender);
 	player->AddComponent(new CAnimator2D);
 	player->AddComponent(new CPlayerScript);
-	player->AddComponent(new CCollider2D);
+	player->AddComponent(new CBox2DCollider);
 	player->AddComponent(new CRigidBody2D);
-	player->Transform()->SetPosition(Vec3(0.f, -300.f, 100.f));
-	player->Transform()->SetScale(Vec3(100.f, 100.f, 1.f));
-	player->Collider2D()->SetOffsetScale(Vec2(0.10f, 0.15f));
+	player->Transform()->SetPosition(Vec3(0.f, 4.f, 100.f));
+	player->Transform()->SetScale(Vec3(50.f, 50.f, 1.f));
 	player->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	player->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
-
+	
 	Ptr<CMaterial> material = player->MeshRender()->GetCurrentMaterial();
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"player").Get());
 	Ptr<CTexture> playerTex = CResourceManager::GetInst()->LoadRes<CTexture>(L"player_tex", L"texture\\anim_texture\\sakuya_player.png");
@@ -169,9 +169,21 @@ void CTestScene::CreateTestScene()
 	player->Animator2D()->Play(L"FLY_LEFT", 0, true);
 
 	//플레이어 2번
-	scene->AddGameObject(player, 2, true);
+	scene->AddGameObject(player, 0, true);
 
-
+	const auto ground = new CGameObject;
+	ground->SetName(L"ground");
+	ground->AddComponent(new CTransform);
+	ground->AddComponent(new CMeshRender);
+	ground->AddComponent(new CBox2DCollider);
+	ground->AddComponent(new CRigidBody2D);
+	ground->Transform()->SetPosition(Vec3(0.f, -100.f, 100.f));
+	ground->Transform()->SetScale(Vec3(200.f, 10.f, 1.f));
+	ground->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
+	ground->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"ui_material"));
+	ground->Box2DCollider()->SetDenisty(0.0f);
+	ground->RigidBody2D()->SetBodyType(BODY_TYPE::STATIC);
+	scene->AddGameObject(ground, 2, true);
 }
 
 

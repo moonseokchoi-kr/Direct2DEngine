@@ -8,7 +8,8 @@
 #include "CCollisionManager.h"
 #include "CGameObject.h"
 
-void CreatePrefabs();
+
+
 CSceneManager::CSceneManager()
 	:current_scene_(nullptr)
 	,scene_mode_(SCENE_MODE::STOP)

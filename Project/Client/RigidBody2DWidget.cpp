@@ -19,59 +19,47 @@ void RigidBody2DWidget::Update()
 	if (ImGui::CollapsingHeader(GetName().c_str(),ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		CRigidBody2D* rigidBody = GetTarget()->RigidBody2D();
-		bool active = rigidBody->IsActive();
-		float mass = rigidBody->GetMass();
-		float max_velocity_ = rigidBody->GetMaxVelocity();
-		float friction = rigidBody->GetFriction();
+		bool fixedRotation = rigidBody->IsFixedRotation();
+		BODY_TYPE type = rigidBody->GetBodyType();
 		if (ImGui::BeginTable("##rigidbody_table",2, ImGuiTableFlags_Resizable))
 		{
 			ImGui::TableNextColumn();
-			ImGui::Text("Active");
+			ImGui::Text("Fixed Rotation");
 			ImGui::TableNextColumn();
 
-			if (ImGui::Checkbox("##active", &active))
+			if (ImGui::Checkbox("##fixed_rotation", &fixedRotation))
 			{
-				rigidBody->SetActive(active);
+				rigidBody->SetFixedRotation(fixedRotation);
 			}
 
-			ImGui::TableNextRow();
-
 			ImGui::TableNextColumn();
-			ImGui::Text("mass");
+			ImGui::Text("RigidBody Type");
 			ImGui::TableNextColumn();
 
-			if (DataInputWidget::DataInputFloat(L"mass", &mass))
+			const auto& bodyMap = magic_enum::enum_entries<BODY_TYPE>();
+			int count = 0;
+			rigid_combo_.SetCallback(this, (COMBO_CALLBACK)&RigidBody2DWidget::ChangeType);
+			for (const auto& pair : bodyMap)
 			{
-				rigidBody->SetMass(mass);
+				rigid_combo_.AddComboData(string(pair.second));
+				if (pair.first == type)
+					rigid_combo_.SetCurrentIndex(count);
+				++count; 
 			}
-
-			ImGui::TableNextRow();
-
-
-			ImGui::TableNextColumn();
-			ImGui::Text("Max Velocity");
-			ImGui::TableNextColumn();
-
-			if (DataInputWidget::DataInputFloat(L"Max Velocity", &max_velocity_))
-			{
-				rigidBody->SetMaxVelocity(max_velocity_);
-			}
-
-			ImGui::TableNextRow();
-
-
-			ImGui::TableNextColumn();
-			ImGui::Text("Friction");
-			ImGui::TableNextColumn();
-
-			if (DataInputWidget::DataInputFloat(L"Friction", &friction))
-			{
-				rigidBody->SetFriction(friction);
-			}
+			rigid_combo_.Update();
 
 			ImGui::EndTable();
 			
 		}
 	}
 	End();
+}
+
+void RigidBody2DWidget::ChangeType(DWORD_PTR instance, DWORD_PTR data)
+{
+	ComboWidget* widget = (ComboWidget*)instance;
+	string str = widget->GetSelectedItem();
+	auto type = magic_enum::enum_cast<BODY_TYPE>(str);
+	CRigidBody2D* rigidBody = GetTarget()->RigidBody2D();
+	rigidBody->SetBodyType(type.value());
 }

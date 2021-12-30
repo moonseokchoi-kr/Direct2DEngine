@@ -181,7 +181,7 @@ bool CCollisionManager::isCollision(CCollider2D* leftCollider, CCollider2D* righ
 	for (int k = 0; k < localPositionArray.size(); ++k)
 	{
 		Vec3 axis = projectionAxisArray[k];
-		axis.Normalize();
+		axis.Normalize(); 
 
 		float halfDistance = 0.f;
 

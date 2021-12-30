@@ -17,3 +17,10 @@ void LoadWStringFromFile(wstring& str, FILE* file)
 	fread(szbuffer, sizeof(wchar_t), len, file);
 	str = szbuffer;
 }
+
+wstring ToWString(string var)
+{
+	array<wchar_t, 256> str = { 0, };
+	MultiByteToWideChar(CP_ACP, 0, var.c_str(), (int)var.length(), str.data(), (int)var.length());
+	return wstring(str.data());
+}

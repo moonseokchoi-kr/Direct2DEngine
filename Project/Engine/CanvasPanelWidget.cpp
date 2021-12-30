@@ -9,7 +9,7 @@ CanvasPanelWidget::CanvasPanelWidget()
 {
 	mesh_ = CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh");
 	material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"ui_material");
-	SetOffSet(Vec3(0, -0.3, 0));
+	SetOffSet(Vec3(0.f, -0.3f, 0.f));
 }
 
 CanvasPanelWidget::~CanvasPanelWidget()

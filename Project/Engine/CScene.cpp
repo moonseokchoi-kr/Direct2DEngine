@@ -3,6 +3,7 @@
 
 #include "CDevice.h"
 #include "CKeyManager.h"
+#include "CTimeManager.h"
 #include "CLayer.h"
 CScene::CScene()
 {
@@ -12,6 +13,8 @@ CScene::CScene()
 		layer_array_[i] = new CLayer;
 		layer_array_[i]->layer_index_ = i;
 	}
+	physics_world_ = new b2World({0.0,-9.8f});
+	physics_world_->SetDebugDraw(&g_debugDraw);
 }
 
 CScene::~CScene()
@@ -54,6 +57,13 @@ void CScene::Update()
 
 void CScene::LateUpdate()
 {
+	//physics update
+	{
+		const int32_t velocityIterations = 6;
+		const int32_t positionIterations = 2;
+		physics_world_->Step(fDT, velocityIterations, positionIterations);
+		
+	}
 	for (const auto& layer : layer_array_)
 	{
 		if (nullptr != layer)
@@ -76,18 +86,18 @@ void CScene::FinalUpdate()
 			layer->FinalUpdate();
 		}
 	}
+	physics_world_->DebugDraw();
 }
 
 void CScene::Render()
 {
-
-	for (const auto& layer : layer_array_)
-	{
-		if (nullptr != layer)
-		{
-			layer->Render();
-		}
-	}
+// 	for (const auto& layer : layer_array_)
+// 	{
+// 		if (nullptr != layer)
+// 		{
+// 			layer->Render();
+// 		}
+// 	}
 }
 
 void CScene::AddGameObject(CGameObject* object, UINT layerType, bool bMove)

@@ -24,6 +24,9 @@
 
 #define GET_COMPONENT(ComponentName, EnumName) C##ComponentName* ComponentName(){return (C##ComponentName*)component_array_[(UINT)(EnumName)];}
 
+#define PRINT_VAL_NAME(variable) #variable
+
+
 #define MAX_LAYER 32
 typedef Vector2 Vec2;
 typedef Vector3 Vec3;
@@ -74,7 +77,10 @@ enum class COMPONENT_TYPE
 {
 	TRANSFORM,
 	MESHRENDER,
+	RIGIDBODY2D,
+	RIGIDBODY3D,
 	COLLIDER2D,
+	BOX2D_COLLIDER,
 	COLLIDER3D,
 	CAMERA,
 	LIGHT2D,
@@ -82,8 +88,6 @@ enum class COMPONENT_TYPE
 	PARTICLESYSTEM,
 	ANIMATOR2D,
 	ANIMATOR3D,
-	RIGIDBODY2D,
-	RIGIDBODY3D,
 	TERRAIN,
 	TILEMAP,
 	SKYBOX,

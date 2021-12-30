@@ -13,6 +13,7 @@
 #include "ParticleWidget.h"
 #include "RigidBody2DWidget.h"
 #include "UIComponentWidget.h"
+#include "Box2DColliderWidget.h"
 
 #include <Engine/CGameObject.h>
 #include <Engine/CKeyManager.h>
@@ -29,6 +30,7 @@ InspectorWidget::InspectorWidget()
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::MESHRENDER)] = new MeshRenderWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::ANIMATOR2D)] = new AnimationWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::COLLIDER2D)] = new Collider2DWidget;
+	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::BOX2D_COLLIDER)] = new Box2DColliderWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::CAMERA)] = new CameraWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::TILEMAP)] = new TileMapWidget;
 	component_widget_array_[static_cast<UINT>(COMPONENT_TYPE::PARTICLESYSTEM)] = new ParticleWidget;

@@ -20,7 +20,9 @@ public:
 
 public:
     void Create(VTX* _vtx, UINT _vtxCount, UINT* _idx, UINT _idxCount);
+    void Create(VTX* _vtx, UINT _vtxCount);
     void Render();
+    void RenderNoneIndexed();
     void RenderParticle(UINT renderCount);
     virtual void UpdateData();
     

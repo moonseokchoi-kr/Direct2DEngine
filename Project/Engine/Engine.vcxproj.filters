@@ -177,6 +177,12 @@
     <Filter Include="Source\Manager\UI\Widget\CnavasPanel">
       <UniqueIdentifier>{ed9e71b4-351d-48e3-8e81-542666cef756}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Component\Collider\Collider2D\Box">
+      <UniqueIdentifier>{d00a5d12-7853-417c-9d3b-1f98ce0c7256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Component\Collider\Collider2D\Box\DebugDraw">
+      <UniqueIdentifier>{b2b24876-ae13-4a9d-ac15-fd7ba2146b03}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -335,6 +341,12 @@
     <ClInclude Include="CanvasPanelWidget.h">
       <Filter>Source\Manager\UI\Widget\CnavasPanel</Filter>
     </ClInclude>
+    <ClInclude Include="CBox2DCollider.h">
+      <Filter>Source\Component\Collider\Collider2D\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="Box2DColliderDebugDraw.h">
+      <Filter>Source\Component\Collider\Collider2D\Box\DebugDraw</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -475,6 +487,12 @@
     <ClCompile Include="CanvasPanelWidget.cpp">
       <Filter>Source\Manager\UI\Widget\CnavasPanel</Filter>
     </ClCompile>
+    <ClCompile Include="CBox2DCollider.cpp">
+      <Filter>Source\Component\Collider\Collider2D\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="Box2DColliderDebugDraw.cpp">
+      <Filter>Source\Component\Collider\Collider2D\Box\DebugDraw</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
@@ -519,6 +537,9 @@
       <Filter>Source\ShaderCode</Filter>
     </FxCompile>
     <FxCompile Include="ui_shader.fx">
+      <Filter>Source\ShaderCode\GraphicShader</Filter>
+    </FxCompile>
+    <FxCompile Include="box2d_collider_shader.fx">
       <Filter>Source\ShaderCode\GraphicShader</Filter>
     </FxCompile>
   </ItemGroup>

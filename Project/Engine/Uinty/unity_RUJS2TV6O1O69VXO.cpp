@@ -1,5 +1,11 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\DirectXEngine\Project\Engine\CComponent.cpp"
+
+
+#include "D:\Project\cpp\DirectXEngine\Project\Engine\CComputeShader.cpp"
+
+
 #include "D:\Project\cpp\DirectXEngine\Project\Engine\CConstBuffer.cpp"
 
 
@@ -16,10 +22,4 @@
 
 
 #include "D:\Project\cpp\DirectXEngine\Project\Engine\CGameObject.cpp"
-
-
-#include "D:\Project\cpp\DirectXEngine\Project\Engine\CGraphicsShader.cpp"
-
-
-#include "D:\Project\cpp\DirectXEngine\Project\Engine\CKeyManager.cpp"
 

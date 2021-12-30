@@ -1,6 +1,7 @@
 #pragma once
 
 
+
 class CTimeManager
 	:public CSingleton<CTimeManager>
 {
@@ -19,6 +20,8 @@ public:
 	float GetfDT() { return static_cast<float>(delta_time_); }
 
 	float GetTotalTime();
+public:
+	static const float PHYSICS_TIME_STEP;
 private:
 	LARGE_INTEGER	current_count_; //현재시간
 	LARGE_INTEGER	prev_count_; //이전시간

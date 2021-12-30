@@ -173,6 +173,7 @@
     <ClInclude Include="AnimationTool.h" />
     <ClInclude Include="AnimationWidget.h" />
     <ClInclude Include="AtlasTextureTool.h" />
+    <ClInclude Include="Box2DColliderWidget.h" />
     <ClInclude Include="CameraWidget.h" />
     <ClInclude Include="client_func.h" />
     <ClInclude Include="Collider2DWidget.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="AnimationTool.cpp" />
     <ClCompile Include="AnimationWidget.cpp" />
     <ClCompile Include="AtlasTextureTool.cpp" />
+    <ClCompile Include="Box2DColliderWidget.cpp" />
     <ClCompile Include="CameraWidget.cpp" />
     <ClCompile Include="Collider2DWidget.cpp" />
     <ClCompile Include="ComboWidget.cpp" />

@@ -12,6 +12,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Project\Engine\Engine.vcxproj", "{FB463CEF-C9AE-4250-874A-879A8EB89C3E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Script", "Project\Script\Script.vcxproj", "{E84E7C70-116F-41CB-A73B-56311B0DA164}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FB463CEF-C9AE-4250-874A-879A8EB89C3E} = {FB463CEF-C9AE-4250-874A-879A8EB89C3E}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

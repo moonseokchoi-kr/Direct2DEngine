@@ -3,6 +3,8 @@
 
 #include "CCore.h"
 
+const float CTimeManager::PHYSICS_TIME_STEP = 1.f / 60.f;
+
 CTimeManager::CTimeManager()
 	: current_count_{}
 	, prev_count_{}

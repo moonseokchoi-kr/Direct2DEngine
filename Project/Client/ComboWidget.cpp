@@ -2,7 +2,7 @@
 #include "ComboWidget.h"
 
 ComboWidget::ComboWidget()
-	:Widget("combo")
+	:Widget("##combo")
 	,combo_data_{}
 	,current_index_(0)
 	,is_selected(false)

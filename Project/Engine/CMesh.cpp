@@ -56,10 +56,35 @@ void CMesh::Create(VTX* _vtx, UINT _vtxCount, UINT* _idx, UINT _idxCount)
 	
 }
 
+void CMesh::Create(VTX* _vtx, UINT _vtxCount)
+{
+	vertex_count_ = _vtxCount;
+
+	D3D11_BUFFER_DESC desc = {};
+	desc.ByteWidth = sizeof(VTX) * _vtxCount;
+	desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	desc.Usage = D3D11_USAGE_DEFAULT;
+	desc.CPUAccessFlags = 0;
+	D3D11_SUBRESOURCE_DATA sub = {};
+	sub.pSysMem = _vtx;
+
+	if (FAILED(DEVICE->CreateBuffer(&desc, &sub, vertex_buffer_.GetAddressOf())))
+	{
+		assert(nullptr);
+	}
+
+}
+
 void CMesh::Render()
 {
 	UpdateData();
 	CONTEXT->DrawIndexed(index_count_, 0, 0);
+}
+
+void CMesh::RenderNoneIndexed()
+{
+	UpdateData();
+	CONTEXT->Draw(vertex_count_, 0);
 }
 
 void CMesh::RenderParticle(UINT renderCount)
@@ -72,6 +97,8 @@ void CMesh::UpdateData()
 {
 	UINT stride = sizeof(VTX);
 	UINT offset = 0;
-	CONTEXT->IASetVertexBuffers(0, 1, vertex_buffer_.GetAddressOf(), &stride, &offset);
-	CONTEXT->IASetIndexBuffer(index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
+	if(nullptr != vertex_buffer_)
+		CONTEXT->IASetVertexBuffers(0, 1, vertex_buffer_.GetAddressOf(), &stride, &offset);
+	if(nullptr != index_buffer_)
+		CONTEXT->IASetIndexBuffer(index_buffer_.Get(), DXGI_FORMAT_R32_UINT, 0);
 }

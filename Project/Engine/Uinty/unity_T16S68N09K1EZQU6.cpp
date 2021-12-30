@@ -1,5 +1,11 @@
 #include "pch.h"
 
+#include "D:\Project\cpp\DirectXEngine\Project\Engine\CTimeManager.cpp"
+
+
+#include "D:\Project\cpp\DirectXEngine\Project\Engine\CTransform.cpp"
+
+
 #include "D:\Project\cpp\DirectXEngine\Project\Engine\CUIComponent.cpp"
 
 

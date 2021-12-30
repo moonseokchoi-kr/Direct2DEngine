@@ -9,13 +9,13 @@ bool DataInputWidget::DataInputInt(wstring name, int* data)
 {
 	string usage = WStringToString(name);
 
-    usage = "##" + usage;
+	usage = "##" + usage;
 
-    if (ImGui::InputInt(usage.c_str(), data))
-    {
-        return true;
-    }
-    return false;
+	if (ImGui::InputInt(usage.c_str(), data))
+	{
+		return true;
+	}
+	return false;
 }
 
 bool DataInputWidget::DataInputFloat(wstring name, float* data)
@@ -28,7 +28,7 @@ bool DataInputWidget::DataInputFloat(wstring name, float* data)
 	{
 		return true;
 	}
-    return false;
+	return false;
 }
 
 bool DataInputWidget::DataInputVec2(wstring name, Vec2& data)
@@ -41,7 +41,7 @@ bool DataInputWidget::DataInputVec2(wstring name, Vec2& data)
 	{
 		return true;
 	}
-    return false;
+	return false;
 }
 
 bool DataInputWidget::DataInputVec3(wstring name, Vec3& data)
@@ -102,5 +102,112 @@ void DataInputWidget::DataInputTexture(wstring name, Ptr<CTexture> texture, DWOR
 		ImGui::Image(texture->GetShaderResourceView(), ImVec2(200, 200), ImVec2(0, 0), ImVec2(1, 1), ImVec4(1, 1, 1, 1), ImVec4(0.4f, 0.4f, 0.4f, 1.f));
 	}
 	widget->SetSecondData(second);
-	
+
+}
+
+bool DataInputWidget::DataDragInputInt(wstring name, int* data, bool is_normal)
+{
+	string usage = WStringToString(name);
+
+	usage = "##" + usage;
+
+	if (ImGui::DragInt(usage.c_str(), data))
+	{
+		return true;
+	}
+	return false;
+}
+
+bool DataInputWidget::DataDragInputFloat(wstring name, float* data, bool is_normal)
+{
+	string usage = WStringToString(name);
+
+	usage = "##" + usage;
+	if (is_normal)
+	{
+		if (ImGui::DragFloat(usage.c_str(), data, 0.01f, 0.0f, 1.0f))
+		{
+			return true;
+		}
+	}
+	else
+	{
+		if (ImGui::DragFloat(usage.c_str(), data))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool DataInputWidget::DataDragInputVec2(wstring name, Vec2& data , bool is_normal)
+{
+	string usage = WStringToString(name);
+
+	usage = "##" + usage;
+
+
+	if (is_normal)
+	{
+		if (ImGui::DragFloat2(usage.c_str(), data, 0.01f, 0.0f, 1.0f))
+		{
+			return true;
+		}
+	}
+	else
+	{
+		if (ImGui::DragFloat2(usage.c_str(), data))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool DataInputWidget::DataDragInputVec3(wstring name, Vec3& data, bool is_normal)
+{
+	string usage = WStringToString(name);
+
+	usage = "##" + usage;
+	if (is_normal)
+	{
+		if (ImGui::DragFloat3(usage.c_str(), data, 0.01f, 0.0f, 1.0f))
+		{
+			return true;
+		}
+	}
+	else
+	{
+		if (ImGui::DragFloat3(usage.c_str(), data))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool DataInputWidget::DataDragInputVec4(wstring name, Vec4& data, bool is_normal)
+{
+	string usage = WStringToString(name);
+
+	usage = "##" + usage;
+	if (is_normal)
+	{
+		if (ImGui::DragFloat4(usage.c_str(), data, 0.01f, 0.0f, 1.0f))
+		{
+			return true;
+		}
+	}
+	else
+	{
+		if (ImGui::DragFloat4(usage.c_str(), data))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }

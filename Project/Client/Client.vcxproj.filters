@@ -165,6 +165,9 @@
     <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\UI">
       <UniqueIdentifier>{25a602c9-533b-4e2b-9e16-b1463fa4cb2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Box2DCollider">
+      <UniqueIdentifier>{7379a238-c5ef-4a13-9364-e42dee29edf2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -323,6 +326,9 @@
     <ClInclude Include="RigidBody2DWidget.h">
       <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\RigidBody</Filter>
     </ClInclude>
+    <ClInclude Include="Box2DColliderWidget.h">
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Box2DCollider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -479,6 +485,9 @@
     </ClCompile>
     <ClCompile Include="RigidBody2DWidget.cpp">
       <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="Box2DColliderWidget.cpp">
+      <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Box2DCollider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

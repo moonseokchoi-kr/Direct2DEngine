@@ -58,7 +58,7 @@ void CRenderManager::Render()
 		Ptr<CTexture> rtTex = CResourceManager::GetInst()->FindRes<CTexture>(L"RenderTargetTexture");
 		CONTEXT->CopyResource(viewport_traget_->GetTex2D(), rtTex->GetTex2D());
 	}
-
+	g_debugDraw.Render();
 
 	camera_vector_.clear();
 	camera_vector_.resize(1);

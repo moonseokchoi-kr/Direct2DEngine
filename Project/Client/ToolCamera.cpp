@@ -62,7 +62,7 @@ void ToolCamera::Move()
 		delta = fDT * -up * cameraMoveSpeed;
 		position += delta;
 	}
-	if (KEY_HOLD(KEY::RBTN))
+	if (KEY_HOLD(KEY::RBTN) && GetProjectionType() == PROJECTION_TYPE::PERSPECTIVE)
 	{
 		accumulated_time_ += fDT;
 		if (move_time_ <= accumulated_time_)

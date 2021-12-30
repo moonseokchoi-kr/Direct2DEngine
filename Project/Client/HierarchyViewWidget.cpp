@@ -39,7 +39,7 @@ void HierarchyViewWidget::Update()
 		
 		object_tree_.Update();
 		UpdateChildren();
-		if (ImGui::IsWindowFocused())
+		if (ImGui::IsWindowHovered())
 			KeyCheck();
 
 		ShowRightPopUp();

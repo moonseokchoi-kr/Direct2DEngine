@@ -1,90 +1,36 @@
 #pragma once
 #include "CComponent.h"
 
+enum class BODY_TYPE { STATIC = 0, DYNAMIC, KINEMATIC };
 
-
+class b2World;
 class CRigidBody2D :
     public CComponent
 {
 public:
     CRigidBody2D();
+    CRigidBody2D(const CRigidBody2D& origin);
     ~CRigidBody2D();
 
 public:
+    void Start() override;
+    void LateUpdate() override;
     void FinalUpdate() override;
-
-
+    CLONE(CRigidBody2D);
 public:
-    void ApplyImpulse(const Vec2& impulse);
-    void ApplyImpulse(const Vec2& impulse, const Vec2& contactVector);
-    void SetStatic();
-    bool IsStatic();
-	void SetVelocity(Vec2 vlc)
-	{
-		if (vlc.Length() > max_velocity_)
-		{
-			velocity_ = Vec2(max_velocity_ / sqrtf(2), max_velocity_ / sqrtf(2));
+    b2Body* GetRuntimeBody() { return static_cast<b2Body*>(runtime_body_); }
+    bool IsFixedRotation() { return fixed_rotation_; }
+    void SetFixedRotation(bool b) { fixed_rotation_ = b; }
 
-		}
-		velocity_ = vlc;
-	}
-	void SetFriction(float flc)
-	{
-		static_friction_ = flc;
-	}
-	void SetMaxVelocity(float maxVelocity)
-	{
-		max_velocity_ = maxVelocity;
-	}
-    float GetRestitution() { return restitution_; }
-    float GetMass() { return mass_; }
-    float GetMaxVelocity() { return max_velocity_; }
-    float GetFriction() { return static_friction_; }
-
-    void SetMass(float mass) { mass_ = mass; }
-	void SetAdditionalAccel(const Vec2& ac) { additional_accel_ = ac; }
-    void ResolveCollide(CGameObject* other);
-
-    bool IsActive() { return is_active_; }
-    void SetActive(bool active) { is_active_ = active; }
-public:
-    Vec2 GetForce() { return force_; }
-    Vec2 GetVelocity() { return velocity_; }
-    Vec2 GetAccel() { return accel_; }
-public:
-	CLONE(CRigidBody2D);
-public:
-    void SaveToScene(FILE* file);
-    void LoadFromScene(FILE* file);
+    BODY_TYPE GetBodyType() { return type_; }
+    void SetBodyType(BODY_TYPE type) { type_ = type;  }
 private:
-    void Move();
-    void CalCulateMass();
+    void InitRigidBody();
+    b2BodyType RigidBodyTypeToBox2BodyType(BODY_TYPE type);
 private:
-    Vec2 force_;
-    Vec2 accel_;
-    Vec2 additional_accel_;
-    Vec2 velocity_;
-    Vec2 angular_velocity_;
-    
-    float torque_; //토크 회전힘
-
-
-    float mass_;
-    float inverse_mass_;
-
-    float intertia_;
-    float inverse_intertia_;
-
-    float max_velocity_;
-
-    float static_friction_;
-
-    float density_;//밀도
-    float restitution_;//
-
-    bool is_active_;
-
-    float linear_damping_;
-    float angular_damping_;
+    b2World* test_world_;
+    BODY_TYPE type_ ;
+    bool fixed_rotation_; 
+    void* runtime_body_;   
 };
 

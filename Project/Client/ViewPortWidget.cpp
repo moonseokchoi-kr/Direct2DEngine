@@ -126,10 +126,13 @@ void ViewPortWidget::ComputeTagetObject(Vec2 screenRatio)
 	{
 		CLayer* layer = currentScene->GetLayer(i);
 		const vector<CGameObject*>& objectVector = layer->GetParentObjects();
+		ToolCamera* camera = (ToolCamera*)CRenderManager::GetInst()->GetToolCamera();
+		float camera_scale = camera->GetScale();
 		for (const auto& object : objectVector)
 		{
 			Vec3 pos = object->Transform()->GetPosition();
-			Vec3 scale = object->Transform()->GetScale();
+			Vec3 scale = object->Transform()->GetScale()*camera_scale;
+
 			Vec3 lt = Vec3(pos.x +((pos.x?abs(pos.x)/-pos.x:-1) * scale.x / 2.f), pos.y + ((pos.y?abs(pos.y)/ -pos.y:-1) * scale.y / 2.f), pos.z);
 			if (lt.x <= current_mouse_pos_.x && current_mouse_pos_.x <= lt.x + scale.x 
 				&& lt.y <= current_mouse_pos_.y && current_mouse_pos_.y <= lt.y + scale.y)
