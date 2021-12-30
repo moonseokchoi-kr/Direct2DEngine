@@ -57,8 +57,9 @@ void CRenderManager::Render()
 		RenderTool();
 		Ptr<CTexture> rtTex = CResourceManager::GetInst()->FindRes<CTexture>(L"RenderTargetTexture");
 		CONTEXT->CopyResource(viewport_traget_->GetTex2D(), rtTex->GetTex2D());
+		
 	}
-	g_debugDraw.Render();
+
 
 	camera_vector_.clear();
 	camera_vector_.resize(1);
@@ -154,6 +155,7 @@ void CRenderManager::RenderPlay()
 		camera_vector_[i]->SeperateRenderObject();
 		camera_vector_[i]->RenderFoward();
 	}
+	g_debugDraw.Render();
 }
 
 void CRenderManager::RenderTool()
@@ -165,4 +167,5 @@ void CRenderManager::RenderTool()
 		tool_camera_->RenderParticle();
 		tool_camera_->RenderPostEffect();
 	}
+	g_debugDraw.Render();
 }

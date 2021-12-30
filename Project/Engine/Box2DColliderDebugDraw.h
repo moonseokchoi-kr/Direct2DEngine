@@ -32,12 +32,8 @@ public:
     void UpdateData();
     void FinalUpdate();
     void Render();
-public:
-    bool CheckDebugRender() { return nullptr != collider_mesh_ && nullptr != collider_material_; }
 private:
-	Ptr<CMesh> collider_mesh_;
-    vector<VTX> rect_vertex_buffer_;
-    vector<UINT> index_buffer_;
+	vector<Ptr<CMesh>> collider_mesh_vector_;
 	Ptr<CMaterial> collider_material_;
 };
 

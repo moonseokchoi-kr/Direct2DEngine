@@ -4,7 +4,6 @@
 Box2DColliderDebugDraw::Box2DColliderDebugDraw()
 {
 	SetFlags(b2Draw::e_aabbBit);
-	collider_mesh_ = new CMesh;
 }
 
 Box2DColliderDebugDraw::~Box2DColliderDebugDraw()
@@ -13,13 +12,25 @@ Box2DColliderDebugDraw::~Box2DColliderDebugDraw()
 
 void Box2DColliderDebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
+	vector<VTX> vertexBuffer;
 	for (int i = 0; i < vertexCount; ++i)
 	{
 		VTX vertex{};
 		vertex.pos = Vec3(vertices[i].x, vertices[i].y, 100.f);
 		vertex.color = Vec4(color.r, color.g, color.b, color.a);
-		rect_vertex_buffer_.push_back(vertex);
+		vertexBuffer.push_back(vertex);
 	}
+	vector<UINT> indexBuffer;
+
+	indexBuffer.push_back(0);
+	indexBuffer.push_back(1);
+	indexBuffer.push_back(2);
+	indexBuffer.push_back(2);
+	indexBuffer.push_back(3);
+	indexBuffer.push_back(0);
+	CMesh* mesh = new CMesh;
+	mesh->Create(vertexBuffer.data(), (UINT)vertexBuffer.size(), indexBuffer.data(), (UINT)indexBuffer.size());
+	collider_mesh_vector_.push_back(mesh);
 }
 
 void Box2DColliderDebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
@@ -80,10 +91,12 @@ void Box2DColliderDebugDraw::DrawPoint(const b2Vec2& p, float size, const b2Colo
 
 void Box2DColliderDebugDraw::UpdateData()
 {
-	collider_mesh_->Create(rect_vertex_buffer_.data(), (UINT)rect_vertex_buffer_.size());
 	collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"box2d_collider_debug_material");
 	collider_material_->UpdateData();
-	collider_mesh_->UpdateData();
+	for (Ptr<CMesh> mesh : collider_mesh_vector_)
+	{
+		mesh->UpdateData();
+	}
 }
 
 void Box2DColliderDebugDraw::FinalUpdate()
@@ -94,5 +107,9 @@ void Box2DColliderDebugDraw::FinalUpdate()
 void Box2DColliderDebugDraw::Render()
 {
 	UpdateData();
-	collider_mesh_->RenderNoneIndexed();
+	for (Ptr<CMesh> mesh : collider_mesh_vector_)
+	{
+		mesh->Render();
+	}
+	collider_mesh_vector_.clear();
 }
