@@ -6,8 +6,8 @@
 #include "CGameObject.h"
 #include "CTransform.h"
 
-#include "CSceneManager.h"
-#include "CScene.h"
+#include "CPhysicsManager.h"
+
 
 CRigidBody2D::CRigidBody2D()
 	:CComponent(COMPONENT_TYPE::RIGIDBODY2D)
@@ -29,7 +29,8 @@ CRigidBody2D::CRigidBody2D(const CRigidBody2D& origin)
 
 CRigidBody2D::~CRigidBody2D()
 {
-
+	CPhysicsManager::GetInst()->GetPhysicsWorld()->DestroyBody((b2Body*)runtime_body_);
+	SafeDelete(runtime_body_);
 }
 
 void CRigidBody2D::Start()
@@ -47,19 +48,14 @@ void CRigidBody2D::FinalUpdate()
 	{
 		InitRigidBody();
 		return;
+
 	}
-	if (SCENE_MODE::PLAY != CSceneManager::GetInst()->GetSceneMode())
-		return;
+
 	Vec3 pos = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
 	Vec3 rotation = GetTransform()->GetRotation();
 
 	b2Body* body = (b2Body*)runtime_body_;
-
-
-	const int32_t velocityIterations = 6;
-	const int32_t positionIterations = 2;
-	CSceneManager::GetInst()->GetCurrentScene()->GetPhysicsWorld()->Step(fDT, velocityIterations, positionIterations);
 
 	const auto& position = body->GetPosition();
 
@@ -79,8 +75,9 @@ void CRigidBody2D::InitRigidBody()
 	bodyDef.type = RigidBodyTypeToBox2BodyType(type_);
 	bodyDef.position.Set(pos.x, pos.y);
 	bodyDef.angle = rotation.z;
+	bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(GetOwner());
 
-	b2Body* body = CSceneManager::GetInst()->GetCurrentScene()->GetPhysicsWorld()->CreateBody(&bodyDef);
+	b2Body* body = CPhysicsManager::GetInst()->GetPhysicsWorld()->CreateBody(&bodyDef);
 	body->SetFixedRotation(fixed_rotation_);
 	runtime_body_ = body;
 }

@@ -29,27 +29,27 @@ void CPlayerScript::Update()
 	Vec3 rotation = GetTransform()->GetRotation();
 	if (KEY_HOLD(KEY::UP))
 	{
-		rigidBody->SetVelocity(Vec2(0.f, player_move_speed_));
+		//rigidBody->SetVelocity(Vec2(0.f, player_move_speed_));
 	}
 	if (KEY_HOLD(KEY::DOWN))
 	{
-		rigidBody->SetVelocity(Vec2(0.f, -player_move_speed_));
+		//rigidBody->SetVelocity(Vec2(0.f, -player_move_speed_));
 		
 	}
 	if (KEY_HOLD(KEY::LEFT))
 	{
-		rigidBody->SetVelocity(Vec2(-player_move_speed_,0.f));
+		//rigidBody->SetVelocity(Vec2(-player_move_speed_,0.f));
 
 	}
 	if (KEY_HOLD(KEY::RIGHT))
 	{
-		rigidBody->SetVelocity(Vec2(player_move_speed_, 0.f));
+		//rigidBody->SetVelocity(Vec2(player_move_speed_, 0.f));
 
 	}
 	move_dir_ = GetTransform()->GetMoveDir();
 	if (KEY_AWAY(KEY::UP) || KEY_AWAY(KEY::DOWN) || KEY_AWAY(KEY::RIGHT) || KEY_AWAY(KEY::LEFT))
 	{
-		rigidBody->SetVelocity(move_dir_ *50.f);
+		//rigidBody->SetVelocity(move_dir_ *50.f);
 	}
 	if (KEY_HOLD(KEY::Q))
 	{
@@ -86,8 +86,6 @@ void CPlayerScript::OnCollisionEnter(CGameObject* otherObject)
 
 void CPlayerScript::OnCollisionExit(CGameObject* otherObject)
 {
-	if(0==GetCollider2D()->GetCollisionCount())
-		GetMeshRender()->GetSharedMaterial();
 }
 
 void CPlayerScript::CreateBullet()

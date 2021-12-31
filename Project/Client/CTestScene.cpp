@@ -158,6 +158,7 @@ void CTestScene::CreateTestScene()
 	player->AddComponent(new CRigidBody2D);
 	player->Transform()->SetPosition(Vec3(0.f, 4.f, 100.f));
 	player->Transform()->SetScale(Vec3(50.f, 50.f, 1.f));
+	player->Transform()->SetRotation(Vec3(0.f, 0.f, 45.f));
 	player->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	player->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 	
@@ -182,7 +183,8 @@ void CTestScene::CreateTestScene()
 	ground->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	ground->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"ui_material"));
 	ground->Box2DCollider()->SetDenisty(0.0f);
-	ground->RigidBody2D()->SetBodyType(BODY_TYPE::STATIC);
+	ground->Box2DCollider()->SetTrigger(false);
+	ground->RigidBody2D()->SetBodyType(BODY_TYPE::DYNAMIC);
 
 	scene->AddGameObject(ground, 2, true);
 

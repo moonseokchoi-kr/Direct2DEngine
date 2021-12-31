@@ -183,6 +183,9 @@
     <Filter Include="Source\Component\Collider\Collider2D\Box\DebugDraw">
       <UniqueIdentifier>{b2b24876-ae13-4a9d-ac15-fd7ba2146b03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Manager\Physics">
+      <UniqueIdentifier>{079ac34a-032b-4d47-9a76-1db787415fe3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -347,6 +350,9 @@
     <ClInclude Include="Box2DColliderDebugDraw.h">
       <Filter>Source\Component\Collider\Collider2D\Box\DebugDraw</Filter>
     </ClInclude>
+    <ClInclude Include="CPhysicsManager.h">
+      <Filter>Source\Manager\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -492,6 +498,9 @@
     </ClCompile>
     <ClCompile Include="Box2DColliderDebugDraw.cpp">
       <Filter>Source\Component\Collider\Collider2D\Box\DebugDraw</Filter>
+    </ClCompile>
+    <ClCompile Include="CPhysicsManager.cpp">
+      <Filter>Source\Manager\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

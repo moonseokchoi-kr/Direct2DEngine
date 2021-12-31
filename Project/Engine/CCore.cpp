@@ -9,6 +9,7 @@
 #include "CSceneManager.h"
 #include "CCollisionManager.h"
 #include "CRenderManager.h"
+#include "CPhysicsManager.h"
 
 
 CCore::CCore()
@@ -35,6 +36,7 @@ HRESULT CCore::Init(HWND hWnd, UINT x, UINT y)
     CTimeManager::GetInst()->Init();
     CResourceManager::GetInst()->Init();
     CRenderManager::GetInst()->Init();
+    CPhysicsManager::GetInst()->Init();
     CSceneManager::GetInst()->Init();
     
     return S_OK;

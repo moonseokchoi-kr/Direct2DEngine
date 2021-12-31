@@ -16,7 +16,7 @@ class CCollider2D;
 class CBox2DCollider;
 
 class CCollisionManager :
-    public CSingleton<CCollisionManager>
+	public CSingleton<CCollisionManager>, public b2ContactListener
 {
 	SINGLE(CCollisionManager);
 
@@ -32,12 +32,19 @@ public:
 	UINT GetCollisionMask(int layer) { return collision_check_array_[layer]; }
 private:
 	void collisionLayerUpdate(UINT leftLayer, UINT rightLayer);
-	void Box2dColliderCheckLayer();
 	bool isCollision(CCollider2D* leftCollider, CCollider2D* rightCollider);
-	bool isBox2DColliderContact(CBox2DCollider* leftCollider, CBox2DCollider* rightColider);
+
+private:
+	
+	void BeginContact(b2Contact* contact) override;
+	void EndContact(b2Contact* contact) override;
+	virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold) override;
+	virtual void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) override;
 private:
 	unordered_map<ULONGLONG, bool> collider_info_map_;
 	array<UINT, MAX_LAYER> collision_check_array_;
 	bool check_layer_before;
+
+	friend class Box2DContactEvent;
 };
 

@@ -6,6 +6,7 @@
 
 #include "CResourceManager.h"
 #include "CCollisionManager.h"
+#include "CPhysicsManager.h"
 #include "CGameObject.h"
 
 
@@ -36,9 +37,10 @@ void CSceneManager::Progress()
 		current_scene_->LateUpdate();
 	}
 	current_scene_->FinalUpdate();
-
+	CPhysicsManager::GetInst()->DebugDraw();
 	if (SCENE_MODE::PLAY == scene_mode_)
 	{
+		CPhysicsManager::GetInst()->Update();
 		CCollisionManager::GetInst()->Update();
 	}
 }

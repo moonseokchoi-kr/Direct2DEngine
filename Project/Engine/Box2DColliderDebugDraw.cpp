@@ -4,10 +4,12 @@
 Box2DColliderDebugDraw::Box2DColliderDebugDraw()
 {
 	SetFlags(b2Draw::e_aabbBit);
+	
 }
 
 Box2DColliderDebugDraw::~Box2DColliderDebugDraw()
 {
+	Safe_Delete_Vec(collider_mesh_vector_);
 }
 
 void Box2DColliderDebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
@@ -93,7 +95,7 @@ void Box2DColliderDebugDraw::UpdateData()
 {
 	collider_material_ = CResourceManager::GetInst()->FindRes<CMaterial>(L"box2d_collider_debug_material");
 	collider_material_->UpdateData();
-	for (Ptr<CMesh> mesh : collider_mesh_vector_)
+	for (CMesh* mesh : collider_mesh_vector_)
 	{
 		mesh->UpdateData();
 	}
@@ -107,7 +109,7 @@ void Box2DColliderDebugDraw::FinalUpdate()
 void Box2DColliderDebugDraw::Render()
 {
 	UpdateData();
-	for (Ptr<CMesh> mesh : collider_mesh_vector_)
+	for (CMesh* mesh : collider_mesh_vector_)
 	{
 		mesh->Render();
 	}

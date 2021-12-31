@@ -3,7 +3,6 @@
 
 class CGameObject;
 class CLayer;
-class b2World;
 
 class CScene :
     public CEntity
@@ -25,10 +24,8 @@ public:
 	CLayer* GetLayer(int index) { return layer_array_[index]; }
 	CGameObject* GetObjectWithName(const wstring& objectName);
 	CScene* Clone() { return nullptr; }
-	b2World* GetPhysicsWorld() { return physics_world_; }
 private:
 	array<CLayer*,MAX_LAYER> layer_array_;
-	b2World* physics_world_;
 	
 };
 

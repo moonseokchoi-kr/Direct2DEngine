@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CCollisionManager.h"
-
+#include "CPhysicsManager.h"
 
 #include "CScene.h"
 #include "CLayer.h"
@@ -8,6 +8,9 @@
 #include "CCollider2D.h"
 #include "CBox2DCollider.h"
 #include "CSceneManager.h"
+
+//box2d
+#include <Box2d/b2_contact.h>
 
 CCollisionManager::CCollisionManager()
 	:check_layer_before(false)
@@ -111,7 +114,7 @@ void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 			{
 				if (iter->second)
 				{
-					//이전에도 충돌하고 있을때(OnCollision)
+					
 					if (vecLeft[i]->IsDead() || vecRight[j]->IsDead())
 					{
 						//둘중 하나가 삭제 예정이라면 충돌을 해제
@@ -121,6 +124,7 @@ void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 					}
 					else
 					{
+						//이전에도 충돌하고 있을때(OnCollision)
 						leftCol->OnCollision(rightCol->GetOwner());
 						rightCol->OnCollision(leftCol->GetOwner());
 					}
@@ -142,7 +146,6 @@ void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 			else
 			{
 				//현재 충돌하고 있지 않다.
-
 				if (iter->second)
 				{
 					leftCol->OnCollisionExit(rightCol->GetOwner());
@@ -153,92 +156,8 @@ void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 
 		}
 	}
-
-	//Box2DCollider
-	for (size_t i = 0; i < vecLeft.size(); ++i)
-	{
-		if (nullptr == vecLeft[i]->Box2DCollider())
-		{
-			continue;
-		}
-
-		for (size_t j = 0; j < vecRight.size(); ++j)
-		{
-			//충돌체가 없거나 자기 자신과의 충돌
-			if (nullptr == vecRight[j]->Box2DCollider() || vecLeft[i] == vecRight[j])
-			{
-				continue;
-			}
-
-			CBox2DCollider* leftCol = vecLeft[i]->Box2DCollider();
-			CBox2DCollider* rightCol = vecRight[j]->Box2DCollider();
-
-			COLLIDER_ID ID;
-
-			ID.left_id = leftCol->GetID();
-			ID.right_id = rightCol->GetID();
-
-			iter = collider_info_map_.find(ID.id);
-
-			//아직 충돌정보가 미등록일때
-			if (collider_info_map_.end() == iter)
-			{
-				collider_info_map_.insert(make_pair(ID.id, false));
-				iter = collider_info_map_.find(ID.id);
-			}
-
-
-			if (isBox2DColliderContact(leftCol, rightCol))
-			{
-				if (iter->second)
-				{
-					//이전에도 충돌하고 있을때(OnCollision)
-					if (vecLeft[i]->IsDead() || vecRight[j]->IsDead())
-					{
-						//둘중 하나가 삭제 예정이라면 충돌을 해제
-						leftCol->OnCollisionExit(rightCol->GetOwner());
-						rightCol->OnCollisionExit(leftCol->GetOwner());
-						iter->second = false;
-					}
-					else
-					{
-						leftCol->OnCollision(rightCol->GetOwner());
-						rightCol->OnCollision(leftCol->GetOwner());
-					}
-				}
-
-				else
-				{
-					//이제 막 충돌했을경우
-					//근데 둘중 누가 삭제예정이라면 충돌시키지 않음
-					if (!vecLeft[i]->IsDead() && !vecRight[j]->IsDead())
-					{
-						leftCol->OnCollisionEnter(rightCol->GetOwner());
-						rightCol->OnCollisionEnter(leftCol->GetOwner());
-						iter->second = true;
-					}
-				}
-
-			}
-			else
-			{
-				//현재 충돌하고 있지 않다.
-
-				if (iter->second)
-				{
-					leftCol->OnCollisionExit(rightCol->GetOwner());
-					//rightCol->OnCollisionExit(leftCol->GetOwner());
-					iter->second = false;
-				}
-			}
-
-		}
-	}
 }
 
-void CCollisionManager::Box2dColliderCheckLayer()
-{
-}
 
 bool CCollisionManager::isCollision(CCollider2D* leftCollider, CCollider2D* rightCollider)
 {
@@ -293,7 +212,120 @@ bool CCollisionManager::isCollision(CCollider2D* leftCollider, CCollider2D* righ
 	return true;
 }
 
-bool CCollisionManager::isBox2DColliderContact(CBox2DCollider* leftCollider, CBox2DCollider* rightColider)
+void CCollisionManager::BeginContact(b2Contact* contact)
 {
-	return true;
+	b2Fixture* fixtureA = contact->GetFixtureA();
+	b2Fixture* fixtureB = contact->GetFixtureB();
+	int32 childIndexA = contact->GetChildIndexA();
+	int32 childIndexB = contact->GetChildIndexB();
+	
+
+	b2Body* bodyA = fixtureA->GetBody();
+	b2Body* bodyB = fixtureB->GetBody();
+	b2AABB aabbA = fixtureA->GetAABB(childIndexA);
+	b2AABB aabbB = fixtureA->GetAABB(childIndexB);
+
+	CGameObject* objectA = reinterpret_cast<CGameObject*>(bodyA->GetUserData().pointer);
+	CGameObject* objectB = reinterpret_cast<CGameObject*>(bodyB->GetUserData().pointer);
+
+	CBox2DCollider* colliderA = objectA->Box2DCollider();
+	CBox2DCollider* colliderB = objectB->Box2DCollider();
+
+
+	b2Manifold* mainfold = contact->GetManifold();
+
+
+	unordered_map<ULONGLONG, bool>::iterator iter;
+
+	COLLIDER_ID ID;
+
+	ID.left_id = colliderA->GetID();
+	ID.right_id = colliderB->GetID();
+
+	iter = collider_info_map_.find(ID.id);
+
+	//아직 충돌정보가 미등록일때
+	if (collider_info_map_.end() == iter)
+	{
+		collider_info_map_.insert(make_pair(ID.id, false));
+		iter = collider_info_map_.find(ID.id);
+	}
+	//Test overlap
+	if(b2TestOverlap(aabbA,aabbB))
+	{
+		if (iter->second)
+		{
+			if (objectA->IsDead() || objectB->IsDead())
+			{
+				//둘중 하나가 삭제 예정이라면 충돌을 해제
+				colliderA->OnCollisionExit(objectB);
+				colliderB->OnCollisionExit(objectA);
+				iter->second = false;
+			}
+			else
+			{
+				//이전에도 충돌하고 있을때(OnCollision)
+				colliderA->OnCollision(objectB);
+				colliderB->OnCollision(objectA);
+			}
+		}
+		else
+		{
+			if (!objectA->IsDead() && !objectB->IsDead())
+			{
+				colliderA->OnCollisionEnter(objectB);
+				colliderB->OnCollisionEnter(objectA);
+				iter->second = true;
+			}
+		}
+	}
+}
+
+void CCollisionManager::EndContact(b2Contact* contact)
+{
+	b2Fixture* fixtureA = contact->GetFixtureA();
+	b2Fixture* fixtureB = contact->GetFixtureB();
+	int32 childIndexA = contact->GetChildIndexA();
+	int32 childIndexB = contact->GetChildIndexB();
+
+
+	b2Body* bodyA = fixtureA->GetBody();
+	b2Body* bodyB = fixtureB->GetBody();
+	b2AABB aabbA = fixtureA->GetAABB(childIndexA);
+	b2AABB aabbB = fixtureA->GetAABB(childIndexB);
+
+	CGameObject* objectA = reinterpret_cast<CGameObject*>(bodyA->GetUserData().pointer);
+	CGameObject* objectB = reinterpret_cast<CGameObject*>(bodyB->GetUserData().pointer);
+
+	CBox2DCollider* colliderA = objectA->Box2DCollider();
+	CBox2DCollider* colliderB = objectB->Box2DCollider();
+
+
+	b2Manifold* mainfold = contact->GetManifold();
+
+
+	unordered_map<ULONGLONG, bool>::iterator iter;
+
+	COLLIDER_ID ID;
+
+	ID.left_id = colliderA->GetID();
+	ID.right_id = colliderB->GetID();
+
+	iter = collider_info_map_.find(ID.id);
+
+
+	if (iter->second)
+	{
+		colliderA->OnCollisionExit(objectB);
+		colliderB->OnCollisionExit(objectA);
+		iter->second = false;
+	}
+}
+
+void CCollisionManager::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
+{
+}
+
+void CCollisionManager::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse)
+{
 }

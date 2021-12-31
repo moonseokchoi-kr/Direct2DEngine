@@ -10,8 +10,9 @@ public:
     ~CBox2DCollider();
 public:
     void Start() override;
-    void FinalUpdate() override;
     void LateUpdate() override;
+    void FinalUpdate() override;
+    void UpdateData() override;
     void Render() override;
     CLONE(CBox2DCollider);
 public:
@@ -25,6 +26,7 @@ public:
     float GetFriction() { return friction_; }
     float GetRestitution() { return restitution_; }
     float GetRestitutionThreshold() { return restitution_threshold_; }
+    bool IsTrigger() { return is_trigger_; }
 
 	void SetOffset(Vec2 offset) {  offset_ = offset; }
 	void SetOffsetSize(Vec2 offsetSize) {  offset_size_ = offsetSize; }
@@ -32,22 +34,27 @@ public:
 	void SetFriction(float friction) {  friction_ = friction; }
 	void SetRestitution(float restitution) {  restitution_ = restitution; }
 	void SetRestitutionThreshold(float restitution_threshold) {  restitution_threshold_ = restitution_threshold; }
-
+    void SetTrigger(bool b) { is_trigger_ = b; }
     b2Fixture* GetColliderFixture() { return (b2Fixture*)runtime_fixture_; }
+
 protected:
         friend class CCollisionManager;
 private:
     void InitCollider();
+    void SetFixture();
 private:
 
 	Box2DColliderDebugDraw debug_draw_;
     Vec2 offset_;
     Vec2 offset_size_;
 
+    int collision_count_;
+
     void* runtime_fixture_;
     float denisty_;
     float friction_;
     float restitution_;
     float restitution_threshold_;
+    bool is_trigger_;
 };
 

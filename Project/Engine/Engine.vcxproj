@@ -218,6 +218,7 @@ call .\EngineCopy.bat</Command>
     <ClInclude Include="CParticleSystem.h" />
     <ClInclude Include="CParticleUpdateShader.h" />
     <ClInclude Include="CPathManager.h" />
+    <ClInclude Include="CPhysicsManager.h" />
     <ClInclude Include="CPrefab.h" />
     <ClInclude Include="CRenderManager.h" />
     <ClInclude Include="CResource.h" />
@@ -273,6 +274,7 @@ call .\EngineCopy.bat</Command>
     <ClCompile Include="CParticleSystem.cpp" />
     <ClCompile Include="CParticleUpdateShader.cpp" />
     <ClCompile Include="CPathManager.cpp" />
+    <ClCompile Include="CPhysicsManager.cpp" />
     <ClCompile Include="CPrefab.cpp" />
     <ClCompile Include="CRenderManager.cpp" />
     <ClCompile Include="CResource.cpp" />

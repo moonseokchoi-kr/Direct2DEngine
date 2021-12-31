@@ -84,6 +84,7 @@ private:
     int script_type_;
     vector<ScriptParameter> parameter_vector_;
     friend class CCollider2D;
+    friend class CBox2DCollider;
     CScript();
 };
 

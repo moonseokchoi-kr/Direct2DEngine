@@ -33,7 +33,7 @@ public:
     void FinalUpdate();
     void Render();
 private:
-	vector<Ptr<CMesh>> collider_mesh_vector_;
+	vector<CMesh*> collider_mesh_vector_;
 	Ptr<CMaterial> collider_material_;
 };
 
