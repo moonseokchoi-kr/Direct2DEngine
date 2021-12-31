@@ -8,6 +8,7 @@
 CScene::CScene()
 {
 	int count = 0;
+	//절대 0번 레이어는 사용하지 말것
 	for(UINT i=0; i<layer_array_.size(); ++i)
 	{
 		layer_array_[i] = new CLayer;
@@ -62,7 +63,6 @@ void CScene::LateUpdate()
 		const int32_t velocityIterations = 6;
 		const int32_t positionIterations = 2;
 		physics_world_->Step(fDT, velocityIterations, positionIterations);
-		
 	}
 	for (const auto& layer : layer_array_)
 	{
@@ -77,7 +77,10 @@ void CScene::FinalUpdate()
 {
 	for (const auto& layer : layer_array_)
 	{
-		layer->layer_object_vector_.clear();
+		if (nullptr != layer)
+		{
+			layer->layer_object_vector_.clear();
+		}
 	}
 	for (const auto& layer : layer_array_)
 	{

@@ -15,6 +15,10 @@ public:
     void Render() override;
     CLONE(CBox2DCollider);
 public:
+	void OnCollisionEnter(CGameObject* otherObject);
+	void OnCollision(CGameObject* otherObject);
+	void OnCollisionExit(CGameObject* otherObject);
+public:
     Vec2 GetOffset() { return offset_; }
     Vec2 GetOffsetSize() { return offset_size_; }
     float GetDenisty() { return denisty_;}
@@ -29,19 +33,21 @@ public:
 	void SetRestitution(float restitution) {  restitution_ = restitution; }
 	void SetRestitutionThreshold(float restitution_threshold) {  restitution_threshold_ = restitution_threshold; }
 
+    b2Fixture* GetColliderFixture() { return (b2Fixture*)runtime_fixture_; }
+protected:
+        friend class CCollisionManager;
 private:
     void InitCollider();
 private:
+
+	Box2DColliderDebugDraw debug_draw_;
     Vec2 offset_;
     Vec2 offset_size_;
 
     void* runtime_fixture_;
-    // TODO(Yan)
     float denisty_;
     float friction_;
     float restitution_;
     float restitution_threshold_;
-
-    Box2DColliderDebugDraw debug_draw_;
 };
 

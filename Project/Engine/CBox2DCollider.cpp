@@ -4,6 +4,7 @@
 #include "CTransform.h"
 #include "CRigidBody2D.h"
 #include "CSceneManager.h"
+#include "CCollisionManager.h"
 #include "CScene.h"
 
 CBox2DCollider::CBox2DCollider()
@@ -55,13 +56,25 @@ void CBox2DCollider::Render()
 {
 }
 
+void CBox2DCollider::OnCollisionEnter(CGameObject* otherObject)
+{
+}
+
+void CBox2DCollider::OnCollision(CGameObject* otherObject)
+{
+}
+
+void CBox2DCollider::OnCollisionExit(CGameObject* otherObject)
+{
+}
+
 void CBox2DCollider::InitCollider()
 {
 	if (nullptr == GetRigidBody2D() || nullptr == GetRigidBody2D()->GetRuntimeBody())
 		return;
 	Vec3 pos = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
-
+	UINT categoryBit = (1 << GetOwner()->GetLayerIndex());
 	b2PolygonShape polygonShape;
 	polygonShape.SetAsBox(scale.x * offset_size_.x, scale.y * offset_size_.y);
 
@@ -71,7 +84,8 @@ void CBox2DCollider::InitCollider()
 	fixtureDef.friction = friction_;
 	fixtureDef.restitution = restitution_;
 	fixtureDef.restitutionThreshold = restitution_threshold_;
-	
+	fixtureDef.filter.categoryBits = categoryBit;
+	fixtureDef.filter.maskBits = CCollisionManager::GetInst()->GetCollisionMask(GetOwner()->GetLayerIndex());
 	runtime_fixture_ = GetRigidBody2D()->GetRuntimeBody()->CreateFixture(&fixtureDef);
 
 }

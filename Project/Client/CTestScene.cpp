@@ -40,7 +40,7 @@ void CTestScene::CreateTestScene()
 {
 	CScene* scene = new CScene;
 
-	CCollisionManager::GetInst()->CheckLayer(2, 3);
+	//CCollisionManager::GetInst()->CheckLayer(2, 3);
 
 	CSceneManager::GetInst()->ChangeScene(scene);
 
@@ -121,7 +121,7 @@ void CTestScene::CreateTestScene()
 	light->Light2D()->SetLightRange(300.f);
 	light->Light2D()->SetLightColor(Vec4(1.f, 1.f, 1.f, 1.f));
 
-	scene->AddGameObject(light, 0, true);
+	scene->AddGameObject(light, 1, true);
 	//CreatePrefabs();
 	//InitTestMap();
 
@@ -169,7 +169,7 @@ void CTestScene::CreateTestScene()
 	player->Animator2D()->Play(L"FLY_LEFT", 0, true);
 
 	//플레이어 2번
-	scene->AddGameObject(player, 0, true);
+	scene->AddGameObject(player, 1, true);
 
 	const auto ground = new CGameObject;
 	ground->SetName(L"ground");
@@ -183,7 +183,10 @@ void CTestScene::CreateTestScene()
 	ground->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"ui_material"));
 	ground->Box2DCollider()->SetDenisty(0.0f);
 	ground->RigidBody2D()->SetBodyType(BODY_TYPE::STATIC);
+
 	scene->AddGameObject(ground, 2, true);
+
+	CCollisionManager::GetInst()->CheckLayer(1, 2);
 }
 
 

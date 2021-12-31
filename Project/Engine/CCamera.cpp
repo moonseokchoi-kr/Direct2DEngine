@@ -116,7 +116,8 @@ void CCamera::SeperateRenderObject()
 		if (layer_check_out_ & (1 << i))
 		{
 			CLayer* layer = currentScene->GetLayer(i);
-
+			if (nullptr == layer)
+				continue;
 			const vector<CGameObject*>& objectVector = layer->GetLayerObjects();
 
 			RENDER_TIMING rt = RENDER_TIMING::NONE;

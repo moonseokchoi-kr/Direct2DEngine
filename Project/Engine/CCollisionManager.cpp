@@ -6,9 +6,11 @@
 #include "CLayer.h"
 #include "CGameObject.h"
 #include "CCollider2D.h"
+#include "CBox2DCollider.h"
 #include "CSceneManager.h"
 
 CCollisionManager::CCollisionManager()
+	:check_layer_before(false)
 {
 
 }
@@ -19,8 +21,13 @@ CCollisionManager::~CCollisionManager()
 }
 
 
+void CCollisionManager::Init()
+{
+}
+
 void CCollisionManager::Update()
 {
+
 	for (UINT row = 0; row < MAX_LAYER; ++row)
 		for (UINT col = row; col < collision_check_array_.size(); ++col)
 		{
@@ -36,7 +43,6 @@ void CCollisionManager::CheckLayer(UINT _left, UINT _right)
 {
 	//더 작은값을 그룸 타입을 행으로,
 //큰값을 열(비트)로 사용
-
 	UINT row = _left;
 	UINT col = _right;
 
@@ -46,17 +52,18 @@ void CCollisionManager::CheckLayer(UINT _left, UINT _right)
 		col = _left;
 	}
 
-
 	if (collision_check_array_[row] & (1 << col))
 	{
 		collision_check_array_[row] &= ~(1 << col);
+		collision_check_array_[col] &= ~(1 << row);
 	}
 	else
-	{
-		//비트시프트로 열만큼 밀어서 집어넣음
+	{	//비트시프트로 열만큼 밀어서 집어넣음
 		collision_check_array_[row] |= (1 << col);
+		collision_check_array_[col] |= (1 << row);              
 	}
 }
+
 
 void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 {
@@ -146,6 +153,91 @@ void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 
 		}
 	}
+
+	//Box2DCollider
+	for (size_t i = 0; i < vecLeft.size(); ++i)
+	{
+		if (nullptr == vecLeft[i]->Box2DCollider())
+		{
+			continue;
+		}
+
+		for (size_t j = 0; j < vecRight.size(); ++j)
+		{
+			//충돌체가 없거나 자기 자신과의 충돌
+			if (nullptr == vecRight[j]->Box2DCollider() || vecLeft[i] == vecRight[j])
+			{
+				continue;
+			}
+
+			CBox2DCollider* leftCol = vecLeft[i]->Box2DCollider();
+			CBox2DCollider* rightCol = vecRight[j]->Box2DCollider();
+
+			COLLIDER_ID ID;
+
+			ID.left_id = leftCol->GetID();
+			ID.right_id = rightCol->GetID();
+
+			iter = collider_info_map_.find(ID.id);
+
+			//아직 충돌정보가 미등록일때
+			if (collider_info_map_.end() == iter)
+			{
+				collider_info_map_.insert(make_pair(ID.id, false));
+				iter = collider_info_map_.find(ID.id);
+			}
+
+
+			if (isBox2DColliderContact(leftCol, rightCol))
+			{
+				if (iter->second)
+				{
+					//이전에도 충돌하고 있을때(OnCollision)
+					if (vecLeft[i]->IsDead() || vecRight[j]->IsDead())
+					{
+						//둘중 하나가 삭제 예정이라면 충돌을 해제
+						leftCol->OnCollisionExit(rightCol->GetOwner());
+						rightCol->OnCollisionExit(leftCol->GetOwner());
+						iter->second = false;
+					}
+					else
+					{
+						leftCol->OnCollision(rightCol->GetOwner());
+						rightCol->OnCollision(leftCol->GetOwner());
+					}
+				}
+
+				else
+				{
+					//이제 막 충돌했을경우
+					//근데 둘중 누가 삭제예정이라면 충돌시키지 않음
+					if (!vecLeft[i]->IsDead() && !vecRight[j]->IsDead())
+					{
+						leftCol->OnCollisionEnter(rightCol->GetOwner());
+						rightCol->OnCollisionEnter(leftCol->GetOwner());
+						iter->second = true;
+					}
+				}
+
+			}
+			else
+			{
+				//현재 충돌하고 있지 않다.
+
+				if (iter->second)
+				{
+					leftCol->OnCollisionExit(rightCol->GetOwner());
+					//rightCol->OnCollisionExit(leftCol->GetOwner());
+					iter->second = false;
+				}
+			}
+
+		}
+	}
+}
+
+void CCollisionManager::Box2dColliderCheckLayer()
+{
 }
 
 bool CCollisionManager::isCollision(CCollider2D* leftCollider, CCollider2D* rightCollider)
@@ -198,5 +290,10 @@ bool CCollisionManager::isCollision(CCollider2D* leftCollider, CCollider2D* righ
 		}
 	}
 
+	return true;
+}
+
+bool CCollisionManager::isBox2DColliderContact(CBox2DCollider* leftCollider, CBox2DCollider* rightColider)
+{
 	return true;
 }

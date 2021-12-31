@@ -60,7 +60,8 @@ void HierarchyViewWidget::Renew()
 	for (int i = 0; i < (UINT)MAX_LAYER; ++i)
 	{
 		CLayer* layer = currentScene->GetLayer(i);
-
+		if(nullptr == layer)
+			continue;
 		const vector<CGameObject*>& parentObjects = layer->GetParentObjects();
 		for (const auto& object : parentObjects)
 		{ 
