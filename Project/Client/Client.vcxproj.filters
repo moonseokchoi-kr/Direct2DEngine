@@ -168,6 +168,12 @@
     <Filter Include="Client Source\Tool\Widget\ToolUI\Inspector\Component\Box2DCollider">
       <UniqueIdentifier>{7379a238-c5ef-4a13-9364-e42dee29edf2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Manger">
+      <UniqueIdentifier>{43daa79d-333a-4535-934a-7db2fa8f38ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Client Source\Tool\Widget\ToolUI\Manger\Collision">
+      <UniqueIdentifier>{a31e33ab-d922-4a0d-9f21-e7c3057e4ea8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -329,6 +335,7 @@
     <ClInclude Include="Box2DColliderWidget.h">
       <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Box2DCollider</Filter>
     </ClInclude>
+    <ClInclude Include="CollisionManagerView.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -489,5 +496,6 @@
     <ClCompile Include="Box2DColliderWidget.cpp">
       <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Box2DCollider</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManagerView.cpp" />
   </ItemGroup>
 </Project>

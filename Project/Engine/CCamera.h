@@ -33,6 +33,9 @@ public:
 public:
     void SetProjectionType(PROJECTION_TYPE type) { projection_type_ = type; }
     void CheckAllLayout() { layer_check_out_ = 0xffffffff; }
+    void CheckLayer(UINT layer) { layer_check_out_ |= (1 << layer); }
+    void UnCheckLayer(UINT layer) { layer_check_out_ &= ~(1 << layer); }
+    UINT GetCheckLayer() { return layer_check_out_; }
     void SetMainCamera() { camera_index_ = 0; }
 
     PROJECTION_TYPE GetProjectionType() { return projection_type_; }

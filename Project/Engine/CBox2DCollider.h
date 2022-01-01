@@ -46,10 +46,6 @@ private:
     void InitCollider();
     void SetFixture();
 private:
-
-	Box2DColliderDebugDraw debug_draw_;
-
-
     int collision_count_;
     void* runtime_fixture_;
 

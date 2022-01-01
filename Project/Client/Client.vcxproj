@@ -136,10 +136,12 @@
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Unity\</UnityFilesDirectory>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_78_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\lib\boost_1_78_0\stage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -160,12 +162,14 @@
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Unity\</UnityFilesDirectory>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_78_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\lib\boost_1_78_0\stage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -177,6 +181,7 @@
     <ClInclude Include="CameraWidget.h" />
     <ClInclude Include="client_func.h" />
     <ClInclude Include="Collider2DWidget.h" />
+    <ClInclude Include="CollisionManagerView.h" />
     <ClInclude Include="ComboWidget.h" />
     <ClInclude Include="ContentBrowserComboWidget.h" />
     <ClInclude Include="CSceneSaveLoad.h" />
@@ -238,6 +243,7 @@
     <ClCompile Include="Box2DColliderWidget.cpp" />
     <ClCompile Include="CameraWidget.cpp" />
     <ClCompile Include="Collider2DWidget.cpp" />
+    <ClCompile Include="CollisionManagerView.cpp" />
     <ClCompile Include="ComboWidget.cpp" />
     <ClCompile Include="ContentBrowserComboWidget.cpp" />
     <ClCompile Include="CSceneSaveLoad.cpp" />

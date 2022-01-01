@@ -42,19 +42,19 @@ private:
 
     HRESULT Create(UINT width, UINT height, UINT flags, DXGI_FORMAT format);
     HRESULT Create(ComPtr<ID3D11Texture2D> texture);
-	HRESULT Load(const wstring& strFilePath) override;
+    HRESULT Load(const wstring& strFilePath) override;
 private:
     ScratchImage image_;
-    
+
     ComPtr<ID3D11Texture2D> texture_2D_;
-    
+
     ComPtr<ID3D11ShaderResourceView> shader_resource_view_;
     ComPtr<ID3D11DepthStencilView> depth_stencil_texture_;
     ComPtr<ID3D11RenderTargetView> render_target_texture_;
     ComPtr<ID3D11UnorderedAccessView> unordered_access_view_;
 
     D3D11_TEXTURE2D_DESC texture_desc_;
-    
+
     UINT pipline_stage_;
     UINT register_number_;
 

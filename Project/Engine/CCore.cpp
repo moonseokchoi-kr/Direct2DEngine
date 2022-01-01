@@ -10,6 +10,7 @@
 #include "CCollisionManager.h"
 #include "CRenderManager.h"
 #include "CPhysicsManager.h"
+#include "Box2DColliderDebugDraw.h"
 
 
 CCore::CCore()
@@ -36,6 +37,7 @@ HRESULT CCore::Init(HWND hWnd, UINT x, UINT y)
     CTimeManager::GetInst()->Init();
     CResourceManager::GetInst()->Init();
     CRenderManager::GetInst()->Init();
+    Box2DColliderDebugDraw::GetInst()->Init();
     CPhysicsManager::GetInst()->Init();
     CSceneManager::GetInst()->Init();
     

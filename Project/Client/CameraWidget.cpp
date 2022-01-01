@@ -4,7 +4,7 @@
 
 #include <Engine/CCamera.h>
 CameraWidget::CameraWidget()
-	:ComponentWidget("Camera",Vec2(0,130))
+	:ComponentWidget("Camera",Vec2(0,240))
 {
 }
 
@@ -28,6 +28,7 @@ void CameraWidget::Update()
 	float aov = camera->GetAovY();
 	float scale = camera->GetScale();
 	bool disabled = current_index_ == 0;
+	UINT layerCheck = camera->GetCheckLayer();
 
 	ImGui::AlignTextToFramePadding();
 	//ImVec2 widgetSize = ImGui::GetItemRectSize();
@@ -134,6 +135,33 @@ void CameraWidget::Update()
 			{
 				ImGui::PopItemFlag();
 				ImGui::PopStyleVar();
+			}
+
+			ImGui::TableNextRow();
+
+			ImGui::TableNextColumn();
+			ImGui::Text("Check Layer");
+			ImGui::TableNextColumn();
+			for (UINT i = 0; i < MAX_LAYER; ++i)
+			{
+				string name = std::to_string(i);
+				ImGui::Text(name.c_str());
+				ImGui::SameLine();
+				string label = "##" + name;
+				bool check = layerCheck & (1 << i);
+				if (ImGui::Checkbox(label.c_str(), &check))
+				{
+					if (check)
+					{
+						camera->CheckLayer(i);
+					}
+					else
+					{
+						camera->UnCheckLayer(i);
+					}
+				}
+				if(i%6<5)
+					ImGui::SameLine();
 			}
 
 

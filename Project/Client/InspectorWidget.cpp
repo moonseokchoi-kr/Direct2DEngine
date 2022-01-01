@@ -45,6 +45,7 @@ InspectorWidget::InspectorWidget()
 InspectorWidget::~InspectorWidget()
 {
 	Safe_Delete_Array(component_widget_array_);
+	Safe_Delete_Array(resource_widget_array_);
 	Safe_Delete_Vec(script_widget_vector_);
 }
 

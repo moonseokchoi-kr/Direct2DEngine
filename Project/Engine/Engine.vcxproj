@@ -137,6 +137,7 @@
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Uinty\</UnityFilesDirectory>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_78_0\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -154,6 +155,9 @@ call.\EngineCopy.bat</Command>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
     </FxCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>C:\lib\boost_1_78_0\stage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -169,6 +173,7 @@ call.\EngineCopy.bat</Command>
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Uinty\</UnityFilesDirectory>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_78_0\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -189,6 +194,9 @@ call .\EngineCopy.bat</Command>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput />
     </FxCompile>
+    <Lib>
+      <AdditionalLibraryDirectories>C:\lib\boost_1_78_0\stage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Box2DColliderDebugDraw.h" />

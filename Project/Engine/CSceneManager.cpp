@@ -43,6 +43,7 @@ void CSceneManager::Progress()
 		CPhysicsManager::GetInst()->Update();
 		CCollisionManager::GetInst()->Update();
 	}
+
 }
 
 CGameObject* CSceneManager::FindObjectByName(const wstring& name)

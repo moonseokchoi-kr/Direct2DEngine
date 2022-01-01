@@ -12,10 +12,12 @@
 #include "CTestScene.h"
 #include "CSceneSaveLoad.h"
 
+
 #ifdef _DEBUG
 #pragma comment(lib, "Engine/Engine_debug.lib")
 #pragma comment(lib, "Script/Script_debug.lib")
-#define _CRTDBG_MAP_ALLOC
+#define new new(_CLIENT_BLOCK,__FILE__,__LINE__)
+#define malloc(s) _malloc_dbg(s,_NORMAL_BLOCK,__FILE__,__LINE__)
 #else
 #pragma comment(lib, "Engine/Engine.lib")
 #pragma comment(lib, "Engine/Script.lib")
@@ -35,8 +37,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    //_CrtSetBreakAlloc(5157);
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    //_CrtSetBreakAlloc(1179);
+    
 
 	// 전역 문자열을 초기화합니다.
     MyRegisterClass(hInstance);

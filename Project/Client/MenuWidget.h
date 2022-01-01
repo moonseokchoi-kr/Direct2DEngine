@@ -11,7 +11,7 @@ public:
 private:
     void ShowFileMenu();
     void ShowSceneMenu();
-
+    void ShowSettingMenu();
 private:
     bool is_select_;
     bool is_play_;

@@ -13,7 +13,6 @@
 #include <Box2d/b2_contact.h>
 
 CCollisionManager::CCollisionManager()
-	:check_layer_before(false)
 {
 
 }

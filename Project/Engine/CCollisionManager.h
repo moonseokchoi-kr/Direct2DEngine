@@ -43,7 +43,6 @@ private:
 private:
 	unordered_map<ULONGLONG, bool> collider_info_map_;
 	array<UINT, MAX_LAYER> collision_check_array_;
-	bool check_layer_before;
 
 	friend class Box2DContactEvent;
 };

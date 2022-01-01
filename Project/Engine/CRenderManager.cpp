@@ -4,6 +4,8 @@
 #include "CDevice.h"
 #include "CSceneManager.h"
 
+#include "Box2DColliderDebugDraw.h"
+
 #include "CLight2D.h"
 #include "CCamera.h"
 #include "CConstBuffer.h"
@@ -155,7 +157,7 @@ void CRenderManager::RenderPlay()
 		camera_vector_[i]->SeperateRenderObject();
 		camera_vector_[i]->RenderFoward();
 	}
-	g_debugDraw.Render();
+	Box2DColliderDebugDraw::GetInst()->Render();
 }
 
 void CRenderManager::RenderTool()
@@ -167,5 +169,5 @@ void CRenderManager::RenderTool()
 		tool_camera_->RenderParticle();
 		tool_camera_->RenderPostEffect();
 	}
-	g_debugDraw.Render();
+	Box2DColliderDebugDraw::GetInst()->Render();
 }

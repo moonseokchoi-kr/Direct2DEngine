@@ -1,18 +1,22 @@
 #pragma once
 #include "CMaterial.h"
 #include "CMesh.h"
+#include "singleton.h"
 #include <Box2d/b2_draw.h>
 
 class CMesh;
 
 
 class Box2DColliderDebugDraw :
-    public b2Draw
+    public CSingleton<Box2DColliderDebugDraw>, public b2Draw
 {
+	SINGLE(Box2DColliderDebugDraw);
 public:
-    Box2DColliderDebugDraw();
-    ~Box2DColliderDebugDraw();
-
+    void Init();
+	void UpdateData();
+	void FinalUpdate();
+	void Render();
+public:
 
     // b2Draw을(를) 통해 상속됨
     virtual void DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color) override;
@@ -28,12 +32,8 @@ public:
     virtual void DrawTransform(const b2Transform& xf) override;
 
     virtual void DrawPoint(const b2Vec2& p, float size, const b2Color& color) override;
-public:
-    void UpdateData();
-    void FinalUpdate();
-    void Render();
 private:
 	vector<CMesh*> collider_mesh_vector_;
-	Ptr<CMaterial> collider_material_;
+    Ptr<CMaterial> collider_material_;
 };
 

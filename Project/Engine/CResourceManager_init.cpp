@@ -349,6 +349,7 @@ void CResourceManager::CreateDefaultMaterial()
 	material = new CMaterial(true);
 	material->SetShader(CResourceManager::GetInst()->FindRes<CGraphicsShader>(L"box2d_collider_debug"));
 	AddResource(L"box2d_collider_debug_material", material);
+
 }
 
 void CResourceManager::CreateDefaultComputeShader()

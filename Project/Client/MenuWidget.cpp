@@ -29,6 +29,7 @@ void MenuWidget::Update()
 	{
 		ShowFileMenu();
 		ShowSceneMenu();
+		ShowSettingMenu();
 
 		ImGui::EndMainMenuBar();
 	}
@@ -141,8 +142,23 @@ void MenuWidget::ShowSceneMenu()
 		ImGui::EndMenu();
 	}
 
+
+
 	if (bPush)
 	{
 		WidgetManager::GetInst()->SetFocusMainWindow();
+	}
+}
+
+void MenuWidget::ShowSettingMenu()
+{
+	if (ImGui::BeginMenu("File"))
+	{
+		if (ImGui::MenuItem("Collision", nullptr, false, is_play_))
+		{
+
+		}
+
+		ImGui::EndMenu();
 	}
 }

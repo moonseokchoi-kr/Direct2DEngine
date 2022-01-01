@@ -13,7 +13,7 @@ ToolObjectManager::ToolObjectManager()
 
 ToolObjectManager::~ToolObjectManager()
 {
-
+	Safe_Delete_Vec(tool_object_vector_);
 }
 
 void ToolObjectManager::Init()
