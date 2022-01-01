@@ -158,7 +158,6 @@ void CTestScene::CreateTestScene()
 	player->AddComponent(new CRigidBody2D);
 	player->Transform()->SetPosition(Vec3(0.f, 4.f, 100.f));
 	player->Transform()->SetScale(Vec3(50.f, 50.f, 1.f));
-	player->Transform()->SetRotation(Vec3(0.f, 0.f, 45.f));
 	player->MeshRender()->SetMesh(CResourceManager::GetInst()->FindRes<CMesh>(L"RectMesh"));
 	player->MeshRender()->SetMaterial(CResourceManager::GetInst()->FindRes<CMaterial>(L"std2DMaterial"));
 	

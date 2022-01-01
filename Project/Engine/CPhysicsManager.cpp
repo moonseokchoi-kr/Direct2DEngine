@@ -4,7 +4,7 @@
 
 CPhysicsManager::CPhysicsManager()
 	:physics_world_(nullptr)
-	,gravity_(Vec2(0.0f,-9.8f))
+	,gravity_(Vec2(0.0f,0.0f))
 {
 
 }

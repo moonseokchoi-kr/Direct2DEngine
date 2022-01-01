@@ -7,9 +7,9 @@
 
 CPlayerScript::CPlayerScript()
 	:CScript((int)SCRIPT_TYPE::PLAYERSCRIPT)
-	,player_move_speed_(400)
-	,accumulated_time_(0)
-	,player_bullet_attack_speed_(0.1f)
+	, player_move_speed_(400)
+	, accumulated_time_(0)
+	, player_bullet_attack_speed_(0.1f)
 
 {
 	player_bullet_prefab_ = CResourceManager::GetInst()->FindRes<CPrefab>(L"player_bullet_prefab");
@@ -26,38 +26,72 @@ void CPlayerScript::Update()
 {
 	accumulated_time_ += fDT;
 	CRigidBody2D* rigidBody = GetRigidBody2D();
-	Vec3 rotation = GetTransform()->GetRotation();
+	Vec2 velocity = rigidBody->GetVelocity();
+	if (KEY_TAP(KEY::UP))
+	{
+		rigidBody->SetMoveDir(Vec2(0.f, 1.f));
+		rigidBody->SetVelocity(Vec2(velocity.x, player_move_speed_));
+	}
+	if (KEY_TAP(KEY::DOWN))
+	{
+		rigidBody->SetMoveDir(Vec2(0.f, -1.f));
+		rigidBody->SetVelocity(Vec2(velocity.x, -player_move_speed_));
+
+	}
+	if (KEY_TAP(KEY::LEFT))
+	{
+		rigidBody->SetMoveDir(Vec2(-1.f, 0.f));
+		rigidBody->SetVelocity(Vec2(-player_move_speed_, velocity.y));
+
+	}
+	if (KEY_TAP(KEY::RIGHT))
+	{
+		rigidBody->SetMoveDir(Vec2(1.f, 0.f));
+		rigidBody->SetVelocity(Vec2(player_move_speed_, velocity.y));
+	}
 	if (KEY_HOLD(KEY::UP))
 	{
-		//rigidBody->SetVelocity(Vec2(0.f, player_move_speed_));
+
+		rigidBody->ApplyImpulse(Vec2(0.f, player_move_speed_));
 	}
 	if (KEY_HOLD(KEY::DOWN))
 	{
-		//rigidBody->SetVelocity(Vec2(0.f, -player_move_speed_));
-		
+
+		rigidBody->ApplyImpulse(Vec2(0.f, -player_move_speed_));
+
 	}
 	if (KEY_HOLD(KEY::LEFT))
 	{
-		//rigidBody->SetVelocity(Vec2(-player_move_speed_,0.f));
+
+		rigidBody->ApplyImpulse(Vec2(-player_move_speed_, 0.f));
 
 	}
 	if (KEY_HOLD(KEY::RIGHT))
 	{
-		//rigidBody->SetVelocity(Vec2(player_move_speed_, 0.f));
 
+		rigidBody->ApplyImpulse(Vec2(player_move_speed_, 0.f));
 	}
-	move_dir_ = GetTransform()->GetMoveDir();
-	if (KEY_AWAY(KEY::UP) || KEY_AWAY(KEY::DOWN) || KEY_AWAY(KEY::RIGHT) || KEY_AWAY(KEY::LEFT))
+	move_dir_ = rigidBody->GetMoveDir();
+	if (KEY_NONE(KEY::UP) && KEY_NONE(KEY::DOWN) && KEY_NONE(KEY::RIGHT) && KEY_NONE(KEY::LEFT))
 	{
-		//rigidBody->SetVelocity(move_dir_ *50.f);
+		if (velocity.Length() != 0)
+			rigidBody->SetVelocity(move_dir_ * 10.f);
+		else
+			rigidBody->SetVelocity(Vec2());
 	}
 	if (KEY_HOLD(KEY::Q))
 	{
-		rotation.z += 100.f * fDT;
+		rigidBody->SetAngluarVelocity(400.f);
 	}
 	if (KEY_HOLD(KEY::E))
 	{
-		rotation.z -= 100.f * fDT;
+		rigidBody->SetAngluarVelocity(-400.f);
+	}
+	if (KEY_NONE(KEY::Q) && KEY_NONE(KEY::E))
+	{
+
+		rigidBody->SetAngluarVelocity(0);
+
 	}
 	if (KEY_HOLD(KEY::SPACE))
 	{
@@ -66,10 +100,8 @@ void CPlayerScript::Update()
 			CreateBullet();
 			accumulated_time_ = 0.f;
 		}
-		
-	}
 
-	GetTransform()->SetRotation(rotation);
+	}
 	UpdateAnimation();
 	prev_move_dir_ = move_dir_;
 }
@@ -80,7 +112,7 @@ void CPlayerScript::OnCollisionEnter(CGameObject* otherObject)
 	{
 		//OutputDebugString(L"총돌했습니다!\n");
 		is_hit_ = 1;
-		GetMeshRender()->GetCloneMaterial()->SetData(SHADER_PARAM::INT_0, &is_hit_);		
+		GetMeshRender()->GetCloneMaterial()->SetData(SHADER_PARAM::INT_0, &is_hit_);
 	}
 }
 
@@ -96,16 +128,14 @@ void CPlayerScript::CreateBullet()
 	position.y += view_scale.y / 2.f;
 
 	Instantiate(player_bullet_prefab_, position, 2);
-
-	
 }
 
 void CPlayerScript::UpdateAnimation()
 {
 	if (move_dir_ == prev_move_dir_)
 	{
-	
-		if (move_dir_ < Vec2(0,0))
+
+		if (move_dir_ < Vec2(0, 0))
 		{
 			if (GetAnimator2D()->GetCurrentAnimation()->GetCurrentFrameIndex() < 4)
 			{
@@ -116,7 +146,7 @@ void CPlayerScript::UpdateAnimation()
 				GetAnimator2D()->Play(L"FLY_LEFT", 4, true);
 			}
 		}
-			
+
 	}
 	else
 	{
@@ -130,7 +160,7 @@ void CPlayerScript::UpdateAnimation()
 void CPlayerScript::SaveToScene(FILE* file)
 {
 	__super::SaveToScene(file);
-	SaveResReference(player_bullet_prefab_,file);
+	SaveResReference(player_bullet_prefab_, file);
 }
 
 void CPlayerScript::LoadFromScene(FILE* file)

@@ -23,14 +23,32 @@ public:
     void SetFixedRotation(bool b) { fixed_rotation_ = b; }
 
     BODY_TYPE GetBodyType() { return type_; }
+    Vec2 GetMaxVelocity() { return max_velocity_; }
+    Vec2 GetVelocity();
     void SetBodyType(BODY_TYPE type) { type_ = type;  }
-private:
+    void SetMaxVelocity(Vec2 velocity) { max_velocity_ = velocity; }
+
+    void DestroyBody();
+    void SetVelocity(Vec2 velocity);
+    void SetAngluarVelocity(float velocity);
+    void ApplyImpulse(Vec2 impulse, bool wake=true);
+    void ApplyAngularImpulse(float impulse, bool wake=true);
+    void AddForce(Vec2 force, bool wake=true);
+
+    Vec2 GetMoveDir();
+    void SetMoveDir(Vec2 dir);
+
     void InitRigidBody();
+private:
     b2BodyType RigidBodyTypeToBox2BodyType(BODY_TYPE type);
+    b2Body* CheckBody();
 private:
     b2World* test_world_;
-    BODY_TYPE type_ ;
-    bool fixed_rotation_; 
-    void* runtime_body_;   
+
+    void* runtime_body_; 
+
+    BODY_TYPE type_;
+    bool fixed_rotation_;
+    Vec2 max_velocity_;
 };
 

@@ -29,6 +29,8 @@
 #define XM_CONSTEXPR
 #endif
 
+constexpr float PI = 3.141592f;
+
 struct ImVec2;
 struct ImVec4;
 
