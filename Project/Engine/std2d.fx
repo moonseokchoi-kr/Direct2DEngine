@@ -35,6 +35,10 @@ float4 ps_main(VS_OUTPUT _in) : SV_Target
     
     if(using_animation)
     {
+        if(using_filp_horizon)
+            _in.uv.x = 1 - _in.uv.x;
+        if(using_filp_verticle)
+            _in.uv.y = 1 - _in.uv.y;
         float2 animationUV = (_in.uv * animation_array.fullSize);
         float2 sizeUV = (_in.uv * animation_array.size);
         float2 rangeUV = (animation_array.fullSize - animation_array.size) / 2.f + animation_array.offset;

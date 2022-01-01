@@ -61,7 +61,9 @@ cbuffer ANIMATE2D : register(b4)
 {
     AnimationFrame animation_array;
     uint using_animation;
-    uint3 anim_padding;
+    uint using_filp_verticle;
+    uint using_filp_horizon;
+    uint anim_padding;
 }
 
 Texture2D tex_0 : register(t0);

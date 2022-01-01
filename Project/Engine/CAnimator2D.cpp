@@ -66,20 +66,20 @@ void CAnimator2D::UpdateData()
 }
 
 
-void CAnimator2D::CreateAnimation(const wstring& animationName, Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration)
+void CAnimator2D::CreateAnimation(const wstring& animationName, Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration, bool flipHorizon, bool flipVertical)
 {
 	CAnimation2D* anim = FindAnimation(animationName);
 	
 	if (nullptr == anim)
 	{
 		anim = new CAnimation2D;
-		anim->Create(animationName, atlasTexture, leftTopX, leftTopY, sizeX, sizeY, frameCount, duration);
+		anim->Create(animationName, atlasTexture, leftTopX, leftTopY, sizeX, sizeY, frameCount, duration, flipHorizon, flipVertical);
 		anim->owner_ = this;
 		animation_map_.insert(make_pair(animationName, anim));
 	}
 	else
 	{
-		anim->Create(animationName, atlasTexture, leftTopX, leftTopY, sizeX, sizeY, frameCount, duration);
+		anim->Create(animationName, atlasTexture, leftTopX, leftTopY, sizeX, sizeY, frameCount, duration, flipHorizon, flipVertical);
 	}
 }
 
@@ -110,7 +110,13 @@ void CAnimator2D::Play(const wstring& animationName, UINT startFrame, bool repea
 
 void CAnimator2D::AddAnimation(CAnimation2D* animtion)
 {
-	assert(nullptr == FindAnimation(animtion->GetName()));
+	unordered_map<wstring, CAnimation2D*>::iterator iter = animation_map_.find(animtion->GetName());
+	if (nullptr != iter->second)
+	{
+		iter->second = animtion;
+		return;
+	}
+		
 	animation_map_.insert(make_pair(animtion->GetName(), animtion));
 	animtion->owner_ = this;
 }

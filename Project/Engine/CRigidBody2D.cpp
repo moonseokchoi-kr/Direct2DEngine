@@ -142,6 +142,29 @@ void CRigidBody2D::InitRigidBody()
 	runtime_body_ = body;
 }
 
+void CRigidBody2D::SaveToScene(FILE* file)
+{
+	__super::SaveToScene(file);
+
+	UINT type = (UINT)type_;
+
+	fwrite(&type, sizeof(UINT), 1, file);
+	fwrite(&fixed_rotation_, sizeof(bool), 1, file);
+	fwrite(&max_velocity_, sizeof(Vec2), 1, file);
+}
+
+void CRigidBody2D::LoadFromScene(FILE* file)
+{
+	__super::LoadFromScene(file);
+
+	UINT type =0;
+
+	fread(&type, sizeof(UINT), 1, file);
+	type_ = (BODY_TYPE)type;
+	fread(&fixed_rotation_, sizeof(bool), 1, file);
+	fread(&max_velocity_, sizeof(Vec2), 1, file);
+}
+
 b2BodyType CRigidBody2D::RigidBodyTypeToBox2BodyType(BODY_TYPE type)
 {
 	switch (type)

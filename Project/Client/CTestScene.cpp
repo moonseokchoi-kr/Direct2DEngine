@@ -41,10 +41,10 @@ void CTestScene::CreateTestScene()
 	CScene* scene = new CScene;
 
 	//CCollisionManager::GetInst()->CheckLayer(2, 3);
-
+	CCollisionManager::GetInst()->CheckLayer(1, 2);
 	CSceneManager::GetInst()->ChangeScene(scene);
 
-	//return;
+	return;
 
 	CreatePrefab();
 
@@ -165,7 +165,8 @@ void CTestScene::CreateTestScene()
 	material->SetData(SHADER_PARAM::TEX_0, CResourceManager::GetInst()->FindRes<CTexture>(L"player").Get());
 	Ptr<CTexture> playerTex = CResourceManager::GetInst()->LoadRes<CTexture>(L"player_tex", L"texture\\anim_texture\\sakuya_player.png");
 	player->Animator2D()->CreateAnimation(L"FLY", playerTex, 0, 0, 32, 48, 4, 0.07f);
-	player->Animator2D()->CreateAnimation(L"FLY_LEFT", playerTex, 0, 48, 32, 48, 7, 0.07f);
+	player->Animator2D()->CreateAnimation(L"FLY_LEFT", playerTex, 0, 48, 32, 48, 7, 0.07f,false);
+	player->Animator2D()->CreateAnimation(L"FLY_RIGHT", playerTex, 0, 48, 32, 48, 7, 0.07f,true);
 	player->Animator2D()->Play(L"FLY_LEFT", 0, true);
 
 	//플레이어 2번
@@ -187,7 +188,7 @@ void CTestScene::CreateTestScene()
 
 	scene->AddGameObject(ground, 2, true);
 
-	CCollisionManager::GetInst()->CheckLayer(1, 2);
+
 }
 
 

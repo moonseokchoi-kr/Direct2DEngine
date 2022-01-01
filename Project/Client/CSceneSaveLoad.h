@@ -6,6 +6,8 @@ class CSceneSaveLoad
 {
 public:
 	static void Init();
+	static void SaveScene();
+	static CScene* LoadScene();
 	static void SaveScene(const wstring& filePath);
 	static CScene* LoadScene(const wstring& filePath);
 
@@ -15,5 +17,6 @@ private:
 
 	static void SaveScript(CGameObject* obj, FILE* file);
 	static void LoadScript(CGameObject* obj, FILE* file);
+
 };
 

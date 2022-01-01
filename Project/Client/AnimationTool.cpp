@@ -365,8 +365,6 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			}
 	
 			//Collision Offset
-			ImGui::Text("Offset");
-			
 			
 
 			ImGui::TableNextRow();
@@ -405,6 +403,25 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			if (ImGui::Checkbox("##play on start", &check_playOnStart))
 			{
 				animation_->SetPlayOnStart(check_playOnStart);
+			}
+
+			ImGui::Text("Flip Horizon");
+			ImGui::SameLine();
+			bool horizon = current_frame_.animation_data.using_flip_horizon;
+			if (ImGui::Checkbox("##horizon", &horizon))
+			{
+				current_frame_.animation_data.using_flip_horizon = horizon;
+				animation_->SetCurrentFrameData(current_frame_);
+			}
+
+			ImGui::Text("Flip Vertical");
+			ImGui::SameLine();
+
+			bool vertical = current_frame_.animation_data.using_flip_vertical;
+			if (ImGui::Checkbox("##vertical", &vertical))
+			{
+				current_frame_.animation_data.using_flip_vertical = vertical;
+				animation_->SetCurrentFrameData(current_frame_);
 			}
 
 			ImGui::EndTable();

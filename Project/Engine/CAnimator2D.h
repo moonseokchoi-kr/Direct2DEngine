@@ -19,7 +19,7 @@ public:
     CLONE(CAnimator2D);
     
 public:
-    void CreateAnimation(const wstring& animName, Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration);
+    void CreateAnimation(const wstring& animName, Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration, bool flipHorizon=false, bool flipVertical = false);
     CAnimation2D* FindAnimation(const wstring& animationName);
     void Play(const wstring& animationName, UINT startFrame = 0, bool repeat = false);
     void AddAnimation(CAnimation2D* animtion);

@@ -57,6 +57,8 @@ void HierarchyViewWidget::Renew()
 	object_tree_.Clear();
 	Node* root = object_tree_.AddItem(nullptr, "Scene", 0);
 	CScene* currentScene = CSceneManager::GetInst()->GetCurrentScene();
+	if (nullptr == currentScene)
+		return;
 	for (int i = 0; i < (UINT)MAX_LAYER; ++i)
 	{
 		CLayer* layer = currentScene->GetLayer(i);

@@ -34,7 +34,6 @@ CBox2DCollider::CBox2DCollider(const CBox2DCollider& origin)
 
 CBox2DCollider::~CBox2DCollider()
 {
-	SafeDelete(runtime_fixture_);
 }
 
 void CBox2DCollider::Start()
@@ -95,6 +94,32 @@ void CBox2DCollider::OnCollisionExit(CGameObject* otherObject)
 	{
 		script->OnCollisionExit(otherObject);
 	}
+}
+
+void CBox2DCollider::SaveToScene(FILE* file)
+{
+	__super::SaveToScene(file);
+
+	fwrite(&offset_, sizeof(Vec2), 1, file);
+	fwrite(&offset_size_, sizeof(Vec2), 1, file);
+	fwrite(&denisty_, sizeof(float), 1, file);
+	fwrite(&friction_, sizeof(float), 1, file);
+	fwrite(&restitution_, sizeof(float), 1, file);
+	fwrite(&restitution_threshold_, sizeof(float), 1, file);
+	fwrite(&is_trigger_, sizeof(bool), 1, file);
+}
+
+void CBox2DCollider::LoadFromScene(FILE* file)
+{
+	__super::LoadFromScene(file);
+
+	fread(&offset_, sizeof(Vec2), 1, file);
+	fread(&offset_size_, sizeof(Vec2), 1, file);
+	fread(&denisty_, sizeof(float), 1, file);
+	fread(&friction_, sizeof(float), 1, file);
+	fread(&restitution_, sizeof(float), 1, file);
+	fread(&restitution_threshold_, sizeof(float), 1, file);
+	fread(&is_trigger_, sizeof(bool), 1, file);
 }
 
 void CBox2DCollider::InitCollider()

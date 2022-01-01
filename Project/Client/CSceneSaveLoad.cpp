@@ -10,15 +10,75 @@
 
 #include <Script/CScriptManager.h>
 
+#include "commdlg.h"
+
 void CSceneSaveLoad::Init()
 {
     CPrefab::g_save_fucntion_ = &CSceneSaveLoad::SaveGameObject;
     CPrefab::g_load_function_ = &CSceneSaveLoad::LoadGameObject;
 }
 
+void CSceneSaveLoad::SaveScene()
+{
+	OPENFILENAME ofn = {};
+    wstring contentPath = CPathManager::GetInst()->GetContentPath();
+    
+	//file name
+	wchar_t szFile[256] = {};
+	wstring strTileFolder = contentPath+L"scene\\";
+	strTileFolder += L"tile";
+	ofn.lStructSize = sizeof(ofn);
+	ofn.hwndOwner = CCore::GetInst()->GetMainHwnd();
+	ofn.lpstrFile = szFile;
+	ofn.lpstrFile[0] = '\0';
+	ofn.nMaxFile = sizeof(szFile);
+	ofn.lpstrFilter = L"All\0*.*\0scene\0*.scene\0";
+	ofn.nFilterIndex = 1;
+	ofn.lpstrFileTitle = nullptr;
+	ofn.nMaxFileTitle = 0;
+	ofn.lpstrInitialDir = strTileFolder.c_str();
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+    if (GetSaveFileName(&ofn))
+    {
+        SaveScene(szFile);
+    }
+}
+
+CScene* CSceneSaveLoad::LoadScene()
+{
+    CScene* scene = nullptr;
+    wstring contentPath = CPathManager::GetInst()->GetContentPath();
+    OPENFILENAME ofn = {};
+    //file name
+    wchar_t szFile[256] = {};
+    wstring strTileFolder = contentPath+L"scene\\";
+    strTileFolder += L"tile";
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = CCore::GetInst()->GetMainHwnd();
+    ofn.lpstrFile = szFile;
+    ofn.lpstrFile[0] = '\0';
+    ofn.nMaxFile = sizeof(szFile);
+    ofn.lpstrFilter = L"All\0*.*\0scene\0*.scene\0";
+    ofn.nFilterIndex = 1;
+    ofn.lpstrFileTitle = nullptr;
+    ofn.nMaxFileTitle = 0;
+    ofn.lpstrInitialDir = strTileFolder.c_str();
+    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+    if (GetOpenFileName(&ofn))
+    {
+        scene = LoadScene(szFile);
+    }
+    return scene;
+}
+	
+
 void CSceneSaveLoad::SaveScene(const wstring& filePath)
 {
+ 
     CScene* currentScene = CSceneManager::GetInst()->GetCurrentScene();
+	wstring relativePath = CPathManager::GetInst()->GetRelativePath(filePath.c_str());
+    currentScene->SetScenePath(relativePath);
     FILE* file = nullptr;
     _wfopen_s(&file, filePath.c_str(), L"wb");
     assert(file);
@@ -46,6 +106,8 @@ void CSceneSaveLoad::SaveScene(const wstring& filePath)
 CScene* CSceneSaveLoad::LoadScene(const wstring& filePath)
 {
     CScene* newScene = new CScene;
+	wstring relativePath = CPathManager::GetInst()->GetRelativePath(filePath.c_str());
+	newScene->SetScenePath(relativePath);
 	FILE* file = nullptr;
 	_wfopen_s(&file, filePath.c_str(), L"rb");
 	assert(file);

@@ -39,6 +39,9 @@ public:
     void SetMoveDir(Vec2 dir);
 
     void InitRigidBody();
+public:
+    void SaveToScene(FILE* file)override;
+    void LoadFromScene(FILE* file)override;
 private:
     b2BodyType RigidBodyTypeToBox2BodyType(BODY_TYPE type);
     b2Body* CheckBody();

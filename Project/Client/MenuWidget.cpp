@@ -40,18 +40,28 @@ void MenuWidget::ShowFileMenu()
 	{
 		if (ImGui::MenuItem("Save", "CTRL+S",false,is_play_))
 		{
-			wstring contentPath = CPathManager::GetInst()->GetContentPath();
-			contentPath += L"scene\\test.scene";
-			CSceneSaveLoad::SaveScene(contentPath);
+			if (CSceneManager::GetInst()->GetCurrentScene()->GetScenePath().empty() || (wstring::npos!=(CSceneManager::GetInst()->GetCurrentScene()->GetScenePath().find(L"scene\\test.tmp"))))
+			{
+				CSceneSaveLoad::SaveScene();
+			}
+			else
+			{
+				wstring contentPath = CPathManager::GetInst()->GetContentPath();
+				contentPath += CSceneManager::GetInst()->GetCurrentScene()->GetScenePath();
+				CSceneSaveLoad::SaveScene(contentPath);
+			}
+			
+		}
+		if (ImGui::MenuItem("Save As", "CTRL+SHILF+S", false, is_play_))
+		{
+			CSceneSaveLoad::SaveScene();
 		}
 
-		if (ImGui::MenuItem("Load", "CTRL+A",false,is_play_))
+		if (ImGui::MenuItem("Load", "ALT+O",false,is_play_))
 		{
-			wstring contentPath = CPathManager::GetInst()->GetContentPath();
-			contentPath += L"scene\\test.scene";
-			CScene* newScene = CSceneSaveLoad::LoadScene(contentPath);
-			InspectorWidget* widget =(InspectorWidget*)WidgetManager::GetInst()->FindWidget("inspector_view");
+			CScene* newScene = CSceneSaveLoad::LoadScene();
 			CEventManager::GetInst()->AddEvent(Event{ EVENT_TYPE::SCENE_CHANGE, (DWORD_PTR)newScene, 0 });
+			InspectorWidget* widget = (InspectorWidget*)WidgetManager::GetInst()->FindWidget("inspector_view");
 			widget->SetGameObject(nullptr);
 		}
 
@@ -62,13 +72,14 @@ void MenuWidget::ShowFileMenu()
 void MenuWidget::ShowSceneMenu()
 {
 	SCENE_MODE eCurMode = CSceneManager::GetInst()->GetSceneMode();
-
+	const wstring& path = CSceneManager::GetInst()->GetCurrentScene()->GetScenePath();
 	bool enable_play = true;
 	bool enable_pause = true;
 	bool enable_stop = true;
 
 	if (SCENE_MODE::PLAY == eCurMode)
 	{
+	
 		enable_play = false;
 	}
 	else if (SCENE_MODE::PAUSE == eCurMode)
@@ -91,6 +102,16 @@ void MenuWidget::ShowSceneMenu()
 			CSceneManager::GetInst()->SetSceneMode(SCENE_MODE::PLAY);
 			if (SCENE_MODE::STOP == ePrev)
 			{
+				if (path.empty()||path == L"scene\\test.tmp")
+				{
+					CSceneManager::GetInst()->GetCurrentScene()->SetScenePath(L"scene\\test.tmp");
+
+				}
+				//저장
+				wstring contentPath = CPathManager::GetInst()->GetContentPath();
+				contentPath += CSceneManager::GetInst()->GetCurrentScene()->GetScenePath();
+				CSceneSaveLoad::SaveScene(contentPath);
+
 				CScene* pCurScene = CSceneManager::GetInst()->GetCurrentScene();
 				//pCurScene->Save();
 			}
@@ -109,7 +130,7 @@ void MenuWidget::ShowSceneMenu()
 
 			// 플레이 시작 할 때 저장해둔 임시 Scene 으로 복구한다.
 			wstring contentPath = CPathManager::GetInst()->GetContentPath();
-			contentPath += L"scene\\test.scene";
+			contentPath += CSceneManager::GetInst()->GetCurrentScene()->GetScenePath();
 			CScene* newScene = CSceneSaveLoad::LoadScene(contentPath);
 			InspectorWidget* widget = (InspectorWidget*)WidgetManager::GetInst()->FindWidget("inspector_view");
 			CEventManager::GetInst()->AddEvent(Event{ EVENT_TYPE::SCENE_CHANGE, (DWORD_PTR)newScene, 0 });

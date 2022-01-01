@@ -16,7 +16,9 @@ struct AnimationData
 	Vec2 full_size;
 	Vec2 offset;
 	UINT using_anim;
-	UINT padding[3];
+	UINT using_flip_vertical;
+	UINT using_flip_horizon;
+	UINT padding;
 };
 
 struct AnimationFrame

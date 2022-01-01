@@ -37,6 +37,9 @@ public:
     void SetTrigger(bool b) { is_trigger_ = b; }
     b2Fixture* GetColliderFixture() { return (b2Fixture*)runtime_fixture_; }
 
+public:
+    void SaveToScene(FILE* file) override;
+    void LoadFromScene(FILE* file) override;
 protected:
         friend class CCollisionManager;
 private:
@@ -45,12 +48,13 @@ private:
 private:
 
 	Box2DColliderDebugDraw debug_draw_;
-    Vec2 offset_;
-    Vec2 offset_size_;
+
 
     int collision_count_;
-
     void* runtime_fixture_;
+
+	Vec2 offset_;
+	Vec2 offset_size_;
     float denisty_;
     float friction_;
     float restitution_;

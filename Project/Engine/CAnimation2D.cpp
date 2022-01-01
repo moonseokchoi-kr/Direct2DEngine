@@ -73,7 +73,7 @@ void CAnimation2D::UpdateData()
 
 }
 
-void CAnimation2D::Create(const wstring& animationName, Ptr<CTexture> texture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration)
+void CAnimation2D::Create(const wstring& animationName, Ptr<CTexture> texture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration, bool filpHorizon, bool filpVertical)
 {
 	SetName(animationName);
 
@@ -93,14 +93,15 @@ void CAnimation2D::Create(const wstring& animationName, Ptr<CTexture> texture, U
 		frame.animation_data.full_size = Vec2(animation_back_board_.x / width, animation_back_board_.y/ height);
 		frame.animation_data.left_top = Vec2((float)ltX / width, (float)ltY / height);
 		frame.animation_data.left_top -= (frame.animation_data.full_size- frame.animation_data.size)/ 2.f;
-
+		frame.animation_data.using_flip_horizon = filpHorizon;
+		frame.animation_data.using_flip_vertical = filpVertical;
 		frame.duration = duration;
 
 		frame_vector_.push_back(frame);
 	}
 }
 
-void CAnimation2D::CreateFrame(Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration)
+void CAnimation2D::CreateFrame(Ptr<CTexture> atlasTexture, UINT leftTopX, UINT leftTopY, UINT sizeX, UINT sizeY, UINT frameCount, float duration, bool filpHorizon, bool filpVertical)
 {
 
 	atlas_texture_ = atlasTexture;
@@ -118,6 +119,8 @@ void CAnimation2D::CreateFrame(Ptr<CTexture> atlasTexture, UINT leftTopX, UINT l
 	frame.animation_data.full_size = Vec2(animation_back_board_.x / width, animation_back_board_.y / height);
 	frame.animation_data.left_top = Vec2((float)ltX / width, (float)ltY / height);
 	frame.animation_data.left_top -= ((frame.animation_data.full_size - frame.animation_data.size) / 2.f);
+	frame.animation_data.using_flip_horizon = filpHorizon;
+	frame.animation_data.using_flip_vertical = filpVertical;
 	frame.duration = duration;
 
 	frame_vector_.push_back(frame);
