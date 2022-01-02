@@ -14,6 +14,7 @@
 #include "RigidBody2DWidget.h"
 #include "UIComponentWidget.h"
 #include "Box2DColliderWidget.h"
+#include "DataInputWidget.h"
 
 #include <Engine/CGameObject.h>
 #include <Engine/CKeyManager.h>
@@ -76,12 +77,12 @@ void InspectorWidget::Update()
 
 void InspectorWidget::ShowObjectInfo()
 {
-	string name = WStringToString(target_object_->GetName());
-	if (ImGui::InputText("##targetName", name.data(), (int)name.size()))
+	wstring name = target_object_->GetName();
+	if (DataInputWidget::DataInputText(L"target_name", name))
 	{
-		if (KEY_TAP(KEY::ENTER))
-			target_object_->SetName(StringToWString(name));
+		target_object_->SetName(name);
 	}
+
 
 	for (size_t i=0; i<component_widget_array_.size(); ++i)
 	{

@@ -10,6 +10,8 @@
 #include <Engine/CPathManager.h>
 #include <Engine/CEventManager.h>
 #include <Engine/CScene.h>
+#include <Engine/CCollisionManager.h>
+#include "CollisionManagerView.h"
 
 
 MenuWidget::MenuWidget()
@@ -25,7 +27,7 @@ void MenuWidget::Update()
 {
 	is_play_ = SCENE_MODE::STOP == CSceneManager::GetInst()->GetSceneMode();
 	// Menu Bar
-	if (ImGui::BeginMainMenuBar())
+	if (ImGui::BeginMainMenuBar()) 
 	{
 		ShowFileMenu();
 		ShowSceneMenu();
@@ -152,11 +154,12 @@ void MenuWidget::ShowSceneMenu()
 
 void MenuWidget::ShowSettingMenu()
 {
-	if (ImGui::BeginMenu("File"))
+	if (ImGui::BeginMenu("Setting"))
 	{
 		if (ImGui::MenuItem("Collision", nullptr, false, is_play_))
 		{
-
+			CollisionManagerView* mangerView =(CollisionManagerView*)WidgetManager::GetInst()->FindWidget("collision_manager_view");
+			mangerView->Activate();
 		}
 
 		ImGui::EndMenu();

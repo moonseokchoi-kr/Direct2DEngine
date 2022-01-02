@@ -30,6 +30,9 @@ public:
 	/// </summary>
 	void Reset() { collision_check_array_.fill(0); }
 	UINT GetCollisionMask(int layer) { return collision_check_array_[layer]; }
+public:
+	void Save(FILE* file);
+	void Load(FILE* file);
 private:
 	void collisionLayerUpdate(UINT leftLayer, UINT rightLayer);
 	bool isCollision(CCollider2D* leftCollider, CCollider2D* rightCollider);
@@ -43,7 +46,7 @@ private:
 private:
 	unordered_map<ULONGLONG, bool> collider_info_map_;
 	array<UINT, MAX_LAYER> collision_check_array_;
-
 	friend class Box2DContactEvent;
 };
+
 

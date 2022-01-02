@@ -5,6 +5,7 @@
 #include <Engine/CScene.h>
 #include <Engine/CLayer.h>
 #include <Engine/CComponent.h>
+#include <Engine/CCollisionManager.h>
 #include <Engine/CGameObject.h>
 #include <Engine/CScript.h>
 
@@ -99,7 +100,8 @@ void CSceneSaveLoad::SaveScene(const wstring& filePath)
             SaveGameObject(object, file);
         }
     }
-
+    //save manager setting
+    CCollisionManager::GetInst()->Save(file);
     fclose(file);
 }
 
@@ -128,7 +130,7 @@ CScene* CSceneSaveLoad::LoadScene(const wstring& filePath)
         }
 		
 	}
-
+    CCollisionManager::GetInst()->Load(file);
     fclose(file);
 
     return newScene;

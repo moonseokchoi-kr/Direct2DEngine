@@ -3,13 +3,15 @@
 #include "CKeyManager.h"
 #include "CTimeManager.h"
 #include "CResourceManager.h"
+#include "CSceneManager.h"
+#include "CScene.h"
 #include "CMeshRender.h"
 #include "CMaterial.h"
 #include "CTransform.h"
 #include "CCollider2D.h"
 #include "CPrefab.h"
 #include "CAnimator2D.h"
-
+#include "CGameObject.h"
 
 
 enum class SCRIPT_PARAM
@@ -22,6 +24,8 @@ enum class SCRIPT_PARAM
 
     TEXTURE,
     PREFAB,
+
+    STRING,
 
     END,
 };
@@ -53,7 +57,7 @@ public:
 public:
 	const vector<ScriptParameter>& GetParameter() { return parameter_vector_; }
     int GetScriptType() { return script_type_; }
-
+    void SetParameter(int index, const ScriptParameter param) { parameter_vector_[index] = param; }
 public:
     void SaveToScene(FILE* file);
     void LoadFromScene(FILE* file);
@@ -117,5 +121,9 @@ inline SCRIPT_PARAM CScript::GetType(T variable)
 	{
         param = SCRIPT_PARAM::PREFAB;
 	}
+    else if (info.hash_code() == typeid(wstring).hash_code())
+    {
+        param = SCRIPT_PARAM::STRING;
+    }
     return param;
 }

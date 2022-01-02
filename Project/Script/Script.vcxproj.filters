@@ -3,7 +3,8 @@
   <ItemGroup>
     <Filter Include="default">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+      <Extensions>
+      </Extensions>
     </Filter>
     <Filter Include="Scripts">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
@@ -11,6 +12,9 @@
     </Filter>
     <Filter Include="Manager">
       <UniqueIdentifier>{d1f7d982-fff6-47a2-9c6b-a78f764e083c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\Camera">
+      <UniqueIdentifier>{ac228ebd-10aa-45f6-b111-9e4262e90a5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -38,6 +42,9 @@
     <ClInclude Include="CPlayerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
+    <ClInclude Include="CCameraFollowScript.h">
+      <Filter>Scripts\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -60,6 +67,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="CCameraFollowScript.cpp">
+      <Filter>Scripts\Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

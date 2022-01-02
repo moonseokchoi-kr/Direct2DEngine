@@ -25,6 +25,7 @@
 #include <cmath>
 #include <assert.h>
 #include <functional>
+#include <fstream>
 
 
 
@@ -85,6 +86,8 @@ using namespace DirectX::PackedVector;
 #include <Box2d/b2_polygon_shape.h>
 #include <Box2d/b2_body.h>
 #include <Box2d/b2_fixture.h>
+
+
 
 //custom header
 

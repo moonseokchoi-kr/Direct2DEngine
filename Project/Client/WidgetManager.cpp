@@ -155,6 +155,7 @@ void WidgetManager::SetFocusMainWindow()
 #include "ViewPortWidget.h"
 #include "ComboWidget.h"
 #include "ResourceViewWidget.h"
+#include "CollisionManagerView.h"
 
 void WidgetManager::CreateWidgets()
 {
@@ -205,6 +206,10 @@ void WidgetManager::CreateWidgets()
 
 	widget = new ComboWidget;
 	widget->SetName("##sub_combo");
+	widget->Deactivate();
+	AddWidget(widget->GetName(), widget);
+
+	widget = new CollisionManagerView;
 	widget->Deactivate();
 	AddWidget(widget->GetName(), widget);
 

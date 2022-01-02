@@ -44,7 +44,7 @@ void CTestScene::CreateTestScene()
 	CCollisionManager::GetInst()->CheckLayer(1, 2);
 	CSceneManager::GetInst()->ChangeScene(scene);
 
-	return;
+	//return;
 
 	CreatePrefab();
 

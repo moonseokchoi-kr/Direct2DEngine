@@ -17,6 +17,6 @@ private:
 
 	static void SaveScript(CGameObject* obj, FILE* file);
 	static void LoadScript(CGameObject* obj, FILE* file);
-
+ 
 };
 

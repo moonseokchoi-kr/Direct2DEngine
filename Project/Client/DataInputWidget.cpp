@@ -105,6 +105,23 @@ void DataInputWidget::DataInputTexture(wstring name, Ptr<CTexture> texture, DWOR
 
 }
 
+bool DataInputWidget::DataInputText(wstring name, wstring& str)
+{
+	string usage = WStringToString(name);
+
+	usage = "##" + usage;
+
+	string data = WStringToString(str);
+
+	if (ImGui::InputText(usage.c_str(), data.data(), 255, ImGuiInputTextFlags_EnterReturnsTrue))
+	{
+		str = StringToWString(data);
+		return true;
+	}
+
+	return false;
+}
+
 bool DataInputWidget::DataDragInputInt(wstring name, int* data, bool is_normal)
 {
 	string usage = WStringToString(name);
@@ -210,4 +227,8 @@ bool DataInputWidget::DataDragInputVec4(wstring name, Vec4& data, bool is_normal
 	}
 
 	return false;
+}
+
+void DataInputWidget::DataInputObejct(wstring name, wstring object)
+{
 }

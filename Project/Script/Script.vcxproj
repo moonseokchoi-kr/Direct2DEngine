@@ -181,6 +181,7 @@ call CodeGen.exe</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CCameraFollowScript.h" />
     <ClInclude Include="CBulletScript.h" />
     <ClInclude Include="CMonsterHpBarScript.h" />
     <ClInclude Include="CMonsterScript.h" />
@@ -191,6 +192,7 @@ call CodeGen.exe</Command>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CCameraFollowScript.cpp" />
     <ClCompile Include="CBulletScript.cpp" />
     <ClCompile Include="CMonsterHpBarScript.cpp" />
     <ClCompile Include="CMonsterScript.cpp" />

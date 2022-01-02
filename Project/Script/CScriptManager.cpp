@@ -2,6 +2,7 @@
 #include "CScriptManager.h"
 
 #include "CBulletScript.h"
+#include "CCameraFollowScript.h"
 #include "CMonsterHpBarScript.h"
 #include "CMonsterScript.h"
 #include "CMoveScript.h"
@@ -10,6 +11,7 @@
 void CScriptManager::GetScriptInfo(vector<wstring>& vec)
 {
 	vec.push_back(L"CBulletScript");
+	vec.push_back(L"CCameraFollowScript");
 	vec.push_back(L"CMonsterHpBarScript");
 	vec.push_back(L"CMonsterScript");
 	vec.push_back(L"CMoveScript");
@@ -20,6 +22,8 @@ CScript * CScriptManager::GetScript(const wstring& strScriptName)
 {
 	if (L"CBulletScript" == strScriptName)
 		return new CBulletScript;
+	if (L"CCameraFollowScript" == strScriptName)
+		return new CCameraFollowScript;
 	if (L"CMonsterHpBarScript" == strScriptName)
 		return new CMonsterHpBarScript;
 	if (L"CMonsterScript" == strScriptName)
@@ -37,6 +41,9 @@ CScript * CScriptManager::GetScript(UINT iScriptType)
 	{
 	case (UINT)SCRIPT_TYPE::BULLETSCRIPT:
 		return new CBulletScript;
+		break;
+	case (UINT)SCRIPT_TYPE::CAMERAFOLLOWSCRIPT:
+		return new CCameraFollowScript;
 		break;
 	case (UINT)SCRIPT_TYPE::MONSTERHPBARSCRIPT:
 		return new CMonsterHpBarScript;
@@ -60,6 +67,10 @@ const wchar_t * CScriptManager::GetScriptName(CScript *pScript)
 	{
 	case SCRIPT_TYPE::BULLETSCRIPT:
 		return L"CBulletScript";
+		break;
+
+	case SCRIPT_TYPE::CAMERAFOLLOWSCRIPT:
+		return L"CCameraFollowScript";
 		break;
 
 	case SCRIPT_TYPE::MONSTERHPBARSCRIPT:

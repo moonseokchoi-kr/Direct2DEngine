@@ -5,7 +5,20 @@
 #include <Box2d/b2_draw.h>
 
 class CMesh;
-
+struct ColliderRect
+{
+private:
+    ComPtr<ID3D11Buffer> vertex_buffer_;
+    ComPtr<ID3D11Buffer> index_buffer_;
+public:
+    UINT vertex_count_;
+    UINT idx_count_;
+public:
+    void Create(VTX* vtx, UINT vertexCount);
+    void UpdateData();
+    void Render();
+    void Clear();
+};
 
 class Box2DColliderDebugDraw :
     public CSingleton<Box2DColliderDebugDraw>, public b2Draw
@@ -32,8 +45,16 @@ public:
     virtual void DrawTransform(const b2Transform& xf) override;
 
     virtual void DrawPoint(const b2Vec2& p, float size, const b2Color& color) override;
+
 private:
-	vector<CMesh*> collider_mesh_vector_;
+    void Clear();
+    void GetGetBoundBox2DBounds();
+    void ScaleCalculate();
+private:
+    RECT b2worldRect;
+    RECT windowRect;
     Ptr<CMaterial> collider_material_;
+    vector<ColliderRect> collider_mesh_;
+    Matrix world_matrix;
 };
 

@@ -8,6 +8,7 @@
 #include "CCollider2D.h"
 #include "CBox2DCollider.h"
 #include "CSceneManager.h"
+#include "CPathManager.h"
 
 //box2d
 #include <Box2d/b2_contact.h>
@@ -66,6 +67,22 @@ void CCollisionManager::CheckLayer(UINT _left, UINT _right)
 	}
 }
 
+
+void CCollisionManager::Save(FILE *file)
+{	
+	for (int i = 0; i < MAX_LAYER; ++i)
+	{
+		fwrite(&collision_check_array_[i], sizeof(UINT), 1, file);
+	}
+}
+
+void CCollisionManager::Load(FILE* file)
+{
+	for (int i = 0; i < MAX_LAYER; ++i)
+	{
+		fread(&collision_check_array_[i], sizeof(UINT), 1, file);
+	}
+}
 
 void CCollisionManager::collisionLayerUpdate(UINT leftLayer, UINT rightLayer)
 {

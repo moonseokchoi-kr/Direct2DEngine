@@ -1,4 +1,5 @@
 CBulletScript
+CCameraFollowScript
 CMonsterHpBarScript
 CMonsterScript
 CMoveScript

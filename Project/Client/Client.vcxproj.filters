@@ -314,9 +314,6 @@
     <ClInclude Include="CTestScene.h">
       <Filter>TestScene</Filter>
     </ClInclude>
-    <ClInclude Include="CSceneSaveLoad.h">
-      <Filter>SceneSaveLoad</Filter>
-    </ClInclude>
     <ClInclude Include="FilterWidget.h">
       <Filter>Client Source\Tool\Widget\Module\Filter</Filter>
     </ClInclude>
@@ -336,6 +333,15 @@
       <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Box2DCollider</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManagerView.h" />
+    <ClInclude Include="ObjectFilterWidget.h">
+      <Filter>Client Source\Tool\Widget\Module\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboFilterWidget.h">
+      <Filter>Client Source\Tool\Widget\Module\Filter</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneSaveLoad.h">
+      <Filter>Client Source\Tool\Widget\ToolUI\Manger\Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc">
@@ -475,9 +481,6 @@
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
     </ClCompile>
-    <ClCompile Include="CSceneSaveLoad.cpp">
-      <Filter>SceneSaveLoad</Filter>
-    </ClCompile>
     <ClCompile Include="FilterWidget.cpp">
       <Filter>Client Source\Tool\Widget\Module\Filter</Filter>
     </ClCompile>
@@ -497,5 +500,14 @@
       <Filter>Client Source\Tool\Widget\ToolUI\Inspector\Component\Box2DCollider</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManagerView.cpp" />
+    <ClCompile Include="ObjectFilterWidget.cpp">
+      <Filter>Client Source\Tool\Widget\Module\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboFilterWidget.cpp">
+      <Filter>Client Source\Tool\Widget\Module\Filter</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneSaveLoad.cpp">
+      <Filter>Client Source\Tool\Widget\ToolUI\Manger\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

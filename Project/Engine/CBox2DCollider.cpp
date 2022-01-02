@@ -127,9 +127,10 @@ void CBox2DCollider::InitCollider()
 	if (nullptr == GetRigidBody2D() || nullptr == GetRigidBody2D()->GetRuntimeBody())
 		return;
 	Vec3 scale = GetTransform()->GetScale();
+	Vec2 rectScale = Vec2(scale.x * 0.5f, scale.y * 0.5f);
 	UINT categoryBit = (1 << GetOwner()->GetLayerIndex());
 	b2PolygonShape polygonShape;
-	polygonShape.SetAsBox(scale.x * offset_size_.x, scale.y * offset_size_.y);
+	polygonShape.SetAsBox(rectScale.x * offset_size_.x, rectScale.y * offset_size_.y);
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &polygonShape;
 	fixtureDef.density = denisty_;
@@ -148,7 +149,6 @@ void CBox2DCollider::SetFixture()
 	Vec3 scale = GetTransform()->GetScale();
 	b2Fixture* fixture = (b2Fixture*)runtime_fixture_;
 	b2Filter filter;
-
 	filter.categoryBits = (1 << GetOwner()->GetLayerIndex());
 	filter.maskBits = CCollisionManager::GetInst()->GetCollisionMask(GetOwner()->GetLayerIndex());
 	fixture->SetDensity(denisty_);
@@ -158,6 +158,6 @@ void CBox2DCollider::SetFixture()
 	fixture->SetFilterData(filter);
 
 	b2PolygonShape* shape = (b2PolygonShape*)fixture->GetShape();
-	shape->SetAsBox(scale.x * offset_size_.x, scale.y * offset_size_.y);
-	
+	Vec2 rectScale = Vec2(scale.x * 0.5f, scale.y * 0.5f);
+	shape->SetAsBox(rectScale.x * offset_size_.x, rectScale.y * offset_size_.y);
 }

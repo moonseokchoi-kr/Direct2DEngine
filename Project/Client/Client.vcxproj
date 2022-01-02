@@ -136,12 +136,12 @@
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Unity\</UnityFilesDirectory>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\lib\boost_1_78_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_78_0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\lib\boost_1_78_0\stage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\lib\boost_1_78_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
       <Command>
@@ -162,14 +162,14 @@
       <MaxFilesInUnityFile>8</MaxFilesInUnityFile>
       <UnityFilesDirectory>$(ProjectDir)Unity\</UnityFilesDirectory>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\lib\boost_1_78_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\lib\boost_1_78_0</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\lib\boost_1_78_0\stage\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\lib\boost_1_78_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -182,6 +182,7 @@
     <ClInclude Include="client_func.h" />
     <ClInclude Include="Collider2DWidget.h" />
     <ClInclude Include="CollisionManagerView.h" />
+    <ClInclude Include="ComboFilterWidget.h" />
     <ClInclude Include="ComboWidget.h" />
     <ClInclude Include="ContentBrowserComboWidget.h" />
     <ClInclude Include="CSceneSaveLoad.h" />
@@ -197,6 +198,7 @@
     <ClInclude Include="InspectorWidget.h" />
     <ClInclude Include="MenuWidget.h" />
     <ClInclude Include="MeshRenderWidget.h" />
+    <ClInclude Include="ObjectFilterWidget.h" />
     <ClInclude Include="ParticleWidget.h" />
     <ClInclude Include="ResourceViewWidget.h" />
     <ClInclude Include="ResourceWidget.h" />
@@ -244,6 +246,7 @@
     <ClCompile Include="CameraWidget.cpp" />
     <ClCompile Include="Collider2DWidget.cpp" />
     <ClCompile Include="CollisionManagerView.cpp" />
+    <ClCompile Include="ComboFilterWidget.cpp" />
     <ClCompile Include="ComboWidget.cpp" />
     <ClCompile Include="ContentBrowserComboWidget.cpp" />
     <ClCompile Include="CSceneSaveLoad.cpp" />
@@ -259,6 +262,7 @@
     <ClCompile Include="InspectorWidget.cpp" />
     <ClCompile Include="MenuWidget.cpp" />
     <ClCompile Include="MeshRenderWidget.cpp" />
+    <ClCompile Include="ObjectFilterWidget.cpp" />
     <ClCompile Include="ParticleWidget.cpp" />
     <ClCompile Include="ResourceViewWidget.cpp" />
     <ClCompile Include="ResourceWidget.cpp" />
