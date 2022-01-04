@@ -6,7 +6,7 @@
 
 struct VERTEX_INPUT
 {
-    float3 postion : POSITION;
+    float3 position : POSITION;
     float4 color : COLOR;
     float2 uv : TEXCOORD;
 };
@@ -21,7 +21,8 @@ struct VERTEX_OUTPUT
 VERTEX_OUTPUT vs_main(VERTEX_INPUT input)
 {
     VERTEX_OUTPUT output = (VERTEX_OUTPUT) 0.f;
-    output.position = mul(float4(input.postion, 1.f),projectionMatrix);
+    output.position = mul(float4(input.position, 1.f), viewMatrix);
+    output.position = mul(float4(output.position), projectionMatrix);
     output.color = input.color;
     output.uv = input.uv;
     

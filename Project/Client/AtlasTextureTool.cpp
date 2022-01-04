@@ -64,6 +64,7 @@ void AtlasTextureTool::Update()
 	else
 	{
 		Deactivate();
+		atlas_ = nullptr;
 		ImGui::End();
 	}
 
@@ -223,6 +224,7 @@ void AtlasTextureTool::ShowAtlasVeiw()
 				ImGui::Text("index: %d",current_tile_index_);
 				ImGui::EndTooltip();
 			}
+		
 			else
 			{
 				release_mouse_ = false;
@@ -232,6 +234,7 @@ void AtlasTextureTool::ShowAtlasVeiw()
 
 			draw_list->PushClipRect(canvas_lt_, canvas_p1, true);
 			{
+				canvas_lt_ += scrolling_;
 				draw_list->AddImage(atlas_->GetShaderResourceView(), ImVec2(canvas_lt_.x , canvas_lt_.y ),
 					ImVec2(canvas_lt_.x  + width, canvas_lt_.y  + height), uv_min, uv_max);
 				if (mode_ == TOOL_TYPE::ANIMATOR)
@@ -307,9 +310,13 @@ void AtlasTextureTool::AnimationMouseMode(float region_x, float region_y)
 			region_x = 0.f;
 		if (region_y < 0)
 			region_y = 0.f;
-		selected_left_top_ = Vec2(region_x, region_y) / zoom_;
+		selected_left_top_ = Vec2(region_x-scrolling_.x, region_y-scrolling_.y) / zoom_;
 		//current_mouse_pos_ = Vec2(-1, -1);
 		release_mouse_ = true;
+	}
+	if (ImGui::IsMouseDragging(ImGuiMouseButton_Right))
+	{
+		scrolling_ += Vec2(io.MouseDelta.x, io.MouseDelta.y);
 	}
 }
 

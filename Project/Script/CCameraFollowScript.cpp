@@ -24,7 +24,11 @@ void CCameraFollowScript::Update()
 {
 	Vec3 targetPos;
 	if (nullptr != target_)
+	{
 		targetPos = target_->Transform()->GetPosition();
+		targetPos.z = 0.f;
+	}
+		
 	else
 		targetPos = GetTransform()->GetPosition();
 	

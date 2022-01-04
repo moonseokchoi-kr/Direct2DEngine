@@ -83,9 +83,9 @@ void CCamera::CalViewMatrix()
 
 	view_matrix_ = XMMatrixIdentity();
 
-	view_matrix_._11 = right.x;			view_matrix_._12 = up.x;				view_matrix_._13 = front.x;
-	view_matrix_._21 = right.y;			view_matrix_._22 = up.y;				view_matrix_._23 = front.y;
-	view_matrix_._31 = right.z;			view_matrix_._32 = up.z;				view_matrix_._33 = front.z;
+	view_matrix_._11 = right.x;				view_matrix_._12 = up.x;				view_matrix_._13 = front.x;
+	view_matrix_._21 = right.y;				view_matrix_._22 = up.y;				view_matrix_._23 = front.y;
+	view_matrix_._31 = right.z;				view_matrix_._32 = up.z;				view_matrix_._33 = front.z;
 	view_matrix_._41 = -vPos.Dot(right);	view_matrix_._42 = -vPos.Dot(up);		view_matrix_._43 = -vPos.Dot(front);
 }
 

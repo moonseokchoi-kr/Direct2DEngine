@@ -7,15 +7,15 @@
 
 CPlayerScript::CPlayerScript()
 	:CScript((int)SCRIPT_TYPE::PLAYERSCRIPT)
-	, player_move_speed_(400)
+	, player_move_speed_(100.f)
 	, accumulated_time_(0)
-	, player_bullet_attack_speed_(0.1f)
+	, player_attack_speed_(0.1f)
 
 {
 	player_bullet_prefab_ = CResourceManager::GetInst()->FindRes<CPrefab>(L"player_bullet_prefab");
 	SetName(L"PlayerScript");
 	ADD_PARAMETER(player_move_speed_);
-	ADD_PARAMETER(player_bullet_attack_speed_);
+	ADD_PARAMETER(player_attack_speed_);
 }
 
 CPlayerScript::~CPlayerScript()
@@ -27,56 +27,66 @@ void CPlayerScript::Update()
 	accumulated_time_ += fDT;
 	CRigidBody2D* rigidBody = GetRigidBody2D();
 	Vec2 velocity = rigidBody->GetVelocity();
-	if (KEY_TAP(KEY::UP))
+	if (KEY_TAP(KEY::W))
 	{
-		rigidBody->SetMoveDir(Vec2(0.f, 1.f));
+		face_dir_.y = 1;
 		rigidBody->SetVelocity(Vec2(velocity.x, player_move_speed_));
 	}
-	if (KEY_TAP(KEY::DOWN))
+	if (KEY_TAP(KEY::S))
 	{
-		rigidBody->SetMoveDir(Vec2(0.f, -1.f));
+		face_dir_.y = -1;
 		rigidBody->SetVelocity(Vec2(velocity.x, -player_move_speed_));
 
 	}
-	if (KEY_TAP(KEY::LEFT))
+	if (KEY_TAP(KEY::A))
 	{
-		rigidBody->SetMoveDir(Vec2(-1.f, 0.f));
+		face_dir_.x = -1;
 		rigidBody->SetVelocity(Vec2(-player_move_speed_, velocity.y));
-
 	}
-	if (KEY_TAP(KEY::RIGHT))
+	if (KEY_TAP(KEY::D))
 	{
-		rigidBody->SetMoveDir(Vec2(1.f, 0.f));
+		face_dir_.x = 1;
 		rigidBody->SetVelocity(Vec2(player_move_speed_, velocity.y));
 	}
-	if (KEY_HOLD(KEY::UP))
+	if (KEY_HOLD(KEY::W))
 	{
 
 		rigidBody->ApplyImpulse(Vec2(0.f, player_move_speed_));
 	}
-	if (KEY_HOLD(KEY::DOWN))
+	if (KEY_HOLD(KEY::S))
 	{
 
 		rigidBody->ApplyImpulse(Vec2(0.f, -player_move_speed_));
 
 	}
-	if (KEY_HOLD(KEY::LEFT))
+	if (KEY_HOLD(KEY::A))
 	{
 
 		rigidBody->ApplyImpulse(Vec2(-player_move_speed_, 0.f));
 
 	}
-	if (KEY_HOLD(KEY::RIGHT))
+	if (KEY_HOLD(KEY::D))
 	{
 
 		rigidBody->ApplyImpulse(Vec2(player_move_speed_, 0.f));
 	}
-	move_dir_ = rigidBody->GetMoveDir();
-	if (KEY_NONE(KEY::UP) && KEY_NONE(KEY::DOWN) && KEY_NONE(KEY::RIGHT) && KEY_NONE(KEY::LEFT))
+	
+	if (KEY_NONE(KEY::W) && KEY_NONE(KEY::S))
 	{
-		if (velocity.Length() != 0)
-			rigidBody->SetVelocity(move_dir_ * 10.f);
-		else
+		face_dir_.y = 0;
+	}
+	if (KEY_NONE(KEY::A) && KEY_NONE(KEY::D))
+	{
+		face_dir_.x = 0;
+	}
+	if (KEY_HOLD(KEY::W))
+	{
+
+		rigidBody->ApplyImpulse(Vec2(0.f, player_move_speed_));
+	}
+
+	if (KEY_NONE(KEY::W) && KEY_NONE(KEY::S) && KEY_NONE(KEY::D) && KEY_NONE(KEY::A))
+	{
 			rigidBody->SetVelocity(Vec2());
 	}
 	if (KEY_HOLD(KEY::Q))
@@ -95,7 +105,7 @@ void CPlayerScript::Update()
 	}
 	if (KEY_HOLD(KEY::SPACE))
 	{
-		if (player_bullet_attack_speed_ <= accumulated_time_)
+		if (player_attack_speed_ <= accumulated_time_)
 		{
 			CreateBullet();
 			accumulated_time_ = 0.f;
@@ -103,7 +113,7 @@ void CPlayerScript::Update()
 
 	}
 	UpdateAnimation();
-	prev_move_dir_ = move_dir_;
+	prev_move_dir_ = face_dir_;
 }
 
 void CPlayerScript::OnCollisionEnter(CGameObject* otherObject)
@@ -132,28 +142,61 @@ void CPlayerScript::CreateBullet()
 
 void CPlayerScript::UpdateAnimation()
 {
-	if (move_dir_ == prev_move_dir_)
+	CRigidBody2D* rigidBody = GetRigidBody2D();
+	Vec2 velocity = rigidBody->GetVelocity();
+	if (velocity.Length() != 0 && prev_move_dir_ != face_dir_)
 	{
-
-		if (move_dir_ < Vec2(0, 0))
+		if (face_dir_.y>0)
 		{
-			if (GetAnimator2D()->GetCurrentAnimation()->GetCurrentFrameIndex() < 4)
+			if (face_dir_.x>0)
 			{
-				return;
+				GetAnimator2D()->Play(L"player_walk_up_diag", 0, true);
+			}
+			else if(face_dir_.x<0)
+			{
+				GetAnimator2D()->Play(L"player_walk_up_diag_left", 0, true);
 			}
 			else
 			{
-				GetAnimator2D()->Play(L"FLY_LEFT", 4, true);
+				GetAnimator2D()->Play(L"player_walk_up", 0, true);
+			}
+		}
+		else if (face_dir_.y < 0)
+		{
+			if (face_dir_.x>0)
+			{
+				GetAnimator2D()->Play(L"player_walk_down_diag", 0, true);
+			}
+			else if (face_dir_.x < 0)
+			{
+				GetAnimator2D()->Play(L"player_walk_down_diag_left", 0, true);
+			}
+			else
+			{
+				GetAnimator2D()->Play(L"player_walk_down", 0, true);
+			}
+		}
+		else
+		{
+			if (face_dir_.x>0)
+			{
+				GetAnimator2D()->Play(L"player_walk_down_diag", 0, true);
+			}
+			else if (face_dir_.x< 0)
+			{
+				GetAnimator2D()->Play(L"player_walk_down_diag_left", 0, true);
+			}
+			else
+			{
+				//GetAnimator2D()->Play(L"player_walk_up", 0, false);
 			}
 		}
 
 	}
-	else
+	if (face_dir_.y == 0 && face_dir_.x != 0)
 	{
-		if (move_dir_ == Vec2(0, 0))
-			GetAnimator2D()->Play(L"FLY", 0, true);
-		if (move_dir_ < Vec2(0, 0))
-			GetAnimator2D()->Play(L"FLY_LEFT", 0, true);
+		if(GetAnimator2D()->GetCurrentAnimation()->GetCurrentFrameIndex() == 5)
+			GetAnimator2D()->GetCurrentAnimation()->SetCurrentFrame(1);
 	}
 }
 

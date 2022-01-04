@@ -41,13 +41,8 @@ void CTestScene::CreateTestScene()
 	CScene* scene = new CScene;
 
 	//CCollisionManager::GetInst()->CheckLayer(2, 3);
-	CCollisionManager::GetInst()->CheckLayer(1, 2);
+	//CCollisionManager::GetInst()->CheckLayer(1, 2);
 	CSceneManager::GetInst()->ChangeScene(scene);
-
-	//return;
-
-	CreatePrefab();
-
 	//카메라
 	const auto camera = new CGameObject;
 	camera->SetName(L"camera");
@@ -59,6 +54,12 @@ void CTestScene::CreateTestScene()
 	camera->Camera()->SetProjectionType(PROJECTION_TYPE::ORTHO);
 	//카메라 1번
 	scene->AddGameObject(camera, 1, true);
+
+	return;
+
+	CreatePrefab();
+
+
 
 // 	const auto background = new CGameObject;
 // 	background->SetName(L"parent");
@@ -88,16 +89,16 @@ void CTestScene::CreateTestScene()
 
 
 
-// 	//ui
-// 	const auto testUI = new CGameObject;
-// 	testUI->SetName(L"test panel");
-// 	testUI->AddComponent(new CTransform);
-// 	testUI->AddComponent(new CUIComponent);
-// 	testUI->Transform()->SetPosition(Vec3(0.0f, 0.f, 2000.f));
-// 	testUI->Transform()->SetScale(Vec3(300.f, 300.f, 1.f));
-// 
-// 	//ui layer number 4
-// 	scene->AddGameObject(testUI, 4, true);
+	//ui
+	const auto testUI = new CGameObject;
+	testUI->SetName(L"test panel");
+	testUI->AddComponent(new CTransform);
+	testUI->AddComponent(new CUIComponent);
+	testUI->Transform()->SetPosition(Vec3(0.0f, 0.f, 2000.f));
+	testUI->Transform()->SetScale(Vec3(300.f, 300.f, 1.f));
+
+	//ui layer number 4
+	scene->AddGameObject(testUI, 4, true);
 
 
 

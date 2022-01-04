@@ -13,6 +13,7 @@ Box2DColliderDebugDraw::Box2DColliderDebugDraw()
 
 Box2DColliderDebugDraw::~Box2DColliderDebugDraw()
 {
+	Clear();
 }
 
 void Box2DColliderDebugDraw::Init()
@@ -53,7 +54,7 @@ void Box2DColliderDebugDraw::Render()
 void Box2DColliderDebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
 {
 	vector<VTX> vtx;
-	for (UINT i = 0; i < vertexCount; ++i)
+	for (UINT i = 0; i < (UINT)vertexCount; ++i)
 	{
 		VTX vertex{};
 		vertex.color = Vec4(color.r, color.g, color.b, color.a);
@@ -152,11 +153,11 @@ void Box2DColliderDebugDraw::ScaleCalculate()
 
 
 	// move things over if required
-	float offsetX = b2worldRect.left - (int)((float)windowRect.left * scaleX);
-	float offsetY = b2worldRect.top - (int)((float)windowRect.bottom * scaleY);
+	float offsetX = (float)b2worldRect.left - (int)((float)windowRect.left * scaleX);
+	float offsetY = (float)b2worldRect.top - (int)((float)windowRect.bottom * scaleY);
 
 	// used to flip the y values
-	float yAdjust = b2worldRect.bottom;
+	float yAdjust = (float)b2worldRect.bottom;
 
 	Matrix transformMatrix = XMMatrixTranslation(offsetX, yAdjust-offsetY, 0.f);
 	Matrix scaleMatrix = XMMatrixScaling(scaleX, -scaleY, 1.f);
@@ -189,7 +190,7 @@ void ColliderRect::Create(VTX* vtx, UINT vertexCount)
 	indexBuffer.push_back(3);
 	indexBuffer.push_back(0);
 
-	desc.ByteWidth = sizeof(UINT) * indexBuffer.size();
+	desc.ByteWidth = sizeof(UINT) * (UINT)indexBuffer.size();
 	desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
 	desc.Usage = D3D11_USAGE_DEFAULT;

@@ -44,6 +44,8 @@ void AnimationWidget::Update()
 					combo_.SetCurrentIndex(count);
 				++count;
 			}
+			if (nullptr == animation)
+				combo_.AddComboData("None");
 			combo_.Update();
 	
 
@@ -53,7 +55,9 @@ void AnimationWidget::Update()
 
 			ImGui::Text("Current Frame");
 			ImGui::TableNextColumn();
-			int frame = animation->GetCurrentFrameIndex();
+			int frame = 0;
+			if(nullptr != animation)
+				frame = animation->GetCurrentFrameIndex();
 			if (ImGui::InputInt("##animation_frame", &frame,1,100,ImGuiInputTextFlags_ReadOnly))
 			{
 				if(frame<0)
@@ -71,18 +75,21 @@ void AnimationWidget::Update()
 			ImGui::Text("Setting");
 
 			ImGui::TableNextColumn();
-		
-			bool check_repeat = animation->IsRepeat();
-			if (ImGui::Checkbox("repeat", &check_repeat))
+			if (nullptr != animation)
 			{
-				animation->SetRepeat(check_repeat);
-			}
-			ImGui::SameLine();
+				bool check_repeat = animation->IsRepeat();
+				if (ImGui::Checkbox("repeat", &check_repeat))
+				{
+					animation->SetRepeat(check_repeat);
+				}
+				ImGui::SameLine();
 
-			bool check_playOnStart = animation->IsPlayOnStart();
-			if (ImGui::Checkbox("play on start", &check_playOnStart))
-			{
-				animation->SetPlayOnStart(check_playOnStart);
+				bool check_playOnStart = animation->IsPlayOnStart();
+				if (ImGui::Checkbox("play on start", &check_playOnStart))
+				{
+					animation->SetPlayOnStart(check_playOnStart);
+				}
+				
 			}
 			ImGui::EndTable();
 		}
@@ -92,6 +99,7 @@ void AnimationWidget::Update()
 		{
 			AnimationTool* tool = dynamic_cast<AnimationTool*>(WidgetManager::GetInst()->FindWidget("animation_tool"));
 			tool->SetTargetAnimator(GetTarget()->Animator2D());
+			tool->SetToolType(ANIMATION_TOOL_TYPE::CREATE);
 			tool->Activate();
 			
 		}
@@ -103,6 +111,21 @@ void AnimationWidget::Update()
 			tool->SetCurrentAnimation(GetTarget()->Animator2D()->GetCurrentAnimation());
 			tool->SetToolType(ANIMATION_TOOL_TYPE::EDIT);
 			tool->Activate();
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Copy Animation", ImVec2(100, 0)))
+		{
+			CAnimation2D* copyAnimation = animation->Clone();
+			wstring str = copyAnimation->GetName();
+			str += L"_copy";
+			copyAnimation->SetName(str);
+			animator->AddAnimation(copyAnimation);
+		}
+
+		ImGui::SameLine();
+		if (ImGui::Button("Delete", ImVec2(100, 0)))
+		{
+			animator->DeleteAnimation(animation->GetName());
 		}
 	}
 	End();

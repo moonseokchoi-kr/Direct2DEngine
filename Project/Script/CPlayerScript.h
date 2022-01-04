@@ -21,10 +21,10 @@ public:
 public:
     CLONE(CPlayerScript);
 private:
-    Vec2 move_dir_;
+    Vec2 face_dir_;
     Vec2 prev_move_dir_;
     float player_move_speed_;
-    float player_bullet_attack_speed_;
+    float player_attack_speed_;
     int is_hit_;
     float hit_accumulated_time_;
     float accumulated_time_;

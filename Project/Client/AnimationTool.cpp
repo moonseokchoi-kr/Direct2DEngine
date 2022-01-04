@@ -35,7 +35,6 @@ AnimationTool::AnimationTool()
 
 AnimationTool::~AnimationTool()
 {
-	SafeDelete(animation_);
 }
 
 void AnimationTool::Init()
@@ -52,9 +51,10 @@ void AnimationTool::Update()
 		return; 
 	if (nullptr != animation_&&ANIMATION_TOOL_TYPE::EDIT==type_&&!is_update_)
 	{
+		previous_index_ = 0;
 		atlas_tool_->SetAtlas(animation_->GetAtlas());
 		current_frame_ = animation_->GetCurrentFrameData();
-		current_index_ = animation_->GetCurrentFrameIndex();
+		current_index_ = 0;
 		duration_ = current_frame_.duration;
 		atlas_tool_->SetMode(TOOL_TYPE::ANIMATOR);
 		atlas_tool_->SetSelectedLeftTop(current_frame_.animation_data.left_top* Vec2(atlas_tool_->GetAtlas()->GetWidth(),atlas_tool_->GetAtlas()->GetHeight()));
@@ -62,13 +62,21 @@ void AnimationTool::Update()
 		atlas_tool_->Activate();
 		is_update_ = true;
 	}
-	if (nullptr != atlas_tool_->GetAtlas() && nullptr == animation_)
+	if (ANIMATION_TOOL_TYPE::CREATE == type_)
 	{
+		current_index_ = 0;
+		previous_index_ = 0;
 		animation_ = new CAnimation2D;
 		animation_->SetName(L"animation");
-		animation_->CreateFrame(atlas_tool_->GetAtlas(), 0, 0, 0, 0, 1, 0.1f);
-		current_frame_ = animation_->GetCurrentFrameData();
+		if (nullptr != atlas_tool_->GetAtlas())
+		{
+			animation_->CreateFrame(atlas_tool_->GetAtlas(), 0, 0, 0, 0, 1, 0.1f);
+			current_frame_ = animation_->GetCurrentFrameData();
+			type_ = ANIMATION_TOOL_TYPE::EDIT;
+			is_update_ = true;
+		}
 	}
+
 	if (ImGui::Begin(label_.c_str(), &is_active_, window_flags_))
 	{
 		ShowMenuBar();
@@ -78,11 +86,12 @@ void AnimationTool::Update()
 		ShowPlayButton();
 		ImGui::End();
 	}
-	else
+	if(!is_active_)
 	{
-		Deactivate();
+		//Deactivate();
 		atlas_tool_->Deactivate();
-		ImGui::End();
+		animation_ = nullptr;
+		is_update_ = false;
 	}
 
 	if (nullptr != animation_ )
@@ -204,7 +213,7 @@ void AnimationTool::ShowAnimationEditWidget()
 			{
 				float atlas_width = (float)atlas->GetWidth() * zoom_;
 				float atlas_height = (float)atlas->GetHeight() * zoom_;
-				float y = canvas_center.y + CalMaxSizeY() / 2.f * atlas_height;
+				float y = canvas_center.y + 10.f;
 				draw_list->AddLine(ImVec2(canvas_p0.x, y), ImVec2(canvas_p1.x, y), IM_COL32(255, 0, 0, 255));
 				draw_list->AddLine(ImVec2(canvas_p1.x - canvas_sz.x / 2.f, canvas_p0.y), ImVec2(canvas_p1.x - canvas_sz.x / 2.f, canvas_p1.y), IM_COL32(0, 0, 255, 255));
 				ImVec2 fullRectLT = ImVec2(canvas_center.x - (current_frame_.animation_data.full_size.x * atlas_width) / 2.f,
@@ -262,7 +271,20 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 				return;
 			}
 
+			ImGui::Text("Zoom");
+			ImGui::TableNextColumn();
 
+			ImGui::SetNextItemWidth(50);
+			if (ImGui::InputFloat("##zoom", &zoom_))
+			{
+				if (0 == zoom_)
+				{
+					zoom_ = 1.f;
+				}
+			}
+			ImGui::TableNextRow();
+			ImGui::TableNextColumn();
+	
 
 			array<char, 256> szbuffer = { 0, };
 			WideCharToMultiByte(CP_ACP, 0, animation_->GetName().c_str(), (int)animation_->GetName().size(), szbuffer.data(), (int)szbuffer.size(), nullptr, nullptr);
@@ -407,21 +429,19 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 
 			ImGui::Text("Flip Horizon");
 			ImGui::SameLine();
-			bool horizon = current_frame_.animation_data.using_flip_horizon;
+			bool horizon = animation_->IsFlipHorizon();
 			if (ImGui::Checkbox("##horizon", &horizon))
 			{
-				current_frame_.animation_data.using_flip_horizon = horizon;
-				animation_->SetCurrentFrameData(current_frame_);
+				animation_->SetFlipHorizon(horizon);
 			}
 
 			ImGui::Text("Flip Vertical");
 			ImGui::SameLine();
 
-			bool vertical = current_frame_.animation_data.using_flip_vertical;
+			bool vertical = animation_->IsFlipVertical();
 			if (ImGui::Checkbox("##vertical", &vertical))
 			{
-				current_frame_.animation_data.using_flip_vertical = vertical;
-				animation_->SetCurrentFrameData(current_frame_);
+				animation_->SetFlipVertical(vertical);
 			}
 
 			ImGui::EndTable();
@@ -487,6 +507,18 @@ void AnimationTool::RenderFrame(ImDrawList* draw_list, Ptr<CTexture> atlas, ImVe
 {
 	ImVec2 uv0 = ImVec2(data.animation_data.left_top.x, data.animation_data.left_top.y);
 	ImVec2 uv1 = ImVec2(data.animation_data.left_top.x + data.animation_data.size.x, data.animation_data.left_top.y + data.animation_data.size.y);
+
+	if (animation_->IsFlipHorizon())
+	{
+		uv0.x = 1 - uv0.x;
+		uv1.x = 1 - uv1.x;
+	}
+	if (animation_->IsFlipVertical())
+	{
+		uv0.y = 1 - uv0.y;
+		uv1.y = 1 - uv1.y;
+	}
+
 	draw_list->AddImage(atlas->GetShaderResourceView(),
 		ImVec2(canvas_center.x - (data.animation_data.size.x * atlas_width) / 2.f + (data.animation_data.offset.x* atlas_width),
 			canvas_center.y - (data.animation_data.size.y * atlas_height) / 2.f + (data.animation_data.offset.y* atlas_height)),

@@ -18,7 +18,7 @@ void Safe_Delete_Map(unordered_map<T1,T2> map)
 {
 	typename unordered_map<T1, T2>::iterator iter = map.begin();
 
-	for (; iter != map.end(); ++iter)
+	for (; iter != map.end(); ++iter) 
 	{
 		if (nullptr != iter->second)
 			delete iter->second;

@@ -49,8 +49,12 @@ public:
 	void SetRepeat(bool repeat) { animation_repeat_ = repeat; }
 
 	bool IsPlayOnStart() { return play_on_start_; }
+	bool IsFlipHorizon() { return flip_animation_horizon_; };
+	bool IsFlipVertical() {	return flip_animation_vertical_;};
+	
 	void SetPlayOnStart(bool play) { play_on_start_ = play; }
-
+	void SetFlipHorizon(bool b) { flip_animation_horizon_ = b; }
+	void SetFlipVertical(bool b) { flip_animation_vertical_ = b; }
 	void Clear();
 	static void ClearAnim();
 	void ClearFrame(int index);
@@ -72,6 +76,8 @@ private:
 
 	bool animation_repeat_;
 	bool play_on_start_;
+	bool flip_animation_horizon_;
+	bool flip_animation_vertical_;
 	friend class CAnimator2D;
 };
 

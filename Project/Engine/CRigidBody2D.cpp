@@ -7,6 +7,7 @@
 #include "CTransform.h"
 
 #include "CPhysicsManager.h"
+#include "CSceneManager.h"
 
 
 CRigidBody2D::CRigidBody2D()
@@ -41,17 +42,6 @@ void CRigidBody2D::Start()
 
 void CRigidBody2D::LateUpdate()
 {
-
-}
-void CRigidBody2D::FinalUpdate()
-{
-	if (nullptr == runtime_body_)
-	{
-		InitRigidBody();
-		return;
-
-	}
-
 	Vec3 pos = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
 	Vec3 rotation = GetTransform()->GetRotation();
@@ -65,6 +55,25 @@ void CRigidBody2D::FinalUpdate()
 
 	GetTransform()->SetPosition(pos);
 	GetTransform()->SetRotation(rotation);
+}
+void CRigidBody2D::FinalUpdate()
+{
+	if (nullptr == runtime_body_)
+	{
+		InitRigidBody();
+		return;
+	}
+	if (CSceneManager::GetInst()->GetSceneMode() == SCENE_MODE::STOP)
+	{
+		Vec3 pos = GetTransform()->GetPosition();
+		Vec3 scale = GetTransform()->GetScale();
+		Vec3 rotation = GetTransform()->GetRotation();
+
+		b2Body* body = (b2Body*)runtime_body_;
+
+		body->SetTransform({ pos.x,pos.y }, rotation.z);
+	}
+
 }
 Vec2 CRigidBody2D::GetVelocity()
 {

@@ -110,15 +110,40 @@ void CAnimator2D::Play(const wstring& animationName, UINT startFrame, bool repea
 
 void CAnimator2D::AddAnimation(CAnimation2D* animtion)
 {
+	
 	unordered_map<wstring, CAnimation2D*>::iterator iter = animation_map_.find(animtion->GetName());
-	if (nullptr != iter->second)
+	if (animation_map_.end() != iter)
 	{
 		iter->second = animtion;
 		return;
 	}
+
 		
 	animation_map_.insert(make_pair(animtion->GetName(), animtion));
 	animtion->owner_ = this;
+}
+
+void CAnimator2D::DeleteAnimation(const wstring& animationName)
+{
+	unordered_map<wstring, CAnimation2D*>::iterator iter = animation_map_.find(animationName);
+	unordered_map<wstring, CAnimation2D*>::iterator nextIter;
+	if (animation_map_.end() != iter)
+	{
+		nextIter = animation_map_.erase(iter);
+		if (animation_map_.end() == nextIter)
+			current_animation_ = animation_map_.begin()->second;
+		else
+			current_animation_ = nextIter->second;
+	}
+		
+}
+
+Vec2 CAnimator2D::GetFlipData()
+{
+	UINT flipHorizon = current_animation_->flip_animation_horizon_;
+	UINT flipVertical = current_animation_->flip_animation_vertical_;
+
+	return Vec2(flipHorizon,flipVertical);
 }
 
 void CAnimator2D::SaveToScene(FILE* file)

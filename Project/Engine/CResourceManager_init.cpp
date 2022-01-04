@@ -266,6 +266,8 @@ void CResourceManager::CreateDefaultTexture()
 {
 	LoadRes<CTexture>(L"background", L"texture\\background.png");
 	LoadRes<CTexture>(L"player", L"texture\\sakuya_player.png");
+	LoadRes<CTexture>(L"player_sprite", L"texture\\anim_texture\\player_sprite.png");
+	LoadRes<CTexture>(L"player_beast_sprite", L"texture\\anim_texture\\player_beast_sprite.png");
 	LoadRes<CTexture>(L"monster", L"texture\\monster.png");
 	LoadRes<CTexture>(L"monster_bullet_red", L"texture\\monster_bullet_red.png");
 	LoadRes<CTexture>(L"monster_bullet_blue", L"texture\\monster_bullet_blue.png");

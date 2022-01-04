@@ -31,7 +31,7 @@ void CollisionManagerView::Update()
 				ImGui::TableNextRow();
 				for (int i = 0; i < MAX_LAYER; ++i)
 				{
-					ImGui::TableSetColumnIndex(i + 1);
+					ImGui::TableSetColumnIndex(i+1);
 					ImGui::Text(std::to_string(i).c_str());
 				}
 
@@ -42,14 +42,15 @@ void CollisionManagerView::Update()
 					ImGui::TableNextRow();
 					ImGui::TableSetColumnIndex(0);
 					ImGui::Text(std::to_string(row).c_str());
-					int column = 1;
+				
+					int column = 0;
 					for (UINT col = row; col < MAX_LAYER; ++col)
 					{
 						++count;
-						bool b = CCollisionManager::GetInst()->GetCollisionMask(row) & (1 << col);
+						bool b = CCollisionManager::GetInst()->GetCollisionMask(col) & (1 << row);
 						label = std::to_string(count);
 						label = "##" + label;
-						ImGui::TableSetColumnIndex(column);
+						ImGui::TableSetColumnIndex(col+1);
 						if (ImGui::Checkbox(label.c_str(), &b))
 						{
 							CCollisionManager::GetInst()->CheckLayer(row, col);

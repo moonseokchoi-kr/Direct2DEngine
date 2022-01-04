@@ -23,6 +23,8 @@ public:
     CAnimation2D* FindAnimation(const wstring& animationName);
     void Play(const wstring& animationName, UINT startFrame = 0, bool repeat = false);
     void AddAnimation(CAnimation2D* animtion);
+    void DeleteAnimation(const wstring& animationName);
+    Vec2 GetFlipData();
     //void Stop()
     //void Pause()
 
