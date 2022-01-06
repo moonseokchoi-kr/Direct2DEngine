@@ -16,6 +16,9 @@
     <Filter Include="Scripts\Camera">
       <UniqueIdentifier>{ac228ebd-10aa-45f6-b111-9e4262e90a5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\header">
+      <UniqueIdentifier>{49645a22-f7d2-445c-8d6d-e1d0b1ad59e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">

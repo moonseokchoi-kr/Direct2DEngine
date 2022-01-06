@@ -53,5 +53,9 @@ private:
     BODY_TYPE type_;
     bool fixed_rotation_;
     Vec2 max_velocity_;
+    Vec3 current_pos_;
+    Vec3 prev_pos_;
+    Vec2 move_dir_;
+
 };
 

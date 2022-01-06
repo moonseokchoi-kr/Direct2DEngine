@@ -139,7 +139,8 @@ void InspectorWidget::ShowResourceInfo()
 
 void InspectorWidget::ShowSciprtInfo()
 {
-	script_widget_vector_.clear();
+	Safe_Delete_Vec(script_widget_vector_);
+	script_widget_vector_ = {};
 	const vector<CScript*> script_vector = target_object_->GetScripts();
 	
 	for (const auto& script : script_vector)

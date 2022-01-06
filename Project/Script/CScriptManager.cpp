@@ -16,6 +16,7 @@ void CScriptManager::GetScriptInfo(vector<wstring>& vec)
 	vec.push_back(L"CMonsterScript");
 	vec.push_back(L"CMoveScript");
 	vec.push_back(L"CPlayerScript");
+	vec.push_back(L"define");
 }
 
 CScript * CScriptManager::GetScript(const wstring& strScriptName)
@@ -57,6 +58,8 @@ CScript * CScriptManager::GetScript(UINT iScriptType)
 	case (UINT)SCRIPT_TYPE::PLAYERSCRIPT:
 		return new CPlayerScript;
 		break;
+
+		break;
 	}
 	return nullptr;
 }
@@ -87,6 +90,10 @@ const wchar_t * CScriptManager::GetScriptName(CScript *pScript)
 
 	case SCRIPT_TYPE::PLAYERSCRIPT:
 		return L"CPlayerScript";
+		break;
+
+	case SCRIPT_TYPE::EFINE:
+		return L"define";
 		break;
 
 	}

@@ -4,3 +4,4 @@ CMonsterHpBarScript
 CMonsterScript
 CMoveScript
 CPlayerScript
+define

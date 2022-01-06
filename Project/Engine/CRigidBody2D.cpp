@@ -42,6 +42,7 @@ void CRigidBody2D::Start()
 
 void CRigidBody2D::LateUpdate()
 {
+	prev_pos_ = current_pos_;
 	Vec3 pos = GetTransform()->GetPosition();
 	Vec3 scale = GetTransform()->GetScale();
 	Vec3 rotation = GetTransform()->GetRotation();
@@ -50,10 +51,10 @@ void CRigidBody2D::LateUpdate()
 
 	const auto& position = body->GetPosition();
 
-	pos = Vec3(position.x, position.y, pos.z);
+	current_pos_ = Vec3(position.x, position.y, pos.z);
 	rotation.z = body->GetAngle();
 
-	GetTransform()->SetPosition(pos);
+	GetTransform()->SetPosition(current_pos_);
 	GetTransform()->SetRotation(rotation);
 }
 void CRigidBody2D::FinalUpdate()
@@ -120,19 +121,13 @@ void CRigidBody2D::AddForce(Vec2 force, bool wake)
 }
 Vec2 CRigidBody2D::GetMoveDir()
 {
-	b2Body* body = CheckBody();
-	float angle = body->GetAngle();
-	return Vec2(sinf(angle), cosf(angle));
+	move_dir_ =  current_pos_-prev_pos_;
+	move_dir_.Normalize();
+	return move_dir_;
 }
 void CRigidBody2D::SetMoveDir(Vec2 dir)
 {
-	b2Body* body = CheckBody();
-	//90도가 0이기때문에
-	float angle = atan2f(dir.y, dir.x) * 180 / PI -90.f; 
-
-	b2Vec2 pos = body->GetPosition();
-	
-	body->SetTransform(pos, angle);
+	move_dir_ = dir;
 }
 void CRigidBody2D::InitRigidBody()
 {

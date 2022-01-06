@@ -264,18 +264,13 @@ void CResourceManager::CreateDefaultShader()
 
 void CResourceManager::CreateDefaultTexture()
 {
-	LoadRes<CTexture>(L"background", L"texture\\background.png");
-	LoadRes<CTexture>(L"player", L"texture\\sakuya_player.png");
-	LoadRes<CTexture>(L"player_sprite", L"texture\\anim_texture\\player_sprite.png");
 	LoadRes<CTexture>(L"player_beast_sprite", L"texture\\anim_texture\\player_beast_sprite.png");
-	LoadRes<CTexture>(L"monster", L"texture\\monster.png");
-	LoadRes<CTexture>(L"monster_bullet_red", L"texture\\monster_bullet_red.png");
-	LoadRes<CTexture>(L"monster_bullet_blue", L"texture\\monster_bullet_blue.png");
+	LoadRes<CTexture>(L"player_run_sprite", L"texture\\anim_texture\\player_run_sprite.png");
+	LoadRes<CTexture>(L"player_dameged", L"texture\\anim_texture\\player_dameged.png");
 	LoadRes<CTexture>(L"particle_01", L"texture\\particle\\AlphaCircle.png");
 	LoadRes<CTexture>(L"heat_distortion_effet_noise", L"texture\\posteffect\\noise.png");
 	LoadRes<CTexture>(L"radial", L"texture\\posteffect\\radial.png");
 	LoadRes<CTexture>(L"village_tile_map", L"texture\\tilemap\\village.png");
-	LoadRes<CTexture>(L"tile_block", L"texture\\tilemap\\TILE.bmp");
 
 	wstring contentPath = CPathManager::GetInst()->GetContentPath();
 	CTexture* noise = new CTexture;

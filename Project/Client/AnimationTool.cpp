@@ -64,12 +64,12 @@ void AnimationTool::Update()
 	}
 	if (ANIMATION_TOOL_TYPE::CREATE == type_)
 	{
-		current_index_ = 0;
-		previous_index_ = 0;
-		animation_ = new CAnimation2D;
-		animation_->SetName(L"animation");
 		if (nullptr != atlas_tool_->GetAtlas())
 		{
+			current_index_ = 0;
+			previous_index_ = 0;
+			animation_ = new CAnimation2D;
+			animation_->SetName(L"animation");
 			animation_->CreateFrame(atlas_tool_->GetAtlas(), 0, 0, 0, 0, 1, 0.1f);
 			current_frame_ = animation_->GetCurrentFrameData();
 			type_ = ANIMATION_TOOL_TYPE::EDIT;
@@ -355,9 +355,12 @@ void AnimationTool::ShowAnimationDetailSettingPanel()
 			}
 			if (ImGui::Button("Clear Frame"))
 			{
-				animation_->ClearFrame(current_index_);
-				current_index_ = animation_->GetCurrentFrameIndex();
-				current_frame_ = GetAnimationFrameData(current_index_);
+				if(current_index_>0)
+				{
+					animation_->ClearFrame(current_index_);
+					current_index_ = animation_->GetCurrentFrameIndex();
+					current_frame_ = GetAnimationFrameData(current_index_);
+				}
 			}
 
 			ImGui::TableNextRow();
